@@ -3,7 +3,7 @@ layout: page
 title: Yong Zi Xin's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: camNUS
 
 ###Overview:
 camNUS is a desktop app for Teaching Assistants (TAs) to manage assessments and class participation among students based on their contacts. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
