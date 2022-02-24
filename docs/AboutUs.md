@@ -38,15 +38,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Lai Yuen Sheng
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/seanlaiys.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/seanlaiys)]
+[[portfolio](team/seanlaiys.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Code Quality + Testing
 
 ### Yong Zi Xin
 
