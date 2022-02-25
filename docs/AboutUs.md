@@ -19,41 +19,41 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Nguyen Hong Anh
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/honganhcs.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/honganhcs)]
+[[portfolio](team/honganhcs.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer
+* Responsibilities: Code Quality
 
 ### Johnny Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/kev-intq.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/kev-intq)] [[portfolio](team/kev-intq.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Front-end
 
-### James Doe
+### Lai Yuen Sheng
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/seanlaiys.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/seanlaiys)]
+[[portfolio](team/seanlaiys.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Code Quality + Testing
+
+### Yong Zi Xin
+
+<img src="images/zixin448.png" width="200px">
+
+[[github](http://github.com/zixin448)]
+[[portfolio](team/zixin448.md)]
+
+* Role: Developer
+* Responsibilities: Deliverables and deadlines
