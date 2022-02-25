@@ -50,7 +50,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Yong Zi Xin
 
-<img src="images/zixin448.png.JPG" width="200px">
+<img src="images/zixin448.png" width="200px">
 
 [[github](http://github.com/zixin448)]
 [[portfolio](team/zixin448.md)]

@@ -310,6 +310,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 *{More to be added}*
 
+
+**Use Case 1: Update results for an assignment**
+
+**MSS**
+1. User request to list all students in a class
+2. camNUS show a list of students
+3. User request to update the score of an assessment component
+4. camNUS show one student at a time and request input score from user for each student
+5. The scores of all students are updated
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No existing class with input class_code
+
+    Use case ends.
+
+* 3a. No existing assessment component with input assessment_name
+
+  New assessment component is created.
+
+* 4a. Student did not submit relevant assessment
+
+  Use case resumes at step 4 at the next student in the list.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
