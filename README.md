@@ -6,7 +6,7 @@
 ![Ui](docs/images/Ui.png)
 
 ### Introduction
-**camNUS** is a desktop app for Teaching Assistants (TAs) to manage assessments and class participation among students based on their contacts. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their own contacts, as well as assessments and class participation among students** in their contact book. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 ### Getting Started
 Learn how to get started with **camNUS** by going to the Quick Start section of the [**User Guide**](https://ay2122s2-cs2103t-w13-2.github.io/tp/UserGuide.html#quick-start).
