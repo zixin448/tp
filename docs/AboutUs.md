@@ -57,3 +57,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Deliverables and deadlines
+
+### Gareth Koh Sheng
+
+<img src="images/garethkoh.png" width="200px">
+
+[[github](http://github.com/garethkoh)]
+[[portfolio](team/garethkoh.md)]
+
+* Role: Developer
+* Responsibilities: Documentation
