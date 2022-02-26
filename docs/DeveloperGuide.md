@@ -311,7 +311,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 *{More to be added}*
 
 
-**Use Case 1: Update results for an assignment**
+**Use Case: Update results for an assignment**
 
 **MSS**
 1. User request to list all students in a class
@@ -336,11 +336,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case resumes at step 4 at the next student in the list.
 
+**Use case: Edit a person**
+
+**MSS**
+1. User requests to list persons
+2. AddressBook shows a list of persons
+3. User requests to edit a specific person in the list and provides the field(s) they want to update
+4. AddressBook updates the existing values to the input values
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. AddressBook shows an error message.
+
+      Use case resumes at step 2.
+* 3b. No fields are provided.
+  * 3b1. AddressBook shows an error message.
+    
+    Use case resumes at step 2.
+* 3c. No value is provided for a field that is not tags.
+  * 3c1. AddressBook shows an error message.
+    
+    Use case resumes at step 2.
+* 4a. The user enters values for tags.
+  * 4a1. Existing tags are removed and inputted tags are added to the person.
+* 4b. No value is entered after t/.
+  * 4b1. Existing tags are removed from the person.
+
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+3. A TA with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using text commands than using the mouse.
 
 *{More to be added}*
 
