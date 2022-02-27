@@ -29,7 +29,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Code Quality
 
-### Johnny Doe
+### Quek Wenjie Kevin
 
 <img src="images/kev-intq.png" width="200px">
 
