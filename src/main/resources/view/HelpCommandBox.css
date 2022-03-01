@@ -2,9 +2,8 @@
 //Reused from https://gist.github.com/maxd/63691840fc372f22f470
 // with minor modifications
 */
-.titled-pane {    
+.titled-pane {   
     -fx-padding: 5 5 5 5;
-    
 }
 
 .titled-pane > .title > .text {
