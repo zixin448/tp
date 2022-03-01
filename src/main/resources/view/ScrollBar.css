@@ -1,4 +1,4 @@
-.scroll-bar:vertical{
+.scroll-bar:vertical {
     -fx-background-color:transparent;
 }
 
@@ -14,8 +14,7 @@
 .scroll-bar:vertical .increment-button ,
 .scroll-bar:vertical .decrement-button {
     -fx-background-color :transparent;
-    -fx-background-radius : 0;
-    
+    -fx-background-radius : 0;   
 }
 
 .scroll-bar:horizontal .thumb,
