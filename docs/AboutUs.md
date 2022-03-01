@@ -9,16 +9,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
 ### Nguyen Hong Anh
 
 <img src="images/honganhcs.png" width="200px">
@@ -29,7 +19,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Code Quality
 
-### Johnny Doe
+### Quek Wenjie Kevin
 
 <img src="images/kev-intq.png" width="200px">
 
@@ -57,3 +47,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Deliverables and deadlines
+
+### Gareth Koh Sheng
+
+<img src="images/garethkoh.png" width="200px">
+
+[[github](http://github.com/garethkoh)]
+[[portfolio](team/garethkoh.md)]
+
+* Role: Developer
+* Responsibilities: Documentation

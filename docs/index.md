@@ -1,6 +1,6 @@
 ---
 layout: page
-title: AddressBook Level-3
+title: camNUS
 ---
 
 [![Java CI](https://github.com/AY2122S2-CS2103T-W13-2/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2122S2-CS2103T-W13-2/tp/actions/workflows/gradle.yml)
