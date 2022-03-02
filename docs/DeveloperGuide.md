@@ -321,9 +321,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  camNUS shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  camNUS deletes the person
 
     Use case ends.
 
@@ -335,7 +335,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. camNUS shows an error message.
 
       Use case resumes at step 2.
 
@@ -371,9 +371,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User requests to list persons
-2. AddressBook shows a list of persons
+2. camNUS shows a list of persons
 3. User requests to edit a specific person in the list and provides the field(s) they want to update
-4. AddressBook updates the existing values to the input values
+4. camNUS updates the existing values to the input values
 
 **Extensions**
 
@@ -383,15 +383,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. camNUS shows an error message.
 
       Use case resumes at step 2.
 * 3b. No fields are provided.
-  * 3b1. AddressBook shows an error message.
+  * 3b1. camNUS shows an error message.
     
     Use case resumes at step 2.
 * 3c. No value is provided for a field that is not tags.
-  * 3c1. AddressBook shows an error message.
+  * 3c1. camNUS shows an error message.
     
     Use case resumes at step 2.
 * 4a. The user enters values for tags.
