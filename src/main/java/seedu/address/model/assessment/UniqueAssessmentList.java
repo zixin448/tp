@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.assessment.exceptions.AssessmentNonFoundException;
+import seedu.address.model.assessment.exceptions.AssessmentNotFoundException;
 import seedu.address.model.assessment.exceptions.DuplicateAssessmentException;
 
 
@@ -55,7 +55,7 @@ public class UniqueAssessmentList {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new AssessmentNonFoundException();
+            throw new AssessmentNotFoundException();
         }
 
         if (!target.isSameAssessment(editedAssessment) && contains(editedAssessment)) {
@@ -72,7 +72,7 @@ public class UniqueAssessmentList {
     public void remove(Assessment toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new AssessmentNonFoundException();
+            throw new AssessmentNotFoundException();
         }
     }
 
