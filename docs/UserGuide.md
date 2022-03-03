@@ -244,19 +244,22 @@ Examples:
 
 * `delete class 1`
 
-#### Deleting a student  : `delete student`
+#### Removing a student  : `remove student`
 
 Removes a student from a given class, but does not remove their contact from the address book.
 
-Format: `delete student INDEX`
-
-* Deletes the student with the specified `CLASS_CODE` and `STUDENT_ID`.
-* The index refers to the index number shown in the displayed list of classes.
+Format: 
+* `remove student i/INDEX c/CLASS_CODE`.
+* `remove student id/STUDENT_ID c/CLASS_CODE`.
+* Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `CLASS_CODE`.
+* The `INDEX` refers to the index number shown in the displayed list of student in the class.
+* The `STUDENT_ID` refers to the student_id of a particular student.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `delete student 1`
+* `remove student i/1 c/G04`
+* `remove student id/e0123456 c/G04`
 
 #### Deleting an assessment component: `delete assessment`
 
