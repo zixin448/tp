@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.person.Student.isStudent;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -15,13 +16,25 @@ import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
+ * TODO: update ModelManager, AddressBook to reflect changes, may need to add other data classes,
+ * e.g. TutorialManager to provide higher-level methods.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Predicate PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK = x -> isStudent(x);
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    /**
+     * A list containing all Students in the address book.
+     * Updated automatically when addressBook is updated.
+     * TODO: add methods for allStudents if needed.
+     *
+     * @see FilteredList
+     * @see ObservableList
+     */
+    private final FilteredList<Person> allStudents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +47,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        allStudents = new FilteredList<>(this.addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK);
     }
 
     public ModelManager() {
@@ -146,5 +160,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
+    //=========== All Students List Accessors =============================================================
 
 }
