@@ -6,7 +6,29 @@ title: Developer Guide
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+## **Introduction**
 
+### **Purpose**
+
+This document specifies architecture and software design decisions for the application, CamNUS. 
+CamNUS (Continuous Assessment Manager NUS) is an application for Teaching Assistants to manage their classes and keep 
+track of the graded components of a module such as class participation, assignments and exams.
+
+### **Scope**
+
+This describes the software architecture and software design decisions for the implementation
+of CamNUS. The intended audience of this document is the developers, designers, and
+software testers of CamNUS.
+
+### **Design Goals**
+
+#### **Maintainability**
+
+With a team of developers working on a project, it is important that developers are able to change one
+component of the project without needing to change many components that other developers
+may be working on.
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Acknowledgements**
 
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
