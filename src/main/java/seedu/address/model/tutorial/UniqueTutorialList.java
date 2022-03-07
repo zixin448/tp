@@ -7,6 +7,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.tutorial.exceptions.DuplicateTutorialException;
 
 /**
@@ -74,5 +77,17 @@ public class UniqueTutorialList {
             }
         }
         return true;
+    }
+
+    /**
+     * Adds an AssessmentResult corresponding to {@code assessment} to every tutorial in the list.
+     */
+    public void addAssessment(Assessment assessment) {
+        requireNonNull(assessment);
+        AssessmentName name = assessment.getAssessmentName();
+        for(int i = 0; i < internalList.size(); i++) {
+            Tutorial tutorial = internalList.get(i).addAssessmentResults(new AssessmentResults(name));
+            internalList.set(i, tutorial);
+        }
     }
 }

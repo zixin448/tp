@@ -1,10 +1,12 @@
 package seedu.address.model.tutorial;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
@@ -41,6 +43,20 @@ public class Tutorial {
         assessmentResultsList = new AssessmentResultsList(name);
     }
 
+    /**
+     * Alternative constructor for creating a new Tutorial, mainly used for editing Tutorials.
+     * Use with caution.
+     */
+    public Tutorial(TutorialName name, Day d, Time t,
+                    UniqueStudentsInTutorialList students, AssessmentResultsList results) {
+        requireAllNonNull(name, d, t, students, results);
+        tutorialName = name;
+        day = d;
+        time = t;
+        studentsList = students;
+        assessmentResultsList = results;
+    }
+
     public TutorialName getTutorialName() {
         return tutorialName;
     }
@@ -51,6 +67,15 @@ public class Tutorial {
 
     public Time getTime() {
         return time;
+    }
+
+    /**
+     * Returns a new tutorial with the added AssessmentResults.
+     */
+    public Tutorial addAssessmentResults(AssessmentResults results) {
+        requireNonNull(results);
+        assessmentResultsList.add(results);
+        return new Tutorial(tutorialName, day, time, studentsList, assessmentResultsList);
     }
 
     /**

@@ -118,6 +118,23 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// assessment-level operations
+    /**
+     * Returns true if an assessment with the same identity as {@code assessment} exists in the address book.
+     */
+    public boolean hasAssessment(Assessment assessment) {
+        return assessments.contains(assessment);
+    }
+
+    /**
+     * Adds the given assessment.
+     * @param toAdd must not already exist in the address book.
+     */
+    public void addAssessment(Assessment toAdd) {
+        assessments.add(toAdd);
+        tutorials.addAssessment(toAdd);
+    }
+
     //// util methods
 
     @Override

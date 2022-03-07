@@ -49,6 +49,16 @@ public class Assessment {
         return other != null && other.getAssessmentName().equals(getAssessmentName());
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getAssessmentName())
+                .append("; Weightage: ")
+                .append(getWeightage())
+                .append("; Full mark: ")
+                .append(getFullMark());
+        return stringBuilder.toString();
+    }
     /**
      * Returns true if both assessments have the same identity and data fields.
      * Defines a stronger notion of equality between 2 assessments.
