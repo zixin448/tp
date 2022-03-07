@@ -12,16 +12,31 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 
 /**
  * Represents the in-memory model of the address book data.
+ * TODO: add methods for AddressBook to support command logic
+ * The AddressBook contains the tutorial list and assessment list.
+ * e.g. TutorialManager to provide higher-level methods.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK = Student::isStudent;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    /**
+     * A list containing all Students in the address book.
+     * Updated automatically when addressBook is updated.
+     * TODO: add methods for allStudents if needed.
+     *
+     * @see FilteredList
+     * @see ObservableList
+     */
+    private final FilteredList<Person> allStudents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +49,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        allStudents = new FilteredList<>(this.addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK);
     }
 
     public ModelManager() {
@@ -146,5 +162,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
+    //=========== All Students List Accessors =============================================================
 
 }
