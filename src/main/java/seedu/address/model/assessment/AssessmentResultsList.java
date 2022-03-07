@@ -2,8 +2,10 @@ package seedu.address.model.assessment;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import seedu.address.model.assessment.exceptions.DuplicateAssessmentException;
 import seedu.address.model.tutorial.TutorialName;
 
@@ -21,9 +23,8 @@ public class AssessmentResultsList {
     private final TutorialName tutorialName;
 
     // Data field
-    private final ObservableList<AssessmentResults> assessmentResultsList = FXCollections.observableArrayList();
-    private final ObservableList<AssessmentResults> unmodifiableAssessmentResultsList =
-            FXCollections.unmodifiableObservableList(assessmentResultsList);
+    private final List<AssessmentResults> assessmentResultsList = new ArrayList<>();
+    private final List<AssessmentResults> unmodifiableResultsList = Collections.unmodifiableList(assessmentResultsList);
 
     /**
      * Constructs an AssessmentResultsList.
@@ -55,4 +56,10 @@ public class AssessmentResultsList {
         assessmentResultsList.add(toAdd);
     }
 
+    /**
+     * Returns the backing list as an unmodifiable {@code List}.
+     */
+    public List<AssessmentResults> asUnmodifiableList() {
+        return unmodifiableResultsList;
+    }
 }
