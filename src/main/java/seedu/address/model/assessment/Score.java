@@ -11,7 +11,7 @@ public class Score {
     public static final String MESSAGE_CONSTRAINTS =
             "Scores should be integers and should not be greater than the full mark, %d";
     public static final String VALIDATION_REGEX = "^\\d+";
-    private final int score;
+    public final int score;
 
     /**
      * Constructs a Score.

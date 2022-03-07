@@ -14,7 +14,7 @@ import seedu.address.model.assessment.exceptions.DuplicateAssessmentException;
  * An Assessment is considered unique by comparing using {@code Assessment#isSameAssessment(Assessment)}.
  * Adding and updating an Assessment uses {@code Assessment#isSameAssessment(Assessment)} for equality
  * to ensure that the assessment being added is unique in terms of identity in the UniqueAssessmentList.
- * However, the removal of an assessment uses {@code Assessment#equals(Object)} to ensure that the asessment
+ * However, the removal of an assessment uses {@code Assessment#equals(Object)} to ensure that the assessment
  * with exactly the same fields is removed.
  *
  * @see Assessment#isSameAssessment(Assessment)

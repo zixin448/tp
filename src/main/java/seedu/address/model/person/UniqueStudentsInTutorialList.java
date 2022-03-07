@@ -24,10 +24,10 @@ public class UniqueStudentsInTutorialList {
      * Constructs a UniqueStudentsInTutorialList.
      *
      * @param allStudents the ModelManager's allStudents list, containing all Students in the addressbook.
-     * @param tutName
+     * @param tutName the TutorialName.
      */
 
-    public UniqueStudentsInTutorialList(ObservableList<Person> allStudents, TutorialName tutName) {
+    public UniqueStudentsInTutorialList(FilteredList<Person> allStudents, TutorialName tutName) {
         requireAllNonNull(allStudents, tutName);
         studentsInClass = createStudentsList(allStudents, tutName);
         tutorialName = tutName;

@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.person.Student.isStudent;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -13,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +21,7 @@ import seedu.address.model.person.Person;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private static final Predicate PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK = x -> isStudent(x);
+    private static final Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK = Student::isStudent;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
