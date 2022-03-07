@@ -85,7 +85,7 @@ Examples:
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [id/STUDENT_ID] [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -93,7 +93,7 @@ A person can have any number of tags (including 0)
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` 
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 id/e0123456 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 #### Adding a class: `add class`
 
@@ -109,12 +109,16 @@ Examples:
 
 #### Adding student to a class: `add student`
 
-Adds a student to a given class.
+Adds a specified student to a given class.
 
-Format: `add student id/STUDENT_ID c/CLASS_CODE`
+Format: `add student INDEX id/STUDENT_ID c/CLASS_CODE`
+
+* Adds the person at the specified `INDEX` as a student belonging to a specified class.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `add student id/e01234567 c/T13`
+* `add student 1 id/e01234567 c/T13`
 
 #### Adding an assessment component: `add assessment`
 
@@ -155,6 +159,22 @@ Examples:
 ![result for `list class`](images/listClassResult.png)
 * `list class dt/20/02/2022`
 * `list class d/Wed`
+
+#### Listing students of a class: `list student`
+
+Shows a list of all the students of a specified class.
+
+Format:
+
+* `list student INDEX`
+* Shows list of student belonging to the class at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index must be a positive integer 1, 2, 3, …​
+
+Examples:
+
+* `list student 1`
+  ![result for `list student 1`](images/listStudentResult.png)
 
 ### Editing a person : `edit`
 
@@ -214,26 +234,32 @@ Examples:
 
 Removes a class from the module
 
-Format: `delete class c/CLASS_CODE`
+Format: `delete class INDEX`
 
-* Deletes the class with the specified `CLASS_CODE`.
+* Deletes the class at the specified `INDEX`.
+* The index refers to the index number shown in the displayed list of classes.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `delete class c/T04`
-* `delete class c/G04`
+* `delete class 1`
 
-#### Deleting a student  : `delete student`
+#### Removing a student  : `remove student`
 
 Removes a student from a given class, but does not remove their contact from the address book.
 
-Format: `delete student id/STUDENT_ID c/CLASS_CODE`
-
-* Deletes the student with the specified `CLASS_CODE` and `STUDENT_ID`.
+Format: 
+* `remove student i/INDEX c/CLASS_CODE`.
+* `remove student id/STUDENT_ID c/CLASS_CODE`.
+* Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `CLASS_CODE`.
+* The `INDEX` refers to the index number shown in the displayed list of student in the class.
+* The `STUDENT_ID` refers to the student_id of a particular student.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `delete student id/e01234567 c/T03`
+* `remove student i/1 c/G04`
+* `remove student id/e0123456 c/G04`
 
 #### Deleting an assessment component: `delete assessment`
 
@@ -287,19 +313,20 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action                | Format, Examples                                                                                                                                                                                  |
-|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [id/STUDENT_ID] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 id/e0123456 t/friend t/colleague` |
-| **Add Class**         | `add class c/CLASS_CODE v/VENUE d/DAY t/TIME` <br> e.g., `add class c/T04 v/LT13 d/Monday t/1300`                                                                                                 |
-| **Add Student**       | `add student id/STUDENT_ID c/CLASS_CODE` <br> e.g., `add student id/e01234567 c/T13`                                                                                                              |
-| **Add Assessment**    | `add assessment a/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add assessment a/Attendance w/5 s/1`                                                                                           |
-| **Clear**             | `clear`                                                                                                                                                                                           |
-| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                               |
-| **Delete Class**      | `delete class c/CLASS_CODE` <br> e.g., `delete class c/G04`                                                                                                                                       |
-| **Delete Student**    | `delete student id/STUDENT_ID c/CLASS_CODE` <br> e.g. `delete student id/e01234567 c/T03`                                                                                                         |
-| **Delete Assessment** | `delete assessment a/ASSESSMENT_NAME` <br> e.g.,* `delete assessment a/Attendance`                                                                                                                |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                       |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                        |
-| **List**              | `list`                                                                                                                                                                                            |
-| **List Class**        | `list class [dt/DATE]` <br> e.g., `list class dt/20/02/2022`                                                                                                                                      |
-| **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                                                 |
+| Action                | Format, Examples                                                                                                                                                       |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague` |
+| **Add Class**         | `add class c/CLASS_CODE v/VENUE d/DAY t/TIME` <br> e.g., `add class c/T04 v/LT13 d/Monday t/1300`                                                                      |
+| **Add Student**       | `add student INDEX id/STUDENT_ID c/CLASS_CODE` <br> e.g., `add student 1 id/e01234567 c/T13`                                                                           |
+| **Add Assessment**    | `add assessment a/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add assessment a/Attendance w/5 s/1`                                                                |
+| **Clear**             | `clear`                                                                                                                                                                |
+| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                    |
+| **Delete Class**      | `delete class INDEX` <br> e.g., `delete class 1`                                                                                                                       |
+| **Delete Student**    | `delete student INDEX` <br> e.g. `delete student 2`                                                                                                                    |
+| **Delete Assessment** | `delete assessment a/ASSESSMENT_NAME` <br> e.g.,* `delete assessment a/Attendance`                                                                                     |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                            |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                             |
+| **List**              | `list`                                                                                                                                                                 |
+| **List Class**        | `list class [dt/DATE]` <br> e.g., `list class dt/20/02/2022`                                                                                                           |
+| **List Student**      | `list student INDEX` <br> e.g., `list student 1`                                                                                                                       |
+| **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                      |
