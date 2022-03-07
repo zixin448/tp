@@ -5,16 +5,23 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.UniqueAssessmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tutorial.Tutorial;
+import seedu.address.model.tutorial.UniqueTutorialList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the address-book level (persons, tutorials, assessments)
  * Duplicates are not allowed (by .isSamePerson comparison)
+ * TODO: add methods for tutorial and assessment list which will be used by the ModelManager
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueTutorialList tutorials = new UniqueTutorialList();
+    private final UniqueAssessmentList assessments = new UniqueAssessmentList();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -48,12 +55,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the tutorial list with {@code tutorials},
+     * which does not contain duplicate tutorials.
+     */
+    public void setTutorials(List<Tutorial> tutorials) {
+        this.tutorials.setTutorials(tutorials);
+    }
+
+    /**
+     * Replaces the contents of the assessment list with {@code assessments},
+     * which does not contain duplicate assessments.
+     */
+    public void setAssessments(List<Assessment> assessments) {
+        this.assessments.setAssessments(assessments);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setTutorials(newData.getTutorialList());
+        setAssessments(newData.getAssessmentList());
     }
 
     //// person-level operations
@@ -104,6 +129,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Tutorial> getTutorialList() {
+        return tutorials.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Assessment> getAssessmentList() {
+        return assessments.asUnmodifiableObservableList();
     }
 
     @Override

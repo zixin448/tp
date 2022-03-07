@@ -1,6 +1,9 @@
 package seedu.address.model.tutorial;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,5 +51,28 @@ public class UniqueTutorialList {
      */
     public ObservableList<Tutorial> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Replaces the contents of this list with {@code tutorials},
+     * which must not contain duplicate tutorials.
+     */
+    public void setTutorials(List<Tutorial> tutorials) {
+        requireAllNonNull(tutorials);
+        if (!tutorialsAreUnique(tutorials)) {
+            throw new DuplicateTutorialException();
+        }
+        internalList.setAll(tutorials);
+    }
+
+    private boolean tutorialsAreUnique(List<Tutorial> tutorials) {
+        for (int i = 0; i < tutorials.size() - 1; i++) {
+            for (int j = i + 1; j < tutorials.size(); j++) {
+                if (tutorials.get(i).isSameTutorial(tutorials.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

@@ -3,6 +3,8 @@ package seedu.address.model.assessment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.exceptions.AssessmentNotFoundException;
@@ -93,5 +95,28 @@ public class UniqueAssessmentList {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Replaces the contents of this list with {@code assessments},
+     * which must not contain duplicate assessments.
+     */
+    public void setAssessments(List<Assessment> assessments) {
+        requireAllNonNull(assessments);
+        if (!assessmentsAreUnique(assessments)) {
+            throw new DuplicateAssessmentException();
+        }
+        internalList.setAll(assessments);
+    }
+
+    private boolean assessmentsAreUnique(List<Assessment> assessments) {
+        for (int i = 0; i < assessments.size() - 1; i++) {
+            for (int j = i + 1; j < assessments.size(); j++) {
+                if (assessments.get(i).isSameAssessment(assessments.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

@@ -16,7 +16,8 @@ import seedu.address.model.person.Student;
 
 /**
  * Represents the in-memory model of the address book data.
- * TODO: update ModelManager, AddressBook to reflect changes, may need to add other data classes,
+ * TODO: add methods for AddressBook to support command logic
+ * The AddressBook contains the tutorial list and assessment list.
  * e.g. TutorialManager to provide higher-level methods.
  */
 public class ModelManager implements Model {
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
     /**
      * A list containing all Students in the address book.
      * Updated automatically when addressBook is updated.
