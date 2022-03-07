@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
@@ -32,7 +32,7 @@ public class Tutorial {
      * @param t the time the tutorial starts.
      * @param allStudents the allStudents list in the ModelManager.
      */
-    public Tutorial(TutorialName name, Day d, Time t, ObservableList<Person> allStudents) {
+    public Tutorial(TutorialName name, Day d, Time t, FilteredList<Person> allStudents) {
         requireAllNonNull(name, d, t);
         tutorialName = name;
         day = d;
