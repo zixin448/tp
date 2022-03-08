@@ -104,8 +104,8 @@ Format: `add class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME`
 * `TIME` will be in 1 hour block
 
 Examples:
-* `add class tn/T04 v/LT13 d/Monday t/1300`
-* `add class tn/G04 v/E-LEARNING d/Wed t/1000`
+* `add class tn/T04 v/LT13 d/Monday tm/1300`
+* `add class tn/G04 v/E-LEARNING d/Wed tm/1000`
 
 #### Adding student to a class: `add student`
 
