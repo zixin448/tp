@@ -99,38 +99,38 @@ Examples:
 
 Adds a class to the module.
 
-Format: `add class c/CLASS_CODE v/VENUE d/DAY t/TIME`
+Format: `add class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME`
 * `DAY` should be spelt in full or 3-letter abbreviation
 * `TIME` will be in 1 hour block
 
 Examples:
-* `add class c/T04 v/LT13 d/Monday t/1300`
-* `add class c/G04 v/E-LEARNING d/Wed t/1000`
+* `add class tn/T04 v/LT13 d/Monday t/1300`
+* `add class tn/G04 v/E-LEARNING d/Wed t/1000`
 
 #### Adding student to a class: `add student`
 
 Adds a specified student to a given class.
 
-Format: `add student INDEX id/STUDENT_ID c/CLASS_CODE`
+Format: `add student INDEX id/STUDENT_ID tn/TUTORIAL_NAME`
 
 * Adds the person at the specified `INDEX` as a student belonging to a specified class.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `add student 1 id/e01234567 c/T13`
+* `add student 1 id/e01234567 tn/T13`
 
 #### Adding an assessment component: `add assessment`
 
 Adds an assessment component to the module.
 
-Format: `add assessment a/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE`
+Format: `add assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL_MARKS`
 * `WEIGHTAGE` is out of 100%. 
-* `SCORE` is the full marks of the assessment.
+* `FULL_MARKS` is the full marks of the assessment.
 
 Examples:
-* `add assessment a/Attendance w/5 s/1`
-* `add assessment a/Assignment 1 w/10 s/10`
+* `add assessment as/Attendance w/5 f/1`
+* `add assessment as/Assignment 1 w/10 f/10`
 
 ### Listing Commands
 
@@ -147,8 +147,7 @@ Shows a list of all the classes on the any input date.
 Formats:
 
 * `list class`
-* `list class [dt/DATE]`
-* `list class [d/DAY]`
+* `list class [dt/DATE] [d/DAY]`
 * `DAY`/`DATE` is optional 
 * `DATE` input should be in `DD/MM/YYYY` format 
 * `DAY` should be spelt in full or 3-letter abbreviation
@@ -166,13 +165,16 @@ Shows a list of all the students of a specified class.
 
 Format:
 
-* `list student INDEX`
+* `list student INDEX [tn/TUTORIAL_NAME]`
+* `TUTORIAL_NAME` is optional if `INDEX` is given.
 * Shows list of student belonging to the class at the specified `INDEX`.
+* Shows list of student belonging to the class with the specified `TUTORIAL_NAME`.
 * The index refers to the index number shown in the displayed person list.
 * The index must be a positive integer 1, 2, 3, …​
 
 Examples:
 
+* `list student tn/G04`
 * `list student 1`
   ![result for `list student 1`](images/listStudentResult.png)
 
@@ -234,45 +236,48 @@ Examples:
 
 Removes a class from the module
 
-Format: `delete class INDEX`
-
+Format: 
+* `delete class INDEX [tn/TUTORIAL_NAME]`
+* `TUTORIAL_NAME` is optional if `INDEX` is given.
 * Deletes the class at the specified `INDEX`.
+* Deletes the class with the specified `TUTORIAL_NAME`.
 * The index refers to the index number shown in the displayed list of classes.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
 * `delete class 1`
+* `delete class tn/G04`
 
 #### Removing a student  : `remove student`
 
 Removes a student from a given class, but does not remove their contact from the address book.
 
 Format: 
-* `remove student i/INDEX c/CLASS_CODE`.
-* `remove student id/STUDENT_ID c/CLASS_CODE`.
-* Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `CLASS_CODE`.
+* `remove student i/INDEX tn/TUTORIAL_NAME`.
+* `remove student id/STUDENT_ID tn/TUTORIAL_NAME`.
+* Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
 * The `INDEX` refers to the index number shown in the displayed list of student in the class.
 * The `STUDENT_ID` refers to the student_id of a particular student.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `remove student i/1 c/G04`
-* `remove student id/e0123456 c/G04`
+* `remove student i/1 tn/G04`
+* `remove student id/e0123456 tn/G04`
 
 #### Deleting an assessment component: `delete assessment`
 
 Deletes an assessment component from the module, removing all information about the assessment from the students taking the module.
 
-Format: `delete assessment a/ASSESSMENT_NAME`
+Format: `delete assessment as/ASSESSMENT_NAME`
 
 * Deletes the assessment with the specified `ASSESSMENT_NAME`.
 
 Examples:
 
-* `delete assessment a/Attendance`
-* `delete assessment a/Assignment 1`
+* `delete assessment as/Attendance`
+* `delete assessment as/Assignment 1`
 
 ### Clearing all entries : `clear`
 
@@ -316,17 +321,17 @@ _Details coming soon ..._
 | Action                | Format, Examples                                                                                                                                                       |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague` |
-| **Add Class**         | `add class c/CLASS_CODE v/VENUE d/DAY t/TIME` <br> e.g., `add class c/T04 v/LT13 d/Monday t/1300`                                                                      |
-| **Add Student**       | `add student INDEX id/STUDENT_ID c/CLASS_CODE` <br> e.g., `add student 1 id/e01234567 c/T13`                                                                           |
-| **Add Assessment**    | `add assessment a/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add assessment a/Attendance w/5 s/1`                                                                |
+| **Add Class**         | `add class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add class c/T04 v/LT13 d/Monday t/1300`                                                                 |
+| **Add Student**       | `add student INDEX id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add student 1 id/e01234567 tn/T13`                                                                      |
+| **Add Assessment**    | `add assessment as/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add assessment as/Attendance w/5 s/1`                                                              |
 | **Clear**             | `clear`                                                                                                                                                                |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                    |
-| **Delete Class**      | `delete class INDEX` <br> e.g., `delete class 1`                                                                                                                       |
+| **Delete Class**      | `delete class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete class 1 [tn/G04]`                                                                                           |
 | **Delete Student**    | `delete student INDEX` <br> e.g. `delete student 2`                                                                                                                    |
-| **Delete Assessment** | `delete assessment a/ASSESSMENT_NAME` <br> e.g.,* `delete assessment a/Attendance`                                                                                     |
+| **Delete Assessment** | `delete assessment as/ASSESSMENT_NAME` <br> e.g.,* `delete assessment as/Attendance`                                                                                   |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                            |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                             |
 | **List**              | `list`                                                                                                                                                                 |
 | **List Class**        | `list class [dt/DATE]` <br> e.g., `list class dt/20/02/2022`                                                                                                           |
-| **List Student**      | `list student INDEX` <br> e.g., `list student 1`                                                                                                                       |
+| **List Student**      | `list student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list student 1 [tn/G04]`                                                                                           |
 | **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                      |
