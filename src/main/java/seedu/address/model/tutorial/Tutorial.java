@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.person.Person;
@@ -75,6 +76,14 @@ public class Tutorial {
     public void addAssessmentResults(AssessmentResults results) {
         requireNonNull(results);
         assessmentResultsList.add(results);
+    }
+
+    /**
+     * Removes the AssessmentResults with the given name.
+     */
+    public void removeAssessmentResultsByName(AssessmentName name) {
+        requireNonNull(name);
+        assessmentResultsList.removeByName(name);
     }
 
     /**

@@ -128,7 +128,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds the given assessment.
+     * Adds the given assessment and corresponding AssessmentResults to every tutorial in the address book.
      * @param toAdd must not already exist in the address book.
      */
     public void addAssessment(Assessment toAdd) {
@@ -136,12 +136,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         tutorials.addAssessment(toAdd);
     }
 
+    /**
+     * Returns true if an assessment with the given name exists in the address book.
+     */
     public boolean hasAssessmentByName(AssessmentName name) {
         return assessments.containsByName(name);
     }
 
+    /**
+     * Removes the assessment with the given name and corresponding AssessmentResults from every tutorial
+     * in the address book.
+     */
     public Assessment removeAssessmentByName(AssessmentName name) {
-        return assessments.removeByName(name);
+        Assessment toRemove = assessments.removeByName(name);
+        tutorials.removeAssessmentByName(name);
+        return toRemove;
     }
 
     //// util methods

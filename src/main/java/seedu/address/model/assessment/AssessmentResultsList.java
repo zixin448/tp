@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import seedu.address.model.assessment.exceptions.AssessmentNotFoundException;
 import seedu.address.model.assessment.exceptions.DuplicateAssessmentException;
 import seedu.address.model.tutorial.TutorialName;
 
@@ -45,7 +46,7 @@ public class AssessmentResultsList {
     }
 
     /**
-     * Used to add an AssessmentResults to the list.
+     * Adds an AssessmentResults to the list.
      * The AssessmentResults must not already be in the list.
      */
     public void add(AssessmentResults toAdd) {
@@ -54,6 +55,19 @@ public class AssessmentResultsList {
             throw new DuplicateAssessmentException();
         }
         assessmentResultsList.add(toAdd);
+    }
+
+    /**
+     * Removes the AssessmentResults with the given name from the list.
+     */
+    public void removeByName(AssessmentName name) {
+        requireNonNull(name);
+        for (int i = 0; i < assessmentResultsList.size(); i++) {
+            if (assessmentResultsList.get(i).hasName(name)) {
+                assessmentResultsList.remove(i);
+            }
+        }
+        throw new AssessmentNotFoundException();
     }
 
     /**

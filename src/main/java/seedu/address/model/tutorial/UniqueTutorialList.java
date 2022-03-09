@@ -90,4 +90,15 @@ public class UniqueTutorialList {
             internalList.get(i).addAssessmentResults(new AssessmentResults(name));
         }
     }
+
+    /**
+     * Removes the AssessmentResult with the given name from every tutorial in the list.
+     * Note: listeners to UniqueTutorialList will not know of this change.
+     */
+    public void removeAssessmentByName(AssessmentName name) {
+        requireNonNull(name);
+        for (int i = 0; i < internalList.size(); i++) {
+            internalList.get(i).removeAssessmentResultsByName(name);
+        }
+    }
 }

@@ -47,6 +47,13 @@ public class AssessmentResults {
     }
 
     /**
+     * Returns true if the AssessmentResults has given name.
+     */
+    public boolean hasName(AssessmentName name) {
+        return assessmentName.equals(name);
+    }
+
+    /**
      * Returns true if results list already contains the StudentResult.
      */
     public boolean contains(StudentResult toCheck) {
@@ -70,4 +77,6 @@ public class AssessmentResults {
     public ObservableList<StudentResult> asUnmodifiableStudentResultsList() {
         return unmodifiableResults;
     }
+
+
 }
