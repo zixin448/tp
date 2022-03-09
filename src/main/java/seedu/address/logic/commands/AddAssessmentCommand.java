@@ -9,7 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assessment.Assessment;
 
-public class AddAssessmentCommand extends Command{
+public class AddAssessmentCommand extends Command {
 
     public static final String COMMAND_WORD = "add_assessment";
 
@@ -19,7 +19,7 @@ public class AddAssessmentCommand extends Command{
             + PREFIX_WEIGHTAGE + "WEIGHTAGE(0-100) "
             + PREFIX_FULL_MARK + "FULL MARK\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ASSESSMENT_NAME + "assignment "
+            + PREFIX_ASSESSMENT_NAME + "assignment1 "
             + PREFIX_WEIGHTAGE + "50 "
             + PREFIX_FULL_MARK + "10\n";
 
@@ -28,6 +28,9 @@ public class AddAssessmentCommand extends Command{
 
     private final Assessment toAdd;
 
+    /**
+     * Creates an AddAssessmentCommand to add the specified {@code Assessment}.
+     */
     public AddAssessmentCommand(Assessment toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
@@ -37,7 +40,7 @@ public class AddAssessmentCommand extends Command{
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(model.hasAssessment(toAdd)) {
+        if (model.hasAssessment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ASSESSMENT);
         }
 

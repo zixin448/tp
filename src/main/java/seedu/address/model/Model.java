@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Person;
 
 /**
@@ -96,4 +97,8 @@ public interface Model {
      * @param toAdd must not already exist in the address book.
      */
     void addAssessment(Assessment toAdd);
+
+    boolean hasAssessmentByName(AssessmentName name);
+
+    Assessment removeAssessmentByName(AssessmentName name);
 }

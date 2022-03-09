@@ -49,6 +49,13 @@ public class Assessment {
         return other != null && other.getAssessmentName().equals(getAssessmentName());
     }
 
+    /**
+     * Returns true if assessment has given name.
+     */
+    public boolean hasName(AssessmentName name) {
+        return this.name.equals(name);
+    }
+
     @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();

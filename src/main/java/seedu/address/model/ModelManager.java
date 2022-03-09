@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 
@@ -136,6 +137,16 @@ public class ModelManager implements Model {
     @Override
     public void addAssessment(Assessment toAdd) {
         addressBook.addAssessment(toAdd);
+    }
+
+    @Override
+    public boolean hasAssessmentByName(AssessmentName name) {
+        return addressBook.hasAssessmentByName(name);
+    }
+
+    @Override
+    public Assessment removeAssessmentByName(AssessmentName name) {
+        return addressBook.removeAssessmentByName(name);
     }
 
     //=========== Filtered Person List Accessors =============================================================

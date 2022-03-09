@@ -86,7 +86,7 @@ public class UniqueTutorialList {
     public void addAssessment(Assessment assessment) {
         requireNonNull(assessment);
         AssessmentName name = assessment.getAssessmentName();
-        for(int i = 0; i < internalList.size(); i++) {
+        for (int i = 0; i < internalList.size(); i++) {
             internalList.get(i).addAssessmentResults(new AssessmentResults(name));
         }
     }

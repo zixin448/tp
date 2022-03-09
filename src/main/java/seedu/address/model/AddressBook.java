@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.UniqueAssessmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -133,6 +134,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addAssessment(Assessment toAdd) {
         assessments.add(toAdd);
         tutorials.addAssessment(toAdd);
+    }
+
+    public boolean hasAssessmentByName(AssessmentName name) {
+        return assessments.containsByName(name);
+    }
+
+    public Assessment removeAssessmentByName(AssessmentName name) {
+        return assessments.removeByName(name);
     }
 
     //// util methods
