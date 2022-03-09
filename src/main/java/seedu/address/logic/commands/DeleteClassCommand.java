@@ -1,19 +1,20 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
-import seedu.address.model.tutorial.TutorialNameContainsKeywordsPredicate;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
-
+/**
+ * Deletes a tutorial identified using it's displayed index from the address book, or using its tutorial name.
+ */
 public class DeleteClassCommand extends Command {
 
     public static final String COMMAND_WORD = "delete_class";
@@ -26,11 +27,18 @@ public class DeleteClassCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TUTORIAL_SUCCESS = "Deleted Tutorial: %1$s";
+    public static final String MESSAGE_NO_SUCH_TUTORIAL = "This tutorial does not exists in the address book";
 
     private final Index targetIndex;
     private final TutorialName tutorialName;
     private final boolean isDeleteByTutorialName;
 
+    /**
+     * Constructor for a DeleteClassCommand.
+     * @param targetIndex The index of the class in the list.
+     * @param tutorialName The name of the class.
+     * @param isDeleteByTutorialName To choose whether to delete by name or index.
+     */
     public DeleteClassCommand(Index targetIndex, TutorialName tutorialName, boolean isDeleteByTutorialName) {
         this.targetIndex = targetIndex;
         this.tutorialName = tutorialName;
@@ -51,8 +59,19 @@ public class DeleteClassCommand extends Command {
             model.deleteTutorial(tutorialToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
         } else {
-            //TutorialNameContainsKeywordsPredicate predicate = new TutorialNameContainsKeywordsPredicate();
-            return null;
+            Tutorial tutorialToDelete = null;
+            for (Tutorial tutorial : model.getAddressBook().getTutorialList()) {
+                if (tutorial.getTutorialName().equals(tutorialName)) {
+                    tutorialToDelete = tutorial;
+                    break;
+                }
+            }
+            if (tutorialToDelete == null) {
+                throw new CommandException(MESSAGE_NO_SUCH_TUTORIAL);
+            } else {
+                model.deleteTutorial(tutorialToDelete);
+                return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
+            }
         }
     }
 

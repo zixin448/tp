@@ -1,17 +1,15 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteClassCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tutorial.TutorialName;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-
-public class DeleteClassCommandParser implements Parser<DeleteClassCommand>  {
+public class DeleteClassCommandParser implements Parser<DeleteClassCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteClassCommand
      * and returns an DeleteClassCommand object for execution.
@@ -24,7 +22,7 @@ public class DeleteClassCommandParser implements Parser<DeleteClassCommand>  {
 
         Index index;
 
-        if (argMultimap.getValue(PREFIX_NAME).isPresent() && argMultimap.getPreamble() == "") {
+        if (argMultimap.getValue(PREFIX_TUTORIALNAME).isPresent() && argMultimap.getPreamble().isEmpty()) {
             TutorialName tutorialName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIALNAME).get());
             return new DeleteClassCommand(null, tutorialName, true);
         } else {
@@ -33,7 +31,7 @@ public class DeleteClassCommandParser implements Parser<DeleteClassCommand>  {
                 return new DeleteClassCommand(index, null, false);
             } catch (ParseException pe) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClassCommand.MESSAGE_USAGE), pe);
             }
         }
     }
