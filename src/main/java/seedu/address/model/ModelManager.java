@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 
@@ -110,6 +111,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPersonWithName(Name name) {
+        requireNonNull(name);
+        return addressBook.hasPersonWithName(name);
+    }
+
+    @Override
+    public Person getPersonWithName(Name name) {
+        requireNonNull(name);
+        return addressBook.getPersonWithName(name);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -118,6 +131,18 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return addressBook.hasStudent(student);
+    }
+
+    @Override
+    public void addStudent(Student student) {
+        requireNonNull(student);
+        addressBook.addStudent(student);
     }
 
     @Override
@@ -142,6 +167,17 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPersonStudentList() {
+        return allStudents;
+    }
+
+    @Override
+    public void updateFilteredPersonStudentList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        allStudents.setPredicate(predicate);
     }
 
     @Override

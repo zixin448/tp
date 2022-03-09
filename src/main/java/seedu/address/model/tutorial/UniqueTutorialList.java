@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.tutorial.exceptions.DuplicateTutorialException;
+import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
 
 /**
  * A list of Tutorials that enforces the uniqueness between its elements and does not allow nulls.
@@ -32,6 +33,15 @@ public class UniqueTutorialList {
     public boolean contains(Tutorial toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameTutorial);
+    }
+
+    /**
+     * Returns true if the list contains tutorial with an equivalent tutorial name as the argument,
+     * uses {@code Tutorial#isSameTutorialName(TutorialName)}
+     */
+    public boolean containsName(TutorialName toCheckName) {
+        requireNonNull(toCheckName);
+        return internalList.stream().anyMatch(x -> x.isSameTutorialName(toCheckName));
     }
 
     /**
@@ -74,5 +84,21 @@ public class UniqueTutorialList {
             }
         }
         return true;
+    }
+
+    /**
+     * Runs through the contents of this list to find the tutorial with
+     * tutorial name matching given {@code tutorialName}.
+     */
+    public Tutorial getTutorialMatch(TutorialName tutorialName) {
+        Tutorial tutorialMatch = internalList.stream()
+                .filter(tutorial -> tutorialName.equals(tutorial.getTutorialName()))
+                .findAny()
+                .orElse(null);
+
+        if (tutorialMatch == null) {
+            throw new InvalidTutorialException();
+        }
+        return tutorialMatch;
     }
 }

@@ -7,9 +7,12 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.UniqueAssessmentList;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tutorial.Tutorial;
+import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.UniqueTutorialList;
 
 /**
@@ -92,6 +95,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a person with the same name as {@code name} exists in the address book.
+     */
+    public boolean hasPersonWithName(Name name) {
+        requireNonNull(name);
+        return persons.checkExist(name);
+    }
+
+    /**
+     * Returns a person with the same name as {@code name}.
+     * This function will only be called if passed the check that
+     * a matching {@code Person} exists in the address book.
+     */
+    public Person getPersonWithName(Name name) {
+        return persons.get(name);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -151,5 +171,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    //// student-level operations
+
+    /**
+     *  Returns true if a student with the same identity as {@code student}
+     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        TutorialName tutorialName = student.getTutorialName();
+        return tutorials.containsName(tutorialName)
+                && tutorials.getTutorialMatch(tutorialName).contains(student);
+    }
+
+
+    /**
+     * Adds a student to the address book in a specified tutorial with the
+     * tutorial name {@code tutorialName}.
+     * The student must exist in the address book as a person.
+     * The student must not exist in the tutorial.
+     */
+    public void addStudent(Student student) {
+        requireNonNull(student);
+        Person personMatch = persons.get(student.getName());
+        persons.setPerson(personMatch, student);
     }
 }
