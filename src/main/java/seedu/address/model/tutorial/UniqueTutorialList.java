@@ -81,13 +81,13 @@ public class UniqueTutorialList {
 
     /**
      * Adds an AssessmentResult corresponding to {@code assessment} to every tutorial in the list.
+     * Note: listeners to UniqueTutorialList will not know of this change.
      */
     public void addAssessment(Assessment assessment) {
         requireNonNull(assessment);
         AssessmentName name = assessment.getAssessmentName();
         for(int i = 0; i < internalList.size(); i++) {
-            Tutorial tutorial = internalList.get(i).addAssessmentResults(new AssessmentResults(name));
-            internalList.set(i, tutorial);
+            internalList.get(i).addAssessmentResults(new AssessmentResults(name));
         }
     }
 }

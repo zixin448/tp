@@ -70,12 +70,11 @@ public class Tutorial {
     }
 
     /**
-     * Returns a new tutorial with the added AssessmentResults.
+     * Adds an AssessmentResults to assessmentResultsList.
      */
-    public Tutorial addAssessmentResults(AssessmentResults results) {
+    public void addAssessmentResults(AssessmentResults results) {
         requireNonNull(results);
         assessmentResultsList.add(results);
-        return new Tutorial(tutorialName, day, time, studentsList, assessmentResultsList);
     }
 
     /**
