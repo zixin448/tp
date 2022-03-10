@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FULL_MARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FULLMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHTAGE;
 
 import java.util.stream.Stream;
@@ -24,18 +24,19 @@ public class AddAssessmentCommandParser implements Parser<AddAssessmentCommand> 
     @Override
     public AddAssessmentCommand parse(String userInput) throws ParseException {
         ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_ASSESSMENT_NAME, PREFIX_WEIGHTAGE, PREFIX_FULL_MARK);
+                ArgumentTokenizer.tokenize(userInput, PREFIX_ASSESSMENTNAME, PREFIX_WEIGHTAGE, PREFIX_FULLMARK);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_ASSESSMENT_NAME, PREFIX_WEIGHTAGE, PREFIX_FULL_MARK)
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_ASSESSMENTNAME, PREFIX_WEIGHTAGE, PREFIX_FULLMARK)
                 || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAssessmentCommand.MESSAGE_USAGE));
         }
 
         // Validation checks for the fields are carried out during construction
-        AssessmentName assessmentName = ParserUtil.parseAssessmentName(argumentMultimap.getValue(PREFIX_ASSESSMENT_NAME).get());
+        AssessmentName assessmentName = ParserUtil.parseAssessmentName(argumentMultimap
+                .getValue(PREFIX_ASSESSMENTNAME).get());
         Weightage weightage = ParserUtil.parseWeightage(argumentMultimap.getValue(PREFIX_WEIGHTAGE).get());
-        FullMark fullMark = ParserUtil.parseFullMark(argumentMultimap.getValue(PREFIX_FULL_MARK).get());
+        FullMark fullMark = ParserUtil.parseFullMark(argumentMultimap.getValue(PREFIX_FULLMARK).get());
 
         Assessment assessment = new Assessment(assessmentName, weightage, fullMark);
 

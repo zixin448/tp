@@ -125,7 +125,10 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static AssessmentName parseAssessmentName(String name) throws ParseException{
+    /**
+     * Parses {@code String name} into a {@code AssessmentName}.
+     */
+    public static AssessmentName parseAssessmentName(String name) throws ParseException {
         requireNonNull(name);
         final String trimmedName = name.trim();
         if (!AssessmentName.isValidAssessmentName(trimmedName)) {
@@ -134,6 +137,9 @@ public class ParserUtil {
         return new AssessmentName(trimmedName);
     }
 
+    /**
+     * Parses {@code String weight} into a {@code Weightage}.
+     */
     public static Weightage parseWeightage(String weight) throws ParseException {
         requireNonNull(weight);
         final String trimmedWeight = weight.trim();
@@ -143,6 +149,9 @@ public class ParserUtil {
         return new Weightage(trimmedWeight);
     }
 
+    /**
+     * Parses {@code String fm} into a {@code FullMark}.
+     */
     public static FullMark parseFullMark(String fm) throws ParseException {
         requireNonNull(fm);
         final String trimmedFm = fm.trim();

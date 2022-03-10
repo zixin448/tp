@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 
 import java.util.stream.Stream;
 
@@ -18,14 +18,14 @@ public class DeleteAssessmentCommandParser implements Parser<DeleteAssessmentCom
      */
     @Override
     public DeleteAssessmentCommand parse(String userInput) throws ParseException {
-        ArgumentMultimap multimap = ArgumentTokenizer.tokenize(userInput, PREFIX_ASSESSMENT_NAME);
+        ArgumentMultimap multimap = ArgumentTokenizer.tokenize(userInput, PREFIX_ASSESSMENTNAME);
 
-        if (!arePrefixesPresent(multimap, PREFIX_ASSESSMENT_NAME) || !multimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(multimap, PREFIX_ASSESSMENTNAME) || !multimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAssessmentCommand.MESSAGE_USAGE));
         }
 
-        AssessmentName assessmentName = ParserUtil.parseAssessmentName(multimap.getValue(PREFIX_ASSESSMENT_NAME).get());
+        AssessmentName assessmentName = ParserUtil.parseAssessmentName(multimap.getValue(PREFIX_ASSESSMENTNAME).get());
         return new DeleteAssessmentCommand(assessmentName);
     }
 
