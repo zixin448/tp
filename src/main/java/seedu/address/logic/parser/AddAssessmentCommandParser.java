@@ -33,9 +33,9 @@ public class AddAssessmentCommandParser implements Parser<AddAssessmentCommand> 
         }
 
         // Validation checks for the fields are carried out during construction
-        AssessmentName assessmentName = new AssessmentName(argumentMultimap.getValue(PREFIX_ASSESSMENT_NAME).get());
-        Weightage weightage = new Weightage(argumentMultimap.getValue(PREFIX_WEIGHTAGE).get());
-        FullMark fullMark = new FullMark(argumentMultimap.getValue(PREFIX_FULL_MARK).get());
+        AssessmentName assessmentName = ParserUtil.parseAssessmentName(argumentMultimap.getValue(PREFIX_ASSESSMENT_NAME).get());
+        Weightage weightage = ParserUtil.parseWeightage(argumentMultimap.getValue(PREFIX_WEIGHTAGE).get());
+        FullMark fullMark = ParserUtil.parseFullMark(argumentMultimap.getValue(PREFIX_FULL_MARK).get());
 
         Assessment assessment = new Assessment(assessmentName, weightage, fullMark);
 

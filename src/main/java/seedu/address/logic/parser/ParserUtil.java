@@ -9,6 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.FullMark;
+import seedu.address.model.assessment.Weightage;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -120,5 +123,32 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static AssessmentName parseAssessmentName(String name) throws ParseException{
+        requireNonNull(name);
+        final String trimmedName = name.trim();
+        if (!AssessmentName.isValidAssessmentName(trimmedName)) {
+            throw new ParseException(AssessmentName.MESSAGE_CONSTRAINTS);
+        }
+        return new AssessmentName(trimmedName);
+    }
+
+    public static Weightage parseWeightage(String weight) throws ParseException {
+        requireNonNull(weight);
+        final String trimmedWeight = weight.trim();
+        if (!Weightage.isValidWeightage(trimmedWeight)) {
+            throw new ParseException(Weightage.MESSAGE_CONSTRAINTS);
+        }
+        return new Weightage(trimmedWeight);
+    }
+
+    public static FullMark parseFullMark(String fm) throws ParseException {
+        requireNonNull(fm);
+        final String trimmedFm = fm.trim();
+        if (!FullMark.isValidFullMark(trimmedFm)) {
+            throw new ParseException(FullMark.MESSAGE_CONSTRAINTS);
+        }
+        return new FullMark(fm);
     }
 }

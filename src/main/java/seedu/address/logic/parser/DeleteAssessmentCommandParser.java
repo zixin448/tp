@@ -25,7 +25,7 @@ public class DeleteAssessmentCommandParser implements Parser<DeleteAssessmentCom
                     DeleteAssessmentCommand.MESSAGE_USAGE));
         }
 
-        AssessmentName assessmentName = new AssessmentName(multimap.getValue(PREFIX_ASSESSMENT_NAME).get());
+        AssessmentName assessmentName = ParserUtil.parseAssessmentName(multimap.getValue(PREFIX_ASSESSMENT_NAME).get());
         return new DeleteAssessmentCommand(assessmentName);
     }
 
