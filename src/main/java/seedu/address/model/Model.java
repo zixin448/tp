@@ -8,6 +8,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 
 /**
  * The API of the Model component.
@@ -58,6 +61,16 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a person with the same name as {@code name} exists in the address book.
+     */
+    boolean hasPersonWithName(Name name);
+
+    /**
+     * Returns a person with the same name as {@code name}
+     */
+    Person getPersonWithName(Name name);
 
     /**
      * Deletes the given person.
@@ -114,6 +127,15 @@ public interface Model {
     public ObservableList<Assessment> getAssessmentList();
 
     /**
+     * Updates the filter of the filtered person student list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonStudentList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered person student list */
+    ObservableList<Person> getFilteredPersonStudentList();
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -124,4 +146,17 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTutorialList(Predicate<Tutorial> predicate);
+    
+    /**
+     * Adds the given student to the tutorial.
+     * must not already exist in the student list of the tutorial.
+     */
+    void addStudent(Student student);
+
+    /**
+     *  Returns true if a student with the same identity as {@code student}
+     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    boolean hasStudent(Student student);
+
 }

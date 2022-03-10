@@ -12,12 +12,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tutorial.Day;
 import seedu.address.model.tutorial.Time;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.Venue;
+import seedu.address.model.tutorial.TutorialName;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -184,5 +187,34 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
         return new Time(trimmedTime);
+
+     * Parses a {@code String studentId} into an {@code NusNetId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code studentId} is invalid.
+     */
+    public static NusNetId parseStudentId(String studentId) throws ParseException {
+        requireNonNull(studentId);
+        String trimmedId = studentId.trim();
+        if (!NusNetId.isValidId(trimmedId)) {
+            throw new ParseException(NusNetId.MESSAGE_CONSTRAINTS);
+        }
+        return new NusNetId(trimmedId);
+    }
+
+    /**
+     * Parses a {@code String tutorialName} into an {@code TutorialName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tutorialName} is invalid.
+     */
+    public static TutorialName parseTutorialName(String tutorialName) throws ParseException {
+        requireNonNull(tutorialName);
+        String trimmedTutorialName = tutorialName.trim();
+        if (!TutorialName.isValidTutorialName(trimmedTutorialName)) {
+            throw new ParseException(TutorialName.MESSAGE_CONSTRAINTS);
+        }
+        return new TutorialName(trimmedTutorialName);
+
     }
 }
