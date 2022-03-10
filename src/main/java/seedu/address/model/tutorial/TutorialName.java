@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tutorial name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidTutorialNameName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTutorialName(String)}
  */
 public class TutorialName {
     public static final String MESSAGE_CONSTRAINTS =
