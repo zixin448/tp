@@ -48,31 +48,40 @@ public class DeleteClassCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Tutorial> lastShownList = model.getFilteredTutorialList();
 
         if (!isDeleteByTutorialName) {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
-            }
-
-            Tutorial tutorialToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteTutorial(tutorialToDelete);
-            return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
+            return deletebyIndex(model);
         } else {
-            Tutorial tutorialToDelete = null;
-            for (Tutorial tutorial : model.getAddressBook().getTutorialList()) {
-                if (tutorial.getTutorialName().equals(tutorialName)) {
-                    tutorialToDelete = tutorial;
-                    break;
-                }
-            }
-            if (tutorialToDelete == null) {
-                throw new CommandException(MESSAGE_NO_SUCH_TUTORIAL);
-            } else {
-                model.deleteTutorial(tutorialToDelete);
-                return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
+            return deleteByTutorialName(model);
+        }
+    }
+
+    private CommandResult deleteByTutorialName(Model model) throws CommandException {
+        Tutorial tutorialToDelete = null;
+        for (Tutorial tutorial : model.getAddressBook().getTutorialList()) {
+            if (tutorial.getTutorialName().equals(tutorialName)) {
+                tutorialToDelete = tutorial;
+                break;
             }
         }
+
+        if (tutorialToDelete == null) {
+            throw new CommandException(MESSAGE_NO_SUCH_TUTORIAL);
+        } else {
+            model.deleteTutorial(tutorialToDelete);
+            return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
+        }
+    }
+
+    private CommandResult deletebyIndex(Model model) throws CommandException {
+        List<Tutorial> lastShownList = model.getFilteredTutorialList();
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
+        }
+
+        Tutorial tutorialToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteTutorial(tutorialToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
     }
 
     @Override
