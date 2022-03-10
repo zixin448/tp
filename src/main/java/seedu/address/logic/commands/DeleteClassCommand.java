@@ -13,21 +13,21 @@ import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 
 /**
- * Deletes a tutorial identified using it's displayed index from the address book, or using its tutorial name.
+ * Deletes a class identified using it's displayed index from the address book, or using its tutorial name.
  */
 public class DeleteClassCommand extends Command {
 
     public static final String COMMAND_WORD = "delete_class";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the tutorial identified by the index number used in the displayed tutorial list,"
-            + "or deletes the tutorial identified by tutorial name.\n"
+            + ": Deletes the class identified by the index number used in the displayed class list,"
+            + "or deletes the class identified by tutorial name.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME \n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TUTORIAL_SUCCESS = "Deleted Tutorial: %1$s";
-    public static final String MESSAGE_NO_SUCH_TUTORIAL = "This tutorial does not exists in the address book";
+    public static final String MESSAGE_DELETE_TUTORIAL_SUCCESS = "Deleted Class: %1$s";
+    public static final String MESSAGE_NO_SUCH_TUTORIAL = "This class does not exists in the address book";
 
     private final Index targetIndex;
     private final TutorialName tutorialName;

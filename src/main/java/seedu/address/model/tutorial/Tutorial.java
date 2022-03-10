@@ -4,7 +4,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
@@ -79,6 +82,14 @@ public class Tutorial {
 
     public void setStudentsList(FilteredList<Person> allStudents) {
         studentsList = new UniqueStudentsInTutorialList(allStudents, tutorialName);
+    }
+
+    public void setAssessmentResultsList(ObservableList<Assessment> assessmentsList) {
+        for (Assessment assessment : assessmentsList) {
+            assessmentResultsList.add(
+                    new AssessmentResults(
+                            assessment.getAssessmentName()));
+        }
     }
 
     /**

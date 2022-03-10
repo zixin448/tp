@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.assessment.Assessment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -149,7 +150,7 @@ public class ModelManager implements Model {
     @Override
     public void addTutorial(Tutorial tutorial) {
         addressBook.addTutorial(tutorial);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTutorialList(PREDICATE_SHOW_ALL_TUTORIAL_IN_ADDRESSBOOK);
     }
 
     @Override
@@ -179,10 +180,25 @@ public class ModelManager implements Model {
         return filteredTutorials;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Assessment} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Assessment> getAssessmentList() {
+        return addressBook.getAssessmentList();
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
+        requireNonNull(predicate);
+        filteredTutorials.setPredicate(predicate);
     }
 
     @Override

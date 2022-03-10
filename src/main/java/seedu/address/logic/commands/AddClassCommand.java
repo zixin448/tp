@@ -45,6 +45,7 @@ public class AddClassCommand extends Command {
         requireNonNull(model);
 
         toAdd.setStudentsList((FilteredList<Person>) model.getFilteredPersonList());
+        toAdd.setAssessmentResultsList(model.getAssessmentList());
 
         if (model.hasTutorial(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CLASS);
