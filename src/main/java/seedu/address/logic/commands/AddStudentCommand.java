@@ -23,7 +23,7 @@ import seedu.address.model.tutorial.TutorialName;
 
 public class AddStudentCommand extends Command {
 
-    public static final String COMMAND_WORD = "add student";
+    public static final String COMMAND_WORD = "add_student";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a person in the address book as a student to a tutorial. "
