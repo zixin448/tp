@@ -19,7 +19,6 @@ import seedu.address.model.tutorial.Day;
 import seedu.address.model.tutorial.Time;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.Venue;
-import seedu.address.model.tutorial.TutorialName;
 
 
 /**
@@ -187,8 +186,9 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
         return new Time(trimmedTime);
+    }
 
-     * Parses a {@code String studentId} into an {@code NusNetId}.
+    /** Parses a {@code String studentId} into an {@code NusNetId}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code studentId} is invalid.
@@ -202,19 +202,4 @@ public class ParserUtil {
         return new NusNetId(trimmedId);
     }
 
-    /**
-     * Parses a {@code String tutorialName} into an {@code TutorialName}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tutorialName} is invalid.
-     */
-    public static TutorialName parseTutorialName(String tutorialName) throws ParseException {
-        requireNonNull(tutorialName);
-        String trimmedTutorialName = tutorialName.trim();
-        if (!TutorialName.isValidTutorialName(trimmedTutorialName)) {
-            throw new ParseException(TutorialName.MESSAGE_CONSTRAINTS);
-        }
-        return new TutorialName(trimmedTutorialName);
-
-    }
 }

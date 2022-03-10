@@ -224,7 +224,9 @@ public class ModelManager implements Model {
     public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
         requireNonNull(predicate);
         filteredTutorials.setPredicate(predicate);
+    }
 
+    @Override
     public ObservableList<Person> getFilteredPersonStudentList() {
         return allStudents;
     }

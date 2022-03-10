@@ -8,8 +8,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.tutorial.exceptions.DuplicateTutorialException;
-import seedu.address.model.tutorial.exceptions.TutorialNotFoundException;
 import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
+import seedu.address.model.tutorial.exceptions.TutorialNotFoundException;
 
 /**
  * A list of Tutorials that enforces the uniqueness between its elements and does not allow nulls.
