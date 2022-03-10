@@ -172,15 +172,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Tutorial} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Tutorial> getFilteredTutorialList() {
-        return filteredTutorials;
-    }
-
-    /**
      * Returns an unmodifiable view of the list of {@code Assessment} backed by the internal list of
      * {@code versionedAddressBook}
      */
@@ -193,12 +184,6 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
-        requireNonNull(predicate);
-        filteredTutorials.setPredicate(predicate);
     }
 
     @Override
@@ -220,6 +205,23 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== All Tutorials List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Tutorial} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Tutorial> getFilteredTutorialList() {
+        return filteredTutorials;
+    }
+
+    @Override
+    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
+        requireNonNull(predicate);
+        filteredTutorials.setPredicate(predicate);
+    }
+
     //=========== All Students List Accessors =============================================================
 
 }
+

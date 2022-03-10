@@ -81,7 +81,7 @@ public class DeleteClassCommand extends Command {
 
         Tutorial tutorialToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTutorial(tutorialToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete), true);
     }
 
     @Override
