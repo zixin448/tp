@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
-import seedu.address.model.person.Name;
+//import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Student;
+//import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 
 /**
@@ -121,21 +121,21 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-//    /**
-//     * Adds the given student to the tutorial.
-//     * Student must not already exist in the student list of the tutorial.
-//     */
-//    void addStudent(Student student);
-
     /**
-     * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Adds the given student to the tutorial.
+     * Student must not already exist in the student list of the tutorial.
      */
+    //    void addStudent(Student student);
+
+    //    /**
+    //     * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
+    //     * @throws NullPointerException if {@code predicate} is null.
+    //     */
     void updateFilteredTutorialList(Predicate<Tutorial> predicate);
 
-//    /**
-//     *  Returns true if a student with the same identity as {@code student}
-//     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
-//     */
-//    boolean hasStudent(Student student);
+    //    /**
+    //     *  Returns true if a student with the same identity as {@code student}
+    //     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
+    //     */
+    //    boolean hasStudent(Student student);
 }

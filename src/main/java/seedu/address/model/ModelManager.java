@@ -195,17 +195,17 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-//    @Override
-//    public boolean hasStudent(Student student) {
-//        requireNonNull(student);
-//        return addressBook.hasStudent(student);
-//    }
-//
-//    @Override
-//    public void addStudent(Student student) {
-//        requireNonNull(student);
-//        addressBook.addStudent(student);
-//    }
+    //    @Override
+    //    public boolean hasStudent(Student student) {
+    //        requireNonNull(student);
+    //        return addressBook.hasStudent(student);
+    //    }
+    //
+    //    @Override
+    //    public void addStudent(Student student) {
+    //        requireNonNull(student);
+    //        addressBook.addStudent(student);
+    //    }
 
     @Override
     public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
@@ -215,16 +215,16 @@ public class ModelManager implements Model {
 
 
 
-//    @Override
-//    public ObservableList<Person> getFilteredPersonStudentList() {
-//        return allStudents;
-//    }
-//
-//    @Override
-//    public void updateFilteredPersonStudentList(Predicate<Person> predicate) {
-//        requireNonNull(predicate);
-//        allStudents.setPredicate(predicate);
-//    }
+    //    @Override
+    //    public ObservableList<Person> getFilteredPersonStudentList() {
+    //        return allStudents;
+    //    }
+    //
+    //    @Override
+    //    public void updateFilteredPersonStudentList(Predicate<Person> predicate) {
+    //        requireNonNull(predicate);
+    //        allStudents.setPredicate(predicate);
+    //    }
 
     @Override
     public boolean equals(Object obj) {
