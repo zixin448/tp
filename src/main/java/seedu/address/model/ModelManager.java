@@ -129,6 +129,8 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== Assessments =============================================================
+
     @Override
     public boolean hasAssessment(Assessment assessment) {
         return addressBook.hasAssessment(assessment);
