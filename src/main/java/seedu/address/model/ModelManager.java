@@ -197,17 +197,12 @@ public class ModelManager implements Model {
     //        requireNonNull(student);
     //        addressBook.addStudent(student);
     //    }
-    //
-    //    @Override
-    //    public ObservableList<Person> getFilteredPersonStudentList() {
-    //        return allStudents;
-    //    }
-    //
-    //    @Override
-    //    public void updateFilteredPersonStudentList(Predicate<Person> predicate) {
-    //        requireNonNull(predicate);
-    //        allStudents.setPredicate(predicate);
-    //    }
+
+    @Override
+    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
+        requireNonNull(predicate);
+        filteredTutorials.setPredicate(predicate);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -236,12 +231,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Tutorial> getFilteredTutorialList() {
         return filteredTutorials;
-    }
-
-    @Override
-    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
-        requireNonNull(predicate);
-        filteredTutorials.setPredicate(predicate);
     }
 
     //=========== All Students List Accessors =============================================================
