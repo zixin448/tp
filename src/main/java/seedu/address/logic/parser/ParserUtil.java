@@ -9,11 +9,19 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.FullMark;
+import seedu.address.model.assessment.Weightage;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tutorial.Day;
+import seedu.address.model.tutorial.Time;
+import seedu.address.model.tutorial.TutorialName;
+import seedu.address.model.tutorial.Venue;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -120,5 +128,114 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String name} into a {@code AssessmentName}.
+     */
+    public static AssessmentName parseAssessmentName(String name) throws ParseException {
+        requireNonNull(name);
+        final String trimmedName = name.trim();
+        if (!AssessmentName.isValidAssessmentName(trimmedName)) {
+            throw new ParseException(AssessmentName.MESSAGE_CONSTRAINTS);
+        }
+        return new AssessmentName(trimmedName);
+    }
+
+    /**
+     * Parses {@code String weight} into a {@code Weightage}.
+     */
+    public static Weightage parseWeightage(String weight) throws ParseException {
+        requireNonNull(weight);
+        final String trimmedWeight = weight.trim();
+        if (!Weightage.isValidWeightage(trimmedWeight)) {
+            throw new ParseException(Weightage.MESSAGE_CONSTRAINTS);
+        }
+        return new Weightage(trimmedWeight);
+    }
+
+    /**
+     * Parses {@code String fm} into a {@code FullMark}.
+     */
+    public static FullMark parseFullMark(String fm) throws ParseException {
+        requireNonNull(fm);
+        final String trimmedFm = fm.trim();
+        if (!FullMark.isValidFullMark(trimmedFm)) {
+            throw new ParseException(FullMark.MESSAGE_CONSTRAINTS);
+        }
+        return new FullMark(fm);
+    }
+    /**
+    * Parses a {@code String tutorial} into an {@code Tutorial}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tutorial} is invalid.
+     */
+    public static TutorialName parseTutorialName(String tutorialName) throws ParseException {
+        requireNonNull(tutorialName);
+        String trimmedTutorialName = tutorialName.trim();
+        if (!TutorialName.isValidTutorialName(trimmedTutorialName)) {
+            throw new ParseException(TutorialName.MESSAGE_CONSTRAINTS);
+        }
+        return new TutorialName(trimmedTutorialName);
+    }
+
+    /**
+     * Parses a {@code String venue} into an {@code Venue}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code venue} is invalid.
+     */
+    public static Venue parseVenue(String venue) throws ParseException {
+        requireNonNull(venue);
+        String trimmedVenue = venue.trim();
+        if (!Venue.isValidVenue(trimmedVenue)) {
+            throw new ParseException(Venue.MESSAGE_CONSTRAINTS);
+        }
+        return new Venue(trimmedVenue);
+    }
+
+    /**
+     * Parses a {@code String day} into an {@code Day}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code day} is invalid.
+     */
+    public static Day parseDay(String day) throws ParseException {
+        requireNonNull(day);
+        String trimmedDay = day.trim();
+        if (!Day.isValidDay(trimmedDay)) {
+            throw new ParseException(Day.MESSAGE_CONSTRAINTS);
+        }
+        return new Day(trimmedDay);
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code Time}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
+    }
+
+    /** Parses a {@code String studentId} into an {@code NusNetId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code studentId} is invalid.
+     */
+    public static NusNetId parseStudentId(String studentId) throws ParseException {
+        requireNonNull(studentId);
+        String trimmedId = studentId.trim();
+        if (!NusNetId.isValidId(trimmedId)) {
+            throw new ParseException(NusNetId.MESSAGE_CONSTRAINTS);
+        }
+        return new NusNetId(trimmedId);
     }
 }

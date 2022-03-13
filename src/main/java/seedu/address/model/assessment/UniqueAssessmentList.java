@@ -36,6 +36,14 @@ public class UniqueAssessmentList {
     }
 
     /**
+     * Returns true if the list contains an assessment with the given name.
+     */
+    public boolean containsByName(AssessmentName name) {
+        requireNonNull(name);
+        return internalList.stream().anyMatch(x -> x.hasName(name));
+    }
+
+    /**
      * Adds an assessment to the list.
      * The assessment must not already exist in the list.
      */
@@ -79,6 +87,22 @@ public class UniqueAssessmentList {
     }
 
     /**
+     * Removes the assessment with the given name and returns the Assessment object.
+     * @throws AssessmentNotFoundException if no assessment in the internal list has the given name.
+     */
+    public Assessment removeByName(AssessmentName name) {
+        requireNonNull(name);
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).hasName(name)) {
+                Assessment toRemove = internalList.get(i);
+                remove(toRemove);
+                return toRemove;
+            }
+        }
+        throw new AssessmentNotFoundException();
+    }
+
+    /**
      * Returns the backing list as an unmodifiable list.
      */
     public ObservableList<Assessment> asUnmodifiableObservableList() {
@@ -119,4 +143,5 @@ public class UniqueAssessmentList {
         }
         return true;
     }
+
 }

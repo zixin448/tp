@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.UniqueAssessmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -118,7 +119,77 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// assessment-level operations
+    /**
+     * Returns true if an assessment with the same identity as {@code assessment} exists in the address book.
+     */
+    public boolean hasAssessment(Assessment assessment) {
+        return assessments.contains(assessment);
+    }
+
+    /**
+     * Adds the given assessment and corresponding AssessmentResults to every tutorial in the address book.
+     * @param toAdd must not already exist in the address book.
+     */
+    public void addAssessment(Assessment toAdd) {
+        assessments.add(toAdd);
+        tutorials.addAssessment(toAdd);
+    }
+
+    /**
+     * Returns true if an assessment with the given name exists in the address book.
+     */
+    public boolean hasAssessmentByName(AssessmentName name) {
+        return assessments.containsByName(name);
+    }
+
+    /**
+     * Removes the assessment with the given name and corresponding AssessmentResults from every tutorial
+     * in the address book.
+     */
+    public Assessment removeAssessmentByName(AssessmentName name) {
+        Assessment toRemove = assessments.removeByName(name);
+        tutorials.removeAssessmentByName(name);
+        return toRemove;
+    }
+
     //// util methods
+
+    /**
+     * Returns true if a tutorial with the same identity as {@code tutorial} exists in the address book.
+     */
+    public boolean hasTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        return tutorials.contains(tutorial);
+    }
+
+    /**
+     * Adds a tutorial to the address book.
+     * The tutorial must not already exist in the address book.
+     */
+    public void addTutorial(Tutorial t) {
+        tutorials.add(t);
+    }
+
+    /**
+     * Replaces the given tutorial {@code target} in the list with {@code editedTutorial}.
+     * {@code target} must exist in the address book.
+     * The tutorial identity of {@code editedTutorial} must not be the same as another existing
+     * tutorial in the address book.
+     */
+    public void setTutorial(Tutorial target, Tutorial editedTutorial) {
+        requireNonNull(editedTutorial);
+
+        tutorials.setTutorial(target, editedTutorial);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTutorial(Tutorial key) {
+        tutorials.remove(key);
+    }
 
     @Override
     public String toString() {

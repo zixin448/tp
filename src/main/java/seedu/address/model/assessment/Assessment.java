@@ -50,6 +50,23 @@ public class Assessment {
     }
 
     /**
+     * Returns true if assessment has given name.
+     */
+    public boolean hasName(AssessmentName name) {
+        return this.name.equals(name);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getAssessmentName())
+                .append("; Weightage: ")
+                .append(getWeightage())
+                .append("; Full mark: ")
+                .append(getFullMark());
+        return stringBuilder.toString();
+    }
+    /**
      * Returns true if both assessments have the same identity and data fields.
      * Defines a stronger notion of equality between 2 assessments.
      * Example usage: deleting an Assessment from the UniqueAssessmentList
