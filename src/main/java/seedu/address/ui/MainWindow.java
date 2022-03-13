@@ -24,8 +24,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final PersonListPanel HIDE_PERSON = null;
-    private static final TutorialListPanel HIDE_TUTORIAL = null;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -33,8 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
-    private TutorialListPanel tutorialListPanel;
+    private DisplayListPanel displayListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -45,10 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane tutorialListPanelPlaceholder;
+    private StackPane displayListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -116,8 +110,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        displayListPanel = new DisplayListPanel(logic.getFilteredPersonList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -134,24 +129,16 @@ public class MainWindow extends UiPart<Stage> {
      * Hides the students
      */
     void handleClass() {
-        if (!personListPanel.equals(HIDE_PERSON)) {
-            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
-        }
-        personListPanel = HIDE_PERSON;
-        tutorialListPanel = new TutorialListPanel(logic.getFilteredTutorialList());
-        tutorialListPanelPlaceholder.getChildren().add(tutorialListPanel.getRoot());
+        displayListPanel = new DisplayListPanel(logic.getFilteredTutorialList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Hides the students
      */
-    void handlePersons() {
-        if (!tutorialListPanel.equals(HIDE_TUTORIAL)) {
-            tutorialListPanelPlaceholder.getChildren().remove(tutorialListPanel.getRoot());
-        }
-        tutorialListPanel = HIDE_TUTORIAL;
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    void handlePerson() {
+        displayListPanel = new DisplayListPanel(logic.getFilteredPersonList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
     /**
@@ -194,14 +181,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    public TutorialListPanel getTutorialListPanel() {
-        return tutorialListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -225,7 +204,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isClass()) {
                 handleClass();
             } else {
-                handlePersons();
+                handlePerson();
             }
 
             return commandResult;

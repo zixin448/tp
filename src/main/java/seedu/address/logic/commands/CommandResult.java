@@ -39,11 +39,14 @@ public class CommandResult {
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * Constructs and returns a {@code CommandResult} with the specified {@code feedbackToUser},
      * and {@code isClass} and other fields set to their default value.
+     *
+     * @param feedbackToUser feedback given to user for the result displayed
+     * @return the result of the command execution
      */
-    public CommandResult(String feedbackToUser, boolean isClass) {
-        this(feedbackToUser, false, false, isClass);
+    public static CommandResult createClassCommandResult(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, true);
     }
 
     public String getFeedbackToUser() {

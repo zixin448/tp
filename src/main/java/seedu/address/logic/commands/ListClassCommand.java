@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Lists all tutorials in the address book to the user.
  */
-public class ListTutorialCommand extends Command {
+public class ListClassCommand extends Command {
 
     public static final String COMMAND_WORD = "list_class";
 
@@ -20,6 +20,6 @@ public class ListTutorialCommand extends Command {
         requireNonNull(model);
         model.updateFilteredTutorialList(PREDICATE_SHOW_ALL_TUTORIALS);
         model.updateFilteredPersonList(PREDICATE_HIDE_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS, true);
+        return CommandResult.createClassCommandResult(MESSAGE_SUCCESS);
     }
 }

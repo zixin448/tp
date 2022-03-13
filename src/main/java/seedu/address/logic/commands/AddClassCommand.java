@@ -56,7 +56,7 @@ public class AddClassCommand extends Command {
         model.addTutorial(toAdd);
         model.updateFilteredTutorialList(PREDICATE_SHOW_ALL_TUTORIALS);
         model.updateFilteredPersonList(PREDICATE_HIDE_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
+        return CommandResult.createClassCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
