@@ -24,8 +24,9 @@ public class UniqueStudentsInTutorialList {
      * Constructs a UniqueStudentsInTutorialList.
      *
      * @param allStudents the ModelManager's allStudents list, containing all Students in the addressbook.
-     * @param tutName     the TutorialName.
+     * @param tutName the TutorialName.
      */
+
     public UniqueStudentsInTutorialList(FilteredList<Person> allStudents, TutorialName tutName) {
         requireAllNonNull(allStudents, tutName);
         studentsInClass = createStudentsList(allStudents, tutName);
@@ -37,14 +38,4 @@ public class UniqueStudentsInTutorialList {
                 && ((Student) x).isInTutorial(tutName);
         return new FilteredList<Person>(allStudents, predicateShowStudentsInTutorial);
     }
-
-    /**
-     * Returns true if the list contains person with an equivalent student name as the argument,
-     * uses {@code Person#isSamePerson(Person)}
-     */
-    public boolean containsStudent(Student student) {
-        return studentsInClass.stream()
-                .anyMatch(x -> x.isSamePerson(student));
-    }
-
 }

@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddStudentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -24,11 +23,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
-import seedu.address.model.tutorial.TutorialName;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -44,16 +40,16 @@ public class AddressBookParserTest {
         assertEquals(new AddCommand(person), command);
     }
 
-    @Test
-    public void parseCommand_addStudent() throws Exception {
-        Name name = new Name("Alice");
-        NusNetId studentId = new NusNetId("E0123456");
-        TutorialName tutorialName = new TutorialName("G04");
-
-        AddStudentCommand command = (AddStudentCommand) parser
-                .parseCommand(PersonUtil.getAddStudentCommand(name, studentId, tutorialName));
-        assertEquals(new AddStudentCommand(name, studentId, tutorialName), command);
-    }
+    //    @Test
+    //    public void parseCommand_addStudent() throws Exception {
+    //        Name name = new Name("Alice");
+    //        NusNetId studentId = new NusNetId("E0123456");
+    //        TutorialName tutorialName = new TutorialName("G04");
+    //
+    //        AddStudentCommand command = (AddStudentCommand) parser
+    //                .parseCommand(PersonUtil.getAddStudentCommand(name, studentId, tutorialName));
+    //        assertEquals(new AddStudentCommand(name, studentId, tutorialName), command);
+    //    }
 
     @Test
     public void parseCommand_clear() throws Exception {

@@ -4,20 +4,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tutorial.TutorialName;
-
 
 /**
  * A utility class for Person.
@@ -32,13 +26,6 @@ public class PersonUtil {
     }
 
     /**
-     * Returns an add command string for adding the {@code person}.
-     */
-    public static String getAddStudentCommand(Name name, NusNetId studentId, TutorialName tutorialName) {
-        return AddCommand.COMMAND_WORD + " " + getStudentDetails(name, studentId, tutorialName);
-    }
-
-    /**
      * Returns the part of command string for the given {@code person}'s details.
      */
     public static String getPersonDetails(Person person) {
@@ -50,17 +37,6 @@ public class PersonUtil {
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
-        return sb.toString();
-    }
-
-    /**
-     * Returns the part of command string for the given {@code person}'s details.
-     */
-    public static String getStudentDetails(Name name, NusNetId studentId, TutorialName tutorialName) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + name.toString() + " ");
-        sb.append(PREFIX_STUDENTID + studentId.toString() + " ");
-        sb.append(PREFIX_TUTORIALNAME + tutorialName.toString());
         return sb.toString();
     }
 
