@@ -20,7 +20,6 @@ import seedu.address.model.tutorial.Time;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.Venue;
 
-
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */

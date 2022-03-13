@@ -49,33 +49,6 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if the list contains an equivalent person with
-     * the same name as the given argument.
-     */
-    public boolean checkExist(Name name) {
-        requireNonNull(name);
-        return internalList.stream().anyMatch(person -> person.getName().equals(name));
-    }
-
-    /**
-     * Runs through the all contents in this list to find the person with
-     * name matching given {@code name}.
-     */
-    public Person get(Name name) {
-        requireNonNull(name);
-        Person person = internalList.stream()
-                .filter(p -> p.getName().equals(name))
-                .findAny()
-                .orElse(null);
-
-        if (person == null) {
-            throw new PersonNotFoundException();
-        }
-        return person;
-
-    }
-
-    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
