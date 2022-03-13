@@ -40,6 +40,17 @@ public class AddressBookParserTest {
         assertEquals(new AddCommand(person), command);
     }
 
+    //    @Test
+    //    public void parseCommand_addStudent() throws Exception {
+    //        Name name = new Name("Alice");
+    //        NusNetId studentId = new NusNetId("E0123456");
+    //        TutorialName tutorialName = new TutorialName("G04");
+    //
+    //        AddStudentCommand command = (AddStudentCommand) parser
+    //                .parseCommand(PersonUtil.getAddStudentCommand(name, studentId, tutorialName));
+    //        assertEquals(new AddStudentCommand(name, studentId, tutorialName), command);
+    //    }
+
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
