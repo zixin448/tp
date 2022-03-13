@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,6 +11,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -199,6 +203,24 @@ public class ParserUtil {
             throw new ParseException(NusNetId.MESSAGE_CONSTRAINTS);
         }
         return new NusNetId(trimmedId);
+    }
+
+    /**
+     * Returns an add command string for adding the {@code person}.
+     */
+    public static String getAddStudentCommand(Name name, NusNetId studentId, TutorialName tutorialName) {
+        return AddCommand.COMMAND_WORD + " " + getStudentDetails(name, studentId, tutorialName);
+    }
+
+    /**
+     * Returns the part of command string for the given {@code person}'s details.
+     */
+    public static String getStudentDetails(Name name, NusNetId studentId, TutorialName tutorialName) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NAME + name.toString() + " ");
+        sb.append(PREFIX_STUDENTID + studentId.toString() + " ");
+        sb.append(PREFIX_TUTORIALNAME + tutorialName.toString());
+        return sb.toString();
     }
 
 }

@@ -7,8 +7,10 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
 //import seedu.address.model.person.Name;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 //import seedu.address.model.person.Student;
+import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 
 /**
@@ -60,6 +62,16 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a person with the same name as {@code name} exists in the address book.
+     */
+    boolean hasPersonWithName(Name name);
+
+    /**
+     * Returns a person with the same name as {@code name}
+     */
+    Person getPersonWithName(Name name);
 
     /**
      * Deletes the given person.
@@ -125,17 +137,29 @@ public interface Model {
      * Adds the given student to the tutorial.
      * Student must not already exist in the student list of the tutorial.
      */
-    //    void addStudent(Student student);
+    void addStudent(Student student);
 
-    //    /**
-    //     * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
-    //     * @throws NullPointerException if {@code predicate} is null.
-    //     */
+    /**
+     * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredTutorialList(Predicate<Tutorial> predicate);
 
-    //    /**
-    //     *  Returns true if a student with the same identity as {@code student}
-    //     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
-    //     */
-    //    boolean hasStudent(Student student);
+
+    /** Returns an unmodifiable view of the filtered student list */
+    public ObservableList<Person> getFilteredPersonStudentList();
+
+
+    /**
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    public void updateFilteredPersonStudentList(Predicate<Person> predicate);
+
+    /**
+     *  Returns true if a student with the same identity as {@code student}
+     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    boolean hasStudent(Student student);
+
 }

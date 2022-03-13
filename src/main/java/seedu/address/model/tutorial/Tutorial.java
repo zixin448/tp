@@ -10,6 +10,7 @@ import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
 
 /**
@@ -108,6 +109,21 @@ public class Tutorial {
             return true;
         }
         return other != null && other.getTutorialName().equals(getTutorialName());
+    }
+
+    /**
+     * Returns true if tutorial matches given TutorialName.
+     */
+    public boolean isSameTutorialName(TutorialName other) {
+        return other != null && other.equals(getTutorialName());
+    }
+
+    /**
+     * Returns true if the studentslist contains an equivalent student as the argument,
+     * uses {@code UniqueStudentsInTutorialList#containsStudent(Student)}
+     */
+    public boolean contains(Student student) {
+        return studentsList.containsStudent(student);
     }
 
     /**

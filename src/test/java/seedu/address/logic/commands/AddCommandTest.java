@@ -22,8 +22,10 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assessment.Assessment;
 //import seedu.address.model.person.Name;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 //import seedu.address.model.person.Student;
+import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.testutil.PersonBuilder;
 
@@ -186,15 +188,37 @@ public class AddCommandTest {
         public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-        //        @Override
-        //        public void updateFilteredPersonStudentList(Predicate<Person> predicate) {
-        //            throw new AssertionError("This method should not be called.");
-        //        }
-        //
-        //        @Override
-        //        public ObservableList<Person> getFilteredPersonStudentList() {
-        //            throw new AssertionError("This method should not be called.");
-        //        }
+
+        @Override
+        public void updateFilteredPersonStudentList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonStudentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addStudent(Student student) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStudent(Student student) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonWithName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getPersonWithName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
