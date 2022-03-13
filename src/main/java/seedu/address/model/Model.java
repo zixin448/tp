@@ -137,7 +137,8 @@ public interface Model {
 
     Assessment removeAssessmentByName(AssessmentName name);
 
-     * Adds the given student to the tutorial.
+    /**
+    * Adds the given student to the tutorial.
      * Student must not already exist in the student list of the tutorial.
      */
     //    void addStudent(Student student);

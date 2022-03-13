@@ -157,6 +157,7 @@ public class ModelManager implements Model {
     @Override
     public Assessment removeAssessmentByName(AssessmentName name) {
         return addressBook.removeAssessmentByName(name);
+    }
 
     @Override
     public boolean hasTutorial(Tutorial tutorial) {

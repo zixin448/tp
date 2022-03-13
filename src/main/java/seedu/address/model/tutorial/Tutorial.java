@@ -7,8 +7,8 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.person.Person;
@@ -64,20 +64,6 @@ public class Tutorial {
         time = t;
         studentsList = new UniqueStudentsInTutorialList(allStudents, name);
         assessmentResultsList = new AssessmentResultsList(name);
-    }
-
-    /**
-     * Alternative constructor for creating a new Tutorial, mainly used for editing Tutorials.
-     * Use with caution.
-     */
-    public Tutorial(TutorialName name, Day d, Time t,
-                    UniqueStudentsInTutorialList students, AssessmentResultsList results) {
-        requireAllNonNull(name, d, t, students, results);
-        tutorialName = name;
-        day = d;
-        time = t;
-        studentsList = students;
-        assessmentResultsList = results;
     }
 
     public TutorialName getTutorialName() {

@@ -165,7 +165,8 @@ public class ParserUtil {
         }
         return new FullMark(fm);
     }
-     * Parses a {@code String tutorial} into an {@code Tutorial}.
+    /**
+    * Parses a {@code String tutorial} into an {@code Tutorial}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tutorial} is invalid.
