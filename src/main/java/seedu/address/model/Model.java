@@ -7,7 +7,10 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
+//import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+//import seedu.address.model.person.Student;
+import seedu.address.model.tutorial.Tutorial;
 
 /**
  * The API of the Model component.
@@ -72,14 +75,46 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Returns true if a tutorial with the same identity as {@code tutorial} exists in the address book.
+     */
+    boolean hasTutorial(Tutorial tutorial);
+
+    /**
+     * Deletes the given tutorial.
+     * The tutorial must exist in the address book.
+     */
+    void deleteTutorial(Tutorial target);
+
+    /**
+     * Adds the given tutorial.
+     * {@code tutorial} must not already exist in the address book.
+     */
+    void addTutorial(Tutorial tutorial);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another
+     * existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the given tutorial {@code target} with {@code editedTutorial}.
+     * {@code target} must exist in the address book.
+     * The tutorial identity of {@code editedTutorial} must not be the same as another existing
+     * tutorial in the address book.
+     */
+    void setTutorial(Tutorial target, Tutorial editedTutorial);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered tutorial list */
+    ObservableList<Tutorial> getFilteredTutorialList();
+
+    /** Returns an unmodifiable view of the filtered tutorial list */
+    public ObservableList<Assessment> getAssessmentList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -101,4 +136,22 @@ public interface Model {
     boolean hasAssessmentByName(AssessmentName name);
 
     Assessment removeAssessmentByName(AssessmentName name);
+
+     * Adds the given student to the tutorial.
+     * Student must not already exist in the student list of the tutorial.
+     */
+    //    void addStudent(Student student);
+
+    //    /**
+    //     * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
+    //     * @throws NullPointerException if {@code predicate} is null.
+    //     */
+    void updateFilteredTutorialList(Predicate<Tutorial> predicate);
+
+    //    /**
+    //     *  Returns true if a student with the same identity as {@code student}
+    //     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
+    //     */
+    //    boolean hasStudent(Student student);
+
 }
