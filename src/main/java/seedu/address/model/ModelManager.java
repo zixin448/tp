@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -134,6 +135,28 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    //=========== Assessments =============================================================
+
+    @Override
+    public boolean hasAssessment(Assessment assessment) {
+        return addressBook.hasAssessment(assessment);
+    }
+
+    @Override
+    public void addAssessment(Assessment toAdd) {
+        addressBook.addAssessment(toAdd);
+    }
+
+    @Override
+    public boolean hasAssessmentByName(AssessmentName name) {
+        return addressBook.hasAssessmentByName(name);
+    }
+
+    @Override
+    public Assessment removeAssessmentByName(AssessmentName name) {
+        return addressBook.removeAssessmentByName(name);
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 //import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 //import seedu.address.model.person.Student;
@@ -122,7 +123,22 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Adds the given student to the tutorial.
+     * Returns true if an assessment with the same identity as {@code assessment} exists in the address book.
+     */
+    boolean hasAssessment(Assessment assessment);
+
+    /**
+     * Adds the given assessment.
+     * @param toAdd must not already exist in the address book.
+     */
+    void addAssessment(Assessment toAdd);
+
+    boolean hasAssessmentByName(AssessmentName name);
+
+    Assessment removeAssessmentByName(AssessmentName name);
+
+    /**
+    * Adds the given student to the tutorial.
      * Student must not already exist in the student list of the tutorial.
      */
     //    void addStudent(Student student);
@@ -138,4 +154,5 @@ public interface Model {
     //     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
     //     */
     //    boolean hasStudent(Student student);
+
 }

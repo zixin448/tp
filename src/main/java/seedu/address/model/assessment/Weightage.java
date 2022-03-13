@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidWeightage(String)}
  */
 public class Weightage {
-    public static final String MESSAGE_CONSTRAINTS = "A weightage should be a number between 0 and 100";
+    public static final String MESSAGE_CONSTRAINTS = "The weightage should be a number between 0 and 100";
     /**
      * The weightage must be an integer between 0 and 100, inclusive.
      */

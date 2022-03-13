@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.UniqueAssessmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -116,6 +117,40 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    //// assessment-level operations
+    /**
+     * Returns true if an assessment with the same identity as {@code assessment} exists in the address book.
+     */
+    public boolean hasAssessment(Assessment assessment) {
+        return assessments.contains(assessment);
+    }
+
+    /**
+     * Adds the given assessment and corresponding AssessmentResults to every tutorial in the address book.
+     * @param toAdd must not already exist in the address book.
+     */
+    public void addAssessment(Assessment toAdd) {
+        assessments.add(toAdd);
+        tutorials.addAssessment(toAdd);
+    }
+
+    /**
+     * Returns true if an assessment with the given name exists in the address book.
+     */
+    public boolean hasAssessmentByName(AssessmentName name) {
+        return assessments.containsByName(name);
+    }
+
+    /**
+     * Removes the assessment with the given name and corresponding AssessmentResults from every tutorial
+     * in the address book.
+     */
+    public Assessment removeAssessmentByName(AssessmentName name) {
+        Assessment toRemove = assessments.removeByName(name);
+        tutorials.removeAssessmentByName(name);
+        return toRemove;
     }
 
     //// util methods
