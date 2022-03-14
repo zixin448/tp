@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
@@ -149,6 +150,28 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== Assessments =============================================================
+
+    @Override
+    public boolean hasAssessment(Assessment assessment) {
+        return addressBook.hasAssessment(assessment);
+    }
+
+    @Override
+    public void addAssessment(Assessment toAdd) {
+        addressBook.addAssessment(toAdd);
+    }
+
+    @Override
+    public boolean hasAssessmentByName(AssessmentName name) {
+        return addressBook.hasAssessmentByName(name);
+    }
+
+    @Override
+    public Assessment removeAssessmentByName(AssessmentName name) {
+        return addressBook.removeAssessmentByName(name);
+    }
+
     @Override
     public boolean hasTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
@@ -182,15 +205,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Tutorial} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Tutorial> getFilteredTutorialList() {
-        return filteredTutorials;
     }
 
     /**
@@ -257,6 +271,17 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== All Tutorials List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Tutorial} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Tutorial> getFilteredTutorialList() {
+        return filteredTutorials;
+    }
+
     //=========== All Students List Accessors =============================================================
 
 }
+

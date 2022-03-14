@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 //import seedu.address.model.person.Name;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -19,6 +20,9 @@ import seedu.address.model.tutorial.Tutorial;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
+    Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
+    Predicate<Tutorial> PREDICATE_HIDE_ALL_TUTORIALS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -125,7 +129,7 @@ public interface Model {
     ObservableList<Tutorial> getFilteredTutorialList();
 
     /** Returns an unmodifiable view of the filtered tutorial list */
-    public ObservableList<Assessment> getAssessmentList();
+    ObservableList<Assessment> getAssessmentList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -134,7 +138,22 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Adds the given student to the tutorial.
+     * Returns true if an assessment with the same identity as {@code assessment} exists in the address book.
+     */
+    boolean hasAssessment(Assessment assessment);
+
+    /**
+     * Adds the given assessment.
+     * @param toAdd must not already exist in the address book.
+     */
+    void addAssessment(Assessment toAdd);
+
+    boolean hasAssessmentByName(AssessmentName name);
+
+    Assessment removeAssessmentByName(AssessmentName name);
+
+    /**
+    * Adds the given student to the tutorial.
      * Student must not already exist in the student list of the tutorial.
      */
     void addStudent(Student student);
@@ -146,15 +165,16 @@ public interface Model {
     void updateFilteredTutorialList(Predicate<Tutorial> predicate);
 
 
+
     /** Returns an unmodifiable view of the filtered student list */
-    public ObservableList<Person> getFilteredPersonStudentList();
+    ObservableList<Person> getFilteredPersonStudentList();
 
 
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    public void updateFilteredPersonStudentList(Predicate<Person> predicate);
+    void updateFilteredPersonStudentList(Predicate<Person> predicate);
 
     /**
      *  Returns true if a student with the same identity as {@code student}

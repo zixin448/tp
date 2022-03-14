@@ -1,12 +1,15 @@
 package seedu.address.model.tutorial;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.Displayable;
 import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.person.Person;
@@ -18,7 +21,7 @@ import seedu.address.model.person.UniqueStudentsInTutorialList;
  * Guarantees: details are present and not null, field values are validated, immutable.
  * TODO: add methods for making changes to the studentsList or assessmentResultsList
  */
-public class Tutorial {
+public class Tutorial implements Displayable {
     // Identity fields
     private final TutorialName tutorialName;
     private final Day day;
@@ -98,6 +101,22 @@ public class Tutorial {
      */
     public static boolean isTutorial(Object object) {
         return object instanceof Tutorial;
+    }
+
+    /**
+     * Adds an AssessmentResults to assessmentResultsList.
+     */
+    public void addAssessmentResults(AssessmentResults results) {
+        requireNonNull(results);
+        assessmentResultsList.add(results);
+    }
+
+    /**
+     * Removes the AssessmentResults with the given name.
+     */
+    public void removeAssessmentResultsByName(AssessmentName name) {
+        requireNonNull(name);
+        assessmentResultsList.removeByName(name);
     }
 
     /**

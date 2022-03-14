@@ -21,10 +21,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assessment.Assessment;
-//import seedu.address.model.person.Name;
+import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-//import seedu.address.model.person.Student;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.testutil.PersonBuilder;
@@ -185,6 +184,25 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasAssessment(Assessment assessment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAssessment(Assessment toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasAssessmentByName(AssessmentName name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Assessment removeAssessmentByName(AssessmentName name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -218,7 +236,6 @@ public class AddCommandTest {
         public Person getPersonWithName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
-
     }
 
     /**

@@ -7,8 +7,10 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.tutorial.exceptions.DuplicateTutorialException;
-//import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
 import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
 import seedu.address.model.tutorial.exceptions.TutorialNotFoundException;
 
@@ -133,5 +135,28 @@ public class UniqueTutorialList {
             throw new InvalidTutorialException();
         }
         return tutorialMatch;
+    }
+  
+    /** 
+     * Adds an AssessmentResult corresponding to {@code assessment} to every tutorial in the list.
+     * Note: listeners to UniqueTutorialList will not know of this change.
+     */
+    public void addAssessment(Assessment assessment) {
+        requireNonNull(assessment);
+        AssessmentName name = assessment.getAssessmentName();
+        for (int i = 0; i < internalList.size(); i++) {
+            internalList.get(i).addAssessmentResults(new AssessmentResults(name));
+        }
+    }
+
+    /**
+     * Removes the AssessmentResult with the given name from every tutorial in the list.
+     * Note: listeners to UniqueTutorialList will not know of this change.
+     */
+    public void removeAssessmentByName(AssessmentName name) {
+        requireNonNull(name);
+        for (int i = 0; i < internalList.size(); i++) {
+            internalList.get(i).removeAssessmentResultsByName(name);
+        }
     }
 }
