@@ -38,4 +38,13 @@ public class UniqueStudentsInTutorialList {
                 && ((Student) x).isInTutorial(tutName);
         return new FilteredList<Person>(allStudents, predicateShowStudentsInTutorial);
     }
+
+    /**
+     * Returns true if the list contains person with an equivalent student name as the argument,
+     * uses {@code Person#isSamePerson(Person)}
+     */
+    public boolean containsStudent(Student student) {
+        return studentsInClass.stream()
+                .anyMatch(x -> x.isSamePerson(student));
+    }
 }
