@@ -15,8 +15,7 @@ public class AssessmentCard extends UiPart<Region> {
     private static final String FULL_MARK_KEYWORD = "Full marks: ";
 
     public final Assessment assessment;
-    
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
     @FXML
     private Label name;
@@ -25,7 +24,7 @@ public class AssessmentCard extends UiPart<Region> {
     @FXML
     private Label weightage;
     @FXML
-    private Label full_mark;
+    private Label fullMark;
 
     /**
      * Creates a {@code AssessmentCard} with the given {@code Assessment} and index to display.
@@ -36,7 +35,7 @@ public class AssessmentCard extends UiPart<Region> {
         id.setText(index + ". ");
         name.setText(assessment.getAssessmentName().name);
         weightage.setText(WEIGHTAGE_KEYWORD + assessment.getWeightage().toString());
-        full_mark.setText(FULL_MARK_KEYWORD + assessment.getFullMark().toString());
+        fullMark.setText(FULL_MARK_KEYWORD + assessment.getFullMark().toString());
     }
 
     @Override

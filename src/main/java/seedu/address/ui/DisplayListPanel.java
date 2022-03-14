@@ -48,7 +48,7 @@ public class DisplayListPanel extends UiPart<Region> {
                 setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
             } else if (item.getDisplayType() == DisplayType.CLASS) {
                 setGraphic(new TutorialCard((Tutorial) item, getIndex() + 1).getRoot());
-            } else if(item.getDisplayType() == DisplayType.ASSESSMENT) {
+            } else if (item.getDisplayType() == DisplayType.ASSESSMENT) {
                 setGraphic(new AssessmentCard((Assessment) item, getIndex() + 1).getRoot());
             } else {
                 setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());

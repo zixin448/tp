@@ -27,7 +27,7 @@
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <Label fx:id="weightage" styleClass="cell_small_label" text="\$weightage" />
-            <Label fx:id="full_mark" styleClass="cell_small_label" text="\$full_mark" />
+            <Label fx:id="fullMark" styleClass="cell_small_label" text="\$full mark" />
         </VBox>
     </GridPane>
 </HBox>
