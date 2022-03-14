@@ -7,10 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TUTORIALS;
 
-import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 
 public class AddClassCommand extends Command {
@@ -45,7 +43,7 @@ public class AddClassCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        toAdd.setStudentsList(model.getStudentList());
+        toAdd.setStudentsList(model.getAllStudentsList());
         toAdd.setAssessmentResultsList(model.getAssessmentList());
 
         if (model.hasTutorial(toAdd)) {

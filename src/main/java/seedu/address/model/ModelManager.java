@@ -31,15 +31,19 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Tutorial> filteredTutorials;
+    private final FilteredList<Assessment> filteredAssessments;
 
     /**
      * A list containing all Students in the address book.
-     * Updated automatically when addressBook is updated.
-     * @see FilteredList
-     * @see ObservableList
+     * DO NOT MODIFY (as it is the list that {@link seedu.address.model.person.UniqueStudentsInTutorialList}
+     * listens to).
      */
     private final FilteredList<Person> allStudents;
-    private final FilteredList<Tutorial> allTutorials;
+    /**
+     * Used for the GUI display.
+     * Can modify if needed.
+     */
+    private final FilteredList<Person> filteredStudents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -53,9 +57,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTutorials = new FilteredList<>(this.addressBook.getTutorialList());
+        filteredAssessments =  new FilteredList<>(this.addressBook.getAssessmentList());
+
         allStudents = new FilteredList<>(this.addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS);
-        allTutorials = new FilteredList<>(this.addressBook.getTutorialList(),
-                PREDICATE_SHOW_ALL_TUTORIALS);
+        filteredStudents = new FilteredList<>(allStudents);
 
     }
 
@@ -149,11 +154,22 @@ public class ModelManager implements Model {
     //=========== Assessments =============================================================
     /**
      * Returns an unmodifiable view of the list of {@code Assessment} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code AddressBook}
      */
     @Override
     public ObservableList<Assessment> getAssessmentList() {
         return addressBook.getAssessmentList();
+    }
+
+    @Override
+    public ObservableList<Assessment> getFilteredAssessmentList() {
+        return filteredAssessments;
+    }
+
+    @Override
+    public void updateFilteredAssessmentList(Predicate<Assessment> predicate) {
+        requireNonNull(predicate);
+        filteredAssessments.setPredicate(predicate);
     }
 
     @Override
@@ -180,7 +196,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Tutorial} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code AddressBook}
      */
     @Override
     public ObservableList<Tutorial> getFilteredTutorialList() {
@@ -225,7 +241,6 @@ public class ModelManager implements Model {
         return addressBook.hasStudent(student);
     }
 
-
     @Override
     public void addStudent(Student student) {
         requireNonNull(student);
@@ -233,21 +248,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public FilteredList<Person> getStudentList() {
+    public FilteredList<Person> getAllStudentsList() {
         return allStudents;
     }
 
     @Override
-    public void updateStudentList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        allStudents.setPredicate(predicate);
+    public FilteredList<Person> getFilteredStudentList() {
+        return filteredStudents;
     }
 
+    @Override
+    public void updateFilteredStudentList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredStudents.setPredicate(predicate);
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code AddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
