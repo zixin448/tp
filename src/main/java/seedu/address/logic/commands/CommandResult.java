@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.DisplayType;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
@@ -12,7 +14,7 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /** Display list of class instead of list of persons. */
-    private final boolean isClass;
+    private final DisplayType displayType;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -23,11 +25,11 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isClass) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, DisplayType displayType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.isClass = isClass;
+        this.displayType = displayType;
     }
 
     /**
@@ -35,7 +37,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, DisplayType.PERSON);
     }
 
     /**
@@ -46,7 +48,7 @@ public class CommandResult {
      * @return the result of the command execution
      */
     public static CommandResult createClassCommandResult(String feedbackToUser) {
-        return new CommandResult(feedbackToUser, false, false, true);
+        return new CommandResult(feedbackToUser, false, false, DisplayType.CLASS);
     }
 
     public String getFeedbackToUser() {
@@ -61,8 +63,8 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isClass() {
-        return isClass;
+    public DisplayType getDisplayType() {
+        return displayType;
     }
 
     @Override

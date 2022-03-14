@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
 import seedu.address.model.tag.Tag;
 
@@ -17,6 +18,7 @@ import seedu.address.model.tag.Tag;
 public class Person implements Displayable {
 
     // Identity fields
+    private static final DisplayType displayType = DisplayType.PERSON;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -51,6 +53,11 @@ public class Person implements Displayable {
 
     public Address getAddress() {
         return address;
+    }
+
+    @Override
+    public DisplayType getDisplayType() {
+        return displayType;
     }
 
     /**

@@ -1,5 +1,8 @@
 package seedu.address.model.assessment;
 
+import seedu.address.model.DisplayType;
+import seedu.address.model.Displayable;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -8,8 +11,9 @@ import java.util.Objects;
  * Represents an Assessment for all the tutorials in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Assessment {
+public class Assessment implements Displayable {
     // Identity fields
+    private static final DisplayType displayType = DisplayType.ASSESSMENT;
     private final AssessmentName name;
 
     // Data fields
@@ -36,6 +40,11 @@ public class Assessment {
 
     public FullMark getFullMark() {
         return fullMark;
+    }
+
+    @Override
+    public DisplayType getDisplayType() {
+        return displayType;
     }
 
     /**
@@ -66,6 +75,7 @@ public class Assessment {
                 .append(getFullMark());
         return stringBuilder.toString();
     }
+
     /**
      * Returns true if both assessments have the same identity and data fields.
      * Defines a stronger notion of equality between 2 assessments.

@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DisplayType;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -126,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the students
+     * Displays only list of class on main window.
      */
     void handleClass() {
         displayListPanel = new DisplayListPanel(logic.getFilteredTutorialList());
@@ -134,12 +135,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the students
+     * Displays only list of persons on main window.
      */
     void handlePerson() {
         displayListPanel = new DisplayListPanel(logic.getFilteredPersonList());
         displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
+
+    /**
+     * Displays only list of persons on main window.
+     */
+    void handleStudent() {
+        displayListPanel = new DisplayListPanel(logic.getFilteredStudentList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -201,10 +211,18 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isClass()) {
-                handleClass();
-            } else {
-                handlePerson();
+            switch(commandResult.getDisplayType()) {
+                case CLASS:
+                    handleClass();
+                    break;
+                case STUDENT:
+                    handleStudent();
+                    break;
+                case PERSON:
+                    handlePerson();
+                    break;
+                case ASSESSMENT:
+                    break;
             }
 
             return commandResult;
