@@ -1,6 +1,6 @@
 # Project: camNUS
 
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S2-CS2103T-W13-2/tp/actions) 
+[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S2-CS2103T-W13-2/tp/actions)
 [![codecov](https://codecov.io/gh/AY2122S2-CS2103T-W13-2/tp/branch/master/graph/badge.svg?token=6C0U9C1K7K)](https://codecov.io/gh/AY2122S2-CS2103T-W13-2/tp)
 
 ![Ui](docs/images/Ui.png)

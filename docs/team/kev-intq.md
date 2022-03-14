@@ -11,7 +11,7 @@ Given below are my contributions to the project.
 * **New Feature**:
   * to be added soon
 
-* **Code contributed**: 
+* **Code contributed**:
   * to be added soon
 
 * **Project management**:

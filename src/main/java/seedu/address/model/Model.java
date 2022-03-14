@@ -18,6 +18,9 @@ import seedu.address.model.tutorial.Tutorial;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
+    Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
+    Predicate<Tutorial> PREDICATE_HIDE_ALL_TUTORIALS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

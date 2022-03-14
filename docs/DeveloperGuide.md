@@ -10,8 +10,8 @@ title: Developer Guide
 
 ### **Purpose**
 
-This document specifies architecture and software design decisions for the application, CamNUS. 
-CamNUS (Continuous Assessment Manager NUS) is an application for Teaching Assistants to manage their classes and keep 
+This document specifies architecture and software design decisions for the application, CamNUS.
+CamNUS (Continuous Assessment Manager NUS) is an application for Teaching Assistants to manage their classes and keep
 track of the graded components of a module such as class participation, assignments and exams.
 
 ### **Scope**
@@ -412,11 +412,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 2.
 * 3b. No fields are provided.
   * 3b1. camNUS shows an error message.
-    
+
     Use case resumes at step 2.
 * 3c. No value is provided for a field that is not tags.
   * 3c1. camNUS shows an error message.
-    
+
     Use case resumes at step 2.
 * 4a. The user enters values for tags.
   * 4a1. Existing tags are removed and inputted tags are added to the person.

@@ -9,10 +9,10 @@ camNUS is a desktop app for Teaching Assistants (TAs) to manage assessments and 
 
 Given below are my contributions to the project.
 
-* **New Feature**: 
+* **New Feature**:
   * to be added soon
 
-* **Code contributed**: 
+* **Code contributed**:
   * to be added soon
 
 * **Project management**:
