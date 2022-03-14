@@ -136,8 +136,8 @@ public class UniqueTutorialList {
         }
         return tutorialMatch;
     }
-  
-    /** 
+
+    /**
      * Adds an AssessmentResult corresponding to {@code assessment} to every tutorial in the list.
      * Note: listeners to UniqueTutorialList will not know of this change.
      */

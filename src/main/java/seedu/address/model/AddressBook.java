@@ -137,6 +137,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public Person getPersonWithName(Name name) {
         return persons.get(name);
+    }
 
     //// assessment-level operations
     /**
