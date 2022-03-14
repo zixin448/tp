@@ -42,13 +42,24 @@ public class CommandResult {
 
     /**
      * Constructs and returns a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and {@code isClass} and other fields set to their default value.
+     * and other fields set to their default value for class related commands.
      *
      * @param feedbackToUser feedback given to user for the result displayed
      * @return the result of the command execution
      */
     public static CommandResult createClassCommandResult(String feedbackToUser) {
         return new CommandResult(feedbackToUser, false, false, DisplayType.CLASS);
+    }
+
+    /**
+     * Constructs and returns a {@code CommandResult} with the specified {@code feedbackToUser}
+     * and other fields set to their default value for student related commands.
+     *
+     * @param feedbackToUser feedback given to user for the result displayed
+     * @return the result of the command execution
+     */
+    public static CommandResult createStudentCommandResult(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, DisplayType.STUDENT);
     }
 
     public String getFeedbackToUser() {
