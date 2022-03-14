@@ -138,6 +138,18 @@ public class HelpWindow extends UiPart<Stage> {
         commandDisplay.addCommandDisplay(displayPane);
     }
 
+    /**
+     * Shows the command tab in the help window, and performs a keyword search for the specified command.
+     * @param word The command word to be searched.
+     */
+    public void showCommandsForWord(String word) {
+        commandButton.setSelected(true);
+        displayPane.getChildren().clear();
+        HelpCommandDisplay commandDisplay = new HelpCommandDisplay();
+        commandDisplay.addCommandDisplay(displayPane);
+        commandDisplay.identifyHelpList(word);
+    }
+
     @FXML
     private void showIntro() {
         displayPane.getChildren().clear();

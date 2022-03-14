@@ -17,6 +17,9 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    /** Help for specific command word to be shown to the user in a separate window. */
+    private String showHelpCommandWord;
+
     /** The application should exit. */
     private final boolean exit;
 
@@ -28,6 +31,18 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.isClass = isClass;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields including a help command word inquiry.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean isClass, String commandWordInquiry) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.isClass = isClass;
+        this.showHelpCommandWord = commandWordInquiry;
     }
 
     /**
@@ -53,8 +68,16 @@ public class CommandResult {
         return feedbackToUser;
     }
 
+    public String getInquiry() {
+        return showHelpCommandWord;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isInquiry() {
+        return !showHelpCommandWord.equals("DEFAULT");
     }
 
     public boolean isExit() {

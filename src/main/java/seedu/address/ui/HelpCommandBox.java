@@ -17,10 +17,10 @@ public class HelpCommandBox extends UiPart<Region> {
     /**
      * Constructor for a titled pane containing the description of a command.
      */
-    public HelpCommandBox() {
+    public HelpCommandBox(String title, String description) {
         super(FXML);
-        title.setText("testtitle");
-        description.setText("testdescription");
+        this.title.setText(title);
+        this.description.setText(description);
     }
 
     public TitledPane getBox() {

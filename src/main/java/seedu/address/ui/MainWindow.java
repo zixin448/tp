@@ -165,6 +165,15 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the help window or focuses on it if it's already opened, and performs a keyword search for the
+     * specified command.
+     */
+    public void handleHelpWithInquiry(String inquiryWord) {
+        handleHelp();
+        helpWindow.showCommandsForWord(inquiryWord);
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -192,6 +201,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHelp() && commandResult.isInquiry()) {
+                handleHelpWithInquiry(commandResult.getInquiry());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

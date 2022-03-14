@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +14,19 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import seedu.address.logic.commands.AddClassCommand;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddStudentCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteAssessmentCommand;
+import seedu.address.logic.commands.DeleteClassCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListClassCommand;
+import seedu.address.logic.commands.ListCommand;
 
 public class HelpWindowMessages {
     private static final String defaultFont = "System";
@@ -30,6 +44,37 @@ public class HelpWindowMessages {
         text.setUnderline(true);
         text.setFill(Color.WHITE);
         return text;
+    }
+
+    public static ArrayList<String> getHelpCommandDisplayList() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(AddCommand.COMMAND_WORD);
+        list.add(AddCommand.MESSAGE_USAGE);
+        list.add(AddStudentCommand.COMMAND_WORD);
+        list.add(AddStudentCommand.MESSAGE_USAGE);
+        list.add(AddClassCommand.COMMAND_WORD);
+        list.add(AddClassCommand.MESSAGE_USAGE);
+        list.add(DeleteCommand.COMMAND_WORD);
+        list.add(DeleteCommand.MESSAGE_USAGE);
+        list.add(DeleteClassCommand.COMMAND_WORD);
+        list.add(DeleteClassCommand.MESSAGE_USAGE);
+        list.add(DeleteAssessmentCommand.COMMAND_WORD);
+        list.add(DeleteAssessmentCommand.MESSAGE_USAGE);
+        list.add(EditCommand.COMMAND_WORD);
+        list.add(EditCommand.MESSAGE_USAGE);
+        list.add(ListCommand.COMMAND_WORD);
+        list.add("list: Lists all the people in the app");
+        list.add(ListClassCommand.COMMAND_WORD);
+        list.add("list_class: Lists all the classes in the app");
+        list.add(FindCommand.COMMAND_WORD);
+        list.add(FindCommand.MESSAGE_USAGE);
+        list.add(HelpCommand.COMMAND_WORD);
+        list.add(HelpCommand.MESSAGE_USAGE);
+        list.add(ClearCommand.COMMAND_WORD);
+        list.add("clear: Clears all data in the app");
+        list.add(ExitCommand.COMMAND_WORD);
+        list.add("exit: Closes the application");
+        return list;
     }
 
     /**
