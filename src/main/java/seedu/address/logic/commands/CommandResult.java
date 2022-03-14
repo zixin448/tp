@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.DisplayType;
+
 /**
  * Represents the result of a command execution.
  */
@@ -12,7 +14,7 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /** Display list of class instead of list of persons. */
-    private final boolean isClass;
+    private final DisplayType displayType;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -26,22 +28,22 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isClass) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, DisplayType displayType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.isClass = isClass;
+        this.displayType = displayType;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields including a help command word inquiry.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean isClass, String commandWordInquiry) {
+                         DisplayType displayType, String commandWordInquiry) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.isClass = isClass;
+        this.displayType = displayType;
         this.showHelpCommandWord = commandWordInquiry;
     }
 
@@ -50,18 +52,29 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, DisplayType.PERSON);
     }
 
     /**
      * Constructs and returns a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and {@code isClass} and other fields set to their default value.
+     * and other fields set to their default value for class related commands.
      *
      * @param feedbackToUser feedback given to user for the result displayed
      * @return the result of the command execution
      */
     public static CommandResult createClassCommandResult(String feedbackToUser) {
-        return new CommandResult(feedbackToUser, false, false, true);
+        return new CommandResult(feedbackToUser, false, false, DisplayType.CLASS);
+    }
+
+    /**
+     * Constructs and returns a {@code CommandResult} with the specified {@code feedbackToUser}
+     * and other fields set to their default value for student related commands.
+     *
+     * @param feedbackToUser feedback given to user for the result displayed
+     * @return the result of the command execution
+     */
+    public static CommandResult createStudentCommandResult(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, DisplayType.STUDENT);
     }
 
     public String getFeedbackToUser() {
@@ -84,8 +97,8 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isClass() {
-        return isClass;
+    public DisplayType getDisplayType() {
+        return displayType;
     }
 
     @Override
