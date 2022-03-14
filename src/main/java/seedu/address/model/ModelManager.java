@@ -35,8 +35,6 @@ public class ModelManager implements Model {
     /**
      * A list containing all Students in the address book.
      * Updated automatically when addressBook is updated.
-     * TODO: add methods for allStudents if needed.
-     *
      * @see FilteredList
      * @see ObservableList
      */
@@ -235,7 +233,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Person> getStudentList() {
+    public FilteredList<Person> getStudentList() {
         return allStudents;
     }
 

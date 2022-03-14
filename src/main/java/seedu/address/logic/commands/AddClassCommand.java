@@ -45,7 +45,7 @@ public class AddClassCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        toAdd.setStudentsList((FilteredList<Person>) model.getFilteredPersonList());
+        toAdd.setStudentsList(model.getStudentList());
         toAdd.setAssessmentResultsList(model.getAssessmentList());
 
         if (model.hasTutorial(toAdd)) {
