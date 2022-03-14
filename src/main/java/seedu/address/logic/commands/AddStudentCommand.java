@@ -82,6 +82,6 @@ public class AddStudentCommand extends Command {
         }
 
         model.addStudent(toAdd);
-        return new CommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));
+        return CommandResult.createStudentCommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));
     }
 }

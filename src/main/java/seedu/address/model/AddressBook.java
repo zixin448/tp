@@ -127,7 +127,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPersonWithName(Name name) {
         requireNonNull(name);
-        return persons.checkExist(name);
+        return persons.hasPersonWithName(name);
     }
 
     /**
