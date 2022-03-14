@@ -11,7 +11,7 @@ import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.tutorial.exceptions.DuplicateTutorialException;
-//import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
+import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
 import seedu.address.model.tutorial.exceptions.TutorialNotFoundException;
 
 /**
@@ -110,6 +110,31 @@ public class UniqueTutorialList {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns true if the list contains tutorial with an equivalent tutorial name as the argument,
+     * uses {@code Tutorial#isSameTutorialName(TutorialName)}
+     */
+    public boolean containsName(TutorialName toCheckName) {
+        requireNonNull(toCheckName);
+        return internalList.stream().anyMatch(x -> x.isSameTutorialName(toCheckName));
+    }
+
+    /**
+     * Runs through the contents of this list to find the tutorial with
+     * tutorial name matching given {@code tutorialName}.
+     */
+    public Tutorial getTutorialMatch(TutorialName tutorialName) {
+        Tutorial tutorialMatch = internalList.stream()
+                .filter(tutorial -> tutorialName.equals(tutorial.getTutorialName()))
+                .findAny()
+                .orElse(null);
+
+        if (tutorialMatch == null) {
+            throw new InvalidTutorialException();
+        }
+        return tutorialMatch;
     }
 
     /**
