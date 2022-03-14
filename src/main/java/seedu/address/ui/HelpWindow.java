@@ -22,7 +22,7 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
-    private static final String FXML = "HelpWindow2.fxml";
+    private static final String FXML = "HelpWindow.fxml";
 
     @FXML
     private RadioButton introButton;
