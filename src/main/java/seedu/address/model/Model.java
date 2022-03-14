@@ -20,10 +20,8 @@ import seedu.address.model.tutorial.Tutorial;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
     Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
-    Predicate<Tutorial> PREDICATE_HIDE_ALL_TUTORIALS = unused -> false;
-    Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK = Student::isStudent;
+    Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS = Student::isStudent;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -168,14 +166,14 @@ public interface Model {
 
 
     /** Returns an unmodifiable view of the filtered student list */
-    ObservableList<Person> getFilteredPersonStudentList();
+    ObservableList<Person> getStudentList();
 
 
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonStudentList(Predicate<Person> predicate);
+    void updateStudentList(Predicate<Person> predicate);
 
     /**
      *  Returns true if a student with the same identity as {@code student}
