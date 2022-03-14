@@ -11,6 +11,9 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    /** Display list of class instead of list of persons. */
+    private final boolean isClass;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -20,10 +23,11 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isClass) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.isClass = isClass;
     }
 
     /**
@@ -31,7 +35,18 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
+    }
+
+    /**
+     * Constructs and returns a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and {@code isClass} and other fields set to their default value.
+     *
+     * @param feedbackToUser feedback given to user for the result displayed
+     * @return the result of the command execution
+     */
+    public static CommandResult createClassCommandResult(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, true);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +59,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isClass() {
+        return isClass;
     }
 
     @Override

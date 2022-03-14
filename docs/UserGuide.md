@@ -92,45 +92,45 @@ A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` 
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-#### Adding a class: `add class`
+#### Adding a class: `add_class`
 
 Adds a class to the module.
 
-Format: `add class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME`
+Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME`
 * `DAY` should be spelt in full or 3-letter abbreviation
 * `TIME` will be in 1 hour block
 
 Examples:
-* `add class tn/T04 v/LT13 d/Monday tm/1300`
-* `add class tn/G04 v/E-LEARNING d/Wed tm/1000`
+* `add_class tn/T04 v/LT13 d/Monday tm/1300`
+* `add_class tn/G04 v/E-LEARNING d/Wed tm/1000`
 
-#### Adding student to a class: `add student`
+#### Adding student to a class: `add_student`
 
 Adds a specified student to a given class.
 
-Format: `add student INDEX id/STUDENT_ID tn/TUTORIAL_NAME`
+Format: `add_student INDEX id/STUDENT_ID tn/TUTORIAL_NAME`
 
 * Adds the person at the specified `INDEX` as a student belonging to a specified class.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `add student 1 id/e01234567 tn/T13`
+* `add_student 1 id/e01234567 tn/T13`
 
-#### Adding an assessment component: `add assessment`
+#### Adding an assessment component: `add_assessment`
 
 Adds an assessment component to the module.
 
-Format: `add assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL_MARKS`
-* `WEIGHTAGE` is out of 100%. 
+Format: `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL_MARKS`
+* `WEIGHTAGE` is out of 100%.
 * `FULL_MARKS` is the full marks of the assessment.
 
 Examples:
-* `add assessment as/Attendance w/5 f/1`
-* `add assessment as/Assignment 1 w/10 f/10`
+* `add_assessment as/Attendance w/5 f/1`
+* `add_assessment as/Assignment 1 w/10 f/10`
 
 ### Listing Commands
 
@@ -140,32 +140,32 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
-#### Listing all classes: `list class`
+#### Listing all classes: `list_class`
 
 Shows a list of all the classes on the any input date.
 
 Formats:
 
-* `list class`
-* `list class [dt/DATE] [d/DAY]`
-* `DAY`/`DATE` is optional 
-* `DATE` input should be in `DD/MM/YYYY` format 
+* `list_class`
+* `list_class [dt/DATE] [d/DAY]`
+* `DAY`/`DATE` is optional
+* `DATE` input should be in `DD/MM/YYYY` format
 * `DAY` should be spelt in full or 3-letter abbreviation
 
 Examples:
 
-* `list class`
-![result for `list class`](images/listClassResult.png)
-* `list class dt/20/02/2022`
-* `list class d/Wed`
+* `list_class`
+![result for `list_class`](images/listClassResult.png)
+* `list_class dt/20/02/2022`
+* `list_class d/Wed`
 
-#### Listing students of a class: `list student`
+#### Listing students of a class: `list_student`
 
 Shows a list of all the students of a specified class.
 
 Format:
 
-* `list student INDEX [tn/TUTORIAL_NAME]`
+* `list_student INDEX [tn/TUTORIAL_NAME]`
 * `TUTORIAL_NAME` is optional if `INDEX` is given.
 * Shows list of student belonging to the class at the specified `INDEX`.
 * Shows list of student belonging to the class with the specified `TUTORIAL_NAME`.
@@ -174,9 +174,9 @@ Format:
 
 Examples:
 
-* `list student tn/G04`
-* `list student 1`
-  ![result for `list student 1`](images/listStudentResult.png)
+* `list_student tn/G04`
+* `list_student 1`
+  ![result for `list_student 1`](images/listStudentResult.png)
 
 ### Editing a person : `edit`
 
@@ -232,12 +232,12 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-#### Deleting a class : `delete class`
+#### Deleting a class : `delete_class`
 
 Removes a class from the module
 
-Format: 
-* `delete class INDEX [tn/TUTORIAL_NAME]`
+Format:
+* `delete_class INDEX [tn/TUTORIAL_NAME]`
 * `TUTORIAL_NAME` is optional if `INDEX` is given.
 * Deletes the class at the specified `INDEX`.
 * Deletes the class with the specified `TUTORIAL_NAME`.
@@ -246,16 +246,16 @@ Format:
 
 Examples:
 
-* `delete class 1`
-* `delete class tn/G04`
+* `delete_class 1`
+* `delete_class tn/G04`
 
-#### Removing a student  : `remove student`
+#### Removing a student  : `remove_student`
 
 Removes a student from a given class, but does not remove their contact from the address book.
 
-Format: 
-* `remove student i/INDEX tn/TUTORIAL_NAME`.
-* `remove student id/STUDENT_ID tn/TUTORIAL_NAME`.
+Format:
+* `remove_student i/INDEX tn/TUTORIAL_NAME`.
+* `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
 * Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
 * The `INDEX` refers to the index number shown in the displayed list of student in the class.
 * The `STUDENT_ID` refers to the student_id of a particular student.
@@ -263,21 +263,21 @@ Format:
 
 Examples:
 
-* `remove student i/1 tn/G04`
-* `remove student id/e0123456 tn/G04`
+* `remove_student i/1 tn/G04`
+* `remove_student id/e0123456 tn/G04`
 
-#### Deleting an assessment component: `delete assessment`
+#### Deleting an assessment component: `delete_assessment`
 
 Deletes an assessment component from the module, removing all information about the assessment from the students taking the module.
 
-Format: `delete assessment as/ASSESSMENT_NAME`
+Format: `delete_assessment as/ASSESSMENT_NAME`
 
 * Deletes the assessment with the specified `ASSESSMENT_NAME`.
 
 Examples:
 
-* `delete assessment as/Attendance`
-* `delete assessment as/Assignment 1`
+* `delete_assessment as/Attendance`
+* `delete_assessment as/Assignment 1`
 
 ### Clearing all entries : `clear`
 
