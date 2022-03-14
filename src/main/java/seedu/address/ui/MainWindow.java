@@ -126,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the students
+     * Displays only list of class on main window.
      */
     void handleClass() {
         displayListPanel = new DisplayListPanel(logic.getFilteredTutorialList());
@@ -134,12 +134,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the students
+     * Displays only list of persons on main window.
      */
     void handlePerson() {
         displayListPanel = new DisplayListPanel(logic.getFilteredPersonList());
         displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
+
+    /**
+     * Displays only list of persons on main window.
+     */
+    void handleStudent() {
+        displayListPanel = new DisplayListPanel(logic.getFilteredPersonList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -201,10 +210,18 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isClass()) {
+            switch(commandResult.getDisplayType()) {
+            case CLASS:
                 handleClass();
-            } else {
+                break;
+            case STUDENT:
+                handleStudent();
+                break;
+            case PERSON:
                 handlePerson();
+                break;
+            default:
+                break;
             }
 
             return commandResult;

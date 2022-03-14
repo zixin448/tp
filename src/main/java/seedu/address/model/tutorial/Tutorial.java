@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
@@ -23,6 +24,8 @@ import seedu.address.model.person.UniqueStudentsInTutorialList;
  */
 public class Tutorial implements Displayable {
     // Identity fields
+    private static final DisplayType displayType = DisplayType.CLASS;
+
     private final TutorialName tutorialName;
     private final Day day;
     private final Time time;
@@ -143,6 +146,11 @@ public class Tutorial implements Displayable {
      */
     public boolean contains(Student student) {
         return studentsList.containsStudent(student);
+    }
+
+    @Override
+    public DisplayType getDisplayType() {
+        return displayType;
     }
 
     /**

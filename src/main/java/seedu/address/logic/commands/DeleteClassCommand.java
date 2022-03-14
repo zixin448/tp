@@ -69,7 +69,8 @@ public class DeleteClassCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_TUTORIAL);
         } else {
             model.deleteTutorial(tutorialToDelete);
-            return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
+            return CommandResult.createClassCommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS,
+                    tutorialToDelete));
         }
     }
 

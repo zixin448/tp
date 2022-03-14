@@ -9,6 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
 import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
@@ -21,7 +22,7 @@ public class DisplayListPanel extends UiPart<Region> {
     private ListView<Displayable> displayListView;
 
     /**
-     * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * Creates a {@code DisplayListPanel} with the given {@code ObservableList}.
      */
     public DisplayListPanel(ObservableList<? extends Displayable> displayList) {
         super(FXML);
@@ -42,10 +43,12 @@ public class DisplayListPanel extends UiPart<Region> {
             if (empty || item == null) {
                 setGraphic(null);
                 setText(null);
-            } else if (item instanceof Person) {
+            } else if (item.getDisplayType() == DisplayType.PERSON) {
                 setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
-            } else {
+            } else if (item.getDisplayType() == DisplayType.CLASS) {
                 setGraphic(new TutorialCard((Tutorial) item, getIndex() + 1).getRoot());
+            } else {
+                setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
             }
         }
     }

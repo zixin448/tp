@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.DisplayType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tutorial.TutorialName;
 
@@ -15,6 +16,7 @@ import seedu.address.model.tutorial.TutorialName;
  */
 public class Student extends Person {
     // Identity fields
+    private static final DisplayType displayType = DisplayType.STUDENT;
     private final NusNetId nusNetId;
     private final TutorialName tutName;
 
@@ -54,6 +56,11 @@ public class Student extends Person {
 
     public TutorialName getTutorialName() {
         return tutName;
+    }
+
+    @Override
+    public DisplayType getDisplayType() {
+        return displayType;
     }
 
     @Override

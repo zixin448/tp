@@ -23,6 +23,7 @@ public interface Model {
     Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
     Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
     Predicate<Tutorial> PREDICATE_HIDE_ALL_TUTORIALS = unused -> false;
+    Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK = Student::isStudent;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
