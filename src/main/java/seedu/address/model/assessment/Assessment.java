@@ -1,12 +1,11 @@
 package seedu.address.model.assessment;
 
-import seedu.address.model.DisplayType;
-import seedu.address.model.Displayable;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.DisplayType;
+import seedu.address.model.Displayable;
 /**
  * Represents an Assessment for all the tutorials in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.

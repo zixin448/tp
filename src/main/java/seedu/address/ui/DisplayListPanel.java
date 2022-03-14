@@ -14,8 +14,6 @@ import seedu.address.model.Displayable;
 import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 
-import static java.util.Objects.requireNonNull;
-
 public class DisplayListPanel extends UiPart<Region> {
     private static final String FXML = "DisplayListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(DisplayListPanel.class);
@@ -47,8 +45,10 @@ public class DisplayListPanel extends UiPart<Region> {
                 setText(null);
             } else if (item.getDisplayType() == DisplayType.PERSON) {
                 setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
-            } else if (item.getDisplayType() == DisplayType.CLASS){
+            } else if (item.getDisplayType() == DisplayType.CLASS) {
                 setGraphic(new TutorialCard((Tutorial) item, getIndex() + 1).getRoot());
+            } else {
+                setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
             }
         }
     }

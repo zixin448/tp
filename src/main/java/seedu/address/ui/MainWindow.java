@@ -16,7 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.DisplayType;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -212,17 +211,17 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             switch(commandResult.getDisplayType()) {
-                case CLASS:
-                    handleClass();
-                    break;
-                case STUDENT:
-                    handleStudent();
-                    break;
-                case PERSON:
-                    handlePerson();
-                    break;
-                case ASSESSMENT:
-                    break;
+            case CLASS:
+                handleClass();
+                break;
+            case STUDENT:
+                handleStudent();
+                break;
+            case PERSON:
+                handlePerson();
+                break;
+            default:
+                break;
             }
 
             return commandResult;
