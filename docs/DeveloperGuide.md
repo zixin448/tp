@@ -6,7 +6,29 @@ title: Developer Guide
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+## **Introduction**
 
+### **Purpose**
+
+This document specifies architecture and software design decisions for the application, CamNUS.
+CamNUS (Continuous Assessment Manager NUS) is an application for Teaching Assistants to manage their classes and keep
+track of the graded components of a module such as class participation, assignments and exams.
+
+### **Scope**
+
+This describes the software architecture and software design decisions for the implementation
+of CamNUS. The intended audience of this document is the developers, designers, and
+software testers of CamNUS.
+
+### **Design Goals**
+
+#### **Maintainability**
+
+With a team of developers working on a project, it is important that developers are able to change one
+component of the project without needing to change many components that other developers
+may be working on.
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Acknowledgements**
 
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
@@ -282,33 +304,35 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | 2   | `*`      | beginner user                                       | see sample classes on my list                                                                                                  | try out the features without adding my own classes first.                                                            |
 | 3   | `***`    | forgetful beginner user                             | see a help manual with the list of commands available                                                                          | refer to them to use the command I need.                                                                             |
 | 4   | `***`    | beginner user                                       | add classes to the list                                                                                                        | have an organized list of classes under my charge.                                                                   |
-| 5   | `***`    | beginner user                                       | add the contacts of my students to their respective classes                                                                    | have a list of the students in each of my classes.                                                                   |
-| 6   | `***`    | beginner user                                       | edit the details of each student in a particular class                                                                         | quickly update or correct the student’s details.                                                                     |
-| 7   | `***`    | beginner user                                       | search for and view each student’s contact based on their name                                                                 | easily contact them when needed.                                                                                     |
-| 8   | `***`    | beginner user                                       | view the list of the classes added with their basic information                                                                | refer to the classes that I am in charge of.                                                                         |
-| 9   | `***`    | beginner user                                       | view class details and statistics                                                                                              | manage my class                                                                                                      |
-| 10  | `***`    | beginner user                                       | remove any contact from a class or a module                                                                                    |                                                                                                                      |
-| 11  | `***`    | beginner user                                       | add the module’s assessment components and their details (e.g. type, scale, deadline, etc.)                                    | keep track of my students’ performance for each component.                                                           |
-| 12  | `*`      | beginner user                                       | view a student’s performance in the assessment components                                                                      | know how the student has performed in the components.                                                                |
-| 13  | `*`      | beginner user                                       | delete an assessment component                                                                                                 | remove irrelevant assessment components                                                                              |
-| 14  | `*`      | beginner user                                       | edit the details of an assessment component such as weightage                                                                  | quickly update or correct the information about the component.                                                       |
-| 15  | `*`      | beginner user                                       | make notes relevant to a particular student.                                                                                   | keep track of any miscellaneous information about the student.                                                       |
-| 16  | `*`      | expert user                                         | create shortcuts to classes                                                                                                    | save time on frequently visited classes.                                                                             |
-| 17  | `*`      | expert user                                         | mark attendance for multiple students at once                                                                                  | quickly mark the attendance of a group of students.                                                                  |
-| 18  | `*`      | expert user                                         | quickly update a student’s participation score during class                                                                    | save the time spent marking participation after class.                                                               |
-| 19  | `*`      | expert user                                         | view details and statistics of different classes at the same time                                                              | To facilitate comparison of class performance and save time spent on accessing the details of each class one by one. |
-| 20  | `*`      | expert user                                         | create aliases for commands                                                                                                    | save time spent on typing frequently used commands                                                                   |
-| 21  | `*`      | TA                                                  | receive reminder for my upcoming classes when I open the app                                                                   | have an overview of my schedule.                                                                                     |
-| 22  | `*`      | TA                                                  | filter students by assignment completion                                                                                       | send reminders to those who have not submitted.                                                                      |
-| 23  | `*`      | TA                                                  | receive notifications of students who did not attend tutorial                                                                  | proceed with a follow-up action.                                                                                     |
-| 24  | `*`      | TA                                                  | filter students who do not / barely meet minimum attendance rate                                                               | send them a reminder to attend the lessons.                                                                          |
-| 25  | `*`      | TA                                                  | save overall class participation, assignment submission and assignment grades of a particular class in a separate storage file | retrieve each class’s collated statistics to be used in end of semester TA evaluation and reflection.                |
-| 26  | `*`      | TA                                                  | choose a backup file to restore statistics from                                                                                | manage my classes on different computers when traveling.                                                             |
-| 27  | `*`      | TA                                                  | receive reminders for checking of submission of assignments on the assignment due date                                         | consistently update if students have submitted their assignment on time.                                             |
-| 28  | `*`      | TA                                                  | randomly generate a name from a specified class of a module                                                                    | facilitate class participation where TA can call a random student to answer a question.                              |
-| 29  | `*`      | TA                                                  | save to do list for a specific lesson, notes for each lesson will be cleared after one week                                    | facilitate tutoring, so that TA can keep track of important tasks to clear during that week’s lesson.                |
-| 30  | `*`      | TA                                                  | resize the application window                                                                                                  | avoid disruptions of switching between windows and tutorial documents during class.                                  |
-| 31  | `*`      | TA                                                  | group a specified number of students in a class together randomly.                                                             | assign project groups quickly.                                                                                       |
+| 5   | `***`    | beginner user                                       | remove classes from the list of classes                                                                                        | so that I can delete any unavailable classes after the semester have ended                                           |
+| 6   | `***`    | beginner user                                       | add the contacts of my students to their respective classes                                                                    | have a list of the students in each of my classes.                                                                   |
+| 7   | `***`    | beginner user                                       | remove any contact from a class or a module                                                                                    |                                                                                                                      |
+| 8   | `***`    | beginner user                                       | edit the details of each student in a particular class                                                                         | quickly update or correct the student’s details.                                                                     |
+| 9   | `***`    | beginner user                                       | search for and view each student’s contact based on their name                                                                 | easily contact them when needed.                                                                                     |
+| 10  | `***`    | beginner user                                       | view the list of the classes added with their basic information                                                                | refer to the classes that I am in charge of.                                                                         |
+| 11  | `***`    | beginner user                                       | see the list of students in my classes                                                                                         | so that I can keep track which student has been added into my classes.                                               |
+| 12  | `**`     | beginner user                                       | view class details and statistics                                                                                              | manage my class                                                                                                      |
+| 13  | `***`    | beginner user                                       | add the module’s assessment components and their details (e.g. type, scale, deadline, etc.)                                    | keep track of my students’ performance for each component.                                                           |
+| 14  | `***`    | beginner user                                       | delete an assessment component                                                                                                 | remove irrelevant assessment components                                                                              |
+| 15  | `*`      | beginner user                                       | edit the details of an assessment component such as weightage                                                                  | quickly update or correct the information about the component.                                                       |
+| 16  | `**`     | beginner user                                       | view a student’s performance in the assessment components                                                                      | know how the student has performed in the components.                                                                |
+| 17  | `*`      | beginner user                                       | make notes relevant to a particular student.                                                                                   | keep track of any miscellaneous information about the student.                                                       |
+| 18  | `*`      | expert user                                         | create shortcuts to classes                                                                                                    | save time on frequently visited classes.                                                                             |
+| 19  | `*`      | expert user                                         | mark attendance for multiple students at once                                                                                  | quickly mark the attendance of a group of students.                                                                  |
+| 20  | `*`      | expert user                                         | quickly update a student’s participation score during class                                                                    | save the time spent marking participation after class.                                                               |
+| 21  | `*`      | expert user                                         | view details and statistics of different classes at the same time                                                              | To facilitate comparison of class performance and save time spent on accessing the details of each class one by one. |
+| 22  | `*`      | expert user                                         | create aliases for commands                                                                                                    | save time spent on typing frequently used commands                                                                   |
+| 23  | `*`      | TA                                                  | receive reminder for my upcoming classes when I open the app                                                                   | have an overview of my schedule.                                                                                     |
+| 24  | `*`      | TA                                                  | filter students by assignment completion                                                                                       | send reminders to those who have not submitted.                                                                      |
+| 25  | `*`      | TA                                                  | receive notifications of students who did not attend tutorial                                                                  | proceed with a follow-up action.                                                                                     |
+| 26  | `*`      | TA                                                  | filter students who do not / barely meet minimum attendance rate                                                               | send them a reminder to attend the lessons.                                                                          |
+| 27  | `*`      | TA                                                  | save overall class participation, assignment submission and assignment grades of a particular class in a separate storage file | retrieve each class’s collated statistics to be used in end of semester TA evaluation and reflection.                |
+| 28  | `*`      | TA                                                  | choose a backup file to restore statistics from                                                                                | manage my classes on different computers when traveling.                                                             |
+| 29  | `*`      | TA                                                  | receive reminders for checking of submission of assignments on the assignment due date                                         | consistently update if students have submitted their assignment on time.                                             |
+| 30  | `*`      | TA                                                  | randomly generate a name from a specified class of a module                                                                    | facilitate class participation where TA can call a random student to answer a question.                              |
+| 31  | `*`      | TA                                                  | save to do list for a specific lesson, notes for each lesson will be cleared after one week                                    | facilitate tutoring, so that TA can keep track of important tasks to clear during that week’s lesson.                |
+| 32  | `*`      | TA                                                  | resize the application window                                                                                                  | avoid disruptions of switching between windows and tutorial documents during class.                                  |
+| 33  | `*`      | TA                                                  | group a specified number of students in a class together randomly.                                                             | assign project groups quickly.                                                                                       |
 
 *{More to be added}*
 
@@ -321,9 +345,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  camNUS shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  camNUS deletes the person
 
     Use case ends.
 
@@ -335,7 +359,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. camNUS shows an error message.
 
       Use case resumes at step 2.
 
@@ -371,9 +395,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User requests to list persons
-2. AddressBook shows a list of persons
+2. camNUS shows a list of persons
 3. User requests to edit a specific person in the list and provides the field(s) they want to update
-4. AddressBook updates the existing values to the input values
+4. camNUS updates the existing values to the input values
 
 **Extensions**
 
@@ -383,16 +407,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. camNUS shows an error message.
 
       Use case resumes at step 2.
 * 3b. No fields are provided.
-  * 3b1. AddressBook shows an error message.
-    
+  * 3b1. camNUS shows an error message.
+
     Use case resumes at step 2.
 * 3c. No value is provided for a field that is not tags.
-  * 3c1. AddressBook shows an error message.
-    
+  * 3c1. camNUS shows an error message.
+
     Use case resumes at step 2.
 * 4a. The user enters values for tags.
   * 4a1. Existing tags are removed and inputted tags are added to the person.
