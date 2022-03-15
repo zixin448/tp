@@ -65,5 +65,11 @@
     "name" : "tutorial",
     "weightage": "5",
     "fullMark" : "13"
-  }]
+  }],
+  "tutorials" : [ {
+    "tutorialName" : "T04",
+    "venue" : "LT13",
+    "day" : "Monday",
+    "time" : "13:00"
+  } ]
 }
