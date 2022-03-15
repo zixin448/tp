@@ -26,24 +26,24 @@ import seedu.address.model.tutorial.Tutorial;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private static final Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK = Student::isStudent;
-    private static final Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIAL_IN_ADDRESSBOOK = Tutorial::isTutorial;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Tutorial> filteredTutorials;
+    private final FilteredList<Assessment> filteredAssessments;
 
     /**
      * A list containing all Students in the address book.
-     * Updated automatically when addressBook is updated.
-     * TODO: add methods for allStudents if needed.
-     *
-     * @see FilteredList
-     * @see ObservableList
+     * DO NOT MODIFY (as it is the list that {@link seedu.address.model.person.UniqueStudentsInTutorialList}
+     * listens to).
      */
     private final FilteredList<Person> allStudents;
-    private final FilteredList<Tutorial> allTutorials;
+    /**
+     * Used for the GUI display.
+     * Can modify if needed.
+     */
+    private final FilteredList<Person> filteredStudents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -57,9 +57,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTutorials = new FilteredList<>(this.addressBook.getTutorialList());
-        allStudents = new FilteredList<>(this.addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK);
-        allTutorials = new FilteredList<>(this.addressBook.getTutorialList(),
-                PREDICATE_SHOW_ALL_TUTORIAL_IN_ADDRESSBOOK);
+        filteredAssessments = new FilteredList<>(this.addressBook.getAssessmentList());
+
+        allStudents = new FilteredList<>(this.addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS);
+        filteredStudents = new FilteredList<>(allStudents);
 
     }
 
@@ -151,6 +152,25 @@ public class ModelManager implements Model {
     }
 
     //=========== Assessments =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Assessment} backed by the internal list of
+     * {@code AddressBook}
+     */
+    @Override
+    public ObservableList<Assessment> getAssessmentList() {
+        return addressBook.getAssessmentList();
+    }
+
+    @Override
+    public ObservableList<Assessment> getFilteredAssessmentList() {
+        return filteredAssessments;
+    }
+
+    @Override
+    public void updateFilteredAssessmentList(Predicate<Assessment> predicate) {
+        requireNonNull(predicate);
+        filteredAssessments.setPredicate(predicate);
+    }
 
     @Override
     public boolean hasAssessment(Assessment assessment) {
@@ -172,6 +192,17 @@ public class ModelManager implements Model {
         return addressBook.removeAssessmentByName(name);
     }
 
+    //=========== Tutorials =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Tutorial} backed by the internal list of
+     * {@code AddressBook}
+     */
+    @Override
+    public ObservableList<Tutorial> getFilteredTutorialList() {
+        return filteredTutorials;
+    }
+
     @Override
     public boolean hasTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
@@ -186,7 +217,7 @@ public class ModelManager implements Model {
     @Override
     public void addTutorial(Tutorial tutorial) {
         addressBook.addTutorial(tutorial);
-        updateFilteredTutorialList(PREDICATE_SHOW_ALL_TUTORIAL_IN_ADDRESSBOOK);
+        updateFilteredTutorialList(PREDICATE_SHOW_ALL_TUTORIALS);
     }
 
     @Override
@@ -196,38 +227,19 @@ public class ModelManager implements Model {
         addressBook.setTutorial(target, editedTutorial);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Assessment} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Assessment> getAssessmentList() {
-        return addressBook.getAssessmentList();
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredTutorials.setPredicate(predicate);
     }
+
+    //=========== Students =============================================================
 
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return addressBook.hasStudent(student);
     }
-
 
     @Override
     public void addStudent(Student student) {
@@ -236,20 +248,35 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
-        requireNonNull(predicate);
-        filteredTutorials.setPredicate(predicate);
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonStudentList() {
+    public FilteredList<Person> getAllStudentsList() {
         return allStudents;
     }
 
     @Override
-    public void updateFilteredPersonStudentList(Predicate<Person> predicate) {
+    public FilteredList<Person> getFilteredStudentList() {
+        return filteredStudents;
+    }
+
+    @Override
+    public void updateFilteredStudentList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        allStudents.setPredicate(predicate);
+        filteredStudents.setPredicate(predicate);
+    }
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code AddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return filteredPersons;
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     @Override
@@ -270,18 +297,6 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
-    //=========== All Tutorials List Accessors =============================================================
-    /**
-     * Returns an unmodifiable view of the list of {@code Tutorial} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Tutorial> getFilteredTutorialList() {
-        return filteredTutorials;
-    }
-
-    //=========== All Students List Accessors =============================================================
 
 }
 

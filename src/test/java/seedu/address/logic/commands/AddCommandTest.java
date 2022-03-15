@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -164,6 +165,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public FilteredList<Person> getFilteredStudentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -180,6 +186,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Assessment> getFilteredAssessmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAssessmentList(Predicate<Assessment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -208,12 +224,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonStudentList(Predicate<Person> predicate) {
+        public void updateFilteredStudentList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonStudentList() {
+        public FilteredList<Person> getAllStudentsList() {
             throw new AssertionError("This method should not be called.");
         }
 
