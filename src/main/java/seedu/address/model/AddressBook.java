@@ -8,13 +8,11 @@ import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.UniqueAssessmentList;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Student;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.*;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.UniqueTutorialList;
+import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
 
 /**
  * Wraps all data at the address-book level (persons, tutorials, assessments)
@@ -184,6 +182,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a tutorial with the name {@code tutorialName} exists.
+     */
+    public boolean hasTutorialWithName(TutorialName tutorialName) {
+        requireNonNull(tutorialName);
+        try {
+            tutorials.getTutorialMatch(tutorialName);
+            return true;
+        } catch (InvalidTutorialException e) {
+            return false;
+        }
+    }
+
+    public Tutorial getTutorialMatch(TutorialName tutorialName) {
+        return tutorials.getTutorialMatch(tutorialName);
+    }
+
+    /**
      * Adds a tutorial to the address book.
      * The tutorial must not already exist in the address book.
      */
@@ -257,7 +272,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                 && tutorials.getTutorialMatch(tutorialName).contains(student);
     }
 
-
     /**
      * Adds a student to the address book in a specified tutorial with the
      * tutorial name {@code tutorialName}.
@@ -270,5 +284,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(personMatch, student);
     }
 
+    public void  removeStudent(Student student) {
+        requireNonNull(student);
+        Person toReplaceStudent = new Person(student.getName(),student.getPhone(),student.getEmail(),
+                student.getAddress(), student.getTags());
+        persons.setPerson(student, toReplaceStudent);
+
+    }
 
 }

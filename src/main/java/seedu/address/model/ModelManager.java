@@ -14,9 +14,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
+import seedu.address.model.tutorial.TutorialName;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -210,6 +212,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasTutorialWithName(TutorialName tutorialName) {
+        requireNonNull(tutorialName);
+        return addressBook.hasTutorialWithName(tutorialName);
+    }
+
+    @Override
+    public Tutorial getTutorialMatch(TutorialName tutorialName) {
+        requireNonNull(tutorialName);
+        return addressBook.getTutorialMatch(tutorialName);
+    }
+
+    @Override
     public void deleteTutorial(Tutorial target) {
         addressBook.removeTutorial(target);
     }
@@ -262,6 +276,12 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
     }
+
+    public void removeStudent(Student student) {
+        requireNonNull(student);
+        addressBook.removeStudent(student);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
