@@ -42,5 +42,14 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tagged" : [ ]
-  } ]
+  } ],
+  "assessments": [{
+    "name" : "midterm",
+    "weightage" : "30",
+    "fullMark" : "50"
+  }, {
+    "name" : "tutorial",
+    "weightage": "5",
+    "fullMark" : "13"
+  }]
 }

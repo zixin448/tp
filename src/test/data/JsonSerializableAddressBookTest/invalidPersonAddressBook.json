@@ -4,5 +4,14 @@
     "phone": "9482424",
     "email": "invalid@email!3e",
     "address": "4th street"
-  } ]
+  } ],
+  "assessments": [{
+    "name" : "midterm",
+    "weightage" : "30",
+    "fullMark" : "50"
+  }, {
+    "name" : "tutorial",
+    "weightage": "5",
+    "fullMark" : "13"
+  }]
 }
