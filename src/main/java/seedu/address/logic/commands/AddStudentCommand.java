@@ -42,7 +42,6 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_TUTORIAL_DOES_NOT_EXIST = "Tutorial %1$s does not exist!";
     private static final String MESSAGE_TUTORIAL_NOT_FOUND = "There is no class with the given name in the "
             + "address book";
-    
     private final Name toAddName;
     private final NusNetId toAddStudentId;
     private final TutorialName toAddTutorialName;
