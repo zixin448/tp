@@ -268,7 +268,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(student);
         Person personMatch = persons.get(student.getName());
         persons.setPerson(personMatch, student);
-        System.out.println("add student: " + persons.get(student.getName()));
     }
 
 

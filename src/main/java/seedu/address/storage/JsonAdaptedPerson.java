@@ -49,7 +49,7 @@ class JsonAdaptedPerson {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
-        if (studentId == null && tutorialName == null) {
+        if (studentId == null || tutorialName == null) {
             this.studentId = null;
             this.tutorialName = null;
         } else {
