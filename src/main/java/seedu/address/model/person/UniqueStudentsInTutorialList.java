@@ -47,4 +47,34 @@ public class UniqueStudentsInTutorialList {
         return studentsInClass.stream()
                 .anyMatch(x -> x.isSamePerson(student));
     }
+
+    /**
+     * Returns true if the list contains a student with a matching {@code studentId}.
+     */
+    public boolean containsStudentWithId(NusNetId studentId) {
+        for (int i = 0; i < studentsInClass.size(); i++) {
+            Student student = (Student) studentsInClass.get(i);
+            if (student.getStudentId().equals(studentId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the student in the list that has a matching {@code studentId}.
+     * @param studentId
+     * @return
+     */
+    public Student getStudentWithId(NusNetId studentId) {
+        Student student;
+        for (int i = 0; i < studentsInClass.size(); i++) {
+            student = (Student) studentsInClass.get(i);
+            if (student.getStudentId().equals(studentId)) {
+                return student;
+            }
+        }
+        // execution should not reach this point
+        return null;
+    }
 }

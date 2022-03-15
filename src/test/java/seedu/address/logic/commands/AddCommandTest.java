@@ -27,6 +27,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
+import seedu.address.model.tutorial.TutorialName;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -150,6 +151,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Tutorial getTutorialMatch(TutorialName tutorialName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addTutorial(Tutorial tutorial) {
             throw new AssertionError("This method should not be called.");
         }
@@ -239,7 +245,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasStudent(Student student) {
+        public void removeStudent(Student student) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStudentWithName(Name studentName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTutorialWithName(TutorialName tutorialName) {
             throw new AssertionError("This method should not be called.");
         }
 

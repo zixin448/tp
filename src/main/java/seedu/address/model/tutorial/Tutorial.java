@@ -13,6 +13,7 @@ import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
@@ -151,6 +152,17 @@ public class Tutorial implements Displayable {
     @Override
     public DisplayType getDisplayType() {
         return displayType;
+    }
+
+    /**
+     * Returns true if the studentsList contains a student with a matching {@code studentId}.
+     */
+    public boolean containsStudentWithId(NusNetId studentId) {
+        return studentsList.containsStudentWithId(studentId);
+    }
+
+    public Student getStudentWithId(NusNetId studentId) {
+        return studentsList.getStudentWithId(studentId);
     }
 
     /**
