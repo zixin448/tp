@@ -41,9 +41,7 @@ public class AssessmentResults {
      * AssessmentResultsList).
      */
     public boolean isSameAssessmentResults(AssessmentResults ar) {
-        return this == ar
-                || (ar != null
-                && results.equals(ar.results));
+        return this.assessmentName.name.equals(ar.assessmentName.name);
     }
 
     /**
