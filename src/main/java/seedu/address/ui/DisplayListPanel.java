@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
+import seedu.address.model.assessment.Assessment;
 import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 
@@ -47,6 +48,8 @@ public class DisplayListPanel extends UiPart<Region> {
                 setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
             } else if (item.getDisplayType() == DisplayType.CLASS) {
                 setGraphic(new TutorialCard((Tutorial) item, getIndex() + 1).getRoot());
+            } else if (item.getDisplayType() == DisplayType.ASSESSMENT) {
+                setGraphic(new AssessmentCard((Assessment) item, getIndex() + 1).getRoot());
             } else {
                 setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
             }

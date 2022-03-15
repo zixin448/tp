@@ -149,6 +149,14 @@ public class MainWindow extends UiPart<Stage> {
         displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
+    /**
+     * Displays only list of assessments on main window.
+     */
+    private void handleAssessment() {
+        displayListPanel = new DisplayListPanel(logic.getFilteredAssessmentList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -219,6 +227,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case PERSON:
                 handlePerson();
+                break;
+            case ASSESSMENT:
+                handleAssessment();
                 break;
             default:
                 break;

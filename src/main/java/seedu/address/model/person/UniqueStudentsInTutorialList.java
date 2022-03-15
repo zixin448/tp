@@ -27,7 +27,7 @@ public class UniqueStudentsInTutorialList {
      * @param tutName the TutorialName.
      */
 
-    public UniqueStudentsInTutorialList(FilteredList<Person> allStudents, TutorialName tutName) {
+    public UniqueStudentsInTutorialList(ObservableList<Person> allStudents, TutorialName tutName) {
         requireAllNonNull(allStudents, tutName);
         studentsInClass = createStudentsList(allStudents, tutName);
         tutorialName = tutName;
