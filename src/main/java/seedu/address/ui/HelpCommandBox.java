@@ -2,11 +2,9 @@ package seedu.address.ui;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 public class HelpCommandBox extends UiPart<Region> {
     private static final String FXML = "HelpCommandBox.fxml";
