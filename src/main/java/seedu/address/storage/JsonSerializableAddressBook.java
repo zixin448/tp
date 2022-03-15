@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -75,10 +78,9 @@ class JsonSerializableAddressBook {
             if (addressBook.hasTutorial(tutorial)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TUTORIAL);
             }
-            // Students needs to be added before the following line will work.
-            // tutorial.setStudentsList((FilteredList<Person>) addressBook.getPersonList());
-            // TODO: Add the assessment results for students.
             addressBook.addTutorial(tutorial);
+            tutorial.setStudentsList(
+                    new FilteredList<>(addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS));
         }
 
         for (JsonAdaptedAssessment jsonAdaptedAssessment : assessments) {
@@ -88,6 +90,9 @@ class JsonSerializableAddressBook {
             }
             addressBook.addAssessment(assessment);
         }
+
+        // TODO: Add the assessment results for students.
+
         return addressBook;
     }
 
