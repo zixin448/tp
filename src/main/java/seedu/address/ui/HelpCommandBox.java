@@ -2,9 +2,9 @@ package seedu.address.ui;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 
 public class HelpCommandBox extends UiPart<Region> {
     private static final String FXML = "HelpCommandBox.fxml";
@@ -12,7 +12,7 @@ public class HelpCommandBox extends UiPart<Region> {
     @FXML
     private TitledPane title;
     @FXML
-    private Label description;
+    private Text description;
 
     /**
      * Constructor for a titled pane containing the description of a command.
@@ -21,6 +21,7 @@ public class HelpCommandBox extends UiPart<Region> {
         super(FXML);
         this.title.setText(title);
         this.description.setText(description);
+        this.description.wrappingWidthProperty().bind(this.title.widthProperty().subtract(50));
     }
 
     public TitledPane getBox() {
