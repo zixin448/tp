@@ -7,8 +7,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Displayable;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.assessment.Assessment;
 import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 
@@ -56,5 +56,5 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    ObservableList<? extends Displayable> getFilteredAssessmentList();
+    ObservableList<Assessment> getFilteredAssessmentList();
 }
