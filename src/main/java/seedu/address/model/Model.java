@@ -4,13 +4,12 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
-//import seedu.address.model.person.Name;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-//import seedu.address.model.person.Student;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 
@@ -20,10 +19,8 @@ import seedu.address.model.tutorial.Tutorial;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
     Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
-    Predicate<Tutorial> PREDICATE_HIDE_ALL_TUTORIALS = unused -> false;
-    Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS_IN_ADDRESSBOOK = Student::isStudent;
+    Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS = Student::isStudent;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -123,6 +120,17 @@ public interface Model {
      */
     void setTutorial(Tutorial target, Tutorial editedTutorial);
 
+    /**
+     * Returns an unmodifiable view of the filtered student list
+     */
+    FilteredList<Person> getFilteredStudentList();
+
+    /**
+     * Updates the predicate of the filtered student list to the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredStudentList(Predicate<Person> predicate);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -137,6 +145,17 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns an unmodifiable view of the filtered assessment list
+     */
+    ObservableList<Assessment> getFilteredAssessmentList();
+
+    /**
+     * Updates the predicate of the filtered assessment list to {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAssessmentList(Predicate<Assessment> predicate);
 
     /**
      * Returns true if an assessment with the same identity as {@code assessment} exists in the address book.
@@ -165,17 +184,8 @@ public interface Model {
      */
     void updateFilteredTutorialList(Predicate<Tutorial> predicate);
 
-
-
     /** Returns an unmodifiable view of the filtered student list */
-    ObservableList<Person> getFilteredPersonStudentList();
-
-
-    /**
-     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonStudentList(Predicate<Person> predicate);
+    FilteredList<Person> getAllStudentsList();
 
     /**
      *  Returns true if a student with the same identity as {@code student}

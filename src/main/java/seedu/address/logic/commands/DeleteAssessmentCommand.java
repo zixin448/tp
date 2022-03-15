@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.CommandResult.createAssessmentCommandResult;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -41,6 +42,6 @@ public class DeleteAssessmentCommand extends Command {
         }
 
         Assessment removed = model.removeAssessmentByName(name);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, removed));
+        return createAssessmentCommandResult(String.format(MESSAGE_SUCCESS, removed));
     }
 }

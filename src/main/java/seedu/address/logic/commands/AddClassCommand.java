@@ -5,13 +5,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TUTORIALS;
 
-import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 
 public class AddClassCommand extends Command {
@@ -46,7 +43,7 @@ public class AddClassCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        toAdd.setStudentsList((FilteredList<Person>) model.getFilteredPersonList());
+        toAdd.setStudentsList(model.getAllStudentsList());
         toAdd.setAssessmentResultsList(model.getAssessmentList());
 
         if (model.hasTutorial(toAdd)) {
@@ -55,7 +52,7 @@ public class AddClassCommand extends Command {
 
         model.addTutorial(toAdd);
         model.updateFilteredTutorialList(PREDICATE_SHOW_ALL_TUTORIALS);
-        model.updateFilteredPersonList(PREDICATE_HIDE_ALL_PERSONS);
+
         return CommandResult.createClassCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

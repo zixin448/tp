@@ -62,6 +62,14 @@ public class CommandResult {
         return new CommandResult(feedbackToUser, false, false, DisplayType.STUDENT);
     }
 
+    /**
+     * Constructs and returns a {@code CommandResult} with the specified {@code feedbackToUser}
+     * and other fields set to their default value for assessment related commands.
+     */
+    public static CommandResult createAssessmentCommandResult(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, DisplayType.ASSESSMENT);
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
