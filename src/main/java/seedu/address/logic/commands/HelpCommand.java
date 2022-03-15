@@ -15,8 +15,18 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
+    public final String commandWordInquiry;
+
+    public HelpCommand() {
+        this.commandWordInquiry = "DEFAULT";
+    }
+
+    public HelpCommand(String inquiredWord) {
+        this.commandWordInquiry = inquiredWord;
+    }
+
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, DisplayType.PERSON);
+        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, DisplayType.PERSON, commandWordInquiry);
     }
 }
