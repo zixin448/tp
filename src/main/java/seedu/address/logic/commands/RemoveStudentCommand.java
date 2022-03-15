@@ -42,7 +42,7 @@ public class RemoveStudentCommand extends Command {
     public static final String MESSAGE_REMOVE_STUDENT_SUCCESS = "Student %1$s has been removed from tutorial %2$s";
     public static final String MESSAGE_NOT_A_STUDENT = "This person is not a student!";
     public static final String MESSAGE_TUTORIAL_DOES_NOT_EXIST = "Tutorial %1$s does not exist!";
-    public static final String MESSAGE_STUDENT_DOES_NOT_EXIST = "student %1$s is not in tutorial %2$s";
+    public static final String MESSAGE_STUDENT_DOES_NOT_EXIST = "Student %1$s is not in tutorial %2$s";
 
     private final Index toRemoveIndex;
     private final NusNetId toRemoveStudentId;
@@ -70,11 +70,7 @@ public class RemoveStudentCommand extends Command {
         toRemoveIndex = index;
         toRemoveStudentId = null;
         toRemoveFromTutorialName = tutorialName;
-
     }
-
-
-
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

@@ -51,10 +51,6 @@ public class RemoveStudentCommandParser implements Parser<RemoveStudentCommand> 
             TutorialName tutorialName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIALNAME).get());
             return new RemoveStudentCommand(index, tutorialName);
         }
-
-
-
-
     }
 
     /**
