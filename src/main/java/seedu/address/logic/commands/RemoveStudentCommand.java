@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,7 +19,7 @@ import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 
-import java.util.List;
+
 
 public class RemoveStudentCommand extends Command {
 
@@ -46,6 +48,10 @@ public class RemoveStudentCommand extends Command {
     private final NusNetId toRemoveStudentId;
     private final TutorialName toRemoveFromTutorialName;
 
+    /**
+     * Creates a RemoveStudentCommand to remove a student with the specified {@code studentId}
+     * from the specified tutorial with {@code tutorialName}.
+     */
     public RemoveStudentCommand(NusNetId studentId, TutorialName tutorialName) {
         requireNonNull(studentId);
         requireNonNull(tutorialName);
@@ -54,6 +60,10 @@ public class RemoveStudentCommand extends Command {
         toRemoveFromTutorialName = tutorialName;
     }
 
+    /**
+     * Creates a RemoveStudentCommand to remove a student with the specified {@code index}
+     * from the specified tutorial with {@code tutorialName}.
+     */
     public RemoveStudentCommand(Index index, TutorialName tutorialName) {
         requireNonNull(index);
         requireNonNull(tutorialName);
@@ -85,8 +95,8 @@ public class RemoveStudentCommand extends Command {
             model.removeStudent(studentToRemove);
 
 
-            return CommandResult.
-                    createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, toRemoveStudentId,
+            return CommandResult
+                    .createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, toRemoveStudentId,
                             toRemoveFromTutorialName));
         } else {
             List<Person> lastShownList = model.getFilteredPersonList();
@@ -116,8 +126,8 @@ public class RemoveStudentCommand extends Command {
             model.removeStudent(studentToRemove);
 
 
-            return CommandResult.
-                    createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, id,
+            return CommandResult
+                    .createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, id,
                     toRemoveFromTutorialName));
 
         }

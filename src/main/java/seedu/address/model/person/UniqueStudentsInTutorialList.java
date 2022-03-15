@@ -54,7 +54,7 @@ public class UniqueStudentsInTutorialList {
     public boolean containsStudentWithId(NusNetId studentId) {
         for (int i = 0; i < studentsInClass.size(); i++) {
             Student student = (Student) studentsInClass.get(i);
-            if(student.getStudentId().equals(studentId)) {
+            if (student.getStudentId().equals(studentId)) {
                 return true;
             }
         }
@@ -70,7 +70,7 @@ public class UniqueStudentsInTutorialList {
         Student student;
         for (int i = 0; i < studentsInClass.size(); i++) {
             student = (Student) studentsInClass.get(i);
-            if(student.getStudentId().equals(studentId)) {
+            if (student.getStudentId().equals(studentId)) {
                 return student;
             }
         }

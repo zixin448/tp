@@ -8,7 +8,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.UniqueAssessmentList;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.UniqueTutorialList;
@@ -194,6 +197,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    /**
+     * Returns a {@code Tutorial} with the name {@code tutorialName}. Used together with
+     * {@see hasTutorialWithName} to check if the tutorial exists.
+     */
     public Tutorial getTutorialMatch(TutorialName tutorialName) {
         return tutorials.getTutorialMatch(tutorialName);
     }
@@ -284,9 +291,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(personMatch, student);
     }
 
-    public void  removeStudent(Student student) {
+    /**
+     * Removes a {@code student} from the address book
+     */
+    public void removeStudent(Student student) {
         requireNonNull(student);
-        Person toReplaceStudent = new Person(student.getName(),student.getPhone(),student.getEmail(),
+        Person toReplaceStudent = new Person(student.getName(), student.getPhone(), student.getEmail(),
                 student.getAddress(), student.getTags());
         persons.setPerson(student, toReplaceStudent);
 

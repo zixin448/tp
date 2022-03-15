@@ -9,7 +9,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;

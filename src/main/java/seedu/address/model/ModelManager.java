@@ -14,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -277,6 +276,9 @@ public class ModelManager implements Model {
         filteredStudents.setPredicate(predicate);
     }
 
+    /**
+     * Removes a {@code student} from the address book
+     */
     public void removeStudent(Student student) {
         requireNonNull(student);
         addressBook.removeStudent(student);

@@ -16,7 +16,6 @@ import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
-import seedu.address.model.person.exceptions.DuplicateStudentException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tutorial.TutorialName;
 
@@ -69,11 +68,11 @@ public class AddStudentCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
 
-        if(!model.hasTutorialWithName(toAddTutorialName)) {
+        if (!model.hasTutorialWithName(toAddTutorialName)) {
             throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toAddTutorialName));
         }
 
-        if(model.hasStudentWithName(toAddName)) {
+        if (model.hasStudentWithName(toAddName)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 
