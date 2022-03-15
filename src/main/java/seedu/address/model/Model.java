@@ -209,7 +209,7 @@ public interface Model {
      *  Returns true if a student with the same identity as {@code student}
      *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
      */
-    boolean hasStudent(Student student);
+    boolean hasStudentWithName(Name studentName);
 
 
 }

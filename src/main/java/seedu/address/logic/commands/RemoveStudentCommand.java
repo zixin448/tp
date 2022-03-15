@@ -96,16 +96,25 @@ public class RemoveStudentCommand extends Command {
             if (!model.hasTutorialWithName(toRemoveFromTutorialName)) {
                 throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toRemoveFromTutorialName));
             }
-
+            Tutorial tutorial = model.getTutorialMatch(toRemoveFromTutorialName);
             Person personToRemove = lastShownList.get(toRemoveIndex.getZeroBased());
+
+
 
             if (!(personToRemove instanceof Student)) {
                 throw new CommandException(MESSAGE_NOT_A_STUDENT);
             }
 
             Student studentToRemove = (Student) personToRemove;
-            model.removeStudent(studentToRemove);
             NusNetId id = studentToRemove.getStudentId();
+
+            if (!tutorial.contains(studentToRemove)) {
+                throw new CommandException(String.format(MESSAGE_STUDENT_DOES_NOT_EXIST, id,
+                        toRemoveFromTutorialName));
+            }
+
+            model.removeStudent(studentToRemove);
+
 
             return CommandResult.
                     createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, id,

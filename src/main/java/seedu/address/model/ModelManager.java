@@ -250,9 +250,9 @@ public class ModelManager implements Model {
     //=========== Students =============================================================
 
     @Override
-    public boolean hasStudent(Student student) {
-        requireNonNull(student);
-        return addressBook.hasStudent(student);
+    public boolean hasStudentWithName(Name studentName) {
+        requireNonNull(studentName);
+        return allStudents.stream().anyMatch(x -> x.getName().equals(studentName));
     }
 
     @Override
