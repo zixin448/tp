@@ -65,6 +65,7 @@ public class AssessmentResultsList {
         for (int i = 0; i < assessmentResultsList.size(); i++) {
             if (assessmentResultsList.get(i).hasName(name)) {
                 assessmentResultsList.remove(i);
+                return;
             }
         }
         throw new AssessmentNotFoundException();
