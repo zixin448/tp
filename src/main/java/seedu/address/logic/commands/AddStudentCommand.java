@@ -16,7 +16,6 @@ import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
-import seedu.address.model.person.exceptions.DuplicateStudentException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tutorial.TutorialName;
 
@@ -37,13 +36,12 @@ public class AddStudentCommand extends Command {
             + PREFIX_TUTORIALNAME + "G04";
 
     public static final String MESSAGE_ADD_STUDENT_SUCCESS = "New student added: %1$s";
-    public static final String MESSAGE_ADD_STUDENT_FAILURE = "Ensure correct STUDENT_ID and "
-            + "TUTORIAL_NAME input.";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in "
-            + "the specified tutorial.";
-    public static final String MESSAGE_NOT_FOUND_IN_ADDRESS_BOOK = "This student should be added "
-            + "to the address book first.";
-
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student has already been added to a tutorial in the "
+            + " address book";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "There is no person with the given name in the address book";
+    public static final String MESSAGE_TUTORIAL_DOES_NOT_EXIST = "Tutorial %1$s does not exist!";
+    private static final String MESSAGE_TUTORIAL_NOT_FOUND = "There is no class with the given name in the "
+            + "address book";
     private final Name toAddName;
     private final NusNetId toAddStudentId;
     private final TutorialName toAddTutorialName;
@@ -66,7 +64,15 @@ public class AddStudentCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasPersonWithName(toAddName)) {
-            throw new CommandException(MESSAGE_NOT_FOUND_IN_ADDRESS_BOOK);
+            throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
+        }
+
+        if (!model.hasTutorialWithName(toAddTutorialName)) {
+            throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toAddTutorialName));
+        }
+
+        if (model.hasStudentWithName(toAddName)) {
+            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 
         Person personMatch = model.getPersonWithName(toAddName);
@@ -76,10 +82,6 @@ public class AddStudentCommand extends Command {
         Set<Tag> tags = personMatch.getTags();
 
         Student toAdd = new Student(toAddName, phone, email, address, tags, toAddStudentId, toAddTutorialName);
-
-        if (model.hasStudent(toAdd)) {
-            throw new DuplicateStudentException();
-        }
 
         model.addStudent(toAdd);
         return CommandResult.createStudentCommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));

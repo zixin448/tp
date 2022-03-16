@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
+import seedu.address.model.tutorial.TutorialName;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -210,6 +211,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasTutorialWithName(TutorialName tutorialName) {
+        requireNonNull(tutorialName);
+        return addressBook.hasTutorialWithName(tutorialName);
+    }
+
+    @Override
+    public Tutorial getTutorialMatch(TutorialName tutorialName) {
+        requireNonNull(tutorialName);
+        return addressBook.getTutorialMatch(tutorialName);
+    }
+
+    @Override
     public void deleteTutorial(Tutorial target) {
         addressBook.removeTutorial(target);
     }
@@ -236,9 +249,9 @@ public class ModelManager implements Model {
     //=========== Students =============================================================
 
     @Override
-    public boolean hasStudent(Student student) {
-        requireNonNull(student);
-        return addressBook.hasStudent(student);
+    public boolean hasStudentWithName(Name studentName) {
+        requireNonNull(studentName);
+        return allStudents.stream().anyMatch(x -> x.getName().equals(studentName));
     }
 
     @Override
@@ -262,6 +275,15 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
     }
+
+    /**
+     * Removes a {@code student} from the address book
+     */
+    public void removeStudent(Student student) {
+        requireNonNull(student);
+        addressBook.removeStudent(student);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

@@ -12,6 +12,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
+import seedu.address.model.tutorial.TutorialName;
 
 /**
  * The API of the Model component.
@@ -91,6 +92,16 @@ public interface Model {
      * Returns true if a tutorial with the same identity as {@code tutorial} exists in the address book.
      */
     boolean hasTutorial(Tutorial tutorial);
+
+    /**
+     * Returns true if a tutorial with the same {@code tutorialName} exists in the address book.
+     */
+    boolean hasTutorialWithName(TutorialName tutorialName);
+
+    /**
+     * Returns the tutorial with the same {@code tutorialName}.
+     */
+    Tutorial getTutorialMatch(TutorialName tutorialName);
 
     /**
      * Deletes the given tutorial.
@@ -173,10 +184,16 @@ public interface Model {
     Assessment removeAssessmentByName(AssessmentName name);
 
     /**
-    * Adds the given student to the tutorial.
+     * Adds the given student to the tutorial.
      * Student must not already exist in the student list of the tutorial.
      */
     void addStudent(Student student);
+
+    /**
+     * Removes the given student from the tutorial.
+     * Student must exist in the student list of the tutorial.
+     */
+    void removeStudent(Student student);
 
     /**
      * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
@@ -191,6 +208,7 @@ public interface Model {
      *  Returns true if a student with the same identity as {@code student}
      *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
      */
-    boolean hasStudent(Student student);
+    boolean hasStudentWithName(Name studentName);
+
 
 }
