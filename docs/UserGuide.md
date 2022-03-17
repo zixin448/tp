@@ -104,8 +104,8 @@ Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME`
 * `TIME` will be in 1 hour block
 
 Examples:
-* `add_class tn/T04 v/LT13 d/Monday tm/1300`
-* `add_class tn/G04 v/E-LEARNING d/Wed tm/1000`
+* `add_class tn/T04 v/LT13 d/Monday tm/13:00`
+* `add_class tn/G04 v/E-LEARNING d/Wed tm/10:00`
 
 #### Adding student to a class: `add_student`
 
@@ -147,16 +147,14 @@ Shows a list of all the classes on the any input date.
 Formats:
 
 * `list_class`
-* `list_class [dt/DATE] [d/DAY]`
-* `DAY`/`DATE` is optional
-* `DATE` input should be in `DD/MM/YYYY` format
+* `list_class [d/DAY]`
+* `DAY` is optional
 * `DAY` should be spelt in full or 3-letter abbreviation
 
 Examples:
 
 * `list_class`
 ![result for `list_class`](images/listClassResult.png)
-* `list_class dt/20/02/2022`
 * `list_class d/Wed`
 
 #### Listing students of a class: `list_student`
