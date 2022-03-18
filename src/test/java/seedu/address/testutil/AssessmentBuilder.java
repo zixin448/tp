@@ -10,7 +10,7 @@ import seedu.address.model.assessment.Weightage;
  */
 public class AssessmentBuilder {
 
-    public static final String DEFAULT_NAME = "Assignment 1";
+    public static final String DEFAULT_NAME = "Default Assessment";
     public static final String DEFAULT_WEIGHTAGE = "10";
     public static final String DEFAULT_FULL_MARK = "40";
 

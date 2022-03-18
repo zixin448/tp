@@ -11,9 +11,8 @@ import seedu.address.model.assessment.Assessment;
  */
 public class TypicalAssessments {
 
-    public static final Assessment ASSIGNMENT_1 = new AssessmentBuilder().build();
-    public static final Assessment ASSIGNMENT_2 = new AssessmentBuilder().withName("Assignment 2")
-            .build();
+    public static final Assessment ASSIGNMENT_1 = new AssessmentBuilder().withName("Assignment 1").build();
+    public static final Assessment ASSIGNMENT_2 = new AssessmentBuilder().withName("Assignment 2").build();
     public static final Assessment LAB_1 = new AssessmentBuilder().withName("Lab 1")
             .withWeightage("10").withFullMark("30").build();
     public static final Assessment LAB_2 = new AssessmentBuilder().withName("Lab 2")
