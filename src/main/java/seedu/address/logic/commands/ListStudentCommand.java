@@ -22,9 +22,9 @@ public class ListStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "list_student";
 
-    public static final String MESSAGE_SUCCESS_ALL = "Listed all students";
+    public static final String MESSAGE_SUCCESS = "Listed all students";
 
-    public static final String MESSAGE_SUCCESS = "Listed students from class: %1$s";
+    public static final String MESSAGE_SUCCESS_CLASS = "Listed students from class: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": List all students or the students identified by the index "
@@ -51,7 +51,7 @@ public class ListStudentCommand extends Command {
         requireNonNull(model);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         if (targetIndex == null && tutorialName == null) {
-            return CommandResult.createStudentCommandResult(MESSAGE_SUCCESS_ALL);
+            return CommandResult.createStudentCommandResult(MESSAGE_SUCCESS);
         }
         if (targetIndex == null) {
             return listByTutorialName(model);
@@ -72,7 +72,7 @@ public class ListStudentCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_TUTORIAL);
         } else {
             model.updateFilteredStudentList(new StudentHasTutorialNamePredicate(tutorialToList.getTutorialName()));
-            return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS, tutorialToList));
+            return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS_CLASS, tutorialToList));
         }
     }
 
@@ -85,6 +85,6 @@ public class ListStudentCommand extends Command {
 
         Tutorial tutorialToList = lastShownList.get(targetIndex.getZeroBased());
         model.updateFilteredStudentList(new StudentHasTutorialNamePredicate(tutorialToList.getTutorialName()));
-        return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS, tutorialToList));
+        return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS_CLASS, tutorialToList));
     }
 }
