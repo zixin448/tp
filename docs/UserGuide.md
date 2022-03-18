@@ -104,18 +104,18 @@ Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME`
 * `TIME` will be in 1 hour block
 
 Examples:
-* `add_class tn/T04 v/LT13 d/Monday tm/1300`
-* `add_class tn/G04 v/E-LEARNING d/Wed tm/1000`
+* `add_class tn/T04 v/LT13 d/Monday tm/13:00`
+* `add_class tn/G04 v/E-LEARNING d/Wed tm/10:00`
 
 #### Adding student to a class: `add_student`
 
 Adds a specified student to a given class.
 
-Format: `add_student INDEX id/STUDENT_ID tn/TUTORIAL_NAME`
+Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 
-* Adds the person at the specified `INDEX` as a student belonging to a specified class.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Adds the person with the specified `NAME` as a student belonging to a specified class.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to. 
 
 Examples:
 * `add_student 1 id/e01234567 tn/T13`
@@ -139,6 +139,12 @@ Examples:
 Shows a list of all persons in the address book.
 
 Format: `list`
+
+#### Listing all assessment components : `list_assessment`
+
+Shows a list of all assessment components added.
+
+Format: `list_assessment`
 
 #### Listing all classes: `list_class`
 
@@ -320,18 +326,19 @@ _Details coming soon ..._
 
 | Action                | Format, Examples                                                                                                                                                       |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague` |
-| **Add Class**         | `add class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add class c/T04 v/LT13 d/Monday t/1300`                                                                 |
-| **Add Student**       | `add student INDEX id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add student 1 id/e01234567 tn/T13`                                                                      |
-| **Add Assessment**    | `add assessment as/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add assessment as/Attendance w/5 s/1`                                                              |
+| **Add**               | `add_n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague` |
+| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00`                                                                |
+| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student 1 id/e0123456 tn/T13`                                                                      |
+| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add_assessment as/Attendance w/5 s/1`                                                              |
 | **Clear**             | `clear`                                                                                                                                                                |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                    |
-| **Delete Class**      | `delete class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete class 1 [tn/G04]`                                                                                           |
-| **Delete Student**    | `delete student INDEX` <br> e.g. `delete student 2`                                                                                                                    |
-| **Delete Assessment** | `delete assessment as/ASSESSMENT_NAME` <br> e.g.,* `delete assessment as/Attendance`                                                                                   |
+| **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                           |
+| **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                        |
+| **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g.,* `delete_assessment as/Attendance`                                                                                   |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                            |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                             |
 | **List**              | `list`                                                                                                                                                                 |
-| **List Class**        | `list class [dt/DATE]` <br> e.g., `list class dt/20/02/2022`                                                                                                           |
-| **List Student**      | `list student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list student 1 [tn/G04]`                                                                                           |
+| **List Assessment**   | `list_assessment`                                                                                                                                                      |
+| **List Class**        | `list_class [d/DAY]` <br> e.g., `list_class d/Wed`                                                                                                                     |
+| **List Student**      | `list_student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list_student 1 [tn/G04]`                                                                                           |
 | **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                      |
