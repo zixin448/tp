@@ -16,7 +16,7 @@ public class ListClassCommand extends Command {
 
     public static final String MESSAGE_SUCCESS_ALL = "Listed all classes";
 
-    public static final String MESSAGE_SUCCESS = "Listed all classes on %1$s";
+    public static final String MESSAGE_SUCCESS_DAY = "Listed all classes on %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all classes or classes on a specified date "
             + "Parameters: " + PREFIX_DAY + "DAY\n"
