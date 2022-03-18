@@ -21,6 +21,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
+    Predicate<Assessment> PREDICATE_SHOW_ALL_ASSESSMENTS = unused -> true;
     Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS = Student::isStudent;
 
     /**
