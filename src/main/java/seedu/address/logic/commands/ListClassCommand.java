@@ -14,7 +14,9 @@ public class ListClassCommand extends Command {
 
     public static final String COMMAND_WORD = "list_class";
 
-    public static final String MESSAGE_SUCCESS = "Listed all classes";
+    public static final String MESSAGE_SUCCESS_ALL = "Listed all classes";
+
+    public static final String MESSAGE_SUCCESS = "Listed all classes on %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all classes or classes on a specified date "
             + "Parameters: " + PREFIX_DAY + "DAY\n"
@@ -37,8 +39,9 @@ public class ListClassCommand extends Command {
 
         if (predicate != null) {
             model.updateFilteredTutorialList(predicate);
+            return CommandResult.createClassCommandResult(String.format(MESSAGE_SUCCESS, predicate.getDay()));
         }
 
-        return CommandResult.createClassCommandResult(MESSAGE_SUCCESS);
+        return CommandResult.createClassCommandResult(MESSAGE_SUCCESS_ALL);
     }
 }

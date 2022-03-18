@@ -9,6 +9,10 @@ public class TutorialHasSameDay implements Predicate<Tutorial> {
         this.day = day;
     }
 
+    public Day getDay() {
+        return day;
+    }
+
     @Override
     public boolean test(Tutorial tutorial) {
         return day.equals(tutorial.getDay());
