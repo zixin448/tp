@@ -68,7 +68,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case ListStudentCommand.COMMAND_WORD:
-            return new ListStudentCommand();
+            return new ListStudentCommandParser().parse(arguments);
 
         case ListClassCommand.COMMAND_WORD:
             return new ListClassCommandParser().parse(arguments);

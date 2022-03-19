@@ -145,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
      * Displays only list of persons on main window.
      */
     void handleStudent() {
-        displayListPanel = new DisplayListPanel(logic.getFilteredPersonList());
+        displayListPanel = new DisplayListPanel(logic.getFilteredStudentList());
         displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
