@@ -182,7 +182,8 @@ public class Tutorial implements Displayable {
         Tutorial otherTut = (Tutorial) other;
         return otherTut.getTutorialName().equals(getTutorialName())
                 && otherTut.getDay().equals(getDay())
-                && otherTut.getTime().equals(getTime());
+                && otherTut.getTime().equals(getTime())
+                && otherTut.getVenue().equals(getVenue());
     }
 
     @Override

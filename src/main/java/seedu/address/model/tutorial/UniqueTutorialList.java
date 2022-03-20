@@ -159,4 +159,11 @@ public class UniqueTutorialList {
             internalList.get(i).removeAssessmentResultsByName(name);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueTutorialList // instanceof handles nulls
+                && internalList.equals(((UniqueTutorialList) other).internalList));
+    }
 }
