@@ -1,5 +1,20 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_ADDRESS_AARON;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_ADDRESS_BILL;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_EMAIL_AARON;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_EMAIL_BILL;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_NAME_AARON;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_NAME_BILL;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_PHONE_AARON;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_PHONE_BILL;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_STUDENT_ID_AARON;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_STUDENT_ID_BILL;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_TAG_STUDENT;
+import static seedu.address.logic.commands.TutorialTestUtil.VALID_TUTORIAL_NAME_TG1;
+import static seedu.address.logic.commands.TutorialTestUtil.VALID_TUTORIAL_NAME_TG2;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +40,14 @@ public class TypicalStudents {
             .withAddress("321, Ang Mo Kio West Ave 9, #10-101").withEmail("dsnlh@hotmail.com")
             .withPhone("83214567").withTags("student").withStudentId("e0563214")
             .withTutorialName("TG01").build();
+
+    // Manually added - Student's details found in {@code StudentTestUtil}
+    public static final Student AARON = new StudentBuilder().withName(VALID_NAME_AARON).withPhone(VALID_PHONE_AARON)
+            .withEmail(VALID_EMAIL_AARON).withAddress(VALID_ADDRESS_AARON).withTags(VALID_TAG_STUDENT)
+            .withStudentId(VALID_STUDENT_ID_AARON).withTutorialName(VALID_TUTORIAL_NAME_TG1).build();
+    public static final Student BILL = new StudentBuilder().withName(VALID_NAME_BILL).withPhone(VALID_PHONE_BILL)
+            .withEmail(VALID_EMAIL_BILL).withAddress(VALID_ADDRESS_BILL).withTags(VALID_TAG_STUDENT, VALID_TAG_FRIEND)
+            .withStudentId(VALID_STUDENT_ID_BILL).withTutorialName(VALID_TUTORIAL_NAME_TG2).build();
 
     private TypicalStudents() {} // prevents instantiation
 
