@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.exceptions.DuplicateStudentResultException;
+import seedu.address.model.person.NusNetId;
 
 /**
  * Contains a list of the students' results for a particular Assessment (found in UniqueAssessmentList).
@@ -47,7 +48,7 @@ public class AssessmentResults {
     /**
      * Returns true if the AssessmentResults has given name.
      */
-    public boolean hasName(AssessmentName name) {
+    public boolean hasAssessmentName(AssessmentName name) {
         return assessmentName.equals(name);
     }
 
@@ -76,5 +77,12 @@ public class AssessmentResults {
         return unmodifiableResults;
     }
 
+    /**
+     * Returns true if {@code results} contains a StudentResult with {@code studentId}.
+     */
+    public boolean hasStudentResultByStudentId(NusNetId studentId) {
+        requireNonNull(studentId);
+        return results.stream().anyMatch(x -> x.getStudentId().equals(studentId));
+    }
 
 }

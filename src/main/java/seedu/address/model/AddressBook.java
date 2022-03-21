@@ -1,21 +1,25 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.AssessmentResults;
+import seedu.address.model.assessment.Score;
+import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.assessment.UniqueAssessmentList;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.UniqueTutorialList;
-import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
 
 /**
  * Wraps all data at the address-book level (persons, tutorials, assessments)
@@ -137,7 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * a matching {@code Person} exists in the address book.
      */
     public Person getPersonWithName(Name name) {
-        return persons.get(name);
+        return persons.getPersonWithName(name);
     }
 
     //// assessment-level operations
@@ -164,6 +168,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return assessments.containsByName(name);
     }
 
+    public Assessment getAssessmentByName(AssessmentName name) {
+        return assessments.getByName(name);
+    }
+
     /**
      * Removes the assessment with the given name and corresponding AssessmentResults from every tutorial
      * in the address book.
@@ -172,6 +180,39 @@ public class AddressBook implements ReadOnlyAddressBook {
         Assessment toRemove = assessments.removeByName(name);
         tutorials.removeAssessmentByName(name);
         return toRemove;
+    }
+
+    // result-level operations
+
+    /**
+     * Returns true if the address book contains the results of a student called {@code studentName}
+     * for an assessment called {@code assessmentName}.
+     */
+    public boolean hasStudentResult(Name studentName, AssessmentName assessmentName) {
+        requireAllNonNull(studentName, assessmentName);
+        NusNetId studentId = persons.getIdOfStudent(studentName);
+        TutorialName tutorialName = persons.getTutorialNameOfStudent(studentName);
+        Tutorial tut = getTutorialWithName(tutorialName);
+        return tut.hasStudentResult(assessmentName, studentId);
+    }
+
+    /**
+     * Adds a result with value {@code score} for the student called {@code studentName} in the assessment
+     * called {@code assessmentName}.
+     */
+    public void addStudentResult(Name studentName, AssessmentName assessmentName, Score score) {
+        requireAllNonNull(studentName, assessmentName, score);
+        NusNetId studentId = getIdOfStudent(studentName);
+        TutorialName tutorialName = getTutorialNameOfStudent(studentName);
+        Tutorial tut = getTutorialWithName(tutorialName);
+        StudentResult result = new StudentResult(studentId, score);
+        tut.addStudentResult(assessmentName, result);
+    }
+
+    public AssessmentResults getAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
+        requireAllNonNull(tutName, assessmentName);
+        Tutorial tut = getTutorialWithName(tutName);
+        return tut.getAssessmentResult(assessmentName);
     }
 
     //// util methods
@@ -189,20 +230,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasTutorialWithName(TutorialName tutorialName) {
         requireNonNull(tutorialName);
-        try {
-            tutorials.getTutorialMatch(tutorialName);
-            return true;
-        } catch (InvalidTutorialException e) {
-            return false;
-        }
+        return tutorials.containsTutorialWithName(tutorialName);
     }
 
     /**
      * Returns a {@code Tutorial} with the name {@code tutorialName}. Used together with
      * {@see hasTutorialWithName} to check if the tutorial exists.
      */
-    public Tutorial getTutorialMatch(TutorialName tutorialName) {
-        return tutorials.getTutorialMatch(tutorialName);
+    public Tutorial getTutorialWithName(TutorialName tutorialName) {
+        return tutorials.getTutorialWithName(tutorialName);
     }
 
     /**
@@ -275,8 +311,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         TutorialName tutorialName = student.getTutorialName();
-        return tutorials.containsName(tutorialName)
-                && tutorials.getTutorialMatch(tutorialName).contains(student);
+        return tutorials.containsTutorialWithName(tutorialName)
+                && tutorials.getTutorialWithName(tutorialName).contains(student);
     }
 
     /**
@@ -287,7 +323,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addStudent(Student student) {
         requireNonNull(student);
-        Person personMatch = persons.get(student.getName());
+        Person personMatch = persons.getPersonWithName(student.getName());
         persons.setPerson(personMatch, student);
     }
 
@@ -300,6 +336,16 @@ public class AddressBook implements ReadOnlyAddressBook {
                 student.getAddress(), student.getTags());
         persons.setPerson(student, toReplaceStudent);
 
+    }
+
+    public NusNetId getIdOfStudent(Name studentName) {
+        requireNonNull(studentName);
+        return persons.getIdOfStudent(studentName);
+    }
+
+    public TutorialName getTutorialNameOfStudent(Name studentName) {
+        requireNonNull(studentName);
+        return persons.getTutorialNameOfStudent(studentName);
     }
 
 }

@@ -1,9 +1,12 @@
 package seedu.address.model.assessment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.DisplayType.SCORE;
 
 import java.util.Objects;
 
+import seedu.address.model.DisplayType;
+import seedu.address.model.Displayable;
 import seedu.address.model.person.NusNetId;
 
 /**
@@ -13,8 +16,8 @@ import seedu.address.model.person.NusNetId;
  * @see AssessmentResults
  * @see Score
  */
-public class StudentResult {
-    // Identity field, change to name if desired
+public class StudentResult implements Displayable {
+    // Identity field
     private final NusNetId studentId;
 
     // Data field
@@ -71,5 +74,10 @@ public class StudentResult {
     @Override
     public int hashCode() {
         return Objects.hash(studentId, score);
+    }
+
+    @Override
+    public DisplayType getDisplayType() {
+        return SCORE;
     }
 }

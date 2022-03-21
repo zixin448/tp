@@ -15,6 +15,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.FullMark;
+import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.Weightage;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -229,7 +230,8 @@ public class ParserUtil {
         return new Time(trimmedTime);
     }
 
-    /** Parses a {@code String studentId} into an {@code NusNetId}.
+    /**
+     * Parses a {@code String studentId} into an {@code NusNetId}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code studentId} is invalid.
@@ -259,5 +261,21 @@ public class ParserUtil {
         sb.append(PREFIX_STUDENTID + studentId.toString() + " ");
         sb.append(PREFIX_TUTORIALNAME + tutorialName.toString());
         return sb.toString();
+    }
+
+
+    /**
+     * Parses a {@code String s} into a score String.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code s} is invalid.
+     */
+    public static String parseScore(String s) throws ParseException {
+        requireNonNull(s);
+        String trimmedScore = s.trim();
+        if (!Score.isValidScore(s)) {
+            throw new ParseException(Score.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedScore;
     }
 }

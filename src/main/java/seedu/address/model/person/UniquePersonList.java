@@ -10,6 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.StudentNotFoundException;
+import seedu.address.model.tutorial.TutorialName;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -148,7 +150,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Runs through the all contents in this list to find the person with
      * name matching given {@code name}.
      */
-    public Person get(Name name) {
+    public Person getPersonWithName(Name name) {
         requireNonNull(name);
         Person person = internalList.stream()
                 .filter(p -> p.getName().equals(name))
@@ -161,4 +163,23 @@ public class UniquePersonList implements Iterable<Person> {
         return person;
 
     }
+
+    public NusNetId getIdOfStudent(Name studentName) {
+        requireNonNull(studentName);
+        Person person = getPersonWithName(studentName);
+        if (!(person instanceof Student)) {
+            throw new StudentNotFoundException();
+        }
+        return ((Student) person).getStudentId();
+    }
+
+    public TutorialName getTutorialNameOfStudent(Name studentName) {
+        requireNonNull(studentName);
+        Person person = getPersonWithName(studentName);
+        if (!(person instanceof Student)) {
+            throw new StudentNotFoundException();
+        }
+        return ((Student) person).getTutorialName();
+    }
+
 }

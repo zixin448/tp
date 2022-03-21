@@ -39,7 +39,6 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student has already been added to a tutorial in the "
             + " address book";
     public static final String MESSAGE_PERSON_NOT_FOUND = "There is no person with the given name in the address book";
-    public static final String MESSAGE_TUTORIAL_DOES_NOT_EXIST = "Tutorial %1$s does not exist!";
     private static final String MESSAGE_TUTORIAL_NOT_FOUND = "There is no class with the given name in the "
             + "address book";
     private final Name toAddName;
@@ -68,7 +67,7 @@ public class AddStudentCommand extends Command {
         }
 
         if (!model.hasTutorialWithName(toAddTutorialName)) {
-            throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toAddTutorialName));
+            throw new CommandException(String.format(MESSAGE_TUTORIAL_NOT_FOUND, toAddTutorialName));
         }
 
         if (model.hasStudentWithName(toAddName)) {

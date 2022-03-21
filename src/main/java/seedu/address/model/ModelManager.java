@@ -13,6 +13,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.AssessmentResults;
+import seedu.address.model.assessment.Score;
+import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
@@ -33,6 +36,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Tutorial> filteredTutorials;
     private final FilteredList<Assessment> filteredAssessments;
+    private ObservableList<StudentResult> displayAssessmentResults;
 
     /**
      * A list containing all Students in the address book.
@@ -175,22 +179,58 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasAssessment(Assessment assessment) {
+        requireNonNull(assessment);
         return addressBook.hasAssessment(assessment);
     }
 
     @Override
     public void addAssessment(Assessment toAdd) {
+        requireNonNull(toAdd);
         addressBook.addAssessment(toAdd);
     }
 
     @Override
     public boolean hasAssessmentByName(AssessmentName name) {
+        requireNonNull(name);
         return addressBook.hasAssessmentByName(name);
     }
 
     @Override
+    public Assessment getAssessmentByName(AssessmentName name) {
+        requireNonNull(name);
+        return addressBook.getAssessmentByName(name);
+    }
+
+    @Override
     public Assessment removeAssessmentByName(AssessmentName name) {
+        requireNonNull(name);
         return addressBook.removeAssessmentByName(name);
+    }
+
+    //=========== Assessment Results =============================================================
+    @Override
+    public ObservableList<StudentResult> getDisplayAssessmentResults() {
+        requireNonNull(displayAssessmentResults);
+        return displayAssessmentResults;
+    }
+
+    @Override
+    public boolean hasStudentResult(Name studentName, AssessmentName assessmentName) {
+        requireAllNonNull(studentName, assessmentName);
+        return addressBook.hasStudentResult(studentName, assessmentName);
+    }
+
+    @Override
+    public void addStudentResult(Name studentName, AssessmentName assessmentName, Score score) {
+        requireAllNonNull(studentName, assessmentName, score);
+        addressBook.addStudentResult(studentName, assessmentName, score);
+    }
+
+    @Override
+    public void updateDisplayAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
+        requireAllNonNull(tutName, assessmentName);
+        AssessmentResults assessmentResults = addressBook.getAssessmentResults(tutName, assessmentName);
+        displayAssessmentResults = assessmentResults.asUnmodifiableStudentResultsList();
     }
 
     //=========== Tutorials =============================================================
@@ -217,9 +257,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Tutorial getTutorialMatch(TutorialName tutorialName) {
+    public Tutorial getTutorialWithName(TutorialName tutorialName) {
         requireNonNull(tutorialName);
-        return addressBook.getTutorialMatch(tutorialName);
+        return addressBook.getTutorialWithName(tutorialName);
     }
 
     @Override
@@ -282,6 +322,12 @@ public class ModelManager implements Model {
     public void removeStudent(Student student) {
         requireNonNull(student);
         addressBook.removeStudent(student);
+    }
+
+    @Override
+    public TutorialName getTutorialNameOfStudent(Name studentName) {
+        requireNonNull(studentName);
+        return addressBook.getTutorialNameOfStudent(studentName);
     }
 
     //=========== Filtered Person List Accessors =============================================================
