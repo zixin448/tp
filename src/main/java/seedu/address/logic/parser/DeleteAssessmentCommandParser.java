@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.stream.Stream;
 
@@ -29,7 +30,4 @@ public class DeleteAssessmentCommandParser implements Parser<DeleteAssessmentCom
         return new DeleteAssessmentCommand(assessmentName);
     }
 
-    private boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }

@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FULLMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHTAGE;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.stream.Stream;
 
@@ -43,7 +44,4 @@ public class AddAssessmentCommandParser implements Parser<AddAssessmentCommand> 
         return new AddAssessmentCommand(assessment);
     }
 
-    private boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }

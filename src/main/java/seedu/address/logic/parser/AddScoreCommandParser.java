@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCORE;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.stream.Stream;
 
@@ -39,7 +40,4 @@ public class AddScoreCommandParser implements Parser<AddScoreCommand> {
         return new AddScoreCommand(assessmentName, name, score);
     }
 
-    private boolean arePrefixesPresent(ArgumentMultimap multimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> multimap.getValue(prefix).isPresent());
-    }
 }

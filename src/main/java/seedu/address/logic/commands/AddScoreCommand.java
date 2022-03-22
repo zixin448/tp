@@ -24,10 +24,10 @@ public class AddScoreCommand extends Command {
             + "Parameters: "
             + PREFIX_ASSESSMENTNAME + "ASSESSMENT NAME "
             + PREFIX_NAME + "NAME "
-            + PREFIX_SCORE + "SCORE ";
+            + PREFIX_SCORE + "SCORE";
 
-    public static final String MESSAGE_SUCCESS = "New score added: %1$s; STUDENT: %2$s\n"
-            + "Listed results of students in TUTORIAL: %3$s for ASSESSMENT: %4$s with FULL MARK: %5$s";
+    public static final String MESSAGE_SUCCESS = "New score added: %1$s; Student: %2$s\n"
+            + "Listed all scores of Class: %3$s for Assessment: %4$s with Full mark: %5$s";
     public static final String MESSAGE_ASSESSMENT_NOT_FOUND = "An assessment with the provided name "
             + "does not exist in the address book";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "There is no student with "

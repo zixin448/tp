@@ -24,7 +24,7 @@ public class ListStudentCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all students";
 
-    public static final String MESSAGE_SUCCESS_CLASS = "Listed students from class: %1$s";
+    public static final String MESSAGE_SUCCESS_CLASS = "Listed students from Class: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": List all students or the students identified by the index "

@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.stream.Stream;
 
@@ -39,14 +40,6 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
         Tutorial tutorial = new Tutorial(tutorialName, venue, day, time);
 
         return new AddClassCommand(tutorial);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
