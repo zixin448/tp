@@ -27,6 +27,10 @@ public class ListScoreCommand extends Command {
     private final TutorialName tutName;
     private final AssessmentName assessmentName;
 
+    /**
+     * Creates a ListScoreCommand to list the scores of students in class with {@code tutName} for assessment
+     * with {@code assessmentName}.
+     */
     public ListScoreCommand(TutorialName tutName, AssessmentName assessmentName) {
         this.tutName = tutName;
         this.assessmentName = assessmentName;

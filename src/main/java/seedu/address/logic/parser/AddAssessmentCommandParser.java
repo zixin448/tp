@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FULLMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHTAGE;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.AddAssessmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assessment.Assessment;

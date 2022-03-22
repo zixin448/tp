@@ -42,7 +42,8 @@ public class AddScoreCommand extends Command {
     private final String score;
 
     /**
-     * Creates an AddScoreCommand to
+     * Creates an AddScoreCommand to add the {@code score} in assessment with {@code assessmentName}
+     * for the student with {@code studentName}.
      */
     public AddScoreCommand(AssessmentName assessmentName, Name studentName, String score) {
         requireAllNonNull(assessmentName, studentName, score);

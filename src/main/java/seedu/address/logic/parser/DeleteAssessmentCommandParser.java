@@ -4,8 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.DeleteAssessmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assessment.AssessmentName;
