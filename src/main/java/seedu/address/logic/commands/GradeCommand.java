@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ASSESSMENT_NOT_FOUND;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -33,8 +34,6 @@ public class GradeCommand extends Command {
     public static final String EDIT_MESSAGE_SUCCESS = "Updated score: %1$s; Student: %2$s\n"
             + "Listed all scores of Class: %3$s for Assessment: %4$s with Full mark: %5$s";
 
-    public static final String MESSAGE_ASSESSMENT_NOT_FOUND = "There is no assessment with the given name "
-            + "in the address book";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "There is no student with "
             + "the given name in the address book";
 

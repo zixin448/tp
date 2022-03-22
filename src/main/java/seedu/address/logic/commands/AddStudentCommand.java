@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
@@ -38,9 +39,9 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_ADD_STUDENT_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student has already been added to a tutorial in the "
             + " address book";
+
     public static final String MESSAGE_PERSON_NOT_FOUND = "There is no person with the given name in the address book";
-    private static final String MESSAGE_TUTORIAL_NOT_FOUND = "There is no class with the given name in the "
-            + "address book";
+
     private final Name toAddName;
     private final NusNetId toAddStudentId;
     private final TutorialName toAddTutorialName;

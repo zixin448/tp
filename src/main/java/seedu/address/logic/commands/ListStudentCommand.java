@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.DeleteClassCommand.MESSAGE_NO_SUCH_TUTORIAL;
+import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
@@ -69,7 +69,7 @@ public class ListStudentCommand extends Command {
         }
 
         if (tutorialToList == null) {
-            throw new CommandException(MESSAGE_NO_SUCH_TUTORIAL);
+            throw new CommandException(MESSAGE_TUTORIAL_NOT_FOUND);
         } else {
             model.updateFilteredStudentList(new StudentHasTutorialNamePredicate(tutorialToList.getTutorialName()));
             return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS_CLASS, tutorialToList));
