@@ -6,27 +6,27 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCORE;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
-import seedu.address.logic.commands.AddScoreCommand;
+import seedu.address.logic.commands.GradeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Name;
 
-public class AddScoreCommandParser implements Parser<AddScoreCommand> {
+public class GradeCommandParser implements Parser<GradeCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddScoreCommand
-     * and returns an AddScoreCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the GradeCommand
+     * and returns an GradeCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public AddScoreCommand parse(String userInput) throws ParseException {
+    public GradeCommand parse(String userInput) throws ParseException {
         ArgumentMultimap multimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_ASSESSMENTNAME, PREFIX_NAME, PREFIX_SCORE);
 
         if (!arePrefixesPresent(multimap, PREFIX_ASSESSMENTNAME, PREFIX_NAME, PREFIX_SCORE)
                 || !multimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddScoreCommand.MESSAGE_USAGE));
+                    GradeCommand.MESSAGE_USAGE));
         }
 
         // Validation checks for the fields are carried out during construction
@@ -35,7 +35,7 @@ public class AddScoreCommandParser implements Parser<AddScoreCommand> {
         Name name = ParserUtil.parseName(multimap.getValue(PREFIX_NAME).get());
         String score = ParserUtil.parseScore(multimap.getValue(PREFIX_SCORE).get());
 
-        return new AddScoreCommand(assessmentName, name, score);
+        return new GradeCommand(assessmentName, name, score);
     }
 
 }

@@ -227,6 +227,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc) {
+        requireAllNonNull(studentName, assessmentName, sc);
+        addressBook.setStudentResult(studentName, assessmentName, sc);
+    }
+
+    @Override
     public void updateDisplayAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
         requireAllNonNull(tutName, assessmentName);
         AssessmentResults assessmentResults = addressBook.getAssessmentResults(tutName, assessmentName);

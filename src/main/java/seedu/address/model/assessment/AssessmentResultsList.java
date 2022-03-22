@@ -9,6 +9,7 @@ import java.util.List;
 
 import seedu.address.model.assessment.exceptions.AssessmentNotFoundException;
 import seedu.address.model.assessment.exceptions.DuplicateAssessmentException;
+import seedu.address.model.assessment.exceptions.StudentResultNotFound;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.tutorial.TutorialName;
 
@@ -81,6 +82,22 @@ public class AssessmentResultsList {
     }
 
     /**
+     * Sets the result of the student with {@code studentId} for the assessment with {@code assessmentName} to
+     * {@code score}.
+     */
+    public void setStudentResult(AssessmentName assessmentName, NusNetId studentId, Score score) {
+        requireAllNonNull(assessmentName, studentId, score);
+        if (!hasAssessmentResultsByName(assessmentName)) {
+            throw new AssessmentNotFoundException();
+        }
+        if (!hasStudentResult(assessmentName, studentId)) {
+            throw new StudentResultNotFound();
+        }
+        AssessmentResults assessmentResults = getAssessmentResultsByName(assessmentName);
+        assessmentResults.set(studentId, score);
+    }
+
+    /**
      * Adds an AssessmentResults to the list.
      * The AssessmentResults must not already be in the list.
      */
@@ -125,5 +142,4 @@ public class AssessmentResultsList {
     public List<AssessmentResults> asUnmodifiableList() {
         return unmodifiableResultsList;
     }
-
 }

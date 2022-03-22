@@ -13,6 +13,7 @@ import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
+import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
@@ -192,6 +193,15 @@ public class Tutorial implements Displayable {
     }
 
     /**
+     * Sets the result of the student with {@code studentId} for the assessment with {@code assessmentName} to
+     * {@code score}.
+     */
+    public void setStudentResult(AssessmentName assessmentName, NusNetId studentId, Score score) {
+        requireAllNonNull(assessmentName, studentId, score);
+        assessmentResultsList.setStudentResult(assessmentName, studentId, score);
+    }
+
+    /**
      * Returns true if both tutorials have the same identity and data fields.
      * This defines a stronger notion of equality between two tutorials (used for deleting tutorials).
      */
@@ -228,4 +238,5 @@ public class Tutorial implements Displayable {
                 .append(getTime());
         return builder.toString();
     }
+
 }

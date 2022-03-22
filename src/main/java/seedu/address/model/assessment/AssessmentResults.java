@@ -1,10 +1,12 @@
 package seedu.address.model.assessment;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.exceptions.DuplicateStudentResultException;
+import seedu.address.model.assessment.exceptions.StudentResultNotFound;
 import seedu.address.model.person.NusNetId;
 
 /**
@@ -71,6 +73,21 @@ public class AssessmentResults {
             throw new DuplicateStudentResultException();
         }
         results.add(toAdd);
+    }
+
+    /**
+     * Sets the result of the student with {@code studentId} to {@code score}.
+     */
+    public void set(NusNetId studentId, Score score) {
+        requireAllNonNull(studentId, score);
+        for (int i = 0; i < results.size(); i++) {
+            if (results.get(i).getStudentId().equals(studentId)) {
+                StudentResult studentResult = new StudentResult(studentId, score);
+                results.set(i, studentResult);
+                return;
+            }
+        }
+        throw new StudentResultNotFound();
     }
 
     public ObservableList<StudentResult> asUnmodifiableStudentResultsList() {
