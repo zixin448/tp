@@ -17,6 +17,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
+        // check for NULL_INPUT
+        if (keywords.size() == 1 && keywords.get(0).equals("NULL_INPUT")) {
+            return false;
+        }
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
     }

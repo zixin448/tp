@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -33,6 +34,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Tutorial> filteredTutorials;
     private final FilteredList<Assessment> filteredAssessments;
+    private final FilteredList<Person> filteredPersonsByMultiplePredicate;
 
     /**
      * A list containing all Students in the address book.
@@ -59,6 +61,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTutorials = new FilteredList<>(this.addressBook.getTutorialList());
         filteredAssessments = new FilteredList<>(this.addressBook.getAssessmentList());
+        filteredPersonsByMultiplePredicate = new FilteredList<>(this.addressBook.getFilteredPersonsList());
 
         allStudents = new FilteredList<>(this.addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS);
         filteredStudents = new FilteredList<>(allStudents);
@@ -319,6 +322,24 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
+    //=========== Filtered Person Multiple Predicate List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code AddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonsMultiPredList() {
+        return filteredPersonsByMultiplePredicate;
+    }
+
+    @Override
+    public void setFilteredPersonsMultiPredList(List<Person> persons) {
+        requireNonNull(persons);
+        addressBook.setFilteredPersons(persons);
+    }
+
 
 }
 

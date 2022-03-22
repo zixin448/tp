@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
     Predicate<Assessment> PREDICATE_SHOW_ALL_ASSESSMENTS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_FILTERED_PERSONS = unused -> true;
     Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS = Student::isStudent;
 
     /**
@@ -210,6 +212,17 @@ public interface Model {
      *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
      */
     boolean hasStudentWithName(Name studentName);
+
+    /**
+     * Returns an unmodifiable view of the multiple predicate filtered person list
+     */
+    ObservableList<Person> getFilteredPersonsMultiPredList();
+
+    /**
+     * Set the given list {@code persons} as the multiple predicate filtered person list.
+     */
+    void setFilteredPersonsMultiPredList(List<Person> persons);
+
 
 
 }

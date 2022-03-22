@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 /**
  * Tests that a {@Code Tutorial}'s {@Code TutorialName} matches any of the keywords given.
  */
-public class TutorialContainsKeywordsPredicate implements Predicate<Student> {
+public class TutorialContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
     public TutorialContainsKeywordsPredicate(List<String> keywords) {
@@ -17,9 +17,17 @@ public class TutorialContainsKeywordsPredicate implements Predicate<Student> {
     }
 
     @Override
-    public boolean test(Student student) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(student.getTutorialName().name, keyword));
+    public boolean test(Person person) {
+        // check for NULL_INPUT
+        if (keywords.size() == 1 && keywords.get(0).equals("NULL_INPUT")) {
+            return false;
+        }
+        if (person instanceof Student) {
+            Student student = (Student) person;
+            return keywords.stream()
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(student.getTutorialName().name, keyword));
+        }
+        return false;
     }
 
     @Override

@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Arrays;
 
+import seedu.address.logic.commands.FindByPrefixCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.AddressContainsKeywordsPredicate;
@@ -18,6 +19,8 @@ import seedu.address.model.person.TutorialContainsKeywordsPredicate;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
+    public static final String EMPTY_INPUT = "NULL_INPUT";
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -28,22 +31,22 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_TAG, PREFIX_STUDENTID, PREFIX_TUTORIALNAME);
 
-        String name = argMultimap.getValue(PREFIX_NAME).get() == null ? "NULL_INPUT" : argMultimap.getValue(PREFIX_NAME).get();
-        String phone = argMultimap.getValue(PREFIX_PHONE).get() == null ? "NULL_INPUT" : argMultimap.getValue(PREFIX_PHONE).get();
-        String email = argMultimap.getValue(PREFIX_EMAIL).get() == null ? "NULL_INPUT" : argMultimap.getValue(PREFIX_EMAIL).get();
-        String address = argMultimap.getValue(PREFIX_ADDRESS).get() == null ? "NULL_INPUT" : argMultimap.getValue(PREFIX_ADDRESS).get();
-        String tag = argMultimap.getValue(PREFIX_TAG).get() == null ? "NULL_INPUT" : argMultimap.getValue(PREFIX_TAG).get();
-        String studentId = argMultimap.getValue(PREFIX_STUDENTID).get() == null ? "NULL_INPUT" : argMultimap.getValue(PREFIX_STUDENTID).get();
-        String tutorialName = argMultimap.getValue(PREFIX_TUTORIALNAME).get() == null ? "NULL_INPUT" : argMultimap.getValue(PREFIX_TUTORIALNAME).get();
+        String name = argMultimap.getValue(PREFIX_NAME).isPresent() ? argMultimap.getValue(PREFIX_NAME).get() : EMPTY_INPUT;
+        String phone = argMultimap.getValue(PREFIX_PHONE).isPresent() ? argMultimap.getValue(PREFIX_PHONE).get() : EMPTY_INPUT;
+        String email = argMultimap.getValue(PREFIX_EMAIL).isPresent() ? argMultimap.getValue(PREFIX_EMAIL).get() : EMPTY_INPUT;
+        String address = argMultimap.getValue(PREFIX_ADDRESS).isPresent() ? argMultimap.getValue(PREFIX_ADDRESS).get() :EMPTY_INPUT;
+        String tag = argMultimap.getValue(PREFIX_TAG).isPresent() ? argMultimap.getValue(PREFIX_TAG).get() : EMPTY_INPUT;
+        String studentId = argMultimap.getValue(PREFIX_STUDENTID).isPresent() ? argMultimap.getValue(PREFIX_STUDENTID).get() : EMPTY_INPUT;
+        String tutorialName = argMultimap.getValue(PREFIX_TUTORIALNAME).isPresent() ? argMultimap.getValue(PREFIX_TUTORIALNAME).get() : EMPTY_INPUT;
 
         boolean isPrefixPresent =
-                !name.equals("NULL_INPUT")
-                || !phone.equals("NULL_INPUT")
-                || !email.equals("NULL_INPUT")
-                || !address.equals("NULL_INPUT")
-                || !tag.equals("NULL_INPUT")
-                || !studentId.equals("NULL_INPUT")
-                || !tutorialName.equals("NULL_INPUT");
+                !name.equals(EMPTY_INPUT)
+                || !phone.equals(EMPTY_INPUT)
+                || !email.equals(EMPTY_INPUT)
+                || !address.equals(EMPTY_INPUT)
+                || !tag.equals(EMPTY_INPUT)
+                || !studentId.equals(EMPTY_INPUT)
+                || !tutorialName.equals(EMPTY_INPUT);
 
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
