@@ -287,6 +287,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasTutorialWithName(TutorialName tutorialName) {
             throw new AssertionError("This method should not be called.");
         }
