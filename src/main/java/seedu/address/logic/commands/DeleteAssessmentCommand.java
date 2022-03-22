@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ASSESSMENT_NOT_FOUND;
 import static seedu.address.logic.commands.CommandResult.createAssessmentCommandResult;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 
@@ -20,8 +21,6 @@ public class DeleteAssessmentCommand extends Command {
             + PREFIX_ASSESSMENTNAME + "assignment1\n";
 
     public static final String MESSAGE_SUCCESS = "Deleted assessment: %1$s";
-    private static final String MESSAGE_ASSESSMENT_NOT_FOUND = "An assessment with the provided name "
-            + "does not exist in the address book";
 
     private final AssessmentName name;
 
