@@ -58,7 +58,7 @@ public class TutorialTest {
         // different type -> returns false
         assertFalse(T01.equals(5));
 
-        // different person -> returns false
+        // different tutorial -> returns false
         assertFalse(T01.equals(TG2));
 
         // different tutorial name -> returns false

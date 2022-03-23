@@ -13,7 +13,7 @@ public class VenueTest {
     }
 
     @Test
-    public void constructor_invalidDay_throwsIllegalArgumentException() {
+    public void constructor_invalidVenue_throwsIllegalArgumentException() {
         String invalidVenue = "";
         assertThrows(IllegalArgumentException.class, () -> new Venue(invalidVenue));
     }
