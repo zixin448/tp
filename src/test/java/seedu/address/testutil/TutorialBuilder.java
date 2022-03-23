@@ -11,7 +11,7 @@ import seedu.address.model.tutorial.Venue;
  */
 public class TutorialBuilder {
 
-    public static final String DEFAULT_TUTORIAL_NAME = "T04";
+    public static final String DEFAULT_TUTORIAL_NAME = "Default Tutorial";
     public static final String DEFAULT_VENUE = "LT13";
     public static final String DEFAULT_DAY = "Monday";
     public static final String DEFAULT_TIME = "13:00";
