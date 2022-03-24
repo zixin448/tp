@@ -1,12 +1,11 @@
 package seedu.address.model.person;
 
-
-import seedu.address.commons.util.StringUtil;
+import static seedu.address.model.person.NusNetId.NULL_INPUT;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import static seedu.address.model.person.NusNetId.NULL_INPUT;
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Student}'s {@code NusNetId} matches any of the keywords given.
@@ -27,7 +26,7 @@ public class StudentIdContainsKeywordsPredicate implements Predicate<Person> {
         if (person instanceof Student) {
             Student student = (Student) person;
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(student.getStudentId().id, keyword));
+                    .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(student.getStudentId().id, keyword));
         }
         return false;
     }

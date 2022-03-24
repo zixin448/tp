@@ -1,6 +1,11 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.AddressContainsKeywordsPredicate;
@@ -11,14 +16,6 @@ import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.StudentIdContainsKeywordsPredicate;
 import seedu.address.model.person.TagContainsKeywordsPredicate;
 import seedu.address.model.person.TutorialContainsKeywordsPredicate;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all persons in address book whose attributes contains any of the argument keywords by prefix.
@@ -34,7 +31,6 @@ public class FindByPrefixCommand extends FindCommand {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-//    private final NameContainsKeywordsPredicate predicateName;
     private final PhoneContainsKeywordsPredicate predicatePhone;
     private final EmailContainsKeywordsPredicate predicateEmail;
     private final AddressContainsKeywordsPredicate predicateAddress;
@@ -42,6 +38,11 @@ public class FindByPrefixCommand extends FindCommand {
     private final StudentIdContainsKeywordsPredicate predicateStudentId;
     private final TutorialContainsKeywordsPredicate predicateTutorialName;
 
+    /**
+     * Finds and lists all persons in address book whose name contains any of the argument keywords.
+     * Partial keyword matching is allowed but matching starts from the first letter.
+     * Keyword matching is case insensitive.
+     */
     public FindByPrefixCommand(NameContainsKeywordsPredicate predicateName,
                                PhoneContainsKeywordsPredicate predicatePhone,
                                EmailContainsKeywordsPredicate predicateEmail,
@@ -95,12 +96,9 @@ public class FindByPrefixCommand extends FindCommand {
         List<Person> allNoDupes = new ArrayList<>(new LinkedHashSet<>(all));
         model.setFilteredPersonsMultiPredList(allNoDupes);
 
-        // print list to check, TO BE DELETED
-        ObservableList<Person> printListToCheck = model.getFilteredPersonsMultiPredList();
-        System.out.println(printListToCheck);
-
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonsMultiPredList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
+                        model.getFilteredPersonsMultiPredList().size()));
 
     }
 

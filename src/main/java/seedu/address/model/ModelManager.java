@@ -323,7 +323,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
-    //=========== Filtered Person Multiple Predicate List Accessors =============================================================
+    //=========== Filtered Person Multiple Predicate List Accessors ==================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of

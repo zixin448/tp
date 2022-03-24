@@ -1,11 +1,11 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
+import static seedu.address.model.person.Phone.NULL_INPUT;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import static seedu.address.model.person.Phone.NULL_INPUT;
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Person}'s {@code Phone} matches any of the keywords given.
@@ -24,7 +24,7 @@ public class PhoneContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(person.getPhone().value, keyword));
     }
 
     @Override

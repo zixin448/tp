@@ -68,10 +68,8 @@ public class StringUtil {
             if (preppedWords.equalsIgnoreCase(word)) {
                 return true;
             } else if (wordLength >= len) {
-                char[] preppedChar = new char[len];
-                for (int i = 0 ; i < len; i++) {
-                    preppedWords.getChars(0, len-1, preppedChar, 0);
-                    String preppedCharToString = new String(preppedChar);
+                for (int i = 0; i < len; i++) {
+                    String preppedCharToString = preppedWords.substring(0, len);
                     if (preppedCharToString.equalsIgnoreCase(word)) {
                         return true;
                     }

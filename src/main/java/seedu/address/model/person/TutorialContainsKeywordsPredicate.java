@@ -1,13 +1,11 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.tutorial.Tutorial;
+import static seedu.address.model.tutorial.TutorialName.NULL_INPUT;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import static seedu.address.model.tutorial.TutorialName.NULL_INPUT;
-
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@Code Tutorial}'s {@Code TutorialName} matches any of the keywords given.
@@ -28,7 +26,8 @@ public class TutorialContainsKeywordsPredicate implements Predicate<Person> {
         if (person instanceof Student) {
             Student student = (Student) person;
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(student.getTutorialName().name, keyword));
+                    .anyMatch(keyword -> StringUtil
+                            .containsPartialWordIgnoreCase(student.getTutorialName().name, keyword));
         }
         return false;
     }
@@ -36,7 +35,7 @@ public class TutorialContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof  TutorialContainsKeywordsPredicate // instanceof handles nulls
+                || (other instanceof TutorialContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((TutorialContainsKeywordsPredicate) other).keywords)); // state check
     }
 

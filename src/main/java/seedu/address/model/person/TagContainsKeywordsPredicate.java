@@ -1,9 +1,11 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
+import static seedu.address.model.tag.Tag.NULL_INPUT;
 
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Person}'s {@code Tag} matches any of the keywords given.
@@ -18,12 +20,13 @@ public class TagContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         // check for NULL_INPUT
-        if (keywords.size() == 1 && keywords.get(0).equals("NULL_INPUT")) {
+        if (keywords.size() == 1 && keywords.get(0).equals(NULL_INPUT)) {
             return false;
         }
         return keywords.stream()
                 .anyMatch(keyword -> person.getTags()
                                             .stream()
-                                            .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword)));
+                                            .anyMatch(tag -> StringUtil
+                                                    .containsPartialWordIgnoreCase(tag.tagName, keyword)));
     }
 }
