@@ -115,7 +115,7 @@ Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 
 * Adds the person with the specified `NAME` as a student belonging to a specified class.
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
-* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to. 
+* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
 
 Examples:
 * `add_student 1 id/e01234567 tn/T13`

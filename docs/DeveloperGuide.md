@@ -267,8 +267,8 @@ The following sequence diagram shows how the list operation works:
 
 * **Alternative 2:** Create multiple panels to display different lists
     * Pros:
-      * Requires less modifications to existing code. 
-      * Shows every list available at a glance. 
+      * Requires less modifications to existing code.
+      * Shows every list available at a glance.
       * Does not require the user to key in commands to switch between lists.
     * Cons:
       * Difficulty in accommodating a larger variety of different lists with the implementation of more features in future
