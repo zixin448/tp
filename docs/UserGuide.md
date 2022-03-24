@@ -148,7 +148,7 @@ Format: `list_assessment`
 
 #### Listing all classes: `list_class`
 
-Shows a list of all the classes on the any input date.
+Shows a list of all classes on the any input date.
 
 Formats:
 
@@ -165,7 +165,7 @@ Examples:
 
 #### Listing students of a class: `list_student`
 
-Shows a list of all the students of a specified class.
+Shows a list of all students of a specified class.
 
 Format:
 
@@ -181,6 +181,17 @@ Examples:
 * `list_student tn/G04`
 * `list_student 1`
   ![result for `list_student 1`](images/listStudentResult.png)
+
+#### Listing scores of students in a class: `list_score`
+
+Shows a list of the scores of all students of a given class for a given assessment component.
+
+Format: `list_score as/ASSESSMENT_NAME tn/TUTORIAL_NAME`
+
+Examples:
+
+* list_score as/Assignment 1 tn/T04
+  ![result for `list_score as/Assignment 1 tn/T04`](images/listScoreResult.png)
 
 ### Editing a person : `edit`
 
@@ -332,7 +343,7 @@ _Details coming soon ..._
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                    |
 | **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                           |
 | **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                        |
-| **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g.,* `delete_assessment as/Attendance`                                                                                   |
+| **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                    |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                            |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                             |
 | **List**              | `list`                                                                                                                                                                 |
