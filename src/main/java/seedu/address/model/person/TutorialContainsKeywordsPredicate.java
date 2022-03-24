@@ -6,6 +6,9 @@ import seedu.address.model.tutorial.Tutorial;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static seedu.address.model.tutorial.TutorialName.NULL_INPUT;
+
+
 /**
  * Tests that a {@Code Tutorial}'s {@Code TutorialName} matches any of the keywords given.
  */
@@ -19,13 +22,13 @@ public class TutorialContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         // check for NULL_INPUT
-        if (keywords.size() == 1 && keywords.get(0).equals("NULL_INPUT")) {
+        if (keywords.size() == 1 && keywords.get(0).equals(NULL_INPUT)) {
             return false;
         }
         if (person instanceof Student) {
             Student student = (Student) person;
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(student.getTutorialName().name, keyword));
+                    .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(student.getTutorialName().name, keyword));
         }
         return false;
     }

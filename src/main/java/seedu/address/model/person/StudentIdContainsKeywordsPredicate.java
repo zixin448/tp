@@ -6,6 +6,8 @@ import seedu.address.commons.util.StringUtil;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static seedu.address.model.person.NusNetId.NULL_INPUT;
+
 /**
  * Tests that a {@code Student}'s {@code NusNetId} matches any of the keywords given.
  */
@@ -19,7 +21,7 @@ public class StudentIdContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         // check for NULL_INPUT
-        if (keywords.size() == 1 && keywords.get(0).equals("NULL_INPUT")) {
+        if (keywords.size() == 1 && keywords.get(0).equals(NULL_INPUT)) {
             return false;
         }
         if (person instanceof Student) {

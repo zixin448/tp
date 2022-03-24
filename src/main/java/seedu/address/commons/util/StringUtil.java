@@ -39,6 +39,51 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code sentence} contains any partial of the {@code word}.
+     *   Ignores case, and a partial word match is allowed, but should always match from
+     *   first letter of the word
+     *   <br>examples:<pre>
+     *       containsWordIgnoreCase("ABc def", "abc") == true
+     *       containsWordIgnoreCase("ABc def", "AB") == true
+     *       containsWordIgnoreCase("ABc def", "Bc") == false //not a full word match
+     *       </pre>
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean containsPartialWordIgnoreCase(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        int len = word.length();
+
+        for (String preppedWords : wordsInPreppedSentence) {
+            int wordLength = preppedWords.length();
+            if (preppedWords.equalsIgnoreCase(word)) {
+                return true;
+            } else if (wordLength >= len) {
+                char[] preppedChar = new char[len];
+                for (int i = 0 ; i < len; i++) {
+                    preppedWords.getChars(0, len-1, preppedChar, 0);
+                    String preppedCharToString = new String(preppedChar);
+                    if (preppedCharToString.equalsIgnoreCase(word)) {
+                        return true;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {

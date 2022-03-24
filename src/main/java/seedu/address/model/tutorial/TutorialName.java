@@ -11,6 +11,8 @@ public class TutorialName {
     public static final String MESSAGE_CONSTRAINTS =
             "Tutorial names should only contain alphanumeric characters and spaces, and should not be blank";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String NULL_INPUT = "NULL_INPUT";
+
     public final String name;
 
     /**

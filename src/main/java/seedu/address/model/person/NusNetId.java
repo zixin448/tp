@@ -11,6 +11,8 @@ public class NusNetId {
     public static final String MESSAGE_CONSTRAINTS =
             "NUSNET IDs should contain an 'e' followed by 7 numerical digits";
     public static final String VALIDATION_REGEX = "^e\\d{7}";
+    public static final String NULL_INPUT = "NULL_INPUT";
+
     public final String id;
 
     /**
