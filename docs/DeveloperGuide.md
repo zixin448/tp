@@ -224,6 +224,56 @@ Step 4. After browsing through the list of commands, the user decides now that h
 
 _{more aspects and alternatives to be added}_
 
+### Display students feature
+
+The display students feature is facilitated by the enhanced `MainWindow` of the `UI` component. It extends the application with a `DisplayListPanel` that could display a list of `Student` and `Tutorial`, other than `Person`, by implementing the following operations:
+
+* `MainWindow#handlePerson()` — Shows the list of persons stored in the application.
+* `MainWindow#handleClass()` — Shows the list of classes stored in the application.
+* `MainWindow#handleStudent()` — Shows the list of students stored in the application.
+
+These operations are exposed in the `MainWindow` class as `MainWindow#handlePerson()`, `MainWindow#handleClass()` and `MainWindow#handleStudent()` respectively.
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `MainWindow` will be initialized with the initial `DisplayListPanel` displaying the list of persons stored in the application.
+
+![ListStudentCommandState0](images/ListStudentCommandState0.png)
+
+Step 2. The user inputs `list_class` command to see the list of classes. The `list_class` command calls `MainWindow#handleClass()`, causing the `DisplayListPanel` to be replaced with a new `DisplayListPanel` that displays the list of classes stored in the application.
+
+![ListStudentCommandState0](images/ListStudentCommandState1.png)
+
+Step 3. The user inputs `list_student 1` command to see the list of students in the first class of the previously displayed list. The `list_student` command calls `MainWindow#handleStudent()`, causing the `DisplayListPanel` to be replaced with a new `DisplayListPanel` that displays the list of students stored in the application that belong to the specified class .
+
+![ListStudentCommandState0](images/ListStudentCommandState2.png)
+
+The following sequence diagram shows how the list operation works:
+
+![ListStudentSequenceDiagram](images/ListStudentSequenceDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How the panel displaying each list executes:**
+
+* **Alternative 1 (current choice):** Replaces the current panel with a new panel in displaying a different type of list
+    * Pros:
+      * Easy to implement
+      * Low on memory usage
+      * Can accommodate a large variety in type of list as long as the contents implement the `Displayable` interface
+    * Cons:
+      * Requires more changes to the existing code, with the implementation of an interface and an enumeration
+      * Additionally, the existing `Person` class will also need to be modified to implement the interface
+
+* **Alternative 2:** Create multiple panels to display different lists
+    * Pros:
+      * Requires less modifications to existing code.
+      * Shows every list available at a glance.
+      * Does not require the user to key in commands to switch between lists.
+    * Cons:
+      * Difficulty in accommodating a larger variety of different lists with the implementation of more features in future
+      * The UI can appear messy in the presence of multiple long lists
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
