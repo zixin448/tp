@@ -176,6 +176,54 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Detailed Help Window feature
+#### Implementation
+
+This `HelpWindow` extends `AddressBook` with a detailed Help Window implementing the following operations:
+* `HelpWindow#addIntroText()` —  Shows the user the introduction text of the application describing its purpose.
+* `HelpWindow#addDevGuideText()` —  Shows the user a clickable hyperlink for the Developer Guide
+* `HelpWindow#showCommands()` —  Shows the user a list of the commands present in camNUS, along with a detailed guide for each command.
+
+These operations are exposed in the `HelpWindow` class as `HelpWindow#addIntroText()`, `HelpWindow#addDevGuideText()` and `HelpWindow#showCommands()` respectively
+
+Given below is an example usage scenario and how the Help Window behaves at each step.
+
+Step 1. The user launches the application for the first time. A `HelpWindow` is created and initialized with the default `HelpWindow#addIntroText()` to show the user the introduction text. However, this `HelpWindow` is not shown until the user requests for it.
+
+Step 2. The user executes `help` command to show the help window. The `help` command calls `MainWindow#handleHelp()`, causing the application to show the help window.
+
+![HelpWindowState1](images/HelpWindowState0.png)
+
+Step 3. The user clicks on the button `Commands` in the help window. This calls `HelpWindow#showCommands()`, causing the display pane containing the introduction text to be deleted, and a new display pane containing the list of command details to be added to the `HelpWindow`.
+
+![HelpWindowState2](images/HelpWindowState1.png)
+
+The following sequence diagram shows how this operation works:
+
+![HelpWindowSequence0](images/HelpWindowSequence0.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `introPane:AnchorPane` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+Step 4. After browsing through the list of commands, the user decides now that he/she wants to view the full Developer Guide for more explicit information. The user clicks on the button `Developer Guide` in the help window. This calls `HelpWindow#addDevGuideText()`, causing the display pane containing the command list to be deleted, and a new display pane containing the Developer Guide hyperlink to be added to the `HelpWindow`.
+
+![HelpWindowState3](images/HelpWindowState2.png)
+
+#### Design considerations:
+
+**Aspect: How each button executes:**
+
+* **Alternative 1 (current choice):** Deletes current display pane, creates new display pane.
+    * Pros: Easy to implement. Low on memory usage.
+    * Cons: If more graphic elements are added to enhance this feature, it may have performance issues in terms of performance usage.
+
+* **Alternative 2:** Create persistent display panes for all 3 features: Introduction Text, Command List, and Developer Guide link. Show or hide them when required.
+    * Pros: Faster performance, since no new objects are created after initialization.
+    * Cons: Harder to implement, have to ensure that the display panes are correctly positioned and hidden/shown when required.
+
+_{more aspects and alternatives to be added}_
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
