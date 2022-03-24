@@ -21,4 +21,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_WEIGHTAGE = new Prefix("w/");
     public static final Prefix PREFIX_FULLMARK = new Prefix("f/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
+    public static final Prefix PREFIX_SCORE = new Prefix("s/");
 }

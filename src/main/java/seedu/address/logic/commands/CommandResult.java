@@ -85,6 +85,10 @@ public class CommandResult {
         return new CommandResult(feedbackToUser, false, false, DisplayType.ASSESSMENT);
     }
 
+    public static CommandResult createScoreCommandResult(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, DisplayType.SCORE);
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }

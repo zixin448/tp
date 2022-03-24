@@ -1,10 +1,13 @@
 package seedu.address.model.assessment;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.exceptions.DuplicateStudentResultException;
+import seedu.address.model.assessment.exceptions.StudentResultNotFound;
+import seedu.address.model.person.NusNetId;
 
 /**
  * Contains a list of the students' results for a particular Assessment (found in UniqueAssessmentList).
@@ -47,7 +50,7 @@ public class AssessmentResults {
     /**
      * Returns true if the AssessmentResults has given name.
      */
-    public boolean hasName(AssessmentName name) {
+    public boolean hasAssessmentName(AssessmentName name) {
         return assessmentName.equals(name);
     }
 
@@ -72,9 +75,31 @@ public class AssessmentResults {
         results.add(toAdd);
     }
 
+    /**
+     * Sets the result of the student with {@code studentId} to {@code score}.
+     */
+    public void set(NusNetId studentId, Score score) {
+        requireAllNonNull(studentId, score);
+        for (int i = 0; i < results.size(); i++) {
+            if (results.get(i).getStudentId().equals(studentId)) {
+                StudentResult studentResult = new StudentResult(studentId, score);
+                results.set(i, studentResult);
+                return;
+            }
+        }
+        throw new StudentResultNotFound();
+    }
+
     public ObservableList<StudentResult> asUnmodifiableStudentResultsList() {
         return unmodifiableResults;
     }
 
+    /**
+     * Returns true if {@code results} contains a StudentResult with {@code studentId}.
+     */
+    public boolean hasStudentResultByStudentId(NusNetId studentId) {
+        requireNonNull(studentId);
+        return results.stream().anyMatch(x -> x.getStudentId().equals(studentId));
+    }
 
 }

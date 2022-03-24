@@ -55,6 +55,17 @@ public class UniqueAssessmentList {
         internalList.add(toAdd);
     }
 
+    public Assessment getByName(AssessmentName name) {
+        requireNonNull(name);
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).hasName(name)) {
+                Assessment assessment = internalList.get(i);
+                return assessment;
+            }
+        }
+        throw new AssessmentNotFoundException();
+    }
+
     /**
      * Replaces the assessment {@code target} in the list with {@code editedAssessment}.
      * {@code target} must exist in the list.
@@ -143,5 +154,4 @@ public class UniqueAssessmentList {
         }
         return true;
     }
-
 }

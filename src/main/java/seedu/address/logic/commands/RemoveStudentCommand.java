@@ -81,7 +81,7 @@ public class RemoveStudentCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toRemoveFromTutorialName));
             }
 
-            tutorial = model.getTutorialMatch(toRemoveFromTutorialName);
+            tutorial = model.getTutorialWithName(toRemoveFromTutorialName);
 
             if (!tutorial.containsStudentWithId(toRemoveStudentId)) {
                 throw new CommandException(String.format(MESSAGE_STUDENT_DOES_NOT_EXIST, toRemoveStudentId,
@@ -102,7 +102,7 @@ public class RemoveStudentCommand extends Command {
             if (!model.hasTutorialWithName(toRemoveFromTutorialName)) {
                 throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toRemoveFromTutorialName));
             }
-            Tutorial tutorial = model.getTutorialMatch(toRemoveFromTutorialName);
+            Tutorial tutorial = model.getTutorialWithName(toRemoveFromTutorialName);
             Person personToRemove = lastShownList.get(toRemoveIndex.getZeroBased());
 
 
