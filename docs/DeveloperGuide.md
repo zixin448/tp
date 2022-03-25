@@ -223,7 +223,7 @@ Step 4. After browsing through the list of commands, the user decides now that h
     * Cons: Harder to implement, have to ensure that the display panes are correctly positioned and hidden/shown when required.
 
 _{more aspects and alternatives to be added}_
-
+ 
 ### Display students feature
 
 The display students feature is facilitated by the enhanced `MainWindow` of the `UI` component. It extends the application with a `DisplayListPanel` that could display a list of `Student` and `Tutorial`, other than `Person`, by implementing the following operations:
@@ -273,6 +273,58 @@ The following sequence diagram shows how the list operation works:
     * Cons:
       * Difficulty in accommodating a larger variety of different lists with the implementation of more features in future
       * The UI can appear messy in the presence of multiple long lists
+
+### Add students feature
+
+This `AddStudentCommand` feature is facilitated by display student feature. It extends the application implementing the 
+following operations:
+
+* `AddStudentCommand#execute()` — Find corresponding `Person` and set it to a `Student`.
+
+The operation is facilitated by the `Model` interface using `Model#addStudent()`,`Model#hasPersonWithName()`
+, `Model#getPersonWithName()`, `Model#hasTutorialWithName()` and `Model#hasStudentWithName()`.
+
+Given below is an example scenario and how the mechanism behaves at each step.
+
+Step 1. The user executes `add n/B ...` to add a new`Person`. The new `PersonCard` with the corresponding populated details will be displayed on the
+`DisplayListPanel` displaying the list of `Person` stored in the application.
+
+![AddStudentCommandState0](images/AddStudentCommandState0.png)
+
+Step 2. The user executes `add_student n/C ...` command to add a student. The add_student command 
+call `Model#getPersonWithName()` is used to retrieve the corresponding `Person`.
+
+![AddStudentCommandState1](images/AddStudentCommandState1.png)
+
+<div markdown="span" class="alert alert-info">:information_source:**Note:** The add_student command call 
+`Model#hasPersonWithName()` and `Model#hasTutorialWithName()` to check if corresponding `Person` and `Tutorial` exists. 
+The command calls `Model#hasStudentWithName` to ensure there is no already exist student with the same details.
+If a command fails its execution, it will not call `Model#getPersonWithName()`.
+
+</div>
+
+Step 3. The command creates a `Student` using the Person C's details, then uses `Model#add_student()` to replace the 
+original `Person` with a `Student`.
+
+![AddStudentCommandState2](images/AddStudentCommandState2.png)
+
+The following sequence diagram shows how this operation works:
+
+![AddStudentSequenceDiagram](images/AddStudentSequenceDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How the person is handled in add_student:**
+
+* **Alternative 1 (current choice):** Replace the original person with the student.
+    * Pros: Easy to implement.
+    * Cons: More checks needed to determine if handling a person or a student.
+
+* **Alternative 2:** Create a separate student list and leave person untouched.
+    * Pros: Fewer checks on whether person is a student required.
+    * Cons: Additional filters required to remove duplicates when display both persons and students.
+
+_{more aspects and alternatives to be added}_
 
 ### \[Proposed\] Undo/redo feature
 
