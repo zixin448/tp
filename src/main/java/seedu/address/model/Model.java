@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -196,6 +197,13 @@ public interface Model {
     void removeStudent(Student student);
 
     /**
+     * Returns the student with the same student id as {@code id}
+     * checks must be done beforehand to ensure no exception thrown. {@see model.tutorialHasStudentWithId()}
+     */
+    Student getStudentWithId(NusNetId id);
+
+
+    /**
      * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -210,5 +218,10 @@ public interface Model {
      */
     boolean hasStudentWithName(Name studentName);
 
+    /**
+     *  Returns true if a student with the same student ID as {@code id}
+     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName);
 
 }

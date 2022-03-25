@@ -9,6 +9,7 @@ import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.UniqueAssessmentList;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniquePersonList;
@@ -302,4 +303,18 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     }
 
+    /**
+     * Returns the student with the same student id as {@code id}
+     */
+    public Student getStudentWithId(NusNetId id) {
+        return persons.getStudentWithId(id);
+    }
+
+    /**
+     * Returns true if a student with the same student ID as {@code id}
+     * exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        return tutorials.tutorialHasStudentWithId(id, tutorialName);
+    }
 }

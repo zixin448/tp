@@ -81,13 +81,11 @@ public class RemoveStudentCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toRemoveFromTutorialName));
             }
 
-            tutorial = model.getTutorialMatch(toRemoveFromTutorialName);
-
-            if (!tutorial.containsStudentWithId(toRemoveStudentId)) {
+            if (!model.tutorialHasStudentWithId(toRemoveStudentId, toRemoveFromTutorialName)) {
                 throw new CommandException(String.format(MESSAGE_STUDENT_DOES_NOT_EXIST, toRemoveStudentId,
                         toRemoveFromTutorialName));
             }
-            studentToRemove = tutorial.getStudentWithId(toRemoveStudentId);
+            studentToRemove = model.getStudentWithId(toRemoveStudentId);
             model.removeStudent(studentToRemove);
 
 
@@ -102,10 +100,8 @@ public class RemoveStudentCommand extends Command {
             if (!model.hasTutorialWithName(toRemoveFromTutorialName)) {
                 throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toRemoveFromTutorialName));
             }
-            Tutorial tutorial = model.getTutorialMatch(toRemoveFromTutorialName);
+
             Person personToRemove = lastShownList.get(toRemoveIndex.getZeroBased());
-
-
 
             if (!(personToRemove instanceof Student)) {
                 throw new CommandException(MESSAGE_NOT_A_STUDENT);
@@ -114,18 +110,16 @@ public class RemoveStudentCommand extends Command {
             Student studentToRemove = (Student) personToRemove;
             NusNetId id = studentToRemove.getStudentId();
 
-            if (!tutorial.contains(studentToRemove)) {
+            if (!model.tutorialHasStudentWithId(id, toRemoveFromTutorialName)) {
                 throw new CommandException(String.format(MESSAGE_STUDENT_DOES_NOT_EXIST, id,
                         toRemoveFromTutorialName));
             }
 
             model.removeStudent(studentToRemove);
 
-
             return CommandResult
                     .createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, id,
                     toRemoveFromTutorialName));
-
         }
     }
 }

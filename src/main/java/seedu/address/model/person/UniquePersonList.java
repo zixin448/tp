@@ -37,6 +37,24 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Returns the Student that has the same student id as {@code id}
+     */
+    public Student getStudentWithId(NusNetId id) {
+        requireNonNull(id);
+        for (int i = 0; i < internalList.size(); i++) {
+            Person p = internalList.get(i);
+            if (!(p instanceof Student)) {
+                continue;
+            }
+            Student s = (Student) p;
+            if (s.getStudentId().equals(id)) {
+                return s;
+            }
+        }
+        throw new PersonNotFoundException();
+    }
+
+    /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */

@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -252,6 +253,17 @@ public class ModelManager implements Model {
     public boolean hasStudentWithName(Name studentName) {
         requireNonNull(studentName);
         return allStudents.stream().anyMatch(x -> x.getName().equals(studentName));
+    }
+
+    @Override
+    public Student getStudentWithId(NusNetId id) {
+        requireNonNull(id);
+        return addressBook.getStudentWithId(id);
+    }
+
+    @Override
+    public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        return addressBook.tutorialHasStudentWithId(id, tutorialName);
     }
 
     @Override
