@@ -306,7 +306,7 @@ public class ModelManager implements Model {
         requireNonNull(studentId);
         return allStudents.stream().anyMatch(x -> ((Student) x).getStudentId().equals(studentId));
     }
-  
+
     @Override
     public Student getStudentWithId(NusNetId id) {
         requireNonNull(id);
