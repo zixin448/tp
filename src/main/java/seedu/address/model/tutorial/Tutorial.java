@@ -13,15 +13,17 @@ import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
+import seedu.address.model.assessment.Score;
+import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
+import seedu.address.model.person.exceptions.StudentNotFoundException;
 
 /**
  * Represents a Class (for a module) in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
- * TODO: add methods for making changes to the studentsList or assessmentResultsList
  */
 public class Tutorial implements Displayable {
     // Identity fields
@@ -115,12 +117,17 @@ public class Tutorial implements Displayable {
         assessmentResultsList.add(results);
     }
 
+    public AssessmentResults getAssessmentResult(AssessmentName assessmentName) {
+        requireNonNull(assessmentName);
+        return assessmentResultsList.getAssessmentResultsByName(assessmentName);
+    }
+
     /**
      * Removes the AssessmentResults with the given name.
      */
     public void removeAssessmentResultsByName(AssessmentName name) {
         requireNonNull(name);
-        assessmentResultsList.removeByName(name);
+        assessmentResultsList.removeAssessmentResultsByName(name);
     }
 
     /**
@@ -166,6 +173,35 @@ public class Tutorial implements Displayable {
     }
 
     /**
+     * Returns true if the tutorial already contains the result of the student with {@code studentId}
+     * for the assessment with {@code assessmentName}.
+     */
+    public boolean hasStudentResult(AssessmentName assessmentName, NusNetId studentId) {
+        requireAllNonNull(assessmentName, studentId);
+        if (!containsStudentWithId(studentId)) {
+            throw new StudentNotFoundException();
+        }
+        return assessmentResultsList.hasStudentResult(assessmentName, studentId);
+    }
+
+    /**
+     * Adds the {@code result} to the AssessmentResults with {@code assessmentName} in the assessmentResultsList.
+     */
+    public void addStudentResult(AssessmentName assessmentName, StudentResult result) {
+        requireAllNonNull(assessmentName, result);
+        assessmentResultsList.addStudentResult(assessmentName, result);
+    }
+
+    /**
+     * Sets the result of the student with {@code studentId} for the assessment with {@code assessmentName} to
+     * {@code score}.
+     */
+    public void setStudentResult(AssessmentName assessmentName, NusNetId studentId, Score score) {
+        requireAllNonNull(assessmentName, studentId, score);
+        assessmentResultsList.setStudentResult(assessmentName, studentId, score);
+    }
+
+    /**
      * Returns true if both tutorials have the same identity and data fields.
      * This defines a stronger notion of equality between two tutorials (used for deleting tutorials).
      */
@@ -182,7 +218,8 @@ public class Tutorial implements Displayable {
         Tutorial otherTut = (Tutorial) other;
         return otherTut.getTutorialName().equals(getTutorialName())
                 && otherTut.getDay().equals(getDay())
-                && otherTut.getTime().equals(getTime());
+                && otherTut.getTime().equals(getTime())
+                && otherTut.getVenue().equals(getVenue());
     }
 
     @Override
@@ -202,4 +239,5 @@ public class Tutorial implements Displayable {
                 .append(getTime());
         return builder.toString();
     }
+
 }

@@ -7,6 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Displayable;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.person.Person;
@@ -41,6 +42,10 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of students */
     ObservableList<Person> getFilteredStudentList();
 
+    ObservableList<Assessment> getFilteredAssessmentList();
+
+    ObservableList<? extends Displayable> getDisplayAssessmentResults();
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -56,5 +61,4 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    ObservableList<Assessment> getFilteredAssessmentList();
 }

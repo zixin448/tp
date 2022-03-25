@@ -17,6 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.assessment.Assessment;
+import seedu.address.model.assessment.AssessmentNameIsEqualPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -123,6 +125,19 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the assessment at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showAssessmentAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAssessmentList().size());
+
+        Assessment assessment = model.getFilteredAssessmentList().get(targetIndex.getZeroBased());
+        model.updateFilteredAssessmentList(new AssessmentNameIsEqualPredicate(assessment.getAssessmentName()));
+
+        assertEquals(1, model.getFilteredAssessmentList().size());
     }
 
 }

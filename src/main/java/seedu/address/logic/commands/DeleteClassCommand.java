@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 
 import java.util.List;
@@ -27,7 +28,6 @@ public class DeleteClassCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TUTORIAL_SUCCESS = "Deleted Class: %1$s";
-    public static final String MESSAGE_NO_SUCH_TUTORIAL = "This class does not exists in the address book";
 
     private final Index targetIndex;
     private final TutorialName tutorialName;
@@ -66,7 +66,7 @@ public class DeleteClassCommand extends Command {
         }
 
         if (tutorialToDelete == null) {
-            throw new CommandException(MESSAGE_NO_SUCH_TUTORIAL);
+            throw new CommandException(MESSAGE_TUTORIAL_NOT_FOUND);
         } else {
             model.deleteTutorial(tutorialToDelete);
             return CommandResult.createClassCommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS,

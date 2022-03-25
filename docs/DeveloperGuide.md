@@ -176,15 +176,229 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Detailed Help Window feature
+#### Implementation
+
+This `HelpWindow` extends `AddressBook` with a detailed Help Window implementing the following operations:
+* `HelpWindow#addIntroText()` —  Shows the user the introduction text of the application describing its purpose.
+* `HelpWindow#addDevGuideText()` —  Shows the user a clickable hyperlink for the Developer Guide
+* `HelpWindow#showCommands()` —  Shows the user a list of the commands present in camNUS, along with a detailed guide for each command.
+
+These operations are exposed in the `HelpWindow` class as `HelpWindow#addIntroText()`, `HelpWindow#addDevGuideText()` and `HelpWindow#showCommands()` respectively
+
+Given below is an example usage scenario and how the Help Window behaves at each step.
+
+Step 1. The user launches the application for the first time. A `HelpWindow` is created and initialized with the default `HelpWindow#addIntroText()` to show the user the introduction text. However, this `HelpWindow` is not shown until the user requests for it.
+
+Step 2. The user executes `help` command to show the help window. The `help` command calls `MainWindow#handleHelp()`, causing the application to show the help window.
+
+![HelpWindowState1](images/HelpWindowState0.png)
+
+Step 3. The user clicks on the button `Commands` in the help window. This calls `HelpWindow#showCommands()`, causing the display pane containing the introduction text to be deleted, and a new display pane containing the list of command details to be added to the `HelpWindow`.
+
+![HelpWindowState2](images/HelpWindowState1.png)
+
+The following sequence diagram shows how this operation works:
+
+![HelpWindowSequence0](images/HelpWindowSequence0.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `introPane:AnchorPane` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+Step 4. After browsing through the list of commands, the user decides now that he/she wants to view the full Developer Guide for more explicit information. The user clicks on the button `Developer Guide` in the help window. This calls `HelpWindow#addDevGuideText()`, causing the display pane containing the command list to be deleted, and a new display pane containing the Developer Guide hyperlink to be added to the `HelpWindow`.
+
+![HelpWindowState3](images/HelpWindowState2.png)
+
+#### Design considerations:
+
+**Aspect: How each button executes:**
+
+* **Alternative 1 (current choice):** Deletes current display pane, creates new display pane.
+    * Pros: Easy to implement. Low on memory usage.
+    * Cons: If more graphic elements are added to enhance this feature, it may have performance issues in terms of performance usage.
+
+* **Alternative 2:** Create persistent display panes for all 3 features: Introduction Text, Command List, and Developer Guide link. Show or hide them when required.
+    * Pros: Faster performance, since no new objects are created after initialization.
+    * Cons: Harder to implement, have to ensure that the display panes are correctly positioned and hidden/shown when required.
+
+_{more aspects and alternatives to be added}_
+ 
+### Display students feature
+
+#### Implementation
+
+The display students feature is facilitated by the enhanced `MainWindow` of the `UI` component. It extends the application with a `DisplayListPanel` that could display a list of `Student` and `Tutorial`, other than `Person`, by implementing the following operations:
+
+* `MainWindow#handlePerson()` — Shows the list of persons stored in the application.
+* `MainWindow#handleClass()` — Shows the list of classes stored in the application.
+* `MainWindow#handleStudent()` — Shows the list of students stored in the application.
+
+These operations are exposed in the `MainWindow` class as `MainWindow#handlePerson()`, `MainWindow#handleClass()` and `MainWindow#handleStudent()` respectively.
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `MainWindow` will be initialized with the initial `DisplayListPanel` displaying the list of persons stored in the application.
+
+![ListStudentCommandState0](images/ListStudentCommandState0.png)
+
+Step 2. The user inputs `list_class` command to see the list of classes. The `list_class` command calls `MainWindow#handleClass()`, causing the `DisplayListPanel` to be replaced with a new `DisplayListPanel` that displays the list of classes stored in the application.
+
+![ListStudentCommandState0](images/ListStudentCommandState1.png)
+
+Step 3. The user inputs `list_student 1` command to see the list of students in the first class of the previously displayed list. The `list_student` command calls `MainWindow#handleStudent()`, causing the `DisplayListPanel` to be replaced with a new `DisplayListPanel` that displays the list of students stored in the application that belong to the specified class .
+
+![ListStudentCommandState0](images/ListStudentCommandState2.png)
+
+The following sequence diagram shows how the list operation works:
+
+![ListStudentSequenceDiagram](images/ListStudentSequenceDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How the panel displaying each list executes:**
+
+* **Alternative 1 (current choice):** Replaces the current panel with a new panel in displaying a different type of list
+    * Pros:
+      * Easy to implement
+      * Low on memory usage
+      * Can accommodate a large variety in type of list as long as the contents implement the `Displayable` interface
+    * Cons:
+      * Requires more changes to the existing code, with the implementation of an interface and an enumeration
+      * Additionally, the existing `Person` class will also need to be modified to implement the interface
+
+* **Alternative 2:** Create multiple panels to display different lists
+    * Pros:
+      * Requires less modifications to existing code.
+      * Shows every list available at a glance.
+      * Does not require the user to key in commands to switch between lists.
+    * Cons:
+      * Difficulty in accommodating a larger variety of different lists with the implementation of more features in future
+      * The UI can appear messy in the presence of multiple long lists
+
+### Add assessment feature
+#### Implementation
+The `add_assessment` command is facilitated by the enhanced `AddressBook`. It extends the `model` package with an `Assessment` class and its field classes, `AssessmentName`, `Weightage` and `FullMark`. It also extends the `AddressBook` with the `assessments` field, which is a `UniqueAssessmentList`. It implements the following operations:
+- `AddressBook#hasAssessment()` —  Checks if an assessment is present inside `assessments`.
+- `AddressBook#addAssessment()` —  Adds an assessment to `assessments` if it is not already in the list.
+
+These operations are exposed in the `Model` interface as `Model#hasAssessment()` and `Model#addAssessment() respectively.
+
+Given below is an example usage scenario and how `add_assessment` behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with an empty `UniqueAssessmentList`. The `MainWindow` will be initialized with the initial `DisplayListPanel` displaying the list of persons stored in the application.
+
+![AddAssessmentCommandState0](images/AddAssessmentCommandState0.png)
+
+Step 2. The user inputs `add_assessment as/Test 1 w/10 w/10` to add an assessment to camNUS. The `assessments` list in the `AddressBook` will have an additional assessment. The updated list of assessments is displayed to the user in the `DisplayListPanel` in the `MainWindow`.
+
+![AddAssessmentCommandState1](images/AddAssessmentCommandState1.png)
+
+The following sequence diagram shows how the add assessment operation works:
+
+
+![AddAssessmentSequenceDiagram](images/AddAssessmentSequenceDiagram.png)
+
+#### Design considerations
+**Aspect: How assessments and student results are stored in the model:**
+
+* **Alternative 1 (current choice):** assessments are stored as `Assessment` objects in the `AddressBook`'s `assessments` list. The student results for each assessment is stored inside an `AssessmentResults` object which is stored inside an `AssessmentResultsList` in each `Tutorial`.
+    * Pros:
+        * Can quickly display the list of results of a tutorial in an assessment.
+        * High degree of abstraction may allow future changes in the implementation of assessment results and student result.
+        * Does not require many changes to the existing code as the `AddressBook` class is simply updated with new fields to store the assessment and tutorial list.
+    * Cons:
+        * Code is not easy to understand.
+        * Retrieving an individual student's result for an assessment may take slightly more time (as it requires searching the list of assessment results for the requested assessment and then searching the list of student results for the requested student). However, this is not a big concern as usually the number of assessments and the size of classes are not large in real life.
+
+* **Alternative 2:** Each `Student` stores their own results. The `Tutorial` does not contain student results.
+    * Pros:
+        * Less hierarchical design - easier to understand code.
+        * Retrieving a student is faster as it only requires searching within the student's results list for the requested assessment.
+    * Cons:
+        * Displaying the list of results of a tutorial may take more time and requires accessing each student in the tutorial.
+
+### Add students feature
+
+This `AddStudentCommand` feature is facilitated by display student feature. It extends the application implementing the 
+following operations:
+
+* `AddStudentCommand#execute()` — Find corresponding `Person` and set it to a `Student`.
+
+The operation is facilitated by the `Model` interface using `Model#addStudent()`,`Model#hasPersonWithName()`
+, `Model#getPersonWithName()`, `Model#hasTutorialWithName()` and `Model#hasStudentWithName()`.
+
+Given below is an example scenario and how the mechanism behaves at each step.
+
+Step 1. The user executes `add n/B ...` to add a new`Person`. The new `PersonCard` with the corresponding populated details will be displayed on the
+`DisplayListPanel` displaying the list of `Person` stored in the application.
+
+![AddStudentCommandState0](images/AddStudentCommandState0.png)
+
+Step 2. The user executes `add_student n/C ...` command to add a student. The add_student command 
+call `Model#getPersonWithName()` is used to retrieve the corresponding `Person`.
+
+![AddStudentCommandState1](images/AddStudentCommandState1.png)
+
+<div markdown="span" class="alert alert-info">:information_source:**Note:** The add_student command call 
+`Model#hasPersonWithName()` and `Model#hasTutorialWithName()` to check if corresponding `Person` and `Tutorial` exists. 
+The command calls `Model#hasStudentWithName` to ensure there is no already exist student with the same details.
+If a command fails its execution, it will not call `Model#getPersonWithName()`.
+
+</div>
+
+Step 3. The command creates a `Student` using the Person C's details, then uses `Model#add_student()` to replace the 
+original `Person` with a `Student`.
+
+![AddStudentCommandState2](images/AddStudentCommandState2.png)
+
+The following sequence diagram shows how this operation works:
+
+![AddStudentSequenceDiagram](images/AddStudentSequenceDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How the person is handled in add_student:**
+
+* **Alternative 1 (current choice):** Replace the original person with the student.
+    * Pros: Easy to implement.
+    * Cons: More checks needed to determine if handling a person or a student.
+
+* **Alternative 2:** Create a separate student list and leave person untouched.
+    * Pros: Fewer checks on whether person is a student required.
+    * Cons: Additional filters required to remove duplicates when display both persons and students.
+
+_{more aspects and alternatives to be added}_
+
+### Remove students feature
+
+This `RemoveStudentCommand`feature is facilitated by the display students feature. It extends the application by 
+implementing the following operations:
+
+* `RemoveStudentCommand#execute()` - Find corresponding `Student` and set it to a `Person`.
+
+The operation is facilitated by the `Model` interface using `Model#hasTutorialWithName()`, `Model#getTutorialWithName`,
+`Model#containsStudentWithId()`, `Model#getStudentWithId()`, `Model#removeStudent()`.
+
+Given below are two example scenarios based on different command inputs and how the mechanism behaves at each step.
+
+##### Scenario 1: `remove_student n/...`
+Step 1. The user executes `remove_student n/...` command to remove a student. The `remove_student` command calls 
+Model#getPersonWithName() is used to retrieve the corresponding Person.
+
+##### Scenario 2: `remove_student i/...`
+
+#### Design considerations:
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
@@ -198,7 +412,7 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the add
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 

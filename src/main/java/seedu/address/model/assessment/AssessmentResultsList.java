@@ -1,6 +1,7 @@
 package seedu.address.model.assessment;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +9,8 @@ import java.util.List;
 
 import seedu.address.model.assessment.exceptions.AssessmentNotFoundException;
 import seedu.address.model.assessment.exceptions.DuplicateAssessmentException;
+import seedu.address.model.assessment.exceptions.StudentResultNotFound;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.tutorial.TutorialName;
 
 /**
@@ -46,6 +49,55 @@ public class AssessmentResultsList {
     }
 
     /**
+     * Returns true if assessmentResultsList contains an AssessmentResult with the given name.
+     */
+    public boolean hasAssessmentResultsByName(AssessmentName assessmentName) {
+        requireNonNull(assessmentName);
+        return assessmentResultsList.stream().anyMatch(x -> x.hasAssessmentName(assessmentName));
+    }
+
+    /**
+     * Returns true if assessmentResultsList contains the result of a student with {@Code studentId} for
+     * the assessment with {@Code assessmentName}.
+     */
+    public boolean hasStudentResult(AssessmentName assessmentName, NusNetId studentId) {
+        requireAllNonNull(assessmentName, studentId);
+        if (!hasAssessmentResultsByName(assessmentName)) {
+            throw new AssessmentNotFoundException();
+        }
+        AssessmentResults assessmentResults = getAssessmentResultsByName(assessmentName);
+        return assessmentResults.hasStudentResultByStudentId(studentId);
+    }
+
+    /**
+     * Adds {@code result} to the AssessmentResults with {@code assessmentName}.
+     */
+    public void addStudentResult(AssessmentName assessmentName, StudentResult result) {
+        requireAllNonNull(assessmentName, result);
+        if (!hasAssessmentResultsByName(assessmentName)) {
+            throw new AssessmentNotFoundException();
+        }
+        AssessmentResults assessmentResults = getAssessmentResultsByName(assessmentName);
+        assessmentResults.add(result);
+    }
+
+    /**
+     * Sets the result of the student with {@code studentId} for the assessment with {@code assessmentName} to
+     * {@code score}.
+     */
+    public void setStudentResult(AssessmentName assessmentName, NusNetId studentId, Score score) {
+        requireAllNonNull(assessmentName, studentId, score);
+        if (!hasAssessmentResultsByName(assessmentName)) {
+            throw new AssessmentNotFoundException();
+        }
+        if (!hasStudentResult(assessmentName, studentId)) {
+            throw new StudentResultNotFound();
+        }
+        AssessmentResults assessmentResults = getAssessmentResultsByName(assessmentName);
+        assessmentResults.set(studentId, score);
+    }
+
+    /**
      * Adds an AssessmentResults to the list.
      * The AssessmentResults must not already be in the list.
      */
@@ -58,13 +110,27 @@ public class AssessmentResultsList {
     }
 
     /**
-     * Removes the AssessmentResults with the given name from the list.
+     * Returns the AssessmentResults with the given name from the list.
      */
-    public void removeByName(AssessmentName name) {
+    public AssessmentResults getAssessmentResultsByName(AssessmentName name) {
         requireNonNull(name);
         for (int i = 0; i < assessmentResultsList.size(); i++) {
-            if (assessmentResultsList.get(i).hasName(name)) {
+            if (assessmentResultsList.get(i).hasAssessmentName(name)) {
+                return assessmentResultsList.get(i);
+            }
+        }
+        throw new AssessmentNotFoundException();
+    }
+
+    /**
+     * Removes the AssessmentResults with the given name from the list.
+     */
+    public void removeAssessmentResultsByName(AssessmentName name) {
+        requireNonNull(name);
+        for (int i = 0; i < assessmentResultsList.size(); i++) {
+            if (assessmentResultsList.get(i).hasAssessmentName(name)) {
                 assessmentResultsList.remove(i);
+                return;
             }
         }
         throw new AssessmentNotFoundException();
