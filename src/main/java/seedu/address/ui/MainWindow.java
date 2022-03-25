@@ -142,7 +142,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays only list of persons on main window.
+     * Displays only list of filtered persons on main window.
+     */
+    void handleFilteredPerson() {
+        displayListPanel = new DisplayListPanel(logic.getFilteredPersonMultiPredList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
+
+    /**
+     * Displays only list of students on main window.
      */
     void handleStudent() {
         displayListPanel = new DisplayListPanel(logic.getFilteredStudentList());
@@ -255,6 +263,9 @@ public class MainWindow extends UiPart<Stage> {
             case SCORE:
                 handleScore();
                 break;
+            case FIND:
+                  handleFilteredPerson();
+                  break;
             default:
                 break;
             }

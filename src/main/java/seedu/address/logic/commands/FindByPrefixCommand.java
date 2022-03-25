@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.model.DisplayType;
 import seedu.address.model.Model;
 import seedu.address.model.person.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
@@ -98,7 +99,7 @@ public class FindByPrefixCommand extends FindCommand {
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
-                        model.getFilteredPersonsMultiPredList().size()));
+                        model.getFilteredPersonsMultiPredList().size()), false, false, DisplayType.FIND);
 
     }
 

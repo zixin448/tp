@@ -36,6 +36,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered by multiple predicate list of persons */
+    ObservableList<Person> getFilteredPersonMultiPredList();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Tutorial> getFilteredTutorialList();
 
