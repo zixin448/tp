@@ -17,6 +17,7 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -298,6 +299,12 @@ public class ModelManager implements Model {
     public boolean hasStudentWithName(Name studentName) {
         requireNonNull(studentName);
         return allStudents.stream().anyMatch(x -> x.getName().equals(studentName));
+    }
+
+    @Override
+    public boolean hasStudentWithId(NusNetId studentId) {
+        requireNonNull(studentId);
+        return allStudents.stream().anyMatch(x -> ((Student) x).getStudentId().equals(studentId));
     }
 
     @Override

@@ -41,6 +41,7 @@ public class AddStudentCommand extends Command {
             + " address book";
 
     public static final String MESSAGE_PERSON_NOT_FOUND = "There is no person with the given name in the address book";
+    private static final String MESSAGE_DUPLICATE_STUDENT_ID = "Another student in camNUS has %s as their NUSNET ID";
 
     private final Name toAddName;
     private final NusNetId toAddStudentId;
@@ -73,6 +74,10 @@ public class AddStudentCommand extends Command {
 
         if (model.hasStudentWithName(toAddName)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        }
+
+        if (model.hasStudentWithId(toAddStudentId)) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_STUDENT_ID, toAddStudentId));
         }
 
         Person personMatch = model.getPersonWithName(toAddName);

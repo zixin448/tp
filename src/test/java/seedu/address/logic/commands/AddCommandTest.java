@@ -26,6 +26,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -288,6 +289,11 @@ public class AddCommandTest {
 
         @Override
         public void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStudentWithId(NusNetId toAddStudentId) {
             throw new AssertionError("This method should not be called.");
         }
 

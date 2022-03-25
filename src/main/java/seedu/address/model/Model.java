@@ -11,6 +11,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -226,4 +227,6 @@ public interface Model {
     void addStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
 
     void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
+
+    boolean hasStudentWithId(NusNetId toAddStudentId);
 }

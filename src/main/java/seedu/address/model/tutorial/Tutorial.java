@@ -3,6 +3,7 @@ package seedu.address.model.tutorial;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
@@ -74,6 +75,18 @@ public class Tutorial implements Displayable {
         assessmentResultsList = new AssessmentResultsList(name);
     }
 
+    /**
+     * Constructor for Tutorial, used for loading from storage.
+     */
+    public Tutorial(TutorialName name, Venue v, Day d, Time t, AssessmentResultsList results) {
+        requireAllNonNull(name, d, t, results);
+        tutorialName = name;
+        venue = v;
+        day = d;
+        time = t;
+        assessmentResultsList = results;
+    }
+
     public TutorialName getTutorialName() {
         return tutorialName;
     }
@@ -92,6 +105,10 @@ public class Tutorial implements Displayable {
 
     public void setStudentsList(FilteredList<Person> allStudents) {
         studentsList = new UniqueStudentsInTutorialList(allStudents, tutorialName);
+    }
+
+    public List<AssessmentResults> getUnmodifiableAssessmentResultsList() {
+        return assessmentResultsList.asUnmodifiableList();
     }
 
     public void setAssessmentResultsList(ObservableList<Assessment> assessmentsList) {

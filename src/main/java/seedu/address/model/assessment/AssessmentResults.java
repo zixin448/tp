@@ -37,6 +37,10 @@ public class AssessmentResults {
         assessmentName = name;
     }
 
+    public AssessmentName getAssessmentName() {
+        return assessmentName;
+    }
+
     /**
      * Returns true if given AssessmentResults belong to the same assessment as this.
      * Used to check for duplicates when adding an assessment to the address book.
