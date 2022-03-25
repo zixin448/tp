@@ -188,11 +188,11 @@ public interface Model {
      */
     void addAssessment(Assessment toAdd);
 
-    boolean hasAssessmentByName(AssessmentName name);
+    boolean hasAssessmentWithName(AssessmentName name);
 
-    Assessment getAssessmentByName(AssessmentName assessmentName);
+    Assessment getAssessmentWithName(AssessmentName assessmentName);
 
-    Assessment removeAssessmentByName(AssessmentName name);
+    Assessment removeAssessmentWithName(AssessmentName name);
 
     /**
      * Adds the given student to the tutorial.

@@ -39,7 +39,7 @@ public class ListScoreCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        FullMark fullMark = model.getAssessmentByName(assessmentName).getFullMark();
+        FullMark fullMark = model.getAssessmentWithName(assessmentName).getFullMark();
         model.updateDisplayAssessmentResults(tutName, assessmentName);
         return CommandResult.createScoreCommandResult(
                 String.format(MESSAGE_SUCCESS, tutName, assessmentName, fullMark));
