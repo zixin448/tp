@@ -36,11 +36,11 @@ public class DeleteAssessmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasAssessmentByName(name)) {
+        if (!model.hasAssessmentWithName(name)) {
             throw new CommandException(MESSAGE_ASSESSMENT_NOT_FOUND);
         }
 
-        Assessment removed = model.removeAssessmentByName(name);
+        Assessment removed = model.removeAssessmentWithName(name);
         return createAssessmentCommandResult(String.format(MESSAGE_SUCCESS, removed));
     }
 }

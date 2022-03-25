@@ -226,6 +226,8 @@ _{more aspects and alternatives to be added}_
 
 ### Display students feature
 
+#### Implementation
+
 The display students feature is facilitated by the enhanced `MainWindow` of the `UI` component. It extends the application with a `DisplayListPanel` that could display a list of `Student` and `Tutorial`, other than `Person`, by implementing the following operations:
 
 * `MainWindow#handlePerson()` — Shows the list of persons stored in the application.
@@ -273,6 +275,48 @@ The following sequence diagram shows how the list operation works:
     * Cons:
       * Difficulty in accommodating a larger variety of different lists with the implementation of more features in future
       * The UI can appear messy in the presence of multiple long lists
+
+### Add assessment feature
+#### Implementation
+The `add_assessment` command is facilitated by the enhanced `AddressBook`. It extends the `model` package with an `Assessment` class and its field classes, `AssessmentName`, `Weightage` and `FullMark`. It also extends the `AddressBook` with the `assessments` field, which is a `UniqueAssessmentList`. It implements the following operations:
+- `AddressBook#hasAssessment()` —  Checks if an assessment is present inside `assessments`.
+- `AddressBook#addAssessment()` —  Adds an assessment to `assessments` if it is not already in the list.
+
+These operations are exposed in the `Model` interface as `Model#hasAssessment()` and `Model#addAssessment() respectively.
+
+Given below is an example usage scenario and how `add_assessment` behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with an empty `UniqueAssessmentList`. The `MainWindow` will be initialized with the initial `DisplayListPanel` displaying the list of persons stored in the application.
+
+![AddAssessmentCommandState0](images/AddAssessmentCommandState0.png)
+
+Step 2. The user inputs `add_assessment as/Test 1 w/10 w/10` to add an assessment to camNUS. The `assessments` list in the `AddressBook` will have an additional assessment. The updated list of assessments is displayed to the user in the `DisplayListPanel` in the `MainWindow`.
+
+![AddAssessmentCommandState1](images/AddAssessmentCommandState1.png)
+
+The following sequence diagram shows how the add assessment operation works:
+
+
+![AddAssessmentSequenceDiagram](images/AddAssessmentSequenceDiagram.png)
+
+#### Design considerations
+**Aspect: How assessments and student results are stored in the model:**
+
+* **Alternative 1 (current choice):** assessments are stored as `Assessment` objects in the `AddressBook`'s `assessments` list. The student results for each assessment is stored inside an `AssessmentResults` object which is stored inside an `AssessmentResultsList` in each `Tutorial`.
+    * Pros:
+        * Can quickly display the list of results of a tutorial in an assessment.
+        * High degree of abstraction may allow future changes in the implementation of assessment results and student result.
+        * Does not require many changes to the existing code as the `AddressBook` class is simply updated with new fields to store the assessment and tutorial list.
+    * Cons:
+        * Code is not easy to understand.
+        * Retrieving an individual student's result for an assessment may take slightly more time (as it requires searching the list of assessment results for the requested assessment and then searching the list of student results for the requested student). However, this is not a big concern as usually the number of assessments and the size of classes are not large in real life.
+
+* **Alternative 2:** Each `Student` stores their own results. The `Tutorial` does not contain student results.
+    * Pros:
+        * Less hierarchical design - easier to understand code.
+        * Retrieving a student is faster as it only requires searching within the student's results list for the requested assessment.
+    * Cons:
+        * Displaying the list of results of a tutorial may take more time and requires accessing each student in the tutorial.
 
 ### \[Proposed\] Undo/redo feature
 

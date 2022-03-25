@@ -165,11 +165,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if an assessment with the given name exists in the address book.
      */
-    public boolean hasAssessmentByName(AssessmentName name) {
+    public boolean hasAssessmentWithName(AssessmentName name) {
         return assessments.containsByName(name);
     }
 
-    public Assessment getAssessmentByName(AssessmentName name) {
+    public Assessment getAssessmentWithName(AssessmentName name) {
         return assessments.getByName(name);
     }
 
@@ -177,7 +177,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes the assessment with the given name and corresponding AssessmentResults from every tutorial
      * in the address book.
      */
-    public Assessment removeAssessmentByName(AssessmentName name) {
+    public Assessment removeAssessmentWithName(AssessmentName name) {
         Assessment toRemove = assessments.removeByName(name);
         tutorials.removeAssessmentByName(name);
         return toRemove;

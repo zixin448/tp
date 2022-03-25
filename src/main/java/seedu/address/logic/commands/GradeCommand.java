@@ -62,7 +62,7 @@ public class GradeCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasAssessmentByName(assessmentName)) {
+        if (!model.hasAssessmentWithName(assessmentName)) {
             throw new CommandException(MESSAGE_ASSESSMENT_NOT_FOUND);
         }
 
@@ -70,7 +70,7 @@ public class GradeCommand extends Command {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }
 
-        fullMark = model.getAssessmentByName(assessmentName).getFullMark();
+        fullMark = model.getAssessmentWithName(assessmentName).getFullMark();
         if (!Score.isValidScoreGivenFullMark(score, fullMark)) {
             throw new CommandException(String.format(MESSAGE_INVALID_SCORE, fullMark));
         }

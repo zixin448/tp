@@ -190,21 +190,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasAssessmentByName(AssessmentName name) {
+    public boolean hasAssessmentWithName(AssessmentName name) {
         requireNonNull(name);
-        return addressBook.hasAssessmentByName(name);
+        return addressBook.hasAssessmentWithName(name);
     }
 
     @Override
-    public Assessment getAssessmentByName(AssessmentName name) {
+    public Assessment getAssessmentWithName(AssessmentName name) {
         requireNonNull(name);
-        return addressBook.getAssessmentByName(name);
+        return addressBook.getAssessmentWithName(name);
     }
 
     @Override
-    public Assessment removeAssessmentByName(AssessmentName name) {
+    public Assessment removeAssessmentWithName(AssessmentName name) {
         requireNonNull(name);
-        return addressBook.removeAssessmentByName(name);
+        return addressBook.removeAssessmentWithName(name);
     }
 
     //=========== Assessment Results =============================================================

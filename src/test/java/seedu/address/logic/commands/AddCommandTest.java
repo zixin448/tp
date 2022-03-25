@@ -228,17 +228,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasAssessmentByName(AssessmentName name) {
+        public boolean hasAssessmentWithName(AssessmentName name) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Assessment getAssessmentByName(AssessmentName assessmentName) {
+        public Assessment getAssessmentWithName(AssessmentName assessmentName) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Assessment removeAssessmentByName(AssessmentName name) {
+        public Assessment removeAssessmentWithName(AssessmentName name) {
             throw new AssertionError("This method should not be called.");
         }
 
