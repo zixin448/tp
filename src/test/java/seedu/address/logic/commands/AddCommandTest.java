@@ -311,6 +311,16 @@ public class AddCommandTest {
         public Person getPersonWithName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Student getStudentWithId(NusNetId id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

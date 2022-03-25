@@ -306,6 +306,17 @@ public class ModelManager implements Model {
         requireNonNull(studentId);
         return allStudents.stream().anyMatch(x -> ((Student) x).getStudentId().equals(studentId));
     }
+  
+    @Override
+    public Student getStudentWithId(NusNetId id) {
+        requireNonNull(id);
+        return addressBook.getStudentWithId(id);
+    }
+
+    @Override
+    public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        return addressBook.tutorialHasStudentWithId(id, tutorialName);
+    }
 
     @Override
     public void addStudent(Student student) {
