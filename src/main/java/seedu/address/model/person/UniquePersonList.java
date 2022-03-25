@@ -53,7 +53,7 @@ public class UniquePersonList implements Iterable<Person> {
                 return s;
             }
         }
-        throw new PersonNotFoundException();
+        throw new StudentNotFoundException();
     }
 
     /**
