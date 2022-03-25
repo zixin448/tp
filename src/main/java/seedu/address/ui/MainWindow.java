@@ -264,8 +264,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleScore();
                 break;
             case FIND:
-                  handleFilteredPerson();
-                  break;
+                handleFilteredPerson();
+                break;
             default:
                 break;
             }
