@@ -8,6 +8,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.Score;
+import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
@@ -22,6 +24,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
+    Predicate<Assessment> PREDICATE_SHOW_ALL_ASSESSMENTS = unused -> true;
     Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS = Student::isStudent;
 
     /**
@@ -102,7 +105,7 @@ public interface Model {
     /**
      * Returns the tutorial with the same {@code tutorialName}.
      */
-    Tutorial getTutorialMatch(TutorialName tutorialName);
+    Tutorial getTutorialWithName(TutorialName tutorialName);
 
     /**
      * Deletes the given tutorial.
@@ -143,8 +146,14 @@ public interface Model {
      */
     void updateFilteredStudentList(Predicate<Person> predicate);
 
+    TutorialName getTutorialNameOfStudent(Name studentName);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    ObservableList<StudentResult> getDisplayAssessmentResults();
+
+    void updateDisplayAssessmentResults(TutorialName tutName, AssessmentName assessmentName);
 
     /** Returns an unmodifiable view of the filtered tutorial list */
     ObservableList<Tutorial> getFilteredTutorialList();
@@ -180,9 +189,11 @@ public interface Model {
      */
     void addAssessment(Assessment toAdd);
 
-    boolean hasAssessmentByName(AssessmentName name);
+    boolean hasAssessmentWithName(AssessmentName name);
 
-    Assessment removeAssessmentByName(AssessmentName name);
+    Assessment getAssessmentWithName(AssessmentName assessmentName);
+
+    Assessment removeAssessmentWithName(AssessmentName name);
 
     /**
      * Adds the given student to the tutorial.
@@ -224,4 +235,9 @@ public interface Model {
      */
     boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName);
 
+    boolean hasStudentResult(Name studentName, AssessmentName assessmentName);
+
+    void addStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
+
+    void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
 }

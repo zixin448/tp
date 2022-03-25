@@ -23,6 +23,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.Score;
+import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
@@ -152,7 +154,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Tutorial getTutorialMatch(TutorialName tutorialName) {
+        public Tutorial getTutorialWithName(TutorialName tutorialName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -178,6 +180,16 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<StudentResult> getDisplayAssessmentResults() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateDisplayAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -217,12 +229,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasAssessmentByName(AssessmentName name) {
+        public boolean hasAssessmentWithName(AssessmentName name) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Assessment removeAssessmentByName(AssessmentName name) {
+        public Assessment getAssessmentWithName(AssessmentName assessmentName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Assessment removeAssessmentWithName(AssessmentName name) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -232,6 +249,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredStudentList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public TutorialName getTutorialNameOfStudent(Name studentName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -252,6 +274,21 @@ public class AddCommandTest {
 
         @Override
         public boolean hasStudentWithName(Name studentName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStudentResult(Name studentName, AssessmentName assessmentName) {
+            return false;
+        }
+
+        @Override
+        public void addStudentResult(Name studentName, AssessmentName assessmentName, Score sc) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc) {
             throw new AssertionError("This method should not be called.");
         }
 

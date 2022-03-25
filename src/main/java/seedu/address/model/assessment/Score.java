@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the score for an Assessment in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidScore(String, int)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidScoreGivenFullMark(String, FullMark)}
  */
 public class Score {
     public static final String MESSAGE_CONSTRAINTS =
@@ -20,12 +20,16 @@ public class Score {
      */
     public Score(String value, FullMark fullMark) {
         requireNonNull(value);
-        checkArgument(isValidScore(value, fullMark.fullMark), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidScoreGivenFullMark(value, fullMark), MESSAGE_CONSTRAINTS);
         score = Integer.parseInt(value);
     }
 
-    public boolean isValidScore(String value, int fullMark) {
-        return value.matches(VALIDATION_REGEX) && Integer.parseInt(value) <= fullMark;
+    public static boolean isValidScore(String value) {
+        return value.matches(VALIDATION_REGEX);
+    }
+
+    public static boolean isValidScoreGivenFullMark(String value, FullMark fullMark) {
+        return value.matches(VALIDATION_REGEX) && Integer.parseInt(value) <= fullMark.fullMark;
     }
 
     @Override

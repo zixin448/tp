@@ -12,7 +12,6 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.tutorial.exceptions.DuplicateTutorialException;
-import seedu.address.model.tutorial.exceptions.InvalidTutorialException;
 import seedu.address.model.tutorial.exceptions.TutorialNotFoundException;
 
 /**
@@ -117,7 +116,7 @@ public class UniqueTutorialList {
      * Returns true if the list contains tutorial with an equivalent tutorial name as the argument,
      * uses {@code Tutorial#isSameTutorialName(TutorialName)}
      */
-    public boolean containsName(TutorialName toCheckName) {
+    public boolean containsTutorialWithName(TutorialName toCheckName) {
         requireNonNull(toCheckName);
         return internalList.stream().anyMatch(x -> x.isSameTutorialName(toCheckName));
     }
@@ -126,16 +125,13 @@ public class UniqueTutorialList {
      * Runs through the contents of this list to find the tutorial with
      * tutorial name matching given {@code tutorialName}.
      */
-    public Tutorial getTutorialMatch(TutorialName tutorialName) {
-        Tutorial tutorialMatch = internalList.stream()
-                .filter(tutorial -> tutorialName.equals(tutorial.getTutorialName()))
-                .findAny()
-                .orElse(null);
-
-        if (tutorialMatch == null) {
-            throw new InvalidTutorialException();
+    public Tutorial getTutorialWithName(TutorialName tutorialName) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).getTutorialName().equals(tutorialName)) {
+                return internalList.get(i);
+            }
         }
-        return tutorialMatch;
+        throw new TutorialNotFoundException();
     }
 
     /**
@@ -166,7 +162,14 @@ public class UniqueTutorialList {
      * as {@code tutorialName}.</p>
      */
     public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
-        Tutorial t = getTutorialMatch(tutorialName);
+        Tutorial t = getTutorialWithName(tutorialName);
         return t.containsStudentWithId(id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueTutorialList // instanceof handles nulls
+                && internalList.equals(((UniqueTutorialList) other).internalList));
     }
 }

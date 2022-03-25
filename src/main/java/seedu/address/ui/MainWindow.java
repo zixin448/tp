@@ -145,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
      * Displays only list of persons on main window.
      */
     void handleStudent() {
-        displayListPanel = new DisplayListPanel(logic.getFilteredPersonList());
+        displayListPanel = new DisplayListPanel(logic.getFilteredStudentList());
         displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
@@ -154,6 +154,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleAssessment() {
         displayListPanel = new DisplayListPanel(logic.getFilteredAssessmentList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
+
+    /**
+     * Displays only list of results on main window.
+     */
+    private void handleScore() {
+        displayListPanel = new DisplayListPanel(logic.getDisplayAssessmentResults());
         displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
@@ -243,6 +251,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case ASSESSMENT:
                 handleAssessment();
+                break;
+            case SCORE:
+                handleScore();
                 break;
             default:
                 break;
