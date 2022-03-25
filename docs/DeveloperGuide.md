@@ -273,13 +273,13 @@ The following sequence diagram shows how the list operation works:
     * Cons:
       * Difficulty in accommodating a larger variety of different lists with the implementation of more features in future
       * The UI can appear messy in the presence of multiple long lists
-
+      
 ### Add students feature
 
 This `AddStudentCommand` feature is facilitated by display student feature. It extends the application implementing the 
 following operations:
 
-* `AddStudentCommand#execute()` — Find corresponding `Person` and set it to a `Student`.
+* `AddStudentCommand#execute()` — Find corresponding `Person` and set it to a `Student`.
 
 The operation is facilitated by the `Model` interface using `Model#addStudent()`,`Model#hasPersonWithName()`
 , `Model#getPersonWithName()`, `Model#hasTutorialWithName()` and `Model#hasStudentWithName()`.
@@ -326,15 +326,35 @@ The following sequence diagram shows how this operation works:
 
 _{more aspects and alternatives to be added}_
 
+### Remove students feature
+
+This `RemoveStudentCommand`feature is facilitated by the display students feature. It extends the application by 
+implementing the following operations:
+
+* `RemoveStudentCommand#execute()` - Find corresponding `Student` and set it to a `Person`.
+
+The operation is facilitated by the `Model` interface using `Model#hasTutorialWithName()`, `Model#getTutorialWithName`,
+`Model#containsStudentWithId()`, `Model#getStudentWithId()`, `Model#removeStudent()`.
+
+Given below are two example scenarios based on different command inputs and how the mechanism behaves at each step.
+
+##### Scenario 1: `remove_student n/...`
+Step 1. The user executes `remove_student n/...` command to remove a student. The `remove_student` command calls 
+Model#getPersonWithName() is used to retrieve the corresponding Person.
+
+##### Scenario 2: `remove_student i/...`
+
+#### Design considerations:
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
@@ -348,7 +368,7 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the add
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
