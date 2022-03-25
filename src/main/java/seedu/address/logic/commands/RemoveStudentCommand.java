@@ -80,7 +80,7 @@ public class RemoveStudentCommand extends Command {
             if (!model.hasTutorialWithName(toRemoveFromTutorialName)) {
                 throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toRemoveFromTutorialName));
             }
-
+            
             if (!model.tutorialHasStudentWithId(toRemoveStudentId, toRemoveFromTutorialName)) {
                 throw new CommandException(String.format(MESSAGE_STUDENT_DOES_NOT_EXIST, toRemoveStudentId,
                         toRemoveFromTutorialName));
