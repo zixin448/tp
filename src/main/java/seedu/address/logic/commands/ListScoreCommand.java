@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ASSESSMENT_NOT_FOUND;
+import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 
@@ -39,6 +41,12 @@ public class ListScoreCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.hasTutorialWithName(tutName)) {
+            throw new CommandException(MESSAGE_TUTORIAL_NOT_FOUND);
+        }
+        if (!model.hasAssessmentWithName(assessmentName)) {
+            throw new CommandException(MESSAGE_ASSESSMENT_NOT_FOUND);
+        }
         FullMark fullMark = model.getAssessmentWithName(assessmentName).getFullMark();
         model.updateDisplayAssessmentResults(tutName, assessmentName);
         return CommandResult.createScoreCommandResult(

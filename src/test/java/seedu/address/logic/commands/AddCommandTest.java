@@ -293,6 +293,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasStudentWithId(NusNetId toAddStudentId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasTutorialWithName(TutorialName tutorialName) {
             throw new AssertionError("This method should not be called.");
         }

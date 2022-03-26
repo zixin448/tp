@@ -307,6 +307,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return assessments.asUnmodifiableObservableList();
     }
 
+    public UniqueAssessmentList getUniqueAssessmentList() {
+        return assessments;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

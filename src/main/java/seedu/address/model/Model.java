@@ -240,4 +240,6 @@ public interface Model {
     void addStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
 
     void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
+
+    boolean hasStudentWithId(NusNetId toAddStudentId);
 }
