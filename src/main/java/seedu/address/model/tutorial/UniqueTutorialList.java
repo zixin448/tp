@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResults;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.tutorial.exceptions.DuplicateTutorialException;
 import seedu.address.model.tutorial.exceptions.TutorialNotFoundException;
 
@@ -154,6 +155,15 @@ public class UniqueTutorialList {
         for (int i = 0; i < internalList.size(); i++) {
             internalList.get(i).removeAssessmentResultsByName(name);
         }
+    }
+
+    /**
+     * <p> Returns true if the student with the same student id as {@code id} exists in the tutorial with the same name
+     * as {@code tutorialName}.</p>
+     */
+    public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        Tutorial t = getTutorialWithName(tutorialName);
+        return t.containsStudentWithId(id);
     }
 
     @Override

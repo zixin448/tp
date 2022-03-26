@@ -18,6 +18,7 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -194,21 +195,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasAssessmentByName(AssessmentName name) {
+    public boolean hasAssessmentWithName(AssessmentName name) {
         requireNonNull(name);
-        return addressBook.hasAssessmentByName(name);
+        return addressBook.hasAssessmentWithName(name);
     }
 
     @Override
-    public Assessment getAssessmentByName(AssessmentName name) {
+    public Assessment getAssessmentWithName(AssessmentName name) {
         requireNonNull(name);
-        return addressBook.getAssessmentByName(name);
+        return addressBook.getAssessmentWithName(name);
     }
 
     @Override
-    public Assessment removeAssessmentByName(AssessmentName name) {
+    public Assessment removeAssessmentWithName(AssessmentName name) {
         requireNonNull(name);
-        return addressBook.removeAssessmentByName(name);
+        return addressBook.removeAssessmentWithName(name);
     }
 
     //=========== Assessment Results =============================================================
@@ -302,6 +303,17 @@ public class ModelManager implements Model {
     public boolean hasStudentWithName(Name studentName) {
         requireNonNull(studentName);
         return allStudents.stream().anyMatch(x -> x.getName().equals(studentName));
+    }
+
+    @Override
+    public Student getStudentWithId(NusNetId id) {
+        requireNonNull(id);
+        return addressBook.getStudentWithId(id);
+    }
+
+    @Override
+    public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        return addressBook.tutorialHasStudentWithId(id, tutorialName);
     }
 
     @Override

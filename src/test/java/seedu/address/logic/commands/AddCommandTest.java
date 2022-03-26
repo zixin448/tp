@@ -27,6 +27,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -229,17 +230,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasAssessmentByName(AssessmentName name) {
+        public boolean hasAssessmentWithName(AssessmentName name) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Assessment getAssessmentByName(AssessmentName assessmentName) {
+        public Assessment getAssessmentWithName(AssessmentName assessmentName) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Assessment removeAssessmentByName(AssessmentName name) {
+        public Assessment removeAssessmentWithName(AssessmentName name) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -309,11 +310,21 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonsMultiPredList() {
+          throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Student getStudentWithId(NusNetId id) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setFilteredPersonsMultiPredList(List<Person> persons) {
+          throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
             throw new AssertionError("This method should not be called.");
         }
     }

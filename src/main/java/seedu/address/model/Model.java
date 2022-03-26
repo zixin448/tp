@@ -12,6 +12,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -190,11 +191,11 @@ public interface Model {
      */
     void addAssessment(Assessment toAdd);
 
-    boolean hasAssessmentByName(AssessmentName name);
+    boolean hasAssessmentWithName(AssessmentName name);
 
-    Assessment getAssessmentByName(AssessmentName assessmentName);
+    Assessment getAssessmentWithName(AssessmentName assessmentName);
 
-    Assessment removeAssessmentByName(AssessmentName name);
+    Assessment removeAssessmentWithName(AssessmentName name);
 
     /**
      * Adds the given student to the tutorial.
@@ -207,6 +208,13 @@ public interface Model {
      * Student must exist in the student list of the tutorial.
      */
     void removeStudent(Student student);
+
+    /**
+     * Returns the student with the same student id as {@code id}
+     * checks must be done beforehand to ensure no exception thrown. {@see model.tutorialHasStudentWithId()}
+     */
+    Student getStudentWithId(NusNetId id);
+
 
     /**
      * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
@@ -232,6 +240,12 @@ public interface Model {
      * Set the given list {@code persons} as the multiple predicate filtered person list.
      */
     void setFilteredPersonsMultiPredList(List<Person> persons);
+  
+    /*
+     *  Returns true if a student with the same student ID as {@code id}
+     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName);
 
     boolean hasStudentResult(Name studentName, AssessmentName assessmentName);
 

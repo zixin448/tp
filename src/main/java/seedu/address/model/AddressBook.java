@@ -167,11 +167,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if an assessment with the given name exists in the address book.
      */
-    public boolean hasAssessmentByName(AssessmentName name) {
+    public boolean hasAssessmentWithName(AssessmentName name) {
         return assessments.containsByName(name);
     }
 
-    public Assessment getAssessmentByName(AssessmentName name) {
+    public Assessment getAssessmentWithName(AssessmentName name) {
         return assessments.getByName(name);
     }
 
@@ -179,7 +179,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes the assessment with the given name and corresponding AssessmentResults from every tutorial
      * in the address book.
      */
-    public Assessment removeAssessmentByName(AssessmentName name) {
+    public Assessment removeAssessmentWithName(AssessmentName name) {
         Assessment toRemove = assessments.removeByName(name);
         tutorials.removeAssessmentByName(name);
         return toRemove;
@@ -370,6 +370,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setFilteredPersons(List<Person> filteredPersons) {
         this.filteredPersons.setPersons(filteredPersons);
     }
+  
+    /**
+     * Returns the student with the same student id as {@code id}
+     */
+    public Student getStudentWithId(NusNetId id) {
+        return persons.getStudentWithId(id);
+    }
+
+    /**
+     * Returns true if a student with the same student ID as {@code id}
+     * exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        return tutorials.tutorialHasStudentWithId(id, tutorialName);
+    }
 
     public NusNetId getIdOfStudent(Name studentName) {
         requireNonNull(studentName);
@@ -380,5 +395,4 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(studentName);
         return persons.getTutorialNameOfStudent(studentName);
     }
-
 }
