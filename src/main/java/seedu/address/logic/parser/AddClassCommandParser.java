@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.address.logic.commands.AddClassCommand;
@@ -16,6 +17,7 @@ import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.Venue;
 
 public class AddClassCommandParser implements Parser<AddClassCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddClassCommand
      * and returns an AddClassCommand object for execution.
@@ -23,9 +25,10 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
      */
     public AddClassCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TUTORIALNAME, PREFIX_VENUE, PREFIX_DAY, PREFIX_TIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_TUTORIALNAME, PREFIX_VENUE,
+                        PREFIX_DAY, PREFIX_TIME, PREFIX_WEEK);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TUTORIALNAME, PREFIX_VENUE, PREFIX_DAY, PREFIX_TIME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TUTORIALNAME, PREFIX_VENUE, PREFIX_DAY, PREFIX_TIME, PREFIX_WEEK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClassCommand.MESSAGE_USAGE));
         }
@@ -34,8 +37,9 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
         Venue venue = ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE).get());
         Day day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        int week = ParserUtil.parseWeek(argMultimap.getValue(PREFIX_WEEK).get());
 
-        Tutorial tutorial = new Tutorial(tutorialName, venue, day, time);
+        Tutorial tutorial = new Tutorial(tutorialName, venue, day, time, week);
 
         return new AddClassCommand(tutorial);
     }

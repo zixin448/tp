@@ -15,11 +15,13 @@ public class TutorialBuilder {
     public static final String DEFAULT_VENUE = "LT13";
     public static final String DEFAULT_DAY = "Monday";
     public static final String DEFAULT_TIME = "13:00";
+    public static final int DEFAULT_WEEKS = 13;
 
     private TutorialName tutorialName;
     private Venue venue;
     private Day day;
     private Time time;
+    private int weeks;
 
     /**
      * Creates a {@code TutorialBuilder} with the default details.
@@ -29,6 +31,7 @@ public class TutorialBuilder {
         venue = new Venue(DEFAULT_VENUE);
         day = new Day(DEFAULT_DAY);
         time = new Time(DEFAULT_TIME);
+        weeks = DEFAULT_WEEKS;
     }
 
     /**
@@ -39,6 +42,7 @@ public class TutorialBuilder {
         venue = tutorialToCopy.getVenue();
         day = tutorialToCopy.getDay();
         time = tutorialToCopy.getTime();
+        weeks = tutorialToCopy.getWeeks();
     }
 
     /**
@@ -73,8 +77,16 @@ public class TutorialBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code weeks} of the {@code Tutorial} that we are building.
+     */
+    public TutorialBuilder withWeeks(int weeks) {
+        this.weeks = weeks;
+        return this;
+    }
+
     public Tutorial build() {
-        return new Tutorial(tutorialName, venue, day, time);
+        return new Tutorial(tutorialName, venue, day, time, weeks);
     }
 
 }

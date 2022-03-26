@@ -281,6 +281,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String s} into a score String.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code s} is invalid.
+     */
+    public static int parseWeek(String s) throws ParseException {
+        requireNonNull(s);
+        String trimmedScore = s.trim();
+        if (!s.chars().allMatch(Character::isDigit)) {
+            throw new ParseException("Weeks should be presented in integers!");
+        }
+        return Integer.parseInt(s);
+    }
+
+    /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */

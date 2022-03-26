@@ -70,6 +70,12 @@
     "tutorialName" : "T04",
     "venue" : "LT13",
     "day" : "Monday",
-    "time" : "13:00"
+    "time" : "13:00",
+    "weeks" : "3",
+    "attendanceList" : {
+      "weeks" : "3",
+      "attendances" : [ ]
+    },
+    "assessmentResultsList" : [ ]
   } ]
 }

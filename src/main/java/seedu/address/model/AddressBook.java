@@ -346,6 +346,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(student);
         Person personMatch = persons.getPersonWithName(student.getName());
         persons.setPerson(personMatch, student);
+        getTutorialWithName(student.getTutorialName()).generateAttendance();
     }
 
     /**
@@ -382,5 +383,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     public TutorialName getTutorialNameOfStudent(Name studentName) {
         requireNonNull(studentName);
         return persons.getTutorialNameOfStudent(studentName);
+    }
+
+    /**
+     * Marks attendance for the specific week for all students in the specified tutorial
+     */
+    public void markAttendanceForClass(Tutorial tutorial, int week) {
+        requireAllNonNull(tutorial, week);
+        tutorial.markAllAttendance(week);
+    }
+
+    /**
+     * Marks attendance for the specific week for the specified student in the specified tutorial
+     */
+    public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+        requireAllNonNull(tutorial, studentId, week);
+        tutorial.markStudentAttendance(studentId, week);
     }
 }

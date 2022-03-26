@@ -234,6 +234,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void markAttendanceForClass(Tutorial tutorial, int week) {
+        requireAllNonNull(tutorial, week);
+        addressBook.markAttendanceForClass(tutorial, week);
+    }
+
+    @Override
+    public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+        requireAllNonNull(tutorial, studentId, week);
+        addressBook.markAttendanceForStudent(tutorial, studentId, week);
+    }
+
+    @Override
     public void updateDisplayAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
         requireAllNonNull(tutName, assessmentName);
         AssessmentResults assessmentResults = addressBook.getAssessmentResults(tutName, assessmentName);

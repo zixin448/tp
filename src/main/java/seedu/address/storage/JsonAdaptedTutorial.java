@@ -11,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.assessment.UniqueAssessmentList;
+import seedu.address.model.attendance.AttendanceList;
 import seedu.address.model.tutorial.Day;
 import seedu.address.model.tutorial.Time;
 import seedu.address.model.tutorial.Tutorial;
@@ -25,11 +26,15 @@ class JsonAdaptedTutorial {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Tutorial's %s field is missing!";
     public static final String MISSING_ASSESSMENT = "The assessment, %s, is missing from storage"
             + "so its results cannot be retrieved.";
+    public static final String INVALID_ATTENDANCE_WEEKS = "The attendance list has been incorrectly "
+            + "modified and cannot be retrieved.";
 
     private final String tutorialName;
     private final String venue;
     private final String day;
     private final String time;
+    private final String weeks;
+    private final JsonAdaptedAttendanceList attendanceList;
     private final List<JsonAdaptedAssessmentResults> assessmentResultsList = new ArrayList<>();
 
     /**
@@ -38,11 +43,15 @@ class JsonAdaptedTutorial {
     @JsonCreator
     public JsonAdaptedTutorial(@JsonProperty("tutorialName") String tutorialName, @JsonProperty("venue") String venue,
                              @JsonProperty("day") String day, @JsonProperty("time") String time,
+                               @JsonProperty("weeks") String weeks,
+                               @JsonProperty("attendanceList") JsonAdaptedAttendanceList attendanceList,
                                @JsonProperty("assessmentResultsList") List<JsonAdaptedAssessmentResults> results) {
         this.tutorialName = tutorialName;
         this.venue = venue;
         this.day = day;
         this.time = time;
+        this.weeks = weeks;
+        this.attendanceList = attendanceList;
         if (results != null) {
             this.assessmentResultsList.addAll(results);
         }
@@ -56,6 +65,8 @@ class JsonAdaptedTutorial {
         venue = source.getVenue().value;
         day = source.getDay().day;
         time = source.getTime().time;
+        weeks = String.valueOf(source.getWeeks());
+        attendanceList = new JsonAdaptedAttendanceList(source.getAttendanceList());
         assessmentResultsList.addAll(source.getUnmodifiableAssessmentResultsList()
                 .stream()
                 .map(JsonAdaptedAssessmentResults::new)
@@ -101,6 +112,19 @@ class JsonAdaptedTutorial {
         }
         final Time modelTime = new Time(time);
 
+        if (weeks == null) {
+            throw new IllegalValueException("Weeks field is missing!");
+        }
+        if (!weeks.chars().allMatch(Character::isDigit)) {
+            throw new IllegalValueException("Weeks must be numeric");
+        }
+        final int modelWeeks = Integer.parseInt(weeks);
+
+        final AttendanceList modelAttendanceList = attendanceList.toModelType();
+        if (modelWeeks != modelAttendanceList.getWeeks()) {
+            throw new IllegalValueException(INVALID_ATTENDANCE_WEEKS);
+        }
+
         final AssessmentResultsList modelAssessmentResultsList = new AssessmentResultsList(modelTutorialName);
         for (JsonAdaptedAssessmentResults assessmentResults : assessmentResultsList) {
             AssessmentName assessmentName = assessmentResults.getAssessmentName();
@@ -113,6 +137,7 @@ class JsonAdaptedTutorial {
                     assessmentList.getByName(assessmentName).getFullMark()));
         }
 
-        return new Tutorial(modelTutorialName, modelVenue, modelDay, modelTime, modelAssessmentResultsList);
+        return new Tutorial(modelTutorialName, modelVenue, modelDay, modelTime,
+                modelWeeks, modelAttendanceList, modelAssessmentResultsList);
     }
 }
