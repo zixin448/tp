@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
+import seedu.address.model.person.UniqueFilteredPersonsList;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -32,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueTutorialList tutorials = new UniqueTutorialList();
     private final UniqueAssessmentList assessments = new UniqueAssessmentList();
+    private final UniqueFilteredPersonsList filteredPersons = new UniqueFilteredPersonsList();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -312,6 +314,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Person> getFilteredPersonsList() {
+        return filteredPersons.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
@@ -357,6 +364,15 @@ public class AddressBook implements ReadOnlyAddressBook {
                 student.getAddress(), student.getTags());
         persons.setPerson(student, toReplaceStudent);
 
+    }
+
+    /// filteredPersons-level methods
+    /**
+     * Replaces the contents of the filtered person list with {@code filteredPersons}.
+     * {@code filteredPersons} must not contain duplicate persons.
+     */
+    public void setFilteredPersons(List<Person> filteredPersons) {
+        this.filteredPersons.setPersons(filteredPersons);
     }
 
     /**
