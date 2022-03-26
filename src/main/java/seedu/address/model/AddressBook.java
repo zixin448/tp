@@ -370,7 +370,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setFilteredPersons(List<Person> filteredPersons) {
         this.filteredPersons.setPersons(filteredPersons);
     }
-  
+
     /**
      * Returns the student with the same student id as {@code id}
      */

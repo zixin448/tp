@@ -310,7 +310,7 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonsMultiPredList() {
-          throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -320,7 +320,7 @@ public class AddCommandTest {
 
         @Override
         public void setFilteredPersonsMultiPredList(List<Person> persons) {
-          throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

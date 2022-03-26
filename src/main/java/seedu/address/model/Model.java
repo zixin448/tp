@@ -240,8 +240,8 @@ public interface Model {
      * Set the given list {@code persons} as the multiple predicate filtered person list.
      */
     void setFilteredPersonsMultiPredList(List<Person> persons);
-  
-    /*
+
+    /**
      *  Returns true if a student with the same student ID as {@code id}
      *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
      */
