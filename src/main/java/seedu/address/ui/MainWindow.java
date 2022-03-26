@@ -264,6 +264,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleScore();
                 break;
             case FIND:
+                handlePerson();
+                break;
+            case FINDBYPREFIX:
                 handleFilteredPerson();
                 break;
             default:

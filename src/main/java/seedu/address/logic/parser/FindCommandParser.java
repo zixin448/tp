@@ -87,7 +87,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             String[] studentIdByPrefixKeywords = studentId.split("\\s+");
             String[] tutorialNameByPrefixKeywords = tutorialName.split("\\s+");
             return new FindByPrefixCommand(
-                    new NameContainsKeywordsPredicate(Arrays.asList(nameByPrefixKeywords)),
+                    new NameContainsKeywordsPredicate(Arrays.asList(nameByPrefixKeywords), true),
                     new PhoneContainsKeywordsPredicate(Arrays.asList(phoneByPrefixKeywords)),
                     new EmailContainsKeywordsPredicate(Arrays.asList(emailByPrefixKeywords)),
                     new AddressContainsKeywordsPredicate(Arrays.asList(addressByPrefixKeywords)),
@@ -96,7 +96,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                     new TutorialContainsKeywordsPredicate(Arrays.asList(tutorialNameByPrefixKeywords))
             );
         } else {
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords), false));
         }
     }
 

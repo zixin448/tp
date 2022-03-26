@@ -32,6 +32,7 @@ public class FindByPrefixCommand extends FindCommand {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
+    private final NameContainsKeywordsPredicate predicateName;
     private final PhoneContainsKeywordsPredicate predicatePhone;
     private final EmailContainsKeywordsPredicate predicateEmail;
     private final AddressContainsKeywordsPredicate predicateAddress;
@@ -51,7 +52,8 @@ public class FindByPrefixCommand extends FindCommand {
                                TagContainsKeywordsPredicate predicateTags,
                                StudentIdContainsKeywordsPredicate predicateStudentId,
                                TutorialContainsKeywordsPredicate predicateTutorialName) {
-        super(predicateName);
+        super();
+        this.predicateName = predicateName;
         this.predicatePhone = predicatePhone;
         this.predicateEmail = predicateEmail;
         this.predicateAddress = predicateAddress;
@@ -66,7 +68,7 @@ public class FindByPrefixCommand extends FindCommand {
         List<Person> all = new ArrayList<>();
 
         // find all with matching name
-        model.updateFilteredPersonList(super.getPredicate());
+        model.updateFilteredPersonList(predicateName);
         all.addAll(model.getFilteredPersonList());
 
         // find all with matching phone
@@ -99,7 +101,7 @@ public class FindByPrefixCommand extends FindCommand {
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
-                        model.getFilteredPersonsMultiPredList().size()), false, false, DisplayType.FIND);
+                        model.getFilteredPersonsMultiPredList().size()), false, false, DisplayType.FINDBYPREFIX);
 
     }
 
