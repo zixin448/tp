@@ -281,7 +281,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String s} into a score String.
+     * Parses a {@code String s} into a week integer.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code s} is invalid.

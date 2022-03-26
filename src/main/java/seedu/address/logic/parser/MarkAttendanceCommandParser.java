@@ -14,8 +14,8 @@ import seedu.address.model.tutorial.TutorialName;
 public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddClassCommand
-     * and returns an AddClassCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the MarkAttendanceCommand
+     * and returns an MarkAttendanceCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public MarkAttendanceCommand parse(String args) throws ParseException {
@@ -39,7 +39,7 @@ public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand
         }
         int week = ParserUtil.parseWeek(argMultimap.getValue(PREFIX_WEEK).get());
 
-        return new MarkAttendanceCommand(tutorialName, studentId, week, isStudentIdPresent);
+        return new MarkAttendanceCommand(tutorialName, studentId, week, !isStudentIdPresent);
     }
 
 }

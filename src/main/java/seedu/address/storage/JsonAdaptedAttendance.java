@@ -13,14 +13,13 @@ import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.NusNetId;
 
 public class JsonAdaptedAttendance {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "StudentResult's %s field is missing!";
-
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Attendance's %s field is missing!";
     private final String studentId;
     private final String comments;
     private final List<String> studentAttendance = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedTutorial} with the given tutorial details.
+     * Constructs a {@code JsonAdaptedAttendance} with the given attendance details.
      */
     @JsonCreator
     public JsonAdaptedAttendance(@JsonProperty("studentId") String studentId, @JsonProperty("comments") String comments,
@@ -50,6 +49,10 @@ public class JsonAdaptedAttendance {
      * @throws IllegalValueException if there were any data constraints violated in the adapted attendance.
      */
     public Attendance toModelType() throws IllegalValueException {
+        if (studentId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    NusNetId.class.getSimpleName()));
+        }
         if (!NusNetId.isValidId(studentId)) {
             throw new IllegalValueException(NusNetId.MESSAGE_CONSTRAINTS);
         }

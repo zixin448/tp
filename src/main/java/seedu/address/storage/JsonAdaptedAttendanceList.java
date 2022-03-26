@@ -18,7 +18,7 @@ public class JsonAdaptedAttendanceList {
     private final List<JsonAdaptedAttendance> attendances = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedAttendance} from the given details.
+     * Constructs a {@code JsonAdaptedAttendanceList} from the given details.
      */
     @JsonCreator
     public JsonAdaptedAttendanceList(@JsonProperty("weeks") String weeks,
@@ -51,9 +51,9 @@ public class JsonAdaptedAttendanceList {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code AssessmentResults} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code AttendanceList} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted assessment results.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted attendance list.
      */
     public AttendanceList toModelType() throws IllegalValueException {
         final AttendanceList modelAttendanceList = new AttendanceList(new ArrayList<>(), getWeeks());

@@ -51,6 +51,7 @@ public class Tutorial implements Displayable {
      * @param v the venue the tutorial is hosted at.
      * @param d the day of the week the tutorial falls on.
      * @param t the time the tutorial starts.
+     * @param weeks the amount of weeks the tutorial is held for.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks) {
         requireAllNonNull(name, d, t);
@@ -70,6 +71,7 @@ public class Tutorial implements Displayable {
      * @param v the venue the tutorial is hosted at.
      * @param d the day of the week the tutorial falls on.
      * @param t the time the tutorial starts.
+     * @param weeks the amount of weeks the tutorial is held for.
      * @param allStudents the allStudents list in the ModelManager.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, FilteredList<Person> allStudents) {
