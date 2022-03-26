@@ -107,6 +107,8 @@ class JsonAdaptedTutorial {
             if (!assessmentList.containsByName(assessmentName)) {
                 throw new IllegalValueException(MISSING_ASSESSMENT);
             }
+            // the full mark of the assessment is passed into toModelType() to check that all
+            // student results have a score that is not larger than the full marks
             modelAssessmentResultsList.add(assessmentResults.toModelType(
                     assessmentList.getByName(assessmentName).getFullMark()));
         }
