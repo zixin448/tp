@@ -254,4 +254,8 @@ public interface Model {
     void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
 
     boolean hasStudentWithId(NusNetId toAddStudentId);
+
+    void markAttendanceForClass(Tutorial tutorial, int week);
+
+    void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week);
 }

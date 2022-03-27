@@ -77,4 +77,8 @@ public class UniqueStudentsInTutorialList {
         // execution should not reach this point
         return null;
     }
+
+    public FilteredList<Person> getStudentsInClass() {
+        return studentsInClass;
+    }
 }

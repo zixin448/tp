@@ -10,7 +10,6 @@ import seedu.address.model.assessment.FullMark;
 import seedu.address.model.assessment.Weightage;
 
 public class JsonAdaptedAssessment {
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Assessment's %s field is missing!";
 
     private final String name;

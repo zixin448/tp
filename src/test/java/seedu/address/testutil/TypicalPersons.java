@@ -43,7 +43,7 @@ public class TypicalPersons {
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
     public static final Tutorial DUMMY_TUTORIAL = new TutorialBuilder().withTutorialName("T04").withVenue("LT13")
-            .withDay("Monday").withTime("13:00").build();
+            .withDay("Monday").withTime("13:00").withWeeks(13).build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
