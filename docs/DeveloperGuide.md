@@ -223,7 +223,7 @@ Step 4. After browsing through the list of commands, the user decides now that h
     * Cons: Harder to implement, have to ensure that the display panes are correctly positioned and hidden/shown when required.
 
 _{more aspects and alternatives to be added}_
- 
+
 ### Display students feature
 
 #### Implementation
@@ -320,7 +320,7 @@ The following sequence diagram shows how the add assessment operation works:
 
 ### Add students feature
 
-This `AddStudentCommand` feature is facilitated by display student feature. It extends the application implementing the 
+This `AddStudentCommand` feature is facilitated by display student feature. It extends the application implementing the
 following operations:
 
 * `AddStudentCommand#execute()` — Find corresponding `Person` and set it to a `Student`.
@@ -335,19 +335,19 @@ Step 1. The user executes `add n/B ...` to add a new`Person`. The new `PersonCar
 
 ![AddStudentCommandState0](images/AddStudentCommandState0.png)
 
-Step 2. The user executes `add_student n/C ...` command to add a student. The add_student command 
+Step 2. The user executes `add_student n/C ...` command to add a student. The add_student command
 call `Model#getPersonWithName()` is used to retrieve the corresponding `Person`.
 
 ![AddStudentCommandState1](images/AddStudentCommandState1.png)
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:** The add_student command call 
-`Model#hasPersonWithName()` and `Model#hasTutorialWithName()` to check if corresponding `Person` and `Tutorial` exists. 
+<div markdown="span" class="alert alert-info">:information_source:**Note:** The add_student command call
+`Model#hasPersonWithName()` and `Model#hasTutorialWithName()` to check if corresponding `Person` and `Tutorial` exists.
 The command calls `Model#hasStudentWithName` to ensure there is no already exist student with the same details.
 If a command fails its execution, it will not call `Model#getPersonWithName()`.
 
 </div>
 
-Step 3. The command creates a `Student` using the Person C's details, then uses `Model#add_student()` to replace the 
+Step 3. The command creates a `Student` using the Person C's details, then uses `Model#add_student()` to replace the
 original `Person` with a `Student`.
 
 ![AddStudentCommandState2](images/AddStudentCommandState2.png)
@@ -372,23 +372,64 @@ _{more aspects and alternatives to be added}_
 
 ### Remove students feature
 
-This `RemoveStudentCommand`feature is facilitated by the display students feature. It extends the application by 
+This `RemoveStudentCommand`feature is facilitated by the display students feature. It extends the application by
 implementing the following operations:
 
 * `RemoveStudentCommand#execute()` - Find corresponding `Student` and set it to a `Person`.
 
-The operation is facilitated by the `Model` interface using `Model#hasTutorialWithName()`, `Model#getTutorialWithName`,
-`Model#containsStudentWithId()`, `Model#getStudentWithId()`, `Model#removeStudent()`.
+The operation is facilitated by the `Model` interface using `Model#hasTutorialWithName()`,
+`Model#tutorialHasStudentWithId()`, `Model#getStudentWithId()`, `Model#getFilteredPersonList()`,
+`Model#removeStudent()`.
 
 Given below are two example scenarios based on different command inputs and how the mechanism behaves at each step.
 
-##### Scenario 1: `remove_student n/...`
-Step 1. The user executes `remove_student n/...` command to remove a student. The `remove_student` command calls 
-Model#getPersonWithName() is used to retrieve the corresponding Person.
+##### Scenario 1: `remove_student id/...`
+Step 1. The user executes `remove_student id/...` command to remove a student. The `remove_student` command calls
+`Model#getStudentWithId()` to retrieve the corresponding Student.
+
+![BeforeRemoveStudent](images/RemoveStudentCommandState1a.png)
+
+
+Step 2. The student is removed with `Model#removeStudent()` which extracts the fields of the Student object that are
+relevant to create a new Person object, to replace the Student object.
+
+![BeforeRemoveStudent](images/RemoveStudentCommandState1b.png)
 
 ##### Scenario 2: `remove_student i/...`
 
+step 1. The user executes `list_student` command and the `DisplayListPanel` displays a list of all Students in the
+application.
+
+refer to [Display students feature](#display-students-feature) to see how the `list_student` command works.
+
+step 2. The user executes `remove_student i/...` command, where `i` is the index of the desired student to be removed
+in the current `DisplayListPanel`.
+
+step 3. The student to be removed is extracted from the list and removed using `Model#removeStudent()`.
+
+**Note:** In both scenarios, validity checks are done with `Model#hasTutorialWithName()`,
+`Model#tutorialHasStudentWithId()` and for scenario 2, additional checks are done to ensure index entered is not out of
+bounds and that the desired index is referring to a Student object.
+
+The following sequence diagram shows how this operation works:
+
+![RemoveStudentSequenceDiagram](images/RemoveStudentCommandSequenceDiagram.png)
+
 #### Design considerations:
+
+##### Scenario 1: How the student is retrieved from the application
+* **Alternative 1 (current choice):** model requests for Student object iteratively from the components in the Model component (i.e. calls AddressBook which calls UniqueTutorialList and so on )
+  * Pros: Law of Demeter is followed and coupling between classes is decreased.
+  * Cons: More code required.
+* **Alternative 2:** model access request for the Tutorial object and retrieves Student object directly from Tutorial.
+  * Pros: Easier to implement because fewer methods are needed to go through each component.
+  * Cons: Increased coupling between classes.
+
+##### Scenario 2: How the student is retrieved from the application
+* **Current choice:** Direct access from `filteredPersonList()`
+  * Pros: Easiest way to access a Student from a filtered list using index.
+  * Cons: Increases coupling within classes. Currently, have no other solution to decrease coupling.
+
 
 ### \[Proposed\] Undo/redo feature
 
