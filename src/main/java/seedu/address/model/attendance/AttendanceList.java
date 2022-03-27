@@ -59,20 +59,16 @@ public class AttendanceList {
             }
 
             if (!hasAttendencePresent) {
-                System.out.println("creating");
-                System.out.println(weeks);
                 ArrayList<Integer> studentAttendance = new ArrayList<>();
                 for (int i = 0; i < weeks; i++) {
                     studentAttendance.add(0);
                 }
-                System.out.println(studentAttendance);
                 attendances.add(
                         new Attendance(
                                 studentAttendance,
                                 studentId,
                                 new Comment("")));
             }
-            System.out.println(attendances);
         }
     }
 
@@ -94,11 +90,9 @@ public class AttendanceList {
      * @param week the week that the attendance should be marked for the student.
      */
     public void markAttendanceForStudent(NusNetId studentId, int week) {
-        System.out.println(studentId);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentId().equals(studentId)) {
                 attendance.markWeek(week);
-                System.out.println(attendance);
                 break;
             }
         }
