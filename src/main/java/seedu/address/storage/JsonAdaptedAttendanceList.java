@@ -22,7 +22,7 @@ public class JsonAdaptedAttendanceList {
      */
     @JsonCreator
     public JsonAdaptedAttendanceList(@JsonProperty("weeks") String weeks,
-                                        @JsonProperty("attendences") List<JsonAdaptedAttendance> attendances) {
+                                        @JsonProperty("attendances") List<JsonAdaptedAttendance> attendances) {
         this.weeks = weeks;
         if (attendances != null) {
             this.attendances.addAll(attendances);
