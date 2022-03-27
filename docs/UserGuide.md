@@ -2,7 +2,7 @@
 layout: page
 title: User Guide
 ---
-camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their own contacts, as well as assessments and class participation among students** in their contact book. It is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their own contacts, as well as assessments and class participation among students** in their contact book. It is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 * Table of Contents
 {:toc}
@@ -193,6 +193,20 @@ Examples:
 * list_score as/Assignment 1 tn/T04
   ![result for `list_score as/Assignment 1 tn/T04`](images/listScoreResult.png)
 
+#### Listing attendance of a class: `list_attendance`
+
+Generates the attendance list of a specified class.
+
+Format: `list_attendance tn/TUTORIAL_NAME wk/WEEK`
+
+* `TUTORIAL_NAME` refers to the name of an existing tutorial group.
+* Shows attendance of students belonging to the class with the specified `TUTORIAL_NAME`.
+
+Examples:
+
+* `list_attendance tn/T04 wk/2`
+  ![result for `list_attendance tn/T04 wk/2`](images/listAttendance.png)
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
@@ -293,6 +307,29 @@ Examples:
 
 * `delete_assessment as/Attendance`
 * `delete_assessment as/Assignment 1`
+
+### Assigning assessment score to a student: `grade`
+
+Assigns a score to a student in a specified assessment component.
+
+Format: `grade as/ASSESSMENT NAME n/NAME s/SCORE`
+
+Example: `grade as/Test 1 n/Amy Tan s/5`
+
+### Marking attendance for a student: `mark_attendance`
+
+Marks attendance for a specified student or all students in a specified class for a specified week. 
+
+Format: `mark_attendance tn/TUTORIAL NAME [id/STUDENT ID] wk/WEEK`
+
+* `STUDENT ID` is optional.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
+
+Examples:
+
+* `mark_attendance tn/T04 id/e0123456 wk/1`
+* `mark_attendance tn/T04 wk/1`
 
 ### Clearing all entries : `clear`
 
