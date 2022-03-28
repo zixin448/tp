@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -24,6 +26,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Tutorial> PREDICATE_SHOW_ALL_TUTORIALS = unused -> true;
     Predicate<Assessment> PREDICATE_SHOW_ALL_ASSESSMENTS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_FILTERED_PERSONS = unused -> true;
     Predicate<Person> PREDICATE_SHOW_ALL_STUDENTS = Student::isStudent;
 
     /**
@@ -207,6 +210,13 @@ public interface Model {
     void removeStudent(Student student);
 
     /**
+     * Returns the student with the same student id as {@code id}
+     * checks must be done beforehand to ensure no exception thrown. {@see model.tutorialHasStudentWithId()}
+     */
+    Student getStudentWithId(NusNetId id);
+
+
+    /**
      * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -221,9 +231,31 @@ public interface Model {
      */
     boolean hasStudentWithName(Name studentName);
 
+    /**
+     * Returns an unmodifiable view of the multiple predicate filtered person list
+     */
+    ObservableList<Person> getFilteredPersonsMultiPredList();
+
+    /**
+     * Set the given list {@code persons} as the multiple predicate filtered person list.
+     */
+    void setFilteredPersonsMultiPredList(List<Person> persons);
+
+    /**
+     *  Returns true if a student with the same student ID as {@code id}
+     *  exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName);
+
     boolean hasStudentResult(Name studentName, AssessmentName assessmentName);
 
     void addStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
 
     void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
+
+    boolean hasStudentWithId(NusNetId toAddStudentId);
+
+    void markAttendanceForClass(Tutorial tutorial, int week);
+
+    void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week);
 }

@@ -90,6 +90,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Person> filteredPersons = FXCollections.observableArrayList();
         private final ObservableList<Tutorial> tutorials = FXCollections.observableArrayList();
         private final ObservableList<Assessment> assessments = FXCollections.observableArrayList();
 
@@ -110,6 +111,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Assessment> getAssessmentList() {
             return assessments;
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonsList() {
+            return filteredPersons;
         }
     }
 

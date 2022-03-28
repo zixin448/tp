@@ -125,7 +125,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        if (studentId == null && tutorialName == null) {
+        if (studentId == null || tutorialName == null) {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
         } else {
             final NusNetId modelStudentId = new NusNetId(studentId);

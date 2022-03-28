@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -36,6 +38,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Tutorial> filteredTutorials;
     private final FilteredList<Assessment> filteredAssessments;
+    private final FilteredList<Person> filteredPersonsByMultiplePredicate;
+
     private ObservableList<StudentResult> displayAssessmentResults;
 
     /**
@@ -63,6 +67,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTutorials = new FilteredList<>(this.addressBook.getTutorialList());
         filteredAssessments = new FilteredList<>(this.addressBook.getAssessmentList());
+        filteredPersonsByMultiplePredicate = new FilteredList<>(this.addressBook.getFilteredPersonsList());
 
         allStudents = new FilteredList<>(this.addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS);
         filteredStudents = new FilteredList<>(allStudents);
@@ -233,6 +238,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void markAttendanceForClass(Tutorial tutorial, int week) {
+        requireAllNonNull(tutorial, week);
+        addressBook.markAttendanceForClass(tutorial, week);
+    }
+
+    @Override
+    public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+        requireAllNonNull(tutorial, studentId, week);
+        addressBook.markAttendanceForStudent(tutorial, studentId, week);
+    }
+
+    @Override
     public void updateDisplayAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
         requireAllNonNull(tutName, assessmentName);
         AssessmentResults assessmentResults = addressBook.getAssessmentResults(tutName, assessmentName);
@@ -298,6 +315,23 @@ public class ModelManager implements Model {
     public boolean hasStudentWithName(Name studentName) {
         requireNonNull(studentName);
         return allStudents.stream().anyMatch(x -> x.getName().equals(studentName));
+    }
+
+    @Override
+    public boolean hasStudentWithId(NusNetId studentId) {
+        requireNonNull(studentId);
+        return allStudents.stream().anyMatch(x -> ((Student) x).getStudentId().equals(studentId));
+    }
+
+    @Override
+    public Student getStudentWithId(NusNetId id) {
+        requireNonNull(id);
+        return addressBook.getStudentWithId(id);
+    }
+
+    @Override
+    public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        return addressBook.tutorialHasStudentWithId(id, tutorialName);
     }
 
     @Override
@@ -371,6 +405,24 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
+    //=========== Filtered Person Multiple Predicate List Accessors ==================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code AddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonsMultiPredList() {
+        return filteredPersonsByMultiplePredicate;
+    }
+
+    @Override
+    public void setFilteredPersonsMultiPredList(List<Person> persons) {
+        requireNonNull(persons);
+        addressBook.setFilteredPersons(persons);
+    }
+
 
 }
 

@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
+import seedu.address.model.person.UniqueFilteredPersonsList;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -32,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueTutorialList tutorials = new UniqueTutorialList();
     private final UniqueAssessmentList assessments = new UniqueAssessmentList();
+    private final UniqueFilteredPersonsList filteredPersons = new UniqueFilteredPersonsList();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -307,6 +309,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         return assessments.asUnmodifiableObservableList();
     }
 
+    public UniqueAssessmentList getUniqueAssessmentList() {
+        return assessments;
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPersonsList() {
+        return filteredPersons.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -342,6 +353,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(student);
         Person personMatch = persons.getPersonWithName(student.getName());
         persons.setPerson(personMatch, student);
+        getTutorialWithName(student.getTutorialName()).generateAttendance();
     }
 
     /**
@@ -355,6 +367,30 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     }
 
+    /// filteredPersons-level methods
+    /**
+     * Replaces the contents of the filtered person list with {@code filteredPersons}.
+     * {@code filteredPersons} must not contain duplicate persons.
+     */
+    public void setFilteredPersons(List<Person> filteredPersons) {
+        this.filteredPersons.setPersons(filteredPersons);
+    }
+
+    /**
+     * Returns the student with the same student id as {@code id}
+     */
+    public Student getStudentWithId(NusNetId id) {
+        return persons.getStudentWithId(id);
+    }
+
+    /**
+     * Returns true if a student with the same student ID as {@code id}
+     * exists in the tutorial with the same tutorial name as {@code tutorialName}.
+     */
+    public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        return tutorials.tutorialHasStudentWithId(id, tutorialName);
+    }
+
     public NusNetId getIdOfStudent(Name studentName) {
         requireNonNull(studentName);
         return persons.getIdOfStudent(studentName);
@@ -365,4 +401,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.getTutorialNameOfStudent(studentName);
     }
 
+    /**
+     * Marks attendance for the specific week for all students in the specified tutorial
+     */
+    public void markAttendanceForClass(Tutorial tutorial, int week) {
+        requireAllNonNull(tutorial, week);
+        tutorial.markAllAttendance(week);
+    }
+
+    /**
+     * Marks attendance for the specific week for the specified student in the specified tutorial
+     */
+    public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+        requireAllNonNull(tutorial, studentId, week);
+        tutorial.markStudentAttendance(studentId, week);
+    }
 }

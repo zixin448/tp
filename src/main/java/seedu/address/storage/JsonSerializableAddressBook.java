@@ -73,16 +73,6 @@ class JsonSerializableAddressBook {
             addressBook.addPerson(person);
         }
 
-        for (JsonAdaptedTutorial jsonAdaptedTutorial : tutorials) {
-            Tutorial tutorial = jsonAdaptedTutorial.toModelType();
-            if (addressBook.hasTutorial(tutorial)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_TUTORIAL);
-            }
-            addressBook.addTutorial(tutorial);
-            tutorial.setStudentsList(
-                    new FilteredList<>(addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS));
-        }
-
         for (JsonAdaptedAssessment jsonAdaptedAssessment : assessments) {
             Assessment assessment = jsonAdaptedAssessment.toModelType();
             if (addressBook.hasAssessment(assessment)) {
@@ -91,7 +81,15 @@ class JsonSerializableAddressBook {
             addressBook.addAssessment(assessment);
         }
 
-        // TODO: Add the assessment results for students.
+        for (JsonAdaptedTutorial jsonAdaptedTutorial : tutorials) {
+            Tutorial tutorial = jsonAdaptedTutorial.toModelType(addressBook.getUniqueAssessmentList());
+            if (addressBook.hasTutorial(tutorial)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TUTORIAL);
+            }
+            addressBook.addTutorial(tutorial);
+            tutorial.setStudentsList(new FilteredList<>(addressBook.getPersonList(),
+                    PREDICATE_SHOW_ALL_STUDENTS));
+        }
 
         return addressBook;
     }

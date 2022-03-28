@@ -27,4 +27,10 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate assessments.
      */
     ObservableList<Assessment> getAssessmentList();
+
+    /**
+     * Returns an unmodifiable view of the filtered persons list.
+     * This list will not contain any duplicate persons.
+     */
+    ObservableList<Person> getFilteredPersonsList();
 }

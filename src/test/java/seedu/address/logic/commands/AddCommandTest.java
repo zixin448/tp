@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
@@ -292,6 +294,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasStudentWithId(NusNetId toAddStudentId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void markAttendanceForClass(Tutorial tutorial, int week) {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasTutorialWithName(TutorialName tutorialName) {
             throw new AssertionError("This method should not be called.");
         }
@@ -303,6 +321,26 @@ public class AddCommandTest {
 
         @Override
         public Person getPersonWithName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonsMultiPredList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Student getStudentWithId(NusNetId id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFilteredPersonsMultiPredList(List<Person> persons) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
             throw new AssertionError("This method should not be called.");
         }
     }

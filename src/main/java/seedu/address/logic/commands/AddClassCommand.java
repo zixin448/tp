@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TUTORIALS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,12 +20,14 @@ public class AddClassCommand extends Command {
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_VENUE + "VENUE "
             + PREFIX_DAY + "DAY "
-            + PREFIX_TIME + "TIME\n"
+            + PREFIX_TIME + "TIME"
+            + PREFIX_WEEK + "WEEKS\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIALNAME + "T04 "
             + PREFIX_VENUE + "LT13 "
             + PREFIX_DAY + "Monday "
-            + PREFIX_TIME + "1300 ";
+            + PREFIX_TIME + "1300 "
+            + PREFIX_WEEK + "13 ";
 
     public static final String MESSAGE_SUCCESS = "New class added: %1$s";
     public static final String MESSAGE_DUPLICATE_CLASS = "This class already exists in the camNUS";
@@ -45,6 +48,7 @@ public class AddClassCommand extends Command {
 
         toAdd.setStudentsList(model.getAllStudentsList());
         toAdd.setAssessmentResultsList(model.getAssessmentList());
+        toAdd.generateAttendance();
 
         if (model.hasTutorial(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CLASS);

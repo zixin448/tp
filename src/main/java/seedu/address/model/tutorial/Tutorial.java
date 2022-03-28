@@ -3,6 +3,8 @@ package seedu.address.model.tutorial;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
@@ -15,6 +17,8 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.AssessmentResultsList;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.AttendanceList;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
@@ -33,10 +37,12 @@ public class Tutorial implements Displayable {
     private final Day day;
     private final Time time;
     private final Venue venue;
+    private final int weeks;
 
     // Data fields
     private UniqueStudentsInTutorialList studentsList;
     private final AssessmentResultsList assessmentResultsList;
+    private final AttendanceList attendanceList;
 
     /**
      * Every field must be present and not null.
@@ -45,14 +51,17 @@ public class Tutorial implements Displayable {
      * @param v the venue the tutorial is hosted at.
      * @param d the day of the week the tutorial falls on.
      * @param t the time the tutorial starts.
+     * @param weeks the amount of weeks the tutorial is held for.
      */
-    public Tutorial(TutorialName name, Venue v, Day d, Time t) {
+    public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks) {
         requireAllNonNull(name, d, t);
         tutorialName = name;
         venue = v;
         day = d;
         time = t;
+        this.weeks = weeks;
         assessmentResultsList = new AssessmentResultsList(name);
+        attendanceList = new AttendanceList(new ArrayList<Attendance>(), weeks);
     }
 
     /**
@@ -62,16 +71,34 @@ public class Tutorial implements Displayable {
      * @param v the venue the tutorial is hosted at.
      * @param d the day of the week the tutorial falls on.
      * @param t the time the tutorial starts.
+     * @param weeks the amount of weeks the tutorial is held for.
      * @param allStudents the allStudents list in the ModelManager.
      */
-    public Tutorial(TutorialName name, Venue v, Day d, Time t, FilteredList<Person> allStudents) {
+    public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, FilteredList<Person> allStudents) {
         requireAllNonNull(name, d, t);
         tutorialName = name;
         venue = v;
         day = d;
         time = t;
+        this.weeks = weeks;
         studentsList = new UniqueStudentsInTutorialList(allStudents, name);
         assessmentResultsList = new AssessmentResultsList(name);
+        attendanceList = new AttendanceList(new ArrayList<Attendance>(), weeks);
+    }
+
+    /**
+     * Constructor for Tutorial, used for loading from storage.
+     */
+    public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, AttendanceList attendance,
+                    AssessmentResultsList results) {
+        requireAllNonNull(name, d, t, results);
+        tutorialName = name;
+        venue = v;
+        day = d;
+        time = t;
+        this.weeks = weeks;
+        attendanceList = attendance;
+        assessmentResultsList = results;
     }
 
     public TutorialName getTutorialName() {
@@ -90,8 +117,20 @@ public class Tutorial implements Displayable {
         return venue;
     }
 
+    public int getWeeks() {
+        return weeks;
+    }
+
+    public AttendanceList getAttendanceList() {
+        return attendanceList;
+    }
+
     public void setStudentsList(FilteredList<Person> allStudents) {
         studentsList = new UniqueStudentsInTutorialList(allStudents, tutorialName);
+    }
+
+    public List<AssessmentResults> getUnmodifiableAssessmentResultsList() {
+        return assessmentResultsList.asUnmodifiableList();
     }
 
     public void setAssessmentResultsList(ObservableList<Assessment> assessmentsList) {
@@ -199,6 +238,35 @@ public class Tutorial implements Displayable {
     public void setStudentResult(AssessmentName assessmentName, NusNetId studentId, Score score) {
         requireAllNonNull(assessmentName, studentId, score);
         assessmentResultsList.setStudentResult(assessmentName, studentId, score);
+    }
+
+    /**
+     * Generates attendance records for students who do not have any records present in the list.
+     */
+    public void generateAttendance() {
+        System.out.println(studentsList);
+        attendanceList.generateAttendance(studentsList);
+    }
+
+    /**
+     * Marks the attendance for the all students.
+     *
+     * @param week the week that the attendance should be marked for the student.
+     */
+    public void markAllAttendance(int week) {
+        generateAttendance();
+        attendanceList.markAllAttendance(week);
+    }
+
+    /**
+     * Marks the attendance for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     * @param week the week that the attendance should be marked for the student.
+     */
+    public void markStudentAttendance(NusNetId studentId, int week) {
+        generateAttendance();
+        attendanceList.markAttendanceForStudent(studentId, week);
     }
 
     /**
