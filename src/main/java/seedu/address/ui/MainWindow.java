@@ -175,6 +175,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Displays only list of attendance on main window.
+     */
+    private void handleAttendanceByStudent() {
+        displayListPanel = new DisplayListPanel(logic.getFilteredAttendanceList());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
+
+    /**
      * Displays only list of results on main window.
      */
     private void handleScore() {
@@ -257,6 +265,9 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             switch(commandResult.getDisplayType()) {
+            case ATTENDANCE_BY_STUDENT:
+                handleAttendanceByStudent();
+                break;
             case ATTENDANCE:
                 handleAttendance(commandResult.getAttendanceWeek());
                 break;

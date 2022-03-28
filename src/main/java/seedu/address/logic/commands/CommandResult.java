@@ -104,6 +104,14 @@ public class CommandResult {
         return new CommandResult(feedbackToUser, false, false, DisplayType.ATTENDANCE);
     }
 
+    /**
+     * Constructs and returns a {@code CommandResult} with the specified {@code feedbackToUser}
+     * and other fields set to their default value for attendance related commands.
+     */
+    public static CommandResult createAttendanceByStudentCommandResult(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, DisplayType.ATTENDANCE_BY_STUDENT);
+    }
+
     public void setAttendanceWeek(int week) {
         attendanceWeek = week;
     }

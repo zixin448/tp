@@ -264,8 +264,9 @@ public interface Model {
      * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredAttendanceList(Tutorial tutorial, int week);
+    void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId);
 
     /** Returns an unmodifiable view of the attendance list */
     ObservableList<Attendance> getFilteredAttendanceList();
+
 }

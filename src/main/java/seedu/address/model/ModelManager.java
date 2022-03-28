@@ -253,10 +253,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredAttendanceList(Tutorial tutorial, int week) {
-        requireAllNonNull(tutorial, week);
+    public void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId) {
+        requireAllNonNull(tutorial);
         ObservableList<Attendance> attendanceList = FXCollections.observableArrayList();
-        attendanceList.setAll(tutorial.getAttendanceList().getAttendances());
+        if (studentId != null) {
+            attendanceList.setAll(tutorial.getAttendanceList().getAttendancesByStudentID(studentId));
+        } else {
+            attendanceList.setAll(tutorial.getAttendanceList().getAttendances());
+        }
         displayAttendanceList = attendanceList;
     }
 

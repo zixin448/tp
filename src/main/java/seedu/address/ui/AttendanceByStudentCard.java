@@ -9,9 +9,9 @@ import seedu.address.model.attendance.Attendance;
 /**
  * An UI component that displays information of a {@code Attendance}.
  */
-public class AttendanceCard extends UiPart<Region> {
+public class AttendanceByStudentCard extends UiPart<Region> {
 
-    private static final String FXML = "AttendanceListCard.fxml";
+    private static final String FXML = "AttendanceByStudentListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -28,22 +28,19 @@ public class AttendanceCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label studentId;
+    private Label tutorialWeek;
     @FXML
     private Label status;
-    @FXML
-    private Label comment;
 
     /**
      * Creates a {@code AttendanceCode} with the given {@code Attendance} and index to display.
      */
-    public AttendanceCard(Attendance attendance, int displayedIndex, int week) {
+    public AttendanceByStudentCard(Attendance attendance, int displayedIndex) {
         super(FXML);
         this.attendance = attendance;
         id.setText(displayedIndex + ". ");
-        studentId.setText(attendance.getStudentId().toString());
-        status.setText(attendance.getAttendanceStatusByWeek(week));
-        comment.setText(attendance.getComment().toString());
+        tutorialWeek.setText(String.format("Week %s", displayedIndex));
+        status.setText(attendance.getAttendanceStatusByWeek(displayedIndex));
     }
 
     @Override
@@ -59,7 +56,7 @@ public class AttendanceCard extends UiPart<Region> {
         }
 
         // state check
-        AttendanceCard card = (AttendanceCard) other;
+        AttendanceByStudentCard card = (AttendanceByStudentCard) other;
         return id.getText().equals(card.id.getText())
                 && attendance.equals(card.attendance);
     }

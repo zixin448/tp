@@ -265,7 +265,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredAttendanceList(Tutorial tutorial, int week) {
+        public void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -62,6 +62,8 @@ public class DisplayListPanel extends UiPart<Region> {
                 setGraphic(new AssessmentCard((Assessment) item, getIndex() + 1).getRoot());
             } else if (item.getDisplayType() == DisplayType.SCORE) {
                 setGraphic(new StudentResultCard((StudentResult) item, getIndex() + 1).getRoot());
+            } else if (item.getDisplayType() == DisplayType.ATTENDANCE && attendanceWeek == 0) {
+                setGraphic(new AttendanceByStudentCard((Attendance) item, getIndex() + 1).getRoot());
             } else if (item.getDisplayType() == DisplayType.ATTENDANCE) {
                 setGraphic(new AttendanceCard((Attendance) item, getIndex() + 1, attendanceWeek).getRoot());
             } else {
