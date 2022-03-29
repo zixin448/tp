@@ -25,6 +25,7 @@ public class MarkAttendanceCommand extends Command {
             + PREFIX_STUDENTID + "e01234567 "
             + PREFIX_WEEK + "7 ";
 
+    public static final String MESSAGE_MULTIPLE_SUCCESS = "Attendance marked for all students on week %s";
     public static final String MESSAGE_SUCCESS = "Attendance marked for student %s on week %s";
     public static final String MESSAGE_STUDENT_NOT_IN_CLASS = "The specified student does not exist in this tutorial.";
 
@@ -59,10 +60,10 @@ public class MarkAttendanceCommand extends Command {
                 throw new CommandException(MESSAGE_STUDENT_NOT_IN_CLASS);
             }
             model.markAttendanceForStudent(tutorial, studentToMark, week);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, studentToMark, week));
         } else {
             model.markAttendanceForClass(tutorial, week);
+            return new CommandResult(String.format(MESSAGE_MULTIPLE_SUCCESS, week));
         }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, studentToMark, week));
     }
 }

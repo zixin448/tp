@@ -270,6 +270,27 @@ public class Tutorial implements Displayable {
     }
 
     /**
+     * Unmarks the attendance for the all students.
+     *
+     * @param week the week that the attendance should be unmarked for the student.
+     */
+    public void unmarkAllAttendance(int week) {
+        generateAttendance();
+        attendanceList.unmarkAllAttendance(week);
+    }
+
+    /**
+     * Unmarks the attendance for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     * @param week the week that the attendance should be unmarked for the student.
+     */
+    public void unmarkStudentAttendance(NusNetId studentId, int week) {
+        generateAttendance();
+        attendanceList.unmarkAttendanceForStudent(studentId, week);
+    }
+
+    /**
      * Returns true if both tutorials have the same identity and data fields.
      * This defines a stronger notion of equality between two tutorials (used for deleting tutorials).
      */
