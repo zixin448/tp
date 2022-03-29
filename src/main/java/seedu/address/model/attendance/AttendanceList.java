@@ -70,6 +70,33 @@ public class AttendanceList {
                                 new Comment("")));
             }
         }
+
+        for (Attendance attendance : attendances) {
+            if (!uniqueStudentList.containsStudentWithId(attendance.getStudentId())) {
+                attendances.remove(attendance);
+            }
+        }
+    }
+
+    /**
+     * Returns the attendance of the specified student for the semester.
+     *
+     * @param studentId the NusNetId of a student.
+     * @return the attendance list of the student for the semester.
+     */
+    public ArrayList<Attendance> getAttendancesByStudentID(NusNetId studentId) {
+        Attendance attendanceToAdd = null;
+        ArrayList<Attendance> attendanceList = new ArrayList<>();
+        for (Attendance attendance : attendances) {
+            if (attendance.getStudentId().equals(studentId)) {
+                attendanceToAdd = attendance;
+                break;
+            }
+        }
+        for (int i = 0; i < weeks; i++) {
+            attendanceList.add(attendanceToAdd);
+        }
+        return attendanceList;
     }
 
     /**
@@ -93,6 +120,32 @@ public class AttendanceList {
         for (Attendance attendance : attendances) {
             if (attendance.getStudentId().equals(studentId)) {
                 attendance.markWeek(week);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Unmarks the attendance for the all students.
+     *
+     * @param week the week that the attendance should be unmarked for the student.
+     */
+    public void unmarkAllAttendance(int week) {
+        for (Attendance attendance : attendances) {
+            attendance.unmarkWeek(week);
+        }
+    }
+
+    /**
+     * Unmarks the attendance for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     * @param week the week that the attendance should be unmarked for the student.
+     */
+    public void unmarkAttendanceForStudent(NusNetId studentId, int week) {
+        for (Attendance attendance : attendances) {
+            if (attendance.getStudentId().equals(studentId)) {
+                attendance.unmarkWeek(week);
                 break;
             }
         }
