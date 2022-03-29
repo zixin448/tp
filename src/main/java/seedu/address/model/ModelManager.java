@@ -268,6 +268,7 @@ public class ModelManager implements Model {
     public void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId) {
         requireAllNonNull(tutorial);
         ObservableList<Attendance> attendanceList = FXCollections.observableArrayList();
+        tutorial.generateAttendance();
         if (studentId != null) {
             attendanceList.setAll(tutorial.getAttendanceList().getAttendancesByStudentID(studentId));
         } else {

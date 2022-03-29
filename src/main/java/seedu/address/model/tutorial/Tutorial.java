@@ -244,7 +244,6 @@ public class Tutorial implements Displayable {
      * Generates attendance records for students who do not have any records present in the list.
      */
     public void generateAttendance() {
-        System.out.println(studentsList);
         attendanceList.generateAttendance(studentsList);
     }
 
