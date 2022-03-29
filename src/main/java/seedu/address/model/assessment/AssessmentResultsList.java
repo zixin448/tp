@@ -82,6 +82,17 @@ public class AssessmentResultsList {
     }
 
     /**
+     * Removes the {@code StudentResult} of the student with NusNetId matching {@code studentId} from all assessments.
+     */
+    public void removeStudentResult(NusNetId studentId) {
+        requireNonNull(studentId);
+        for (int i = 0; i < assessmentResultsList.size(); i++) {
+            AssessmentResults assessmentResults = assessmentResultsList.get(i);
+            assessmentResults.remove(studentId);
+        }
+    }
+
+    /**
      * Sets the result of the student with {@code studentId} for the assessment with {@code assessmentName} to
      * {@code score}.
      */

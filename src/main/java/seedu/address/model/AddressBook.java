@@ -213,6 +213,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes the {@code AssessmentResults} of the student with NusNetId matching {@code studentId}, in
+     * {@code tutorialName}
+     */
+    public void removeStudentResults(NusNetId studentId, TutorialName tutorialName) {
+        Tutorial tutorial = getTutorialWithName(tutorialName);
+        tutorial.removeStudentResult(studentId);
+    }
+
+    /**
      * Sets the result for the student called {@code studentName} in the assessment with {@code assessmentName}
      * to {@code score}.
      * The StudentResult for {@code studentName} should already exist in the address book.

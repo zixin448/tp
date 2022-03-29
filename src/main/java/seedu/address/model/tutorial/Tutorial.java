@@ -232,6 +232,15 @@ public class Tutorial implements Displayable {
     }
 
     /**
+     * Removes the AssessmentResults of the student with NusNetId matching {@code studentId} from the tutorial.
+     * @param studentId
+     */
+    public void removeStudentResult(NusNetId studentId) {
+        requireNonNull(studentId);
+        assessmentResultsList.removeStudentResult(studentId);
+    }
+
+    /**
      * Sets the result of the student with {@code studentId} for the assessment with {@code assessmentName} to
      * {@code score}.
      */
