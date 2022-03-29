@@ -28,11 +28,11 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a person in the address book as a student to a tutorial. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME"
-            + PREFIX_STUDENTID + "STUDENT_ID"
-            + PREFIX_TUTORIALNAME + "TUTORIAL_NAME\n"
+            + PREFIX_NAME + "NAME "
+            + PREFIX_STUDENTID + "STUDENT_ID "
+            + PREFIX_TUTORIALNAME + "TUTORIAL_NAME \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Bobby"
+            + PREFIX_NAME + "Bobby "
             + PREFIX_STUDENTID + "E0123456 "
             + PREFIX_TUTORIALNAME + "G04";
 
