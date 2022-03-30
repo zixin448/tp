@@ -100,8 +100,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Comment> getComment() {
-        return model.getComment();
+    public ObservableList<Comment> getCommentList() {
+        return model.getCommentList();
     }
 
     @Override

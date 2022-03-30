@@ -54,7 +54,7 @@ public interface Logic {
     ObservableList<Attendance> getFilteredAttendanceList();
 
     /** Returns an unmodifiable view of the filtered list of comment*/
-    ObservableList<Comment> getComment();
+    ObservableList<Comment> getCommentList();
 
     ObservableList<? extends Displayable> getDisplayAssessmentResults();
 

@@ -394,7 +394,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Comment setComment(Tutorial tutorial, NusNetId studentToViewComment) {
+    public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
         requireAllNonNull(tutorial, studentToViewComment);
         Comment commentToView = addressBook.viewComment(tutorial, studentToViewComment);
         ObservableList<Comment> commentList = FXCollections.observableArrayList();
@@ -404,7 +404,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Comment> getComment() {
+    public ObservableList<Comment> getCommentList() {
         return displayComment;
     }
 

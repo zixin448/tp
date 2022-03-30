@@ -194,7 +194,7 @@ public class MainWindow extends UiPart<Stage> {
      * Displays only comment for specific student on main window.
      */
     private void handleComment() {
-        displayListPanel = new DisplayListPanel(logic.getComment());
+        displayListPanel = new DisplayListPanel(logic.getCommentList());
         displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
