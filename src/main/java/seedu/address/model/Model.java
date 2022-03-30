@@ -253,6 +253,8 @@ public interface Model {
 
     void addStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
 
+    void removeStudentResults(NusNetId studentId, TutorialName tutorialName);
+
     void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc);
 
     boolean hasStudentWithId(NusNetId toAddStudentId);

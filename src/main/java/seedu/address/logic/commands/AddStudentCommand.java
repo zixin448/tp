@@ -31,11 +31,11 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a person in the address book as a student to a tutorial. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME"
-            + PREFIX_STUDENTID + "STUDENT_ID"
-            + PREFIX_TUTORIALNAME + "TUTORIAL_NAME\n"
+            + PREFIX_NAME + "NAME "
+            + PREFIX_STUDENTID + "STUDENT_ID "
+            + PREFIX_TUTORIALNAME + "TUTORIAL_NAME \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Bobby"
+            + PREFIX_NAME + "Bobby "
             + PREFIX_STUDENTID + "E0123456 "
             + PREFIX_TUTORIALNAME + "G04";
 
@@ -96,6 +96,9 @@ public class AddStudentCommand extends Command {
         tutorial.setStudentsList(new FilteredList<Person>(
                 model.getAddressBook().getPersonList(), PREDICATE_SHOW_ALL_STUDENTS));
 
+        Tutorial tutorial = model.getTutorialWithName(toAddTutorialName);
+        tutorial.setStudentsList(new FilteredList<Person>(model.getAddressBook().getPersonList(),
+                PREDICATE_SHOW_ALL_STUDENTS));
         model.addStudent(toAdd);
 
         return CommandResult.createStudentCommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));
