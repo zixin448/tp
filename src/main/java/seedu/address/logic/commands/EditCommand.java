@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.RemoveStudentCommand.MESSAGE_NOT_A_STUDENT;
-import static seedu.address.logic.commands.RemoveStudentCommand.MESSAGE_TUTORIAL_DOES_NOT_EXIST;
+import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -59,6 +58,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_NOT_A_STUDENT = "This person is not a student!";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -101,47 +101,53 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
         if (personToEdit instanceof Student) {
-
-            Student editedStudent;
-            Student studentToEdit = (Student) personToEdit;
-            if (editStudentDescriptor != null) {
-                editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
-            } else {
-                EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor(editPersonDescriptor);
-                editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
-            }
-
-            // if you are changing the name to one that already exists
-            if (!studentToEdit.isSamePerson(editedStudent) && model.hasPerson(editedStudent)) {
-                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-            }
-
-            if (!model.hasTutorialWithName(editedStudent.getTutorialName())) {
-                throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST,
-                        editedStudent.getTutorialName()));
-            }
-
-            model.setPerson(studentToEdit, editedStudent);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-            return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
+            return executeEditStudent(model, personToEdit);
 
         } else {
-            if (editStudentDescriptor != null) {
-                throw new CommandException(MESSAGE_NOT_A_STUDENT);
-            }
-
-            Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-            if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-            }
-
-            model.setPerson(personToEdit, editedPerson);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+            return executeEditPerson(model, personToEdit);
         }
+    }
+
+    private CommandResult executeEditStudent(Model model, Person personToEdit) throws CommandException {
+        Student editedStudent;
+        Student studentToEdit = (Student) personToEdit;
+        if (editStudentDescriptor != null) {
+            editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
+        } else {
+            EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor(editPersonDescriptor);
+            editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
+        }
+
+        // if you are changing the name to one that already exists
+        if (!studentToEdit.isSamePerson(editedStudent) && model.hasPerson(editedStudent)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        if (!model.hasTutorialWithName(editedStudent.getTutorialName())) {
+            throw new CommandException(MESSAGE_TUTORIAL_NOT_FOUND);
+        }
+
+        model.setPerson(studentToEdit, editedStudent);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
+    }
+
+    private CommandResult executeEditPerson(Model model, Person personToEdit) throws CommandException {
+        if (editStudentDescriptor != null) {
+            throw new CommandException(MESSAGE_NOT_A_STUDENT);
+        }
+
+        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     /**
