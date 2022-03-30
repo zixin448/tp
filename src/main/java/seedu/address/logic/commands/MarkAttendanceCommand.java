@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_OUT_OF_TUTORIAL_WEEKS_BOUNDS;
 import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
@@ -54,6 +55,10 @@ public class MarkAttendanceCommand extends Command {
         }
 
         Tutorial tutorial = model.getTutorialWithName(tutorialToMark);
+
+        if (week > tutorial.getWeeks()) {
+            throw new CommandException(String.format(MESSAGE_OUT_OF_TUTORIAL_WEEKS_BOUNDS, tutorial.getWeeks()));
+        }
 
         if (!isMarkMultipleAttendances) {
             if (!tutorial.containsStudentWithId(studentToMark)) {

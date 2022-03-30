@@ -280,5 +280,7 @@ public interface Model {
 
     void removeComment(Tutorial tutorial, NusNetId studentToRemoveComment);
 
-    Comment getComment(Tutorial tutorial, NusNetId studentToViewComment);
+    Comment setComment(Tutorial tutorial, NusNetId studentToViewComment);
+
+    ObservableList<Comment> getComment();
 }

@@ -190,6 +190,13 @@ public class MainWindow extends UiPart<Stage> {
         displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
+    /**
+     * Displays only comment for specific student on main window.
+     */
+    private void handleComment() {
+        displayListPanel = new DisplayListPanel(logic.getComment());
+        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -273,6 +280,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case CLASS:
                 handleClass();
+                break;
+            case COMMENT:
+                handleComment();
                 break;
             case STUDENT:
                 handleStudent();
