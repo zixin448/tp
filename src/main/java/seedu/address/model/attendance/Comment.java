@@ -1,14 +1,22 @@
 package seedu.address.model.attendance;
 
 public class Comment {
-    private final String commentString;
+    private String commentString;
 
     public Comment(String comment) {
         this.commentString = comment;
     }
 
+    public void setCommentString(String commentString) {
+        this.commentString = commentString;
+    }
+
     public String getCommentString() {
         return commentString;
+    }
+
+    public static boolean isValidComment(String s) {
+        return !s.isEmpty();
     }
 
     @Override

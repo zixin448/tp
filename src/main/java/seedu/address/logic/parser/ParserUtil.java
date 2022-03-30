@@ -18,6 +18,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.FullMark;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.Weightage;
+import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -293,6 +294,21 @@ public class ParserUtil {
             throw new ParseException("Weeks should be presented in integers!");
         }
         return Integer.parseInt(s);
+    }
+
+    /**
+     * Parses a {@code String s} into a comment.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code s} is invalid.
+     */
+    public static Comment parseComment(String s) throws ParseException {
+        requireNonNull(s);
+        String trimmedComment = s.trim();
+        if (!Comment.isValidComment(s)) {
+            throw new ParseException("An empty comment cannot be added!");
+        }
+        return new Comment(trimmedComment);
     }
 
     /**

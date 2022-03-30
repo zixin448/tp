@@ -73,6 +73,15 @@ public class Attendance implements Displayable {
         attendanceList.set(index, 0);
     }
 
+    /**
+     * Adds a comment.
+     *
+     * @param comment The comment to add for.
+     */
+    public void addComment(Comment comment) {
+        this.comment.setCommentString(comment.getCommentString());
+    }
+
     @Override
     public DisplayType getDisplayType() {
         return displayType;

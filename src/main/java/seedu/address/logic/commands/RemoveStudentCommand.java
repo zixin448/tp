@@ -6,9 +6,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -86,8 +88,10 @@ public class RemoveStudentCommand extends Command {
                         toRemoveFromTutorialName));
             }
             studentToRemove = model.getStudentWithId(toRemoveStudentId);
+            tutorial = model.getTutorialWithName(toRemoveFromTutorialName);
+            tutorial.setStudentsList(new FilteredList<Person>(
+                    model.getAddressBook().getPersonList(), PREDICATE_SHOW_ALL_STUDENTS));
             model.removeStudent(studentToRemove);
-
 
             return CommandResult
                     .createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, toRemoveStudentId,
@@ -114,6 +118,11 @@ public class RemoveStudentCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_STUDENT_DOES_NOT_EXIST, id,
                         toRemoveFromTutorialName));
             }
+
+            Tutorial tutorial;
+            tutorial = model.getTutorialWithName(toRemoveFromTutorialName);
+            tutorial.setStudentsList(new FilteredList<Person>(
+                    model.getAddressBook().getPersonList(), PREDICATE_SHOW_ALL_STUDENTS));
 
             model.removeStudent(studentToRemove);
 

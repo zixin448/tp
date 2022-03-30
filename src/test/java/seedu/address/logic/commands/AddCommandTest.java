@@ -27,6 +27,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
@@ -261,6 +262,21 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Attendance> getFilteredAttendanceList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addComment(Tutorial tutorial, NusNetId studentToComment, Comment toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeComment(Tutorial tutorial, NusNetId studentToRemoveComment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
             throw new AssertionError("This method should not be called.");
         }
 
