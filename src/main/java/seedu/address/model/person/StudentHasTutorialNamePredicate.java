@@ -15,7 +15,6 @@ public class StudentHasTutorialNamePredicate implements Predicate<Person> {
     public boolean test(Person person) {
         if (person instanceof Student) {
             Student student = (Student) person;
-            System.out.println(tutorialName);
             return tutorialName.equals(student.getTutorialName());
         }
         return false;
