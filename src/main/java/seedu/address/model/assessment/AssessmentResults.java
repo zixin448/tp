@@ -80,6 +80,21 @@ public class AssessmentResults {
     }
 
     /**
+     * Removes the StudentResult with {@code studentId} from results.
+     * @param studentId
+     */
+    public void remove(NusNetId studentId) {
+        requireNonNull(studentId);
+        for (int i = 0; i < results.size(); i++) {
+            StudentResult current = results.get(i);
+            if (current.getStudentId().equals(studentId)) {
+                results.remove(current);
+                break;
+            }
+        }
+    }
+
+    /**
      * Sets the result of the student with {@code studentId} to {@code score}.
      */
     public void set(NusNetId studentId, Score score) {

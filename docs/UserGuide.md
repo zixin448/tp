@@ -288,7 +288,7 @@ Examples:
 Removes a student from a given class, but does not remove their contact from the address book.
 
 Format:
-* `remove_student i/INDEX tn/TUTORIAL_NAME`.
+* `remove_student INDEX tn/TUTORIAL_NAME`.
 * `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
 * Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
 * The `INDEX` refers to the index number shown in the displayed list of student in the class.
@@ -296,8 +296,9 @@ Format:
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
+* `list_student` has to be called before `remove_student`
 
-* `remove_student i/1 tn/G04`
+* `remove_student 1 tn/G04`
 * `remove_student id/e0123456 tn/G04`
 
 #### Deleting an assessment component: `delete_assessment`

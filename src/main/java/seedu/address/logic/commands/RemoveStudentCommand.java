@@ -3,12 +3,13 @@ package seedu.address.logic.commands;
 
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,12 +29,12 @@ public class RemoveStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes a student from the tutorial. "
             + " Parameters: "
-            + PREFIX_INDEX + "INDEX "
+            + "INDEX "
             + PREFIX_STUDENTID + "STUDENT_ID "
             + PREFIX_TUTORIALNAME + "TUTORIAL_NAME\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_INDEX + "1 "
+            + "1 "
             + PREFIX_TUTORIALNAME + "G04\n"
             + COMMAND_WORD + " "
             + PREFIX_STUDENTID + "E0123456 "
@@ -86,6 +87,10 @@ public class RemoveStudentCommand extends Command {
                         toRemoveFromTutorialName));
             }
             studentToRemove = model.getStudentWithId(toRemoveStudentId);
+            model.removeStudentResults(toRemoveStudentId, toRemoveFromTutorialName);
+            tutorial = model.getTutorialWithName(toRemoveFromTutorialName);
+            tutorial.setStudentsList(new FilteredList<Person>(model.getAddressBook().getPersonList(),
+                    PREDICATE_SHOW_ALL_STUDENTS));
             model.removeStudent(studentToRemove);
 
 
@@ -93,7 +98,7 @@ public class RemoveStudentCommand extends Command {
                     .createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, toRemoveStudentId,
                             toRemoveFromTutorialName));
         } else {
-            List<Person> lastShownList = model.getFilteredPersonList();
+            List<Person> lastShownList = model.getAllStudentsList();
             if (toRemoveIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
@@ -115,6 +120,10 @@ public class RemoveStudentCommand extends Command {
                         toRemoveFromTutorialName));
             }
 
+            model.removeStudentResults(id, toRemoveFromTutorialName);
+            Tutorial tutorial = model.getTutorialWithName(toRemoveFromTutorialName);
+            tutorial.setStudentsList(new FilteredList<Person>(model.getAddressBook().getPersonList(),
+                    PREDICATE_SHOW_ALL_STUDENTS));
             model.removeStudent(studentToRemove);
 
             return CommandResult

@@ -235,6 +235,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void removeStudentResults(NusNetId studentId, TutorialName tutorialName) {
+        requireAllNonNull(studentId, tutorialName);
+        addressBook.removeStudentResults(studentId, tutorialName);
+    }
+
+    @Override
     public void setStudentResult(Name studentName, AssessmentName assessmentName, Score sc) {
         requireAllNonNull(studentName, assessmentName, sc);
         addressBook.setStudentResult(studentName, assessmentName, sc);
