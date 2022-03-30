@@ -12,6 +12,7 @@ import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
@@ -275,4 +276,9 @@ public interface Model {
     /** Returns an unmodifiable view of the attendance list */
     ObservableList<Attendance> getFilteredAttendanceList();
 
+    void addComment(Tutorial tutorial, NusNetId studentToComment, Comment toAdd);
+
+    void removeComment(Tutorial tutorial, NusNetId studentToRemoveComment);
+
+    Comment getComment(Tutorial tutorial, NusNetId studentToViewComment);
 }

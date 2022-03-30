@@ -62,7 +62,6 @@ public class HelpCommandDisplay extends UiPart<Region> {
     @FXML
     private void handleUserInput() {
         String input = helpWindowCommandInput.getText();
-        System.out.println(input);
         identifyHelpList(input);
         helpWindowCommandInput.clear();
     }

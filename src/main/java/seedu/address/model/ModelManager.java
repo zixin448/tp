@@ -19,6 +19,7 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
@@ -377,6 +378,24 @@ public class ModelManager implements Model {
     public void addStudent(Student student) {
         requireNonNull(student);
         addressBook.addStudent(student);
+    }
+
+    @Override
+    public void addComment(Tutorial tutorial, NusNetId id, Comment commentToAdd) {
+        requireAllNonNull(tutorial, id, commentToAdd);
+        addressBook.addComment(tutorial, id, commentToAdd);
+    }
+
+    @Override
+    public void removeComment(Tutorial tutorial, NusNetId id) {
+        requireAllNonNull(tutorial, id);
+        addressBook.removeComment(tutorial, id);
+    }
+
+    @Override
+    public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
+        requireAllNonNull(tutorial, studentToViewComment);
+        return addressBook.viewComment(tutorial, studentToViewComment);
     }
 
     @Override

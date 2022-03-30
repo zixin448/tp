@@ -93,7 +93,6 @@ public class RemoveStudentCommand extends Command {
                     PREDICATE_SHOW_ALL_STUDENTS));
             model.removeStudent(studentToRemove);
 
-
             return CommandResult
                     .createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, toRemoveStudentId,
                             toRemoveFromTutorialName));

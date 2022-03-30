@@ -13,6 +13,7 @@ import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.assessment.UniqueAssessmentList;
 import seedu.address.model.assessment.exceptions.StudentResultNotFound;
+import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
@@ -362,7 +363,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(student);
         Person personMatch = persons.getPersonWithName(student.getName());
         persons.setPerson(personMatch, student);
-        getTutorialWithName(student.getTutorialName()).generateAttendance();
+        tutorials.getTutorialWithName(student.getTutorialName()).generateAttendance();
     }
 
     /**
@@ -440,5 +441,29 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
         requireAllNonNull(tutorial, studentId, week);
         tutorial.unmarkStudentAttendance(studentId, week);
+    }
+
+    /**
+     * Adds a comment for the specified student in the specified tutorial
+     */
+    public void addComment(Tutorial tutorial, NusNetId id, Comment commentToAdd) {
+        requireAllNonNull(tutorial, id, commentToAdd);
+        tutorial.addComment(id, commentToAdd);
+    }
+
+    /**
+     * Removes the comment of the specified student in the specified tutorial
+     */
+    public void removeComment(Tutorial tutorial, NusNetId id) {
+        requireAllNonNull(tutorial, id);
+        tutorial.removeComment(id);
+    }
+
+    /**
+     * Views the comment of the specified student in the specified tutorial
+     */
+    public Comment viewComment(Tutorial tutorial, NusNetId id) {
+        requireAllNonNull(tutorial, id);
+        return tutorial.viewComment(id);
     }
 }
