@@ -10,7 +10,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX = "The tutorial index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-
+    public static final String MESSAGE_INVALID_TUTORIAL_WEEKS = "Invalid Week Number! Tutorial only has %s weeks";
     public static final String MESSAGE_TUTORIAL_NOT_FOUND = "There is no class with the given name in the "
             + "address book";
     public static final String MESSAGE_ASSESSMENT_NOT_FOUND = "An assessment with the given name "

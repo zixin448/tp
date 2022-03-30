@@ -99,9 +99,10 @@ Examples:
 
 Adds a class to the module.
 
-Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME`
+Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME wk/WEEK`
 * `DAY` should be spelt in full or 3-letter abbreviation
-* `TIME` will be in 1 hour block
+* `TIME` refers to the start time of the class
+* `WEEK` refers to the number of weeks the class will be held for
 
 Examples:
 * `add_class tn/T04 v/LT13 d/Monday tm/13:00`
@@ -197,9 +198,10 @@ Examples:
 
 Generates the attendance list of a specified class, or a specified student.
 
-Format: 
+Format:
 1. `list_attendance tn/TUTORIAL_NAME wk/WEEK`
    * `TUTORIAL_NAME` refers to the name of an existing tutorial group.
+   * `WEEK` refers to the week number of the requested attendance list.
    * Shows attendance of all students belonging to the class with the specified `TUTORIAL_NAME`.
 2. `list_attendance id/STUDENT_ID`
    * `STUDENT_ID` refers to the student's unique NUSNET ID.
@@ -324,7 +326,7 @@ Example: `grade as/Test 1 n/Amy Tan s/5`
 
 ### Marking attendance for a student: `mark_attendance`
 
-Marks attendance for a specified student or all students in a specified class for a specified week. 
+Marks attendance for a specified student or all students in a specified class for a specified week.
 
 Format: `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
 

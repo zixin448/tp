@@ -14,6 +14,7 @@ import seedu.address.model.Displayable;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 
@@ -66,6 +67,8 @@ public class DisplayListPanel extends UiPart<Region> {
                 setGraphic(new AttendanceByStudentCard((Attendance) item, getIndex() + 1).getRoot());
             } else if (item.getDisplayType() == DisplayType.ATTENDANCE) {
                 setGraphic(new AttendanceCard((Attendance) item, getIndex() + 1, attendanceWeek).getRoot());
+            } else if (item.getDisplayType() == DisplayType.COMMENT) {
+                setGraphic(new CommentCard((Comment) item).getRoot());
             } else {
                 setGraphic(new PersonCard((Person) item, getIndex() + 1).getRoot());
             }

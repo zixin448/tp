@@ -280,5 +280,11 @@ public interface Model {
 
     void removeComment(Tutorial tutorial, NusNetId studentToRemoveComment);
 
+    /**
+     * Adds the comment associated with the specified student
+     * to an observable list in the model and returns the comment
+     */
     Comment getComment(Tutorial tutorial, NusNetId studentToViewComment);
+
+    ObservableList<Comment> getCommentList();
 }

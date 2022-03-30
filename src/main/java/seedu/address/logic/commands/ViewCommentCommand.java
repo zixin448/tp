@@ -44,6 +44,6 @@ public class ViewCommentCommand extends Command {
         TutorialName tutorialName = student.getTutorialName();
         Tutorial tutorial = model.getTutorialWithName(tutorialName);
         Comment comment = model.getComment(tutorial, studentToViewComment);
-        return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS, studentToViewComment, comment));
+        return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, studentToViewComment, comment));
     }
 }

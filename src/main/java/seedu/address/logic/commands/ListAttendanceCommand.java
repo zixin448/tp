@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TUTORIAL_WEEKS;
 import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.commands.GradeCommand.MESSAGE_STUDENT_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
@@ -63,6 +64,10 @@ public class ListAttendanceCommand extends Command {
         if (tutorialToList == null) {
             throw new CommandException(MESSAGE_TUTORIAL_NOT_FOUND);
         } else {
+            if (week > tutorialToList.getWeeks()) {
+                String msg = String.format(MESSAGE_INVALID_TUTORIAL_WEEKS, tutorialToList.getWeeks());
+                throw new CommandException(msg);
+            }
             model.updateFilteredAttendanceList(tutorialToList, null);
             String successMessage = String.format(MESSAGE_SUCCESS, tutorialName, week);
             CommandResult commandResult = CommandResult.createAttendanceCommandResult(successMessage);

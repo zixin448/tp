@@ -1,6 +1,10 @@
 package seedu.address.model.attendance;
 
-public class Comment {
+import seedu.address.model.DisplayType;
+import seedu.address.model.Displayable;
+
+public class Comment implements Displayable {
+    private static final DisplayType displayType = DisplayType.COMMENT;
     private String commentString;
 
     public Comment(String comment) {
@@ -17,6 +21,11 @@ public class Comment {
 
     public static boolean isValidComment(String s) {
         return !s.isEmpty();
+    }
+
+    @Override
+    public DisplayType getDisplayType() {
+        return displayType;
     }
 
     @Override

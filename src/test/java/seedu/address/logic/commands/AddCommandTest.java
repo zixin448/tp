@@ -281,6 +281,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Comment> getCommentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId) {
             throw new AssertionError("This method should not be called.");
         }

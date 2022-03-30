@@ -45,6 +45,7 @@ public class ModelManager implements Model {
 
     private ObservableList<Attendance> displayAttendanceList;
     private ObservableList<StudentResult> displayAssessmentResults;
+    private ObservableList<Comment> displayComment;
 
     /**
      * A list containing all Students in the address book.
@@ -395,7 +396,16 @@ public class ModelManager implements Model {
     @Override
     public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
         requireAllNonNull(tutorial, studentToViewComment);
-        return addressBook.viewComment(tutorial, studentToViewComment);
+        Comment commentToView = addressBook.viewComment(tutorial, studentToViewComment);
+        ObservableList<Comment> commentList = FXCollections.observableArrayList();
+        commentList.add(commentToView);
+        displayComment = commentList;
+        return commentToView;
+    }
+
+    @Override
+    public ObservableList<Comment> getCommentList() {
+        return displayComment;
     }
 
     @Override
