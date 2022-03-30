@@ -13,9 +13,11 @@ import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.assessment.UniqueAssessmentList;
 import seedu.address.model.assessment.exceptions.StudentResultNotFound;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniqueFilteredPersonsList;
 import seedu.address.model.person.UniquePersonList;
@@ -138,6 +140,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.hasPersonWithName(name);
     }
 
+    /**
+     * Returns true if a person with the same email as {@code email} exists in the address book.
+     */
+    public boolean hasPersonWithEmail(Email email) {
+        requireNonNull(email);
+        return persons.hasPersonWithEmail(email);
+    }
+
+    /**
+     * Returns true if a person with the same phone as {@code phone} exists in the address book.
+     */
+    public boolean hasPersonWithPhone(Phone phone) {
+        requireNonNull(phone);
+        return persons.hasPersonWithPhone(phone);
+    }
     /**
      * Returns a person with the same name as {@code name}.
      * This function will only be called if passed the check that

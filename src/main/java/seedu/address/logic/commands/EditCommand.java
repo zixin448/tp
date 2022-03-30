@@ -58,7 +58,13 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_STUDENT_ID = "Another student in camNUS has %s as their NUSNET ID";
+    public static final String MESSAGE_DUPLICATE_EMAIL = "Another person in camNUS has %s as their email";
+    public static final String MESSAGE_DUPLICATE_PHONE = "Another person in camNUS has %s as their phone number";
+
+
     public static final String MESSAGE_NOT_A_STUDENT = "This person is not a student!";
+
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -127,6 +133,24 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_TUTORIAL_NOT_FOUND);
         }
 
+        // if you are changing the id to one that already exists
+        if (!studentToEdit.getStudentId().equals(editedStudent.getStudentId())
+                && model.hasStudentWithId(editedStudent.getStudentId())) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_STUDENT_ID, editedStudent.getStudentId()));
+        }
+
+        // if you are changing the email to one that already exists
+        if (!studentToEdit.getEmail().equals(editedStudent.getEmail())
+                && model.hasPersonWithEmail(editedStudent.getEmail())) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_EMAIL, editedStudent.getEmail()));
+        }
+
+        // if you are changing the phone to one that already exists
+        if (!studentToEdit.getPhone().equals(editedStudent.getPhone())
+                && model.hasPersonWithPhone(editedStudent.getPhone())) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PHONE, editedStudent.getPhone()));
+        }
+
         model.setPerson(studentToEdit, editedStudent);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
@@ -142,6 +166,18 @@ public class EditCommand extends Command {
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        // if you are changing the email to one that already exists
+        if (!personToEdit.getEmail().equals(editedPerson.getEmail())
+                && model.hasPersonWithEmail(editedPerson.getEmail())) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_EMAIL, editedPerson.getEmail()));
+        }
+
+        // if you are changing the phone to one that already exists
+        if (!personToEdit.getPhone().equals(editedPerson.getPhone())
+                && model.hasPersonWithPhone(editedPerson.getPhone())) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PHONE, editedPerson.getPhone()));
         }
 
         model.setPerson(personToEdit, editedPerson);

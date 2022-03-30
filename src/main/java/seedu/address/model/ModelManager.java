@@ -19,9 +19,11 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -138,6 +140,18 @@ public class ModelManager implements Model {
     public boolean hasPersonWithName(Name name) {
         requireNonNull(name);
         return addressBook.hasPersonWithName(name);
+    }
+
+    @Override
+    public boolean hasPersonWithEmail(Email email) {
+        requireNonNull(email);
+        return addressBook.hasPersonWithEmail(email);
+    }
+
+    @Override
+    public boolean hasPersonWithPhone(Phone phone) {
+        requireNonNull(phone);
+        return addressBook.hasPersonWithPhone(phone);
     }
 
     @Override
