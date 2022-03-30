@@ -5,9 +5,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -86,6 +88,9 @@ public class RemoveStudentCommand extends Command {
             }
             studentToRemove = model.getStudentWithId(toRemoveStudentId);
             model.removeStudentResults(toRemoveStudentId, toRemoveFromTutorialName);
+            tutorial = model.getTutorialWithName(toRemoveFromTutorialName);
+            tutorial.setStudentsList(new FilteredList<Person>(model.getAddressBook().getPersonList(),
+                    PREDICATE_SHOW_ALL_STUDENTS));
             model.removeStudent(studentToRemove);
 
 
@@ -116,6 +121,9 @@ public class RemoveStudentCommand extends Command {
             }
 
             model.removeStudentResults(id, toRemoveFromTutorialName);
+            Tutorial tutorial = model.getTutorialWithName(toRemoveFromTutorialName);
+            tutorial.setStudentsList(new FilteredList<Person>(model.getAddressBook().getPersonList(),
+                    PREDICATE_SHOW_ALL_STUDENTS));
             model.removeStudent(studentToRemove);
 
             return CommandResult
