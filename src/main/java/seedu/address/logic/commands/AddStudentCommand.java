@@ -5,9 +5,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Set;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -18,6 +20,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 
 
@@ -28,11 +31,11 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a person in the address book as a student to a tutorial. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME"
-            + PREFIX_STUDENTID + "STUDENT_ID"
-            + PREFIX_TUTORIALNAME + "TUTORIAL_NAME\n"
+            + PREFIX_NAME + "NAME "
+            + PREFIX_STUDENTID + "STUDENT_ID "
+            + PREFIX_TUTORIALNAME + "TUTORIAL_NAME \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Bobby"
+            + PREFIX_NAME + "Bobby "
             + PREFIX_STUDENTID + "E0123456 "
             + PREFIX_TUTORIALNAME + "G04";
 
@@ -88,6 +91,9 @@ public class AddStudentCommand extends Command {
 
         Student toAdd = new Student(toAddName, phone, email, address, tags, toAddStudentId, toAddTutorialName);
 
+        Tutorial tutorial = model.getTutorialWithName(toAddTutorialName);
+        tutorial.setStudentsList(new FilteredList<Person>(model.getAddressBook().getPersonList(),
+                PREDICATE_SHOW_ALL_STUDENTS));
         model.addStudent(toAdd);
         return CommandResult.createStudentCommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));
     }

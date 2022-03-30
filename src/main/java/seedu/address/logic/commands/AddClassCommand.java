@@ -20,7 +20,7 @@ public class AddClassCommand extends Command {
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_VENUE + "VENUE "
             + PREFIX_DAY + "DAY "
-            + PREFIX_TIME + "TIME"
+            + PREFIX_TIME + "TIME "
             + PREFIX_WEEK + "WEEKS\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIALNAME + "T04 "
