@@ -90,12 +90,6 @@ public class AddStudentCommand extends Command {
         Set<Tag> tags = personMatch.getTags();
 
         Student toAdd = new Student(toAddName, phone, email, address, tags, toAddStudentId, toAddTutorialName);
-        TutorialName tutorialName = toAdd.getTutorialName();
-        Tutorial tutorial = model.getTutorialWithName(tutorialName);
-        tutorial = model.getTutorialWithName(toAddTutorialName);
-        tutorial.setStudentsList(new FilteredList<Person>(
-                model.getAddressBook().getPersonList(), PREDICATE_SHOW_ALL_STUDENTS));
-
         Tutorial tutorial = model.getTutorialWithName(toAddTutorialName);
         tutorial.setStudentsList(new FilteredList<Person>(model.getAddressBook().getPersonList(),
                 PREDICATE_SHOW_ALL_STUDENTS));
