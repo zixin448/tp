@@ -133,6 +133,17 @@ Examples:
 * `add_assessment as/Attendance w/5 f/1`
 * `add_assessment as/Assignment 1 w/10 f/10`
 
+#### Adding a comment for a student: `comment`
+
+Adds a comment for a student.
+
+Format: `comment id/STUDENT_ID msg/COMMENT`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `COMMENT` is the message to be commented.
+
+Examples:
+* `comment id/e0123456 msg/Is unable to attend the next tutorial.`
+
 ### Listing Commands
 
 #### Listing all persons : `list`
@@ -214,6 +225,7 @@ Examples:
   ![result for `list_attendance tn/T04 wk/2`](images/listAttendance.png)
 * `list_attendance id/e0123456`
   ![result for `list_attendance id/e0123456`](images/listAttendanceByStudent.png)
+  
 
 ### Editing a person : `edit`
 
@@ -337,6 +349,16 @@ Examples:
 * `delete_assessment as/Attendance`
 * `delete_assessment as/Assignment 1`
 
+#### Removing a comment for a student: `remove_comment`
+
+Removes a comment for a student.
+
+Format: `remove_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+
+Examples:
+* `remove_comment id/e0123456`
+
 ### Assigning assessment score to a student: `grade`
 
 Assigns a score to a student in a specified assessment component. Displays the list of scores of students in the same class as given student for the given assessment.
@@ -363,6 +385,32 @@ Examples:
 
 * `mark_attendance tn/T04 id/e0123456 wk/1`
 * `mark_attendance tn/T04 wk/1`
+
+### Unmarking attendance for a student: `unmark_attendance`
+
+Unmarks attendance for a specified student or all students in a specified class for a specified week.
+
+Format: `unmark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
+
+* `STUDENT_ID` is optional.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
+
+Examples:
+
+* `unmark_attendance tn/T04 id/e0123456 wk/1`
+* `unmark_attendance tn/T04 wk/1`
+
+### Views a comment for a student: `view_comment`
+
+Views a comment for a student.
+
+Format: `view_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+
+Examples:
+* `view_comment id/e0123456`<br>
+  ![result for 'view_comment id/e0123456'](images/viewCommentResult.png)
 
 ### Clearing all entries : `clear`
 
