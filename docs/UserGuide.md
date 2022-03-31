@@ -241,7 +241,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched. e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
@@ -250,6 +250,24 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+Find persons whose details by prefix matches any of the given keywords by prefix.
+
+Format: `find [n/NAME] [tn/TUTORIAL_NAME] [t/TAG] [id/STUDENT_ID] [p/PHONE] [a/ADDRESS] [e/EMAIL]`
+
+* Partial words will be matched. e.g. `n/Han` will match `Hans`
+* At least one prefix have to be used to activate partial keyword matching.
+* If no prefix input given, original find will be activated.
+* The search is case-insensitive. e.g `n/hans` will match `Hans`
+* Keyword matching will always start from the first alphabet or number of the attribute value.
+  e.g. `n/han` will return `Hansel` and will not return `Krishan`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `n/Hans Bo` will return `Hans Gruber`, `Bo Yang` and `Hansel`
+
+Examples:
+
+* `find n/Jo` returns `john` and `John Doe` and `joseph`
+* `find n/Ale id/e0321` returns `Alex Yeoh`, `David Li`
 
 ### Deleting Commands
 
@@ -378,24 +396,24 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action                | Format, Examples                                                                                                                                                       |
-|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague` |
-| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00`                                                                |
-| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student 1 id/e0123456 tn/T13`                                                                      |
-| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add_assessment as/Attendance w/5 s/1`                                                              |
-| **Clear**             | `clear`                                                                                                                                                                |
-| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                    |
-| **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                           |
-| **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                        |
-| **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                    |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                            |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                             |
-| **List**              | `list`                                                                                                                                                                 |
-| **List Assessment**   | `list_assessment`                                                                                                                                                      |
-| **List Attendance**   | `list_attendance tn/TUTORIAL_NAME wk/WEEK` <br> e.g., `list_attendance tn/T04 wk/1`                                                                                    |
-| **List Class**        | `list_class [d/DAY]` <br> e.g., `list_class d/Wed`                                                                                                                     |
-| **List Student**      | `list_student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list_student 1 [tn/G04]`                                                                                           |
-| **Grade**             | `grade as/ASSESSMENT_NAME n/NAME s/SCORE` <br> e.g., `grade as/Test 1 n/Amy Tan s/5`                                                                                   |
-| **Mark Attendance**   | `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK` <br> e.g., `mark_attendance tn/T04 id/e0123456 wk/1`                                                        |
-| **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                      |
+| Action                | Format, Examples                                                                                                                                                                     |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague`               |
+| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00`                                                                              |
+| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student 1 id/e0123456 tn/T13`                                                                                    |
+| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add_assessment as/Attendance w/5 s/1`                                                                            |
+| **Clear**             | `clear`                                                                                                                                                                              |
+| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                  |
+| **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                                         |
+| **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                                      |
+| **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                                  |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                          |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`<br>`find [n/NAME] [id/STUDENT_ID] [a/ADDRESS] [e/EMAIL] [p/PHONE_NUMBER] [tn/TUTORIAL_NAME] [t/TAG]`<br> e.g. find n/ALIC |
+| **List**              | `list`                                                                                                                                                                               |
+| **List Assessment**   | `list_assessment`                                                                                                                                                                    |
+| **List Attendance**   | `list_attendance tn/TUTORIAL_NAME wk/WEEK` <br> e.g., `list_attendance tn/T04 wk/1`                                                                                                  |
+| **List Class**        | `list_class [d/DAY]` <br> e.g., `list_class d/Wed`                                                                                                                                   |
+| **List Student**      | `list_student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list_student 1 [tn/G04] `                                                                                                        |
+| **Grade**             | `grade as/ASSESSMENT_NAME n/NAME s/SCORE` <br> e.g., `grade as/Test 1 n/Amy Tan s/5`                                                                                                 |
+| **Mark Attendance**   | `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK` <br> e.g., `mark_attendance tn/T04 id/e0123456 wk/1`                                                                      |
+| **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                                    |
