@@ -1,15 +1,27 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.assessment.Score;
@@ -22,23 +34,45 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTutorials.getTypicalAddressBook;
+import seedu.address.testutil.TutorialBuilder;
 
 public class AddClassCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    @Test
+    public void constructor_nullTutorial_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddClassCommand(null));
+    }
 
     @Test
-    public void constructor_nullClass_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddClassCommand(null));
+    public void execute_tutorialAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingTutorialAdded modelStub = new ModelStubAcceptingTutorialAdded();
+        Tutorial validTutorial = new TutorialBuilder().build();
+
+        CommandResult commandResult = new AddClassCommand(validTutorial).execute(modelStub);
+
+        assertEquals(String.format(AddClassCommand.MESSAGE_SUCCESS, validTutorial), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validTutorial), modelStub.tutorialsAdded);
+    }
+
+    @Test
+    public void equals() {
+        Tutorial tutorialA = new TutorialBuilder().withTutorialName("A").build();
+        Tutorial tutorialB = new TutorialBuilder().withTutorialName("B").build();
+        AddClassCommand addClassACommand = new AddClassCommand(tutorialA);
+        AddClassCommand addClassBCommand = new AddClassCommand(tutorialB);
+
+        // same object -> returns true
+        assertTrue(addClassACommand.equals(addClassACommand));
+
+        // same values -> returns true
+        AddClassCommand addClassACommandCopy = new AddClassCommand(tutorialA);
+        assertTrue(addClassACommand.equals(addClassACommandCopy));
+
+        // different types -> returns false
+        assertFalse(addClassACommand.equals(1));
+
+        // different tutorial class -> returns false
+        assertFalse(addClassACommand.equals(addClassBCommand));
     }
 
     /**
@@ -349,10 +383,10 @@ public class AddClassCommandTest {
     /**
      * A Model stub that contains a single tutorial class.
      */
-    private class ModelStubWithClass extends ModelStub {
+    private class ModelStubWithTutorial extends ModelStub {
         private final Tutorial tutorial;
 
-        ModelStubWithClass(Tutorial tutorial) {
+        ModelStubWithTutorial(Tutorial tutorial) {
             requireNonNull(tutorial);
             this.tutorial = tutorial;
         }
@@ -367,31 +401,49 @@ public class AddClassCommandTest {
     /**
      * A model stub that always accept the class being added.
      */
-    private class ModelStubAcceptingClassAdded extends ModelStub {
-        final ArrayList<Tutorial> classesAdded = new ArrayList<>();
-        final FilteredList<Tutorial> filteredTutorials = new FilteredList<>((ObservableList<Tutorial>) classesAdded);
+    private class ModelStubAcceptingTutorialAdded extends ModelStub {
+        final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
+        final ArrayList<Person> allStudents = new ArrayList<>();
+        final ArrayList<Assessment> allAssessments = new ArrayList<>();
 
         @Override
         public boolean hasTutorial(Tutorial tutorial) {
             requireNonNull(tutorial);
-            return classesAdded.stream().anyMatch(tutorial::isSameTutorial);
+            return tutorialsAdded.stream().anyMatch(tutorial::isSameTutorial);
         }
 
         @Override
         public void addTutorial(Tutorial tutorial) {
             requireNonNull(tutorial);
-            classesAdded.add(tutorial);
-        }
-
-        @Override
-        public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
-            filteredTutorials.setPredicate(predicate);
+            tutorialsAdded.add(tutorial);
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public FilteredList<Person> getAllStudentsList() {
+            ObservableList<Person> studentObservableList = FXCollections.observableArrayList(allStudents);
+            return new FilteredList<>(studentObservableList);
+        }
+
+        @Override
+        public ObservableList<Assessment> getAssessmentList() {
+            ObservableList<Assessment> assessmentObservableList = FXCollections.observableArrayList(allAssessments);
+            return assessmentObservableList;
+        }
+
+        @Override
+        public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
+            requireNonNull(predicate);
+            ObservableList<Tutorial> tutorialObservableList = FXCollections.observableArrayList(tutorialsAdded);
+            new FilteredList<>(tutorialObservableList).setPredicate(predicate);
+
+        }
+
+
     }
 
 
