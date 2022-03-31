@@ -183,6 +183,7 @@ Format:
 
 * `list_student INDEX [tn/TUTORIAL_NAME]`
 * `TUTORIAL_NAME` is optional if `INDEX` is given.
+* `list_class` command should be called before `list_student INDEX` as INDEX refers to this list.
 * Shows list of all students belonging to the class at the specified `INDEX`.
 * Shows list of all students belonging to the class with the specified `TUTORIAL_NAME`.
 * The index refers to the index number shown in the displayed person list.

@@ -30,6 +30,8 @@ public class RemoveStudentCommand extends Command {
             + ": Removes a student from the tutorial. \n"
             + "Parameters: "
             + "INDEX "
+            + PREFIX_TUTORIALNAME + "TUTORIAL_NAME\n"
+            + "or\n"
             + PREFIX_STUDENTID + "STUDENT_ID "
             + PREFIX_TUTORIALNAME + "TUTORIAL_NAME\n"
             + "Example:\n"
