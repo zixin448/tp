@@ -42,6 +42,10 @@ public class AddClassCommand extends Command {
         toAdd = tutorial;
     }
 
+    public Tutorial getTutorial() {
+        return toAdd;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -63,7 +67,7 @@ public class AddClassCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
+                || (other instanceof AddClassCommand // instanceof handles nulls
                 && toAdd.equals(((AddClassCommand) other).toAdd));
     }
 }
