@@ -133,6 +133,17 @@ Examples:
 * `add_assessment as/Attendance w/5 f/1`
 * `add_assessment as/Assignment 1 w/10 f/10`
 
+#### Adding a comment for a student: `comment`
+
+Adds a comment for a student.
+
+Format: `comment id/STUDENT_ID msg/COMMENT`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `COMMENT` is the message to be commented.
+
+Examples:
+* `comment id/e0123456 msg/Is unable to attend the next tutorial.`
+
 ### Listing Commands
 
 #### Listing all persons : `list`
@@ -188,6 +199,7 @@ Examples:
 Shows a list of the scores of all students of a given class for a given assessment component.
 
 Format: `list_score as/ASSESSMENT_NAME tn/TUTORIAL_NAME`
+- Shows an error message to user if either an assessment with `ASSESSMENT_NAME` or a class with `TUTORIAL_NAME` does not exist in camNUS.
 
 Examples:
 
@@ -213,24 +225,27 @@ Examples:
   ![result for `list_attendance tn/T04 wk/2`](images/listAttendance.png)
 * `list_attendance id/e0123456`
   ![result for `list_attendance id/e0123456`](images/listAttendanceByStudent.png)
+  
 
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [tn/TUTORIAL_NAME] [t/TAG]…​`
 
+* `list` should be called before calling `edit` as this is the list that the `edit` command refers to.
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Tutorial name must be of a tutorial that is already created.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
 Examples:
 
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Locating persons by name: `find`
 
@@ -307,16 +322,16 @@ Examples:
 
 Removes a student from a given class, but does not remove their contact from the address book.
 
-Format:
-* `remove_student INDEX tn/TUTORIAL_NAME`.
-* `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
+Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
+
+* `list_student` has to be called before `remove_student` as this is the list referred to by the `remove_student` command
 * Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
 * The `INDEX` refers to the index number shown in the displayed list of student in the class.
 * The `STUDENT_ID` refers to the student_id of a particular student.
+* After this command is called, tutorial name and student id of the student will be deleted.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list_student` has to be called before `remove_student`
 
 * `remove_student 1 tn/G04`
 * `remove_student id/e0123456 tn/G04`
@@ -334,11 +349,25 @@ Examples:
 * `delete_assessment as/Attendance`
 * `delete_assessment as/Assignment 1`
 
+#### Removing a comment for a student: `remove_comment`
+
+Removes a comment for a student.
+
+Format: `remove_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+
+Examples:
+* `remove_comment id/e0123456`
+
 ### Assigning assessment score to a student: `grade`
 
-Assigns a score to a student in a specified assessment component.
+Assigns a score to a student in a specified assessment component. Displays the list of scores of students in the same class as given student for the given assessment.
 
 Format: `grade as/ASSESSMENT_NAME n/NAME s/SCORE`
+- `ASSESSMENT_NAME` is the name of the assessment.
+- `NAME` is the name of the student to be graded.
+- `SCORE` must be an integer that is smaller or equal to the full mark of the assessment with `ASSESSMENT_NAME` as its name.
+- If a score already exists for student `NAME` in assessment `ASSESSMENT_NAME`, the score will be updated to `SCORE`
 
 Example: `grade as/Test 1 n/Amy Tan s/5`
 
@@ -356,6 +385,32 @@ Examples:
 
 * `mark_attendance tn/T04 id/e0123456 wk/1`
 * `mark_attendance tn/T04 wk/1`
+
+### Unmarking attendance for a student: `unmark_attendance`
+
+Unmarks attendance for a specified student or all students in a specified class for a specified week.
+
+Format: `unmark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
+
+* `STUDENT_ID` is optional.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
+
+Examples:
+
+* `unmark_attendance tn/T04 id/e0123456 wk/1`
+* `unmark_attendance tn/T04 wk/1`
+
+### Views a comment for a student: `view_comment`
+
+Views a comment for a student.
+
+Format: `view_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+
+Examples:
+* `view_comment id/e0123456`<br>
+  ![result for 'view_comment id/e0123456'](images/viewCommentResult.png)
 
 ### Clearing all entries : `clear`
 

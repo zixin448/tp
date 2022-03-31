@@ -36,7 +36,7 @@ public class AddStudentCommand extends Command {
             + PREFIX_TUTORIALNAME + "TUTORIAL_NAME \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Bobby "
-            + PREFIX_STUDENTID + "E0123456 "
+            + PREFIX_STUDENTID + "e0123456 "
             + PREFIX_TUTORIALNAME + "G04";
 
     public static final String MESSAGE_ADD_STUDENT_SUCCESS = "New student added: %1$s";
