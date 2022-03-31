@@ -13,9 +13,11 @@ import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.Comment;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -78,6 +80,16 @@ public interface Model {
      * Returns true if a person with the same name as {@code name} exists in the address book.
      */
     boolean hasPersonWithName(Name name);
+
+    /**
+     * Returns true if a person with the same phone as {@code phone} exists in the address book.
+     */
+    boolean hasPersonWithPhone(Phone phone);
+
+    /**
+     * Returns true if a person with the same email as {@code email} exists in the address book.
+     */
+    boolean hasPersonWithEmail(Email email);
 
     /**
      * Returns a person with the same name as {@code name}

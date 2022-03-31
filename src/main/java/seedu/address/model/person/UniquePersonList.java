@@ -165,6 +165,22 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Returns true if the list contains a person with the same email as {@code email}.
+     */
+    public boolean hasPersonWithEmail(Email email) {
+        requireNonNull(email);
+        return internalList.stream().anyMatch(person -> person.getEmail().equals(email));
+    }
+
+    /**
+     * Returns true if the list contains a person with the same phone as {@code phone}.
+     */
+    public boolean hasPersonWithPhone(Phone phone) {
+        requireNonNull(phone);
+        return internalList.stream().anyMatch(person -> person.getPhone().equals(phone));
+    }
+
+    /**
      * Runs through the all contents in this list to find the person with
      * name matching given {@code name}.
      */
