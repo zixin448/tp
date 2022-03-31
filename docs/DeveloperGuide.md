@@ -318,7 +318,7 @@ The following sequence diagram shows how the add assessment operation works:
     * Cons:
         * Displaying the list of results of a tutorial may take more time and requires accessing each student in the tutorial.
 
-### Add students feature
+### Add student feature
 
 This `AddStudentCommand` feature is facilitated by display student feature. It extends the application implementing the
 following operations:
