@@ -19,7 +19,7 @@ public class UnmarkAttendanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unmarks attendances for a class or specific person. \n"
             + "Parameters: "
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
-            + PREFIX_STUDENTID + "STUDENT ID "
+            + "[" + PREFIX_STUDENTID + "STUDENT ID] "
             + PREFIX_WEEK + "WEEK \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIALNAME + "T04 "
