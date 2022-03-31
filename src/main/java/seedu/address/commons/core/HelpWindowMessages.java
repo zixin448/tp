@@ -14,9 +14,30 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import seedu.address.logic.commands.*;
-
-import javax.swing.text.View;
+import seedu.address.logic.commands.AddAssessmentCommand;
+import seedu.address.logic.commands.AddClassCommand;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddStudentCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteAssessmentCommand;
+import seedu.address.logic.commands.DeleteClassCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GradeCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListAssessmentCommand;
+import seedu.address.logic.commands.ListAttendanceCommand;
+import seedu.address.logic.commands.ListClassCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListScoreCommand;
+import seedu.address.logic.commands.ListStudentCommand;
+import seedu.address.logic.commands.MarkAttendanceCommand;
+import seedu.address.logic.commands.RemoveCommentCommand;
+import seedu.address.logic.commands.RemoveStudentCommand;
+import seedu.address.logic.commands.UnmarkAttendanceCommand;
+import seedu.address.logic.commands.ViewCommentCommand;
 
 public class HelpWindowMessages {
     private static final String defaultFont = "System";
