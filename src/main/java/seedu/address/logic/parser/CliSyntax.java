@@ -23,4 +23,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_SCORE = new Prefix("s/");
     public static final Prefix PREFIX_WEEK = new Prefix("wk/");
+    public static final Prefix PREFIX_MESSAGE = new Prefix("msg/");
+
 }

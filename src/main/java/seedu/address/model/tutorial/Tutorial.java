@@ -19,6 +19,7 @@ import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceList;
+import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
@@ -232,6 +233,15 @@ public class Tutorial implements Displayable {
     }
 
     /**
+     * Removes the AssessmentResults of the student with NusNetId matching {@code studentId} from the tutorial.
+     * @param studentId
+     */
+    public void removeStudentResult(NusNetId studentId) {
+        requireNonNull(studentId);
+        assessmentResultsList.removeStudentResult(studentId);
+    }
+
+    /**
      * Sets the result of the student with {@code studentId} for the assessment with {@code assessmentName} to
      * {@code score}.
      */
@@ -290,6 +300,34 @@ public class Tutorial implements Displayable {
     }
 
     /**
+     * Adds a comment for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     * @param comment the comment to be added.
+     */
+    public void addComment(NusNetId studentId, Comment comment) {
+        attendanceList.addComment(studentId, comment);
+    }
+
+    /**
+     * Removes comment for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     */
+    public void removeComment(NusNetId studentId) {
+        attendanceList.removeComment(studentId);
+    }
+
+    /**
+     * View comment for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     */
+    public Comment viewComment(NusNetId studentId) {
+        return attendanceList.viewComment(studentId);
+    }
+
+    /**
      * Returns true if both tutorials have the same identity and data fields.
      * This defines a stronger notion of equality between two tutorials (used for deleting tutorials).
      */
@@ -328,4 +366,7 @@ public class Tutorial implements Displayable {
         return builder.toString();
     }
 
+    public UniqueStudentsInTutorialList getStudentsList() {
+        return studentsList;
+    }
 }
