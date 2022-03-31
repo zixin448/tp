@@ -16,11 +16,11 @@ import seedu.address.model.tutorial.TutorialName;
 public class MarkAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "mark_attendance";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendances for a class or specific person. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendances for a class or specific person. \n"
             + "Parameters: "
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_STUDENTID + "STUDENT ID "
-            + PREFIX_WEEK + "WEEK "
+            + PREFIX_WEEK + "WEEK \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIALNAME + "T04 "
             + PREFIX_STUDENTID + "e01234567 "

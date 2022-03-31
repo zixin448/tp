@@ -13,9 +13,9 @@ import seedu.address.model.tutorial.TutorialName;
 public class RemoveCommentCommand extends Command {
     public static final String COMMAND_WORD = "remove_comment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes comments for a student. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes comments for a student. \n"
             + "Parameters: "
-            + PREFIX_STUDENTID + "STUDENT ID "
+            + PREFIX_STUDENTID + "STUDENT ID \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_STUDENTID + "e01234567 ";
 
