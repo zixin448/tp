@@ -27,8 +27,8 @@ public class RemoveStudentCommand extends Command {
     public static final String COMMAND_WORD = "remove_student";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes a student from the tutorial. "
-            + " Parameters: "
+            + ": Removes a student from the tutorial. \n"
+            + "Parameters: "
             + "INDEX "
             + PREFIX_STUDENTID + "STUDENT_ID "
             + PREFIX_TUTORIALNAME + "TUTORIAL_NAME\n"
@@ -37,7 +37,7 @@ public class RemoveStudentCommand extends Command {
             + "1 "
             + PREFIX_TUTORIALNAME + "G04\n"
             + COMMAND_WORD + " "
-            + PREFIX_STUDENTID + "E0123456 "
+            + PREFIX_STUDENTID + "e0123456 "
             + PREFIX_TUTORIALNAME + "G04\n";
 
     public static final String MESSAGE_REMOVE_STUDENT_SUCCESS = "Student %1$s has been removed from tutorial %2$s";

@@ -15,10 +15,10 @@ import seedu.address.model.tutorial.TutorialName;
 public class AddCommentCommand extends Command {
     public static final String COMMAND_WORD = "comment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a comment for a student. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a comment for a student. \n"
             + "Parameters: "
             + PREFIX_STUDENTID + "STUDENT ID "
-            + PREFIX_MESSAGE + "COMMENT "
+            + PREFIX_MESSAGE + "COMMENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_STUDENTID + "e01234567 "
             + PREFIX_MESSAGE + "has a lab assignment overdue. ";

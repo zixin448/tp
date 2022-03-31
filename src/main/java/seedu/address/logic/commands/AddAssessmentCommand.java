@@ -14,7 +14,7 @@ public class AddAssessmentCommand extends Command {
 
     public static final String COMMAND_WORD = "add_assessment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assessment to the addressbook. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assessment to the addressbook. \n"
             + "Parameters: "
             + PREFIX_ASSESSMENTNAME + "ASSESSMENT NAME "
             + PREFIX_WEIGHTAGE + "WEIGHTAGE(0-100) "

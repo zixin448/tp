@@ -15,7 +15,7 @@ import seedu.address.model.tutorial.Tutorial;
 public class AddClassCommand extends Command {
     public static final String COMMAND_WORD = "add_class";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a class to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a class to the address book. \n"
             + "Parameters: "
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_VENUE + "VENUE "
@@ -26,7 +26,7 @@ public class AddClassCommand extends Command {
             + PREFIX_TUTORIALNAME + "T04 "
             + PREFIX_VENUE + "LT13 "
             + PREFIX_DAY + "Monday "
-            + PREFIX_TIME + "1300 "
+            + PREFIX_TIME + "13:00 "
             + PREFIX_WEEK + "13 ";
 
     public static final String MESSAGE_SUCCESS = "New class added: %1$s";
