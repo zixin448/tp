@@ -187,6 +187,7 @@ Examples:
 Shows a list of the scores of all students of a given class for a given assessment component.
 
 Format: `list_score as/ASSESSMENT_NAME tn/TUTORIAL_NAME`
+- Shows an error message to user if either an assessment with `ASSESSMENT_NAME` or a class with `TUTORIAL_NAME` does not exist in camNUS.
 
 Examples:
 
@@ -315,9 +316,13 @@ Examples:
 
 ### Assigning assessment score to a student: `grade`
 
-Assigns a score to a student in a specified assessment component.
+Assigns a score to a student in a specified assessment component. Displays the list of scores of students in the same class as given student for the given assessment.
 
 Format: `grade as/ASSESSMENT_NAME n/NAME s/SCORE`
+- `ASSESSMENT_NAME` is the name of the assessment.
+- `NAME` is the name of the student to be graded.
+- `SCORE` must be an integer that is smaller or equal to the full mark of the assessment with `ASSESSMENT_NAME` as its name.
+- If a score already exists for student `NAME` in assessment `ASSESSMENT_NAME`, the score will be updated to `SCORE`
 
 Example: `grade as/Test 1 n/Amy Tan s/5`
 
