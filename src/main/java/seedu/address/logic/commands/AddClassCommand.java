@@ -15,18 +15,18 @@ import seedu.address.model.tutorial.Tutorial;
 public class AddClassCommand extends Command {
     public static final String COMMAND_WORD = "add_class";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a class to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a class to the address book. \n"
             + "Parameters: "
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_VENUE + "VENUE "
             + PREFIX_DAY + "DAY "
-            + PREFIX_TIME + "TIME"
+            + PREFIX_TIME + "TIME "
             + PREFIX_WEEK + "WEEKS\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIALNAME + "T04 "
             + PREFIX_VENUE + "LT13 "
             + PREFIX_DAY + "Monday "
-            + PREFIX_TIME + "1300 "
+            + PREFIX_TIME + "13:00 "
             + PREFIX_WEEK + "13 ";
 
     public static final String MESSAGE_SUCCESS = "New class added: %1$s";
@@ -40,6 +40,10 @@ public class AddClassCommand extends Command {
     public AddClassCommand(Tutorial tutorial) {
         requireNonNull(tutorial);
         toAdd = tutorial;
+    }
+
+    public Tutorial getTutorial() {
+        return toAdd;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class AddClassCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
+                || (other instanceof AddClassCommand // instanceof handles nulls
                 && toAdd.equals(((AddClassCommand) other).toAdd));
     }
 }

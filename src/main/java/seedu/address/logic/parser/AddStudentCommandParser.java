@@ -36,10 +36,6 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
         NusNetId studentId = ParserUtil.parseStudentId(argMultimap.getValue(PREFIX_STUDENTID).get());
         TutorialName tutorialName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIALNAME).get());
 
-        System.out.println(name.toString());
-        System.out.println(studentId.toString());
-        System.out.println(tutorialName.toString());
-
         return new AddStudentCommand(name, studentId, tutorialName);
     }
 

@@ -11,6 +11,7 @@ import seedu.address.model.Displayable;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 
@@ -51,6 +52,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of attendance*/
     ObservableList<Attendance> getFilteredAttendanceList();
+
+    /** Returns an unmodifiable view of the filtered list of comment*/
+    ObservableList<Comment> getCommentList();
 
     ObservableList<? extends Displayable> getDisplayAssessmentResults();
 

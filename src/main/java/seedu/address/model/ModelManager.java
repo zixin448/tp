@@ -19,9 +19,12 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.Comment;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -44,6 +47,7 @@ public class ModelManager implements Model {
 
     private ObservableList<Attendance> displayAttendanceList;
     private ObservableList<StudentResult> displayAssessmentResults;
+    private ObservableList<Comment> displayComment;
 
     /**
      * A list containing all Students in the address book.
@@ -141,6 +145,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPersonWithEmail(Email email) {
+        requireNonNull(email);
+        return addressBook.hasPersonWithEmail(email);
+    }
+
+    @Override
+    public boolean hasPersonWithPhone(Phone phone) {
+        requireNonNull(phone);
+        return addressBook.hasPersonWithPhone(phone);
+    }
+
+    @Override
     public Person getPersonWithName(Name name) {
         requireNonNull(name);
         return addressBook.getPersonWithName(name);
@@ -232,6 +248,12 @@ public class ModelManager implements Model {
     public void addStudentResult(Name studentName, AssessmentName assessmentName, Score score) {
         requireAllNonNull(studentName, assessmentName, score);
         addressBook.addStudentResult(studentName, assessmentName, score);
+    }
+
+    @Override
+    public void removeStudentResults(NusNetId studentId, TutorialName tutorialName) {
+        requireAllNonNull(studentId, tutorialName);
+        addressBook.removeStudentResults(studentId, tutorialName);
     }
 
     @Override
@@ -371,6 +393,33 @@ public class ModelManager implements Model {
     public void addStudent(Student student) {
         requireNonNull(student);
         addressBook.addStudent(student);
+    }
+
+    @Override
+    public void addComment(Tutorial tutorial, NusNetId id, Comment commentToAdd) {
+        requireAllNonNull(tutorial, id, commentToAdd);
+        addressBook.addComment(tutorial, id, commentToAdd);
+    }
+
+    @Override
+    public void removeComment(Tutorial tutorial, NusNetId id) {
+        requireAllNonNull(tutorial, id);
+        addressBook.removeComment(tutorial, id);
+    }
+
+    @Override
+    public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
+        requireAllNonNull(tutorial, studentToViewComment);
+        Comment commentToView = addressBook.viewComment(tutorial, studentToViewComment);
+        ObservableList<Comment> commentList = FXCollections.observableArrayList();
+        commentList.add(commentToView);
+        displayComment = commentList;
+        return commentToView;
+    }
+
+    @Override
+    public ObservableList<Comment> getCommentList() {
+        return displayComment;
     }
 
     @Override

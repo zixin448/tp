@@ -14,10 +14,10 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -36,57 +36,45 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TutorialBuilder;
 
-public class AddCommandTest {
+public class AddClassCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullTutorial_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddClassCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_tutorialAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingTutorialAdded modelStub = new ModelStubAcceptingTutorialAdded();
+        Tutorial validTutorial = new TutorialBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddClassCommand(validTutorial).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertEquals(String.format(AddClassCommand.MESSAGE_SUCCESS, validTutorial), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validTutorial), modelStub.tutorialsAdded);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Tutorial tutorialA = new TutorialBuilder().withTutorialName("A").build();
+        Tutorial tutorialB = new TutorialBuilder().withTutorialName("B").build();
+        AddClassCommand addClassACommand = new AddClassCommand(tutorialA);
+        AddClassCommand addClassBCommand = new AddClassCommand(tutorialB);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addClassACommand.equals(addClassACommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddClassCommand addClassACommandCopy = new AddClassCommand(tutorialA);
+        assertTrue(addClassACommand.equals(addClassACommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addClassACommand.equals(1));
 
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
-
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different tutorial class -> returns false
+        assertFalse(addClassACommand.equals(addClassBCommand));
     }
 
     /**
@@ -140,16 +128,6 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPersonWithEmail(Email email) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPersonWithPhone(Phone phone) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -379,6 +357,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPersonWithEmail(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonWithPhone(Phone email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Person getPersonWithName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
@@ -405,55 +393,70 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single tutorial class.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithTutorial extends ModelStub {
+        private final Tutorial tutorial;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithTutorial(Tutorial tutorial) {
+            requireNonNull(tutorial);
+            this.tutorial = tutorial;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasTutorial(Tutorial tutorial) {
+            requireNonNull(tutorial);
+            return this.tutorial.isSameTutorial(tutorial);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A model stub that always accept the class being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingTutorialAdded extends ModelStub {
+        final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
+        final ArrayList<Person> allStudents = new ArrayList<>();
+        final ArrayList<Assessment> allAssessments = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasTutorial(Tutorial tutorial) {
+            requireNonNull(tutorial);
+            return tutorialsAdded.stream().anyMatch(tutorial::isSameTutorial);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public boolean hasPersonWithEmail(Email email) {
-            return false;
-        }
-
-        @Override
-        public boolean hasPersonWithPhone(Phone phone) {
-            return false;
+        public void addTutorial(Tutorial tutorial) {
+            requireNonNull(tutorial);
+            tutorialsAdded.add(tutorial);
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public FilteredList<Person> getAllStudentsList() {
+            ObservableList<Person> studentObservableList = FXCollections.observableArrayList(allStudents);
+            return new FilteredList<>(studentObservableList);
+        }
+
+        @Override
+        public ObservableList<Assessment> getAssessmentList() {
+            ObservableList<Assessment> assessmentObservableList = FXCollections.observableArrayList(allAssessments);
+            return assessmentObservableList;
+        }
+
+        @Override
+        public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
+            requireNonNull(predicate);
+            ObservableList<Tutorial> tutorialObservableList = FXCollections.observableArrayList(tutorialsAdded);
+            new FilteredList<>(tutorialObservableList).setPredicate(predicate);
+
+        }
+
+
     }
+
 
 }

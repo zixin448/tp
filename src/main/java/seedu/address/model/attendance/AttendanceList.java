@@ -3,6 +3,7 @@ package seedu.address.model.attendance;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.NusNetId;
@@ -71,9 +72,10 @@ public class AttendanceList {
             }
         }
 
-        for (Attendance attendance : attendances) {
+        for (Iterator<Attendance> iterator = attendances.iterator(); iterator.hasNext();) {
+            Attendance attendance = iterator.next();
             if (!uniqueStudentList.containsStudentWithId(attendance.getStudentId())) {
-                attendances.remove(attendance);
+                iterator.remove();
             }
         }
     }
@@ -149,5 +151,51 @@ public class AttendanceList {
                 break;
             }
         }
+    }
+
+    /**
+     * Adds a comment for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     * @param comment the comment to be added.
+     */
+    public void addComment(NusNetId studentId, Comment comment) {
+        for (Attendance attendance : attendances) {
+            if (attendance.getStudentId().equals(studentId)) {
+                attendance.addComment(comment);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Removes comment for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     */
+    public void removeComment(NusNetId studentId) {
+        for (Attendance attendance : attendances) {
+            if (attendance.getStudentId().equals(studentId)) {
+                attendance.addComment(new Comment(""));
+                break;
+            }
+        }
+    }
+
+    /**
+     * Views the comment for the specified student.
+     *
+     * @param studentId the NusNetId of a student.
+     */
+    public Comment viewComment(NusNetId studentId) {
+        Comment commentToView = new Comment("");
+        for (Attendance attendance : attendances) {
+            if (attendance.getStudentId().equals(studentId)) {
+                commentToView = attendance.getComment();
+                break;
+            }
+        }
+        assert(commentToView != null);
+        return commentToView;
     }
 }

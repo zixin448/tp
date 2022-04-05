@@ -37,14 +37,19 @@ public class RemoveStudentCommandParser implements Parser<RemoveStudentCommand> 
             return new RemoveStudentCommand(studentId, tutorialName);
         } else {
             argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_TUTORIALNAME);
+            Index index;
+            try {
+                index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        RemoveStudentCommand.MESSAGE_USAGE), pe);
+            }
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_TUTORIALNAME)
-                    || !argMultimap.getPreamble().isEmpty()) {
+            if (!arePrefixesPresent(argMultimap, PREFIX_TUTORIALNAME)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         RemoveStudentCommand.MESSAGE_USAGE));
             }
 
-            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
             TutorialName tutorialName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIALNAME).get());
             return new RemoveStudentCommand(index, tutorialName);
         }

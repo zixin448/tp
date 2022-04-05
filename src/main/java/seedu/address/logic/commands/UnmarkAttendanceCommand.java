@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TUTORIAL_WEEKS;
 import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
@@ -15,11 +16,11 @@ import seedu.address.model.tutorial.TutorialName;
 public class UnmarkAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "unmark_attendance";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unmarks attendances for a class or specific person. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unmarks attendances for a class or specific person. \n"
             + "Parameters: "
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
-            + PREFIX_STUDENTID + "STUDENT ID "
-            + PREFIX_WEEK + "WEEK "
+            + "[" + PREFIX_STUDENTID + "STUDENT ID] "
+            + PREFIX_WEEK + "WEEK \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIALNAME + "T04 "
             + PREFIX_STUDENTID + "e01234567 "
@@ -54,6 +55,10 @@ public class UnmarkAttendanceCommand extends Command {
         }
 
         Tutorial tutorial = model.getTutorialWithName(tutorialToMark);
+
+        if (week > tutorial.getWeeks()) {
+            throw new CommandException(String.format(MESSAGE_INVALID_TUTORIAL_WEEKS, tutorial.getWeeks()));
+        }
 
         if (!isUnmarkMultipleAttendances) {
             if (!tutorial.containsStudentWithId(studentToMark)) {

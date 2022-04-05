@@ -99,9 +99,10 @@ Examples:
 
 Adds a class to the module.
 
-Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME`
+Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME wk/WEEK`
 * `DAY` should be spelt in full or 3-letter abbreviation
-* `TIME` will be in 1 hour block
+* `TIME` refers to the start time of the class
+* `WEEK` refers to the number of weeks the class will be held for
 
 Examples:
 * `add_class tn/T04 v/LT13 d/Monday tm/13:00`
@@ -131,6 +132,17 @@ Format: `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL_MARKS`
 Examples:
 * `add_assessment as/Attendance w/5 f/1`
 * `add_assessment as/Assignment 1 w/10 f/10`
+
+#### Adding a comment for a student: `comment`
+
+Adds a comment for a student.
+
+Format: `comment id/STUDENT_ID msg/COMMENT`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `COMMENT` is the message to be commented.
+
+Examples:
+* `comment id/e0123456 msg/Is unable to attend the next tutorial.`
 
 ### Listing Commands
 
@@ -171,6 +183,7 @@ Format:
 
 * `list_student INDEX [tn/TUTORIAL_NAME]`
 * `TUTORIAL_NAME` is optional if `INDEX` is given.
+* `list_class` command should be called before `list_student INDEX` as INDEX refers to this list.
 * Shows list of all students belonging to the class at the specified `INDEX`.
 * Shows list of all students belonging to the class with the specified `TUTORIAL_NAME`.
 * The index refers to the index number shown in the displayed person list.
@@ -187,6 +200,7 @@ Examples:
 Shows a list of the scores of all students of a given class for a given assessment component.
 
 Format: `list_score as/ASSESSMENT_NAME tn/TUTORIAL_NAME`
+- Shows an error message to user if either an assessment with `ASSESSMENT_NAME` or a class with `TUTORIAL_NAME` does not exist in camNUS.
 
 Examples:
 
@@ -197,9 +211,10 @@ Examples:
 
 Generates the attendance list of a specified class, or a specified student.
 
-Format: 
+Format:
 1. `list_attendance tn/TUTORIAL_NAME wk/WEEK`
    * `TUTORIAL_NAME` refers to the name of an existing tutorial group.
+   * `WEEK` refers to the week number of the requested attendance list.
    * Shows attendance of all students belonging to the class with the specified `TUTORIAL_NAME`.
 2. `list_attendance id/STUDENT_ID`
    * `STUDENT_ID` refers to the student's unique NUSNET ID.
@@ -211,24 +226,27 @@ Examples:
   ![result for `list_attendance tn/T04 wk/2`](images/listAttendance.png)
 * `list_attendance id/e0123456`
   ![result for `list_attendance id/e0123456`](images/listAttendanceByStudent.png)
+  
 
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [tn/TUTORIAL_NAME] [t/TAG]…​`
 
+* `list` should be called before calling `edit` as this is the list that the `edit` command refers to.
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Tutorial name must be of a tutorial that is already created.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
 Examples:
 
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Locating persons by name: `find`
 
@@ -239,7 +257,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched. e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
@@ -248,6 +266,24 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+Find persons whose details by prefix matches any of the given keywords by prefix.
+
+Format: `find [n/NAME] [tn/TUTORIAL_NAME] [t/TAG] [id/STUDENT_ID] [p/PHONE] [a/ADDRESS] [e/EMAIL]`
+
+* Partial words will be matched. e.g. `n/Han` will match `Hans`
+* At least one prefix have to be used to activate partial keyword matching.
+* If no prefix input given, original find will be activated.
+* The search is case-insensitive. e.g `n/hans` will match `Hans`
+* Keyword matching will always start from the first alphabet or number of the attribute value.
+  e.g. `n/han` will return `Hansel` and will not return `Krishan`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `n/Hans Bo` will return `Hans Gruber`, `Bo Yang` and `Hansel`
+
+Examples:
+
+* `find n/Jo` returns `john` and `John Doe` and `joseph`
+* `find n/Ale id/e0321` returns `Alex Yeoh`, `David Li`
 
 ### Deleting Commands
 
@@ -287,17 +323,18 @@ Examples:
 
 Removes a student from a given class, but does not remove their contact from the address book.
 
-Format:
-* `remove_student i/INDEX tn/TUTORIAL_NAME`.
-* `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
+Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
+
+* `list_student` has to be called before `remove_student` as this is the list referred to by the `remove_student` command
 * Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
 * The `INDEX` refers to the index number shown in the displayed list of student in the class.
 * The `STUDENT_ID` refers to the student_id of a particular student.
+* After this command is called, tutorial name and student id of the student will be deleted.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `remove_student i/1 tn/G04`
+* `remove_student 1 tn/G04`
 * `remove_student id/e0123456 tn/G04`
 
 #### Deleting an assessment component: `delete_assessment`
@@ -313,17 +350,31 @@ Examples:
 * `delete_assessment as/Attendance`
 * `delete_assessment as/Assignment 1`
 
+#### Removing a comment for a student: `remove_comment`
+
+Removes a comment for a student.
+
+Format: `remove_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+
+Examples:
+* `remove_comment id/e0123456`
+
 ### Assigning assessment score to a student: `grade`
 
-Assigns a score to a student in a specified assessment component.
+Assigns a score to a student in a specified assessment component. Displays the list of scores of students in the same class as given student for the given assessment.
 
 Format: `grade as/ASSESSMENT_NAME n/NAME s/SCORE`
+- `ASSESSMENT_NAME` is the name of the assessment.
+- `NAME` is the name of the student to be graded.
+- `SCORE` must be an integer that is smaller or equal to the full mark of the assessment with `ASSESSMENT_NAME` as its name.
+- If a score already exists for student `NAME` in assessment `ASSESSMENT_NAME`, the score will be updated to `SCORE`
 
 Example: `grade as/Test 1 n/Amy Tan s/5`
 
 ### Marking attendance for a student: `mark_attendance`
 
-Marks attendance for a specified student or all students in a specified class for a specified week. 
+Marks attendance for a specified student or all students in a specified class for a specified week.
 
 Format: `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
 
@@ -335,6 +386,32 @@ Examples:
 
 * `mark_attendance tn/T04 id/e0123456 wk/1`
 * `mark_attendance tn/T04 wk/1`
+
+### Unmarking attendance for a student: `unmark_attendance`
+
+Unmarks attendance for a specified student or all students in a specified class for a specified week.
+
+Format: `unmark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
+
+* `STUDENT_ID` is optional.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
+
+Examples:
+
+* `unmark_attendance tn/T04 id/e0123456 wk/1`
+* `unmark_attendance tn/T04 wk/1`
+
+### Views a comment for a student: `view_comment`
+
+Views a comment for a student.
+
+Format: `view_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+
+Examples:
+* `view_comment id/e0123456`<br>
+  ![result for 'view_comment id/e0123456'](images/viewCommentResult.png)
 
 ### Clearing all entries : `clear`
 
@@ -375,24 +452,24 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action                | Format, Examples                                                                                                                                                       |
-|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague` |
-| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00`                                                                |
-| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student 1 id/e0123456 tn/T13`                                                                      |
-| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add_assessment as/Attendance w/5 s/1`                                                              |
-| **Clear**             | `clear`                                                                                                                                                                |
-| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                    |
-| **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                           |
-| **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                        |
-| **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                    |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                            |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                             |
-| **List**              | `list`                                                                                                                                                                 |
-| **List Assessment**   | `list_assessment`                                                                                                                                                      |
-| **List Attendance**   | `list_attendance tn/TUTORIAL_NAME wk/WEEK` <br> e.g., `list_attendance tn/T04 wk/1`                                                                                    |
-| **List Class**        | `list_class [d/DAY]` <br> e.g., `list_class d/Wed`                                                                                                                     |
-| **List Student**      | `list_student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list_student 1 [tn/G04]`                                                                                           |
-| **Grade**             | `grade as/ASSESSMENT_NAME n/NAME s/SCORE` <br> e.g., `grade as/Test 1 n/Amy Tan s/5`                                                                                   |
-| **Mark Attendance**   | `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK` <br> e.g., `mark_attendance tn/T04 id/e0123456 wk/1`                                                        |
-| **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                      |
+| Action                | Format, Examples                                                                                                                                                                     |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague`               |
+| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00`                                                                              |
+| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student 1 id/e0123456 tn/T13`                                                                                    |
+| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add_assessment as/Attendance w/5 s/1`                                                                            |
+| **Clear**             | `clear`                                                                                                                                                                              |
+| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                  |
+| **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                                         |
+| **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                                      |
+| **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                                  |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                          |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`<br>`find [n/NAME] [id/STUDENT_ID] [a/ADDRESS] [e/EMAIL] [p/PHONE_NUMBER] [tn/TUTORIAL_NAME] [t/TAG]`<br> e.g. find n/ALIC |
+| **List**              | `list`                                                                                                                                                                               |
+| **List Assessment**   | `list_assessment`                                                                                                                                                                    |
+| **List Attendance**   | `list_attendance tn/TUTORIAL_NAME wk/WEEK` <br> e.g., `list_attendance tn/T04 wk/1`                                                                                                  |
+| **List Class**        | `list_class [d/DAY]` <br> e.g., `list_class d/Wed`                                                                                                                                   |
+| **List Student**      | `list_student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list_student 1 [tn/G04] `                                                                                                        |
+| **Grade**             | `grade as/ASSESSMENT_NAME n/NAME s/SCORE` <br> e.g., `grade as/Test 1 n/Amy Tan s/5`                                                                                                 |
+| **Mark Attendance**   | `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK` <br> e.g., `mark_attendance tn/T04 id/e0123456 wk/1`                                                                      |
+| **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                                    |
