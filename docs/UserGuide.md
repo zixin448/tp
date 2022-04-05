@@ -46,6 +46,8 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
+* All parameters are **case-sensitive**.
+
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
@@ -119,7 +121,7 @@ Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 * `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
 
 Examples:
-* `add_student 1 id/e01234567 tn/T13`
+* `add_student n/Amy Tan id/e0123456 tn/T13`
 
 #### Adding an assessment component: `add_assessment`
 
@@ -128,6 +130,7 @@ Adds an assessment component to the module.
 Format: `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL_MARKS`
 * `WEIGHTAGE` is out of 100%.
 * `FULL_MARKS` is the full marks of the assessment.
+* `FULL_MARKS` should be an integer between 1 and 1000 inclusive.
 
 Examples:
 * `add_assessment as/Attendance w/5 f/1`
@@ -367,7 +370,7 @@ Assigns a score to a student in a specified assessment component. Displays the l
 Format: `grade as/ASSESSMENT_NAME n/NAME s/SCORE`
 - `ASSESSMENT_NAME` is the name of the assessment.
 - `NAME` is the name of the student to be graded.
-- `SCORE` must be an integer that is smaller or equal to the full mark of the assessment with `ASSESSMENT_NAME` as its name.
+- `SCORE` must be a non-negative integer that is smaller or equal to the full mark of the assessment with `ASSESSMENT_NAME` as its name. Since the full mark is an integer within the range 1-1000, the score must be an integer within the range 0-1000.
 - If a score already exists for student `NAME` in assessment `ASSESSMENT_NAME`, the score will be updated to `SCORE`
 
 Example: `grade as/Test 1 n/Amy Tan s/5`
@@ -456,8 +459,8 @@ _Details coming soon ..._
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague`               |
 | **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00`                                                                              |
-| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student 1 id/e0123456 tn/T13`                                                                                    |
-| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE s/SCORE` <br> e.g., `add_assessment as/Attendance w/5 s/1`                                                                            |
+| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student n/Amy Tan id/e0123456 tn/T13`                                                                                    |
+| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL MARK` <br> e.g., `add_assessment as/Attendance w/5 f/10`                                                                            |
 | **Clear**             | `clear`                                                                                                                                                                              |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                  |
 | **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                                         |
