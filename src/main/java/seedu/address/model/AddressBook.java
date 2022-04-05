@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
@@ -388,10 +389,28 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeStudent(Student student) {
         requireNonNull(student);
+        System.out.println("removing " + student.toString());
         Person toReplaceStudent = new Person(student.getName(), student.getPhone(), student.getEmail(),
                 student.getAddress(), student.getTags());
         persons.setPerson(student, toReplaceStudent);
         tutorials.getTutorialWithName(student.getTutorialName()).generateAttendance();
+    }
+
+    /**
+     * Removes all {@code student} from the address book in tutoral {@code tutorial}
+     */
+    public void removeStudentInTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        List<Person> studentsInTutorial = persons.asUnmodifiableObservableList()
+                .stream()
+                .filter(p -> (p instanceof Student)
+                        && ((Student) p).getTutorialName().equals(tutorial.getTutorialName()))
+                .collect(Collectors.toList());
+
+        for (Person p : studentsInTutorial) {
+            Student student = (Student) p;
+            removeStudent(student);
+        }
     }
 
     /// filteredPersons-level methods
