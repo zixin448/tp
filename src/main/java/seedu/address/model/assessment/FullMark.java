@@ -8,11 +8,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidFullMark(String)}
  */
 public class FullMark {
-    public static final String MESSAGE_CONSTRAINTS = "The full mark should be a number greater than 0";
+    public static final String MESSAGE_CONSTRAINTS = "The full mark should be an integer between 1 and 1000 inclusive";
     /**
      * The full mark must be an integer larger than 0
      */
-    public static final String VALIDATION_REGEX = "^[1-9][0-9]*";
+    public static final String VALIDATION_REGEX = "^([1-9][0-9]?[0-9]?|1000)";
     public final int fullMark;
 
     /**

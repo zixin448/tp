@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidDay(String)}
  */
 public class Day {
-    public static final String MESSAGE_CONSTRAINTS = "Days should be  spelt in full "
+    public static final String MESSAGE_CONSTRAINTS = "Days should be spelt in full "
             + "or with 3-letter abbreviation";
     public static final String VALIDATION_REGEX = "(?i)(Monday|Tuesday|Wednesday|Thursday|"
             + "Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)";
