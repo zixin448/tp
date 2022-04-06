@@ -342,6 +342,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTutorial(Tutorial target) {
+        addressBook.removeStudentInTutorial(target);
         addressBook.removeTutorial(target);
     }
 
