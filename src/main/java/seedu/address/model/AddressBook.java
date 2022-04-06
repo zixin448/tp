@@ -389,7 +389,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeStudent(Student student) {
         requireNonNull(student);
-        System.out.println("removing " + student.toString());
         Person toReplaceStudent = new Person(student.getName(), student.getPhone(), student.getEmail(),
                 student.getAddress(), student.getTags());
         persons.setPerson(student, toReplaceStudent);
