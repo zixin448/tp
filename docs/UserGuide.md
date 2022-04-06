@@ -208,7 +208,7 @@ Examples:
 
 Shows a list of all students of a specified class.
 
-Format:`list_student INDEX` or `list_student tn/TUTORIAL_NAME]`
+Format:`list_student INDEX` or `list_student tn/TUTORIAL_NAME`
 
 * `TUTORIAL_NAME` should not be given if `INDEX` is given.
 * `INDEX` should not be given if `TUTORIAL_NAME` is given.
@@ -335,7 +335,7 @@ Examples:
 
 Removes a class from the module
 
-Format:`delete_class INDEX` or `delete_class [tn/TUTORIAL_NAME]`
+Format:`delete_class INDEX` or `delete_class tn/TUTORIAL_NAME`
 
 * `TUTORIAL_NAME` should not be given if `INDEX` is given.
 * `INDEX` should not be given if `TUTORIAL_NAME` is given.
