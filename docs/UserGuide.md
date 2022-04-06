@@ -46,18 +46,17 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 4. `a/` : Address
 5. `t/` : Tag
 6. `id/` : Student ID
-7. `dt/` : Date
-8. `tm/` : Time
-9. `d/` : Day
-10. `wk/` : Week
-11. `v/` : Venue
-12. `tn/` : Tutorial Name
-13. `as/` : Assessment Name
-14. `w/` : Assessment Weightage
-15. `f/` : Assessment Full-mark
-16. `i/` : Index
-17. `s/` : Score
-18. `msg/` : Message
+7. `tm/` : Time
+8. `d/` : Day
+9. `wk/` : Week
+10. `v/` : Venue
+11. `tn/` : Tutorial Name
+12. `as/` : Assessment Name
+13. `w/` : Assessment Weightage
+14. `f/` : Assessment Full-mark
+15. `i/` : Index
+16. `s/` : Score
+17. `msg/` : Message
 
 
 --------------------------------------------------------------------------------------------------------------------
