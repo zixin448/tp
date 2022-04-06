@@ -29,31 +29,20 @@ public class DeleteClassCommand extends Command {
 
     public static final String MESSAGE_DELETE_TUTORIAL_SUCCESS = "Deleted Class: %1$s";
 
-    private final Index targetIndex;
     private final TutorialName tutorialName;
-    private final boolean isDeleteByTutorialName;
 
     /**
      * Constructor for a DeleteClassCommand.
-     * @param targetIndex The index of the class in the list.
      * @param tutorialName The name of the class.
-     * @param isDeleteByTutorialName To choose whether to delete by name or index.
      */
-    public DeleteClassCommand(Index targetIndex, TutorialName tutorialName, boolean isDeleteByTutorialName) {
-        this.targetIndex = targetIndex;
+    public DeleteClassCommand(TutorialName tutorialName) {
         this.tutorialName = tutorialName;
-        this.isDeleteByTutorialName = isDeleteByTutorialName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (!isDeleteByTutorialName) {
-            return deletebyIndex(model);
-        } else {
-            return deleteByTutorialName(model);
-        }
+        return deleteByTutorialName(model);
     }
 
     private CommandResult deleteByTutorialName(Model model) throws CommandException {
@@ -74,22 +63,11 @@ public class DeleteClassCommand extends Command {
         }
     }
 
-    private CommandResult deletebyIndex(Model model) throws CommandException {
-        List<Tutorial> lastShownList = model.getFilteredTutorialList();
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
-        }
-
-        Tutorial tutorialToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteTutorial(tutorialToDelete);
-        return CommandResult.createClassCommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteClassCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteClassCommand) other).targetIndex)); // state check
+                && tutorialName.equals(((DeleteClassCommand) other).tutorialName)); // state check
     }
 }
 

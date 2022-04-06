@@ -71,15 +71,15 @@ Opens a window containing a list of help commands.
 
 ![help message](images/helpMessage.png)
 
-Format: `help [n/COMMAND_NAME]`
+Format: `help [COMMAND_NAME]`
 * `COMMAND_NAME` is optional
 * Directs the user to the list segment referred to by `COMMAND_NAME`
 * Directs the user to the start of the list if `COMMAND_NAME` is unspecified
 
 Examples:
 * `help`
-* `help n/delete`
-* `help n/add`
+* `help delete`
+* `help add`
 
 ### Adding Commands
 
@@ -107,8 +107,8 @@ Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME wk/WEEK`
 * `WEEK` refers to the number of weeks the class will be held for
 
 Examples:
-* `add_class tn/T04 v/LT13 d/Monday tm/13:00`
-* `add_class tn/G04 v/E-LEARNING d/Wed tm/10:00`
+* `add_class tn/T04 v/LT13 d/Monday tm/13:00 wk/12`
+* `add_class tn/G04 v/E-LEARNING d/Wed tm/10:00 wk/6`
 
 #### Adding student to a class: `add_student`
 
@@ -310,16 +310,11 @@ Examples:
 Removes a class from the module
 
 Format:
-* `delete_class INDEX [tn/TUTORIAL_NAME]`
-* `TUTORIAL_NAME` is optional if `INDEX` is given.
-* Deletes the class at the specified `INDEX`.
+* `delete_class tn/TUTORIAL_NAME`
 * Deletes the class with the specified `TUTORIAL_NAME`.
-* The index refers to the index number shown in the displayed list of classes.
-* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `delete_class 1`
 * `delete_class tn/G04`
 
 #### Removing a student  : `remove_student`
@@ -458,12 +453,12 @@ _Details coming soon ..._
 | Action                | Format, Examples                                                                                                                                                                     |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague`               |
-| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00`                                                                              |
+| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME wk/WEEK` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00 wk/13`                                                                              |
 | **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student n/Amy Tan id/e0123456 tn/T13`                                                                                    |
 | **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL MARK` <br> e.g., `add_assessment as/Attendance w/5 f/10`                                                                            |
 | **Clear**             | `clear`                                                                                                                                                                              |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                  |
-| **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                                         |
+| **Delete Class**      | `delete_class tn/TUTORIAL_NAME` <br> e.g., `delete_class tn/G04`                                                                                                         |
 | **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                                      |
 | **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                                  |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                          |
