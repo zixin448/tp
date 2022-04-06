@@ -140,7 +140,7 @@ Adds a specified student to a given class.
 
 Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 
-* Update the person with the specified `NAME` to a `Student` contact and add the student to the specified class.
+* Update the person with the specified `NAME` and `STUDENT_ID` to a `Student` contact and add the student to the specified class.
 * Each student can only be assigned to one tutorial class.
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
 * `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
@@ -208,7 +208,7 @@ Examples:
 
 Shows a list of all students of a specified class.
 
-Format:`list_student INDEX [tn/TUTORIAL_NAME]`
+Format:`list_student INDEX` or `list_student tn/TUTORIAL_NAME]`
 
 * `TUTORIAL_NAME` should not be given if `INDEX` is given.
 * `INDEX` should not be given if `TUTORIAL_NAME` is given.
@@ -335,8 +335,8 @@ Examples:
 
 Removes a class from the module
 
-Format:
-* `delete_class INDEX [tn/TUTORIAL_NAME]`
+Format:`delete_class INDEX` or `delete_class [tn/TUTORIAL_NAME]`
+
 * `TUTORIAL_NAME` should not be given if `INDEX` is given.
 * `INDEX` should not be given if `TUTORIAL_NAME` is given.
 * Deletes the class at the specified `INDEX` or `TUTORIAL_NAME`.
