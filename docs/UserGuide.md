@@ -335,11 +335,11 @@ Examples:
 
 Removes a class from the module
 
-Format:
-* `delete_class INDEX [tn/TUTORIAL_NAME]`
-* `TUTORIAL_NAME` is optional if `INDEX` is given.
-* Deletes the class at the specified `INDEX`.
-* Deletes the class with the specified `TUTORIAL_NAME`.
+Format:`delete_class INDEX` or `delete_class tn/TUTORIAL_NAME`
+
+* `TUTORIAL_NAME` should not be given if `INDEX` is given.
+* `INDEX` should not be given if `TUTORIAL_NAME` is given.
+* Deletes the class at the specified `INDEX` or `TUTORIAL_NAME`.
 * The index refers to the index number shown in the displayed list of classes.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -484,13 +484,13 @@ _Details coming soon ..._
 | Action                | Format, Examples                                                                                                                                                                     |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague`               |
-| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME wk/WEEK` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00 wk/13`                                                                              |
+| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00 wk/13`                                                                               |
 | **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student n/Amy Tan id/e0123456 tn/T13`                                                                                    |
 | **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL MARK` <br> e.g., `add_assessment as/Attendance w/5 f/10`                                                                            |
 | **Clear**             | `clear`                                                                                                                                                                              |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                  |
 | **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                                         |
-| **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                                      |
+| **Remove Student**    | `remove_student INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student 1 tn/G04`                                                                                                     |
 | **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                                  |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                          |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`<br>`find [n/NAME] [id/STUDENT_ID] [a/ADDRESS] [e/EMAIL] [p/PHONE_NUMBER] [tn/TUTORIAL_NAME] [t/TAG]`<br> e.g. find n/ALIC |
