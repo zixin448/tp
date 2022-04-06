@@ -299,4 +299,6 @@ public interface Model {
     Comment getComment(Tutorial tutorial, NusNetId studentToViewComment);
 
     ObservableList<Comment> getCommentList();
+
+    ObservableList<Displayable> getLastShownList();
 }

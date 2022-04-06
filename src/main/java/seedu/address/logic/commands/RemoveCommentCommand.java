@@ -43,6 +43,6 @@ public class RemoveCommentCommand extends Command {
         TutorialName tutorialName = student.getTutorialName();
         Tutorial tutorial = model.getTutorialWithName(tutorialName);
         model.removeComment(tutorial, studentToRemoveComment);
-        return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS, studentToRemoveComment));
+        return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, studentToRemoveComment));
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -28,6 +29,7 @@ public class DeleteClassCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TUTORIAL_SUCCESS = "Deleted Class: %1$s";
+    public static final String MESSAGE_INDEX_USAGE = "Try listing a class e.g. list_class";
 
     private final Index targetIndex;
     private final TutorialName tutorialName;
@@ -75,12 +77,16 @@ public class DeleteClassCommand extends Command {
     }
 
     private CommandResult deletebyIndex(Model model) throws CommandException {
-        List<Tutorial> lastShownList = model.getFilteredTutorialList();
+        List<Displayable> lastShownList = model.getLastShownList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
         }
 
-        Tutorial tutorialToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (!(lastShownList.get(targetIndex.getZeroBased()) instanceof Tutorial)) {
+            throw new CommandException(Messages.MESSAGE_INDEX_LIST_MISMATCH + MESSAGE_INDEX_USAGE);
+        }
+
+        Tutorial tutorialToDelete = (Tutorial) lastShownList.get(targetIndex.getZeroBased());
         model.deleteTutorial(tutorialToDelete);
         return CommandResult.createClassCommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
     }

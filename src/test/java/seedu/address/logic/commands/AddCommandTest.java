@@ -19,6 +19,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -400,6 +401,11 @@ public class AddCommandTest {
 
         @Override
         public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Displayable> getLastShownList() {
             throw new AssertionError("This method should not be called.");
         }
     }

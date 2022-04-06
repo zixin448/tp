@@ -49,6 +49,6 @@ public class AddCommentCommand extends Command {
         TutorialName tutorialName = student.getTutorialName();
         Tutorial tutorial = model.getTutorialWithName(tutorialName);
         model.addComment(tutorial, studentToComment, toAdd);
-        return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS, studentToComment, toAdd));
+        return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, studentToComment, toAdd));
     }
 }

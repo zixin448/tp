@@ -21,6 +21,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -61,6 +62,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_STUDENT_ID = "Another student in camNUS has %s as their NUSNET ID";
     public static final String MESSAGE_DUPLICATE_EMAIL = "Another person in camNUS has %s as their email";
     public static final String MESSAGE_DUPLICATE_PHONE = "Another person in camNUS has %s as their phone number";
+    public static final String MESSAGE_INDEX_USAGE = "Try listing a person or student e.g. list or list_student";
 
 
     public static final String MESSAGE_NOT_A_STUDENT = "This person is not a student!";
@@ -99,19 +101,22 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Displayable> lastShownList = model.getLastShownList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        Person personToEdit = lastShownList.get(index.getZeroBased());
+        Displayable personToEdit = lastShownList.get(index.getZeroBased());
 
         if (personToEdit instanceof Student) {
-            return executeEditStudent(model, personToEdit);
-
-        } else {
-            return executeEditPerson(model, personToEdit);
+            return executeEditStudent(model, (Student) personToEdit);
         }
+
+        if (personToEdit instanceof Person) {
+            return executeEditPerson(model, (Person) personToEdit);
+        }
+
+        throw new CommandException(Messages.MESSAGE_INDEX_LIST_MISMATCH + MESSAGE_INDEX_USAGE);
     }
 
     private CommandResult executeEditStudent(Model model, Person personToEdit) throws CommandException {
@@ -153,7 +158,6 @@ public class EditCommand extends Command {
 
         model.setPerson(studentToEdit, editedStudent);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
         return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
     }
 

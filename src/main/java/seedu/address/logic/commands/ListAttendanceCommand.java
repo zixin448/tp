@@ -28,8 +28,7 @@ public class ListAttendanceCommand extends Command {
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_WEEK + "WEEK \n"
             + "or\n"
-            + PREFIX_STUDENTID + "STUDENT ID "
-            + PREFIX_WEEK + "WEEK \n"
+            + PREFIX_STUDENTID + "STUDENT ID\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIALNAME + "T04 " + PREFIX_WEEK + "1 ";
 
     private final TutorialName tutorialName;

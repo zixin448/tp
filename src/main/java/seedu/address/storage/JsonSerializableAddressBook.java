@@ -71,6 +71,7 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+            addressBook.addLastShownItem(person);
         }
 
         for (JsonAdaptedAssessment jsonAdaptedAssessment : assessments) {

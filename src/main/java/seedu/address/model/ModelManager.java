@@ -44,6 +44,7 @@ public class ModelManager implements Model {
     private final FilteredList<Tutorial> filteredTutorials;
     private final FilteredList<Assessment> filteredAssessments;
     private final FilteredList<Person> filteredPersonsByMultiplePredicate;
+    private final ObservableList<Displayable> lastShownList;
 
     private ObservableList<Attendance> displayAttendanceList;
     private ObservableList<StudentResult> displayAssessmentResults;
@@ -75,6 +76,9 @@ public class ModelManager implements Model {
         filteredTutorials = new FilteredList<>(this.addressBook.getTutorialList());
         filteredAssessments = new FilteredList<>(this.addressBook.getAssessmentList());
         filteredPersonsByMultiplePredicate = new FilteredList<>(this.addressBook.getFilteredPersonsList());
+        lastShownList = FXCollections.observableArrayList();
+        lastShownList.setAll(this.addressBook.getLastShownList());
+        displayComment = FXCollections.observableArrayList();
 
         allStudents = new FilteredList<>(this.addressBook.getPersonList(), PREDICATE_SHOW_ALL_STUDENTS);
         filteredStudents = new FilteredList<>(allStudents);
@@ -165,6 +169,7 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -199,6 +204,8 @@ public class ModelManager implements Model {
     public void updateFilteredAssessmentList(Predicate<Assessment> predicate) {
         requireNonNull(predicate);
         filteredAssessments.setPredicate(predicate);
+        lastShownList.setAll(filteredAssessments);
+        addressBook.setLastShownList(lastShownList);
     }
 
     @Override
@@ -211,6 +218,7 @@ public class ModelManager implements Model {
     public void addAssessment(Assessment toAdd) {
         requireNonNull(toAdd);
         addressBook.addAssessment(toAdd);
+        updateFilteredAssessmentList(PREDICATE_SHOW_ALL_ASSESSMENTS);
     }
 
     @Override
@@ -228,7 +236,9 @@ public class ModelManager implements Model {
     @Override
     public Assessment removeAssessmentWithName(AssessmentName name) {
         requireNonNull(name);
-        return addressBook.removeAssessmentWithName(name);
+        Assessment result = addressBook.removeAssessmentWithName(name);
+        updateFilteredAssessmentList(PREDICATE_SHOW_ALL_ASSESSMENTS);
+        return result;
     }
 
     //=========== Assessment Results =============================================================
@@ -265,24 +275,28 @@ public class ModelManager implements Model {
     @Override
     public void markAttendanceForClass(Tutorial tutorial, int week) {
         requireAllNonNull(tutorial, week);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         addressBook.markAttendanceForClass(tutorial, week);
     }
 
     @Override
     public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
         requireAllNonNull(tutorial, studentId, week);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         addressBook.markAttendanceForStudent(tutorial, studentId, week);
     }
 
     @Override
     public void unmarkAttendanceForClass(Tutorial tutorial, int week) {
         requireAllNonNull(tutorial, week);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         addressBook.unmarkAttendanceForClass(tutorial, week);
     }
 
     @Override
     public void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
         requireAllNonNull(tutorial, studentId, week);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         addressBook.unmarkAttendanceForStudent(tutorial, studentId, week);
     }
 
@@ -297,6 +311,8 @@ public class ModelManager implements Model {
             attendanceList.setAll(tutorial.getAttendanceList().getAttendances());
         }
         displayAttendanceList = attendanceList;
+        lastShownList.setAll(displayAttendanceList);
+        addressBook.setLastShownList(lastShownList);
     }
 
     @Override
@@ -309,6 +325,8 @@ public class ModelManager implements Model {
         requireAllNonNull(tutName, assessmentName);
         AssessmentResults assessmentResults = addressBook.getAssessmentResults(tutName, assessmentName);
         displayAssessmentResults = assessmentResults.asUnmodifiableStudentResultsList();
+        lastShownList.setAll(displayAssessmentResults);
+        addressBook.setLastShownList(lastShownList);
     }
 
     //=========== Tutorials =============================================================
@@ -363,6 +381,8 @@ public class ModelManager implements Model {
     public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
         requireNonNull(predicate);
         filteredTutorials.setPredicate(predicate);
+        lastShownList.setAll(filteredTutorials);
+        addressBook.setLastShownList(lastShownList);
     }
 
     //=========== Students =============================================================
@@ -394,27 +414,35 @@ public class ModelManager implements Model {
     public void addStudent(Student student) {
         requireNonNull(student);
         addressBook.addStudent(student);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
     public void addComment(Tutorial tutorial, NusNetId id, Comment commentToAdd) {
         requireAllNonNull(tutorial, id, commentToAdd);
         addressBook.addComment(tutorial, id, commentToAdd);
+        displayComment.setAll(commentToAdd);
+        lastShownList.setAll(displayComment);
+        addressBook.setLastShownList(lastShownList);
     }
 
     @Override
     public void removeComment(Tutorial tutorial, NusNetId id) {
         requireAllNonNull(tutorial, id);
         addressBook.removeComment(tutorial, id);
+        Comment commentToView = addressBook.viewComment(tutorial, id);
+        displayComment.setAll(commentToView);
+        lastShownList.setAll(displayComment);
+        addressBook.setLastShownList(lastShownList);
     }
 
     @Override
     public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
         requireAllNonNull(tutorial, studentToViewComment);
         Comment commentToView = addressBook.viewComment(tutorial, studentToViewComment);
-        ObservableList<Comment> commentList = FXCollections.observableArrayList();
-        commentList.add(commentToView);
-        displayComment = commentList;
+        displayComment.setAll(commentToView);
+        lastShownList.setAll(displayComment);
+        addressBook.setLastShownList(lastShownList);
         return commentToView;
     }
 
@@ -437,6 +465,8 @@ public class ModelManager implements Model {
     public void updateFilteredStudentList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
+        lastShownList.setAll(filteredStudents);
+        addressBook.setLastShownList(lastShownList);
     }
 
     /**
@@ -445,6 +475,7 @@ public class ModelManager implements Model {
     public void removeStudent(Student student) {
         requireNonNull(student);
         addressBook.removeStudent(student);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
@@ -468,6 +499,8 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        lastShownList.setAll(filteredPersons);
+        addressBook.setLastShownList(lastShownList);
     }
 
     @Override
@@ -504,8 +537,13 @@ public class ModelManager implements Model {
     public void setFilteredPersonsMultiPredList(List<Person> persons) {
         requireNonNull(persons);
         addressBook.setFilteredPersons(persons);
+        lastShownList.setAll(filteredPersonsByMultiplePredicate);
+        addressBook.setLastShownList(lastShownList);
     }
 
-
+    @Override
+    public ObservableList<Displayable> getLastShownList() {
+        return lastShownList;
+    }
 }
 

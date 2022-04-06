@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
@@ -46,6 +47,7 @@ public class RemoveStudentCommand extends Command {
     public static final String MESSAGE_NOT_A_STUDENT = "This person is not a student!";
     public static final String MESSAGE_TUTORIAL_DOES_NOT_EXIST = "Tutorial %1$s does not exist!";
     public static final String MESSAGE_STUDENT_DOES_NOT_EXIST = "Student %1$s is not in tutorial %2$s";
+    public static final String MESSAGE_INDEX_USAGE = "Try listing students e.g. list_student";
 
     private final Index toRemoveIndex;
     private final NusNetId toRemoveStudentId;
@@ -99,7 +101,7 @@ public class RemoveStudentCommand extends Command {
                     .createStudentCommandResult(String.format(MESSAGE_REMOVE_STUDENT_SUCCESS, toRemoveStudentId,
                             toRemoveFromTutorialName));
         } else {
-            List<Person> lastShownList = model.getAllStudentsList();
+            List<Displayable> lastShownList = model.getLastShownList();
             if (toRemoveIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
@@ -107,7 +109,11 @@ public class RemoveStudentCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_TUTORIAL_DOES_NOT_EXIST, toRemoveFromTutorialName));
             }
 
-            Person personToRemove = lastShownList.get(toRemoveIndex.getZeroBased());
+            Displayable personToRemove = lastShownList.get(toRemoveIndex.getZeroBased());
+
+            if (!(personToRemove instanceof Person)) {
+                throw new CommandException(Messages.MESSAGE_INDEX_LIST_MISMATCH + MESSAGE_INDEX_USAGE);
+            }
 
             if (!(personToRemove instanceof Student)) {
                 throw new CommandException(MESSAGE_NOT_A_STUDENT);

@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
@@ -38,6 +39,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueTutorialList tutorials = new UniqueTutorialList();
     private final UniqueAssessmentList assessments = new UniqueAssessmentList();
     private final UniqueFilteredPersonsList filteredPersons = new UniqueFilteredPersonsList();
+    private ObservableList<Displayable> lastShownList = FXCollections.observableArrayList();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -86,6 +88,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.assessments.setAssessments(assessments);
     }
 
+    public void setLastShownList(ObservableList<Displayable> lastShownList) {
+        this.lastShownList.setAll(lastShownList);
+    }
+
+    public ObservableList<Displayable> getLastShownList() {
+        return lastShownList;
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -95,6 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setTutorials(newData.getTutorialList());
         setAssessments(newData.getAssessmentList());
+        setLastShownList(newData.getLastShownList());
     }
 
     //// person-level operations
@@ -113,6 +124,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    public void addLastShownItem(Person p) {
+        lastShownList.add(p);
     }
 
     /**
