@@ -102,4 +102,13 @@ public class Attendance implements Displayable {
         }
         return stringBuilder.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return this == o
+                || (o instanceof Attendance
+                && studentId.equals(((Attendance) o).studentId)
+                && attendanceList.equals(((Attendance) o).attendanceList)
+                && comment.equals(((Attendance) o).comment));
+    }
 }

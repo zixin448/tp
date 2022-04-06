@@ -57,6 +57,19 @@ public class JsonAdaptedAttendance {
             throw new IllegalValueException(NusNetId.MESSAGE_CONSTRAINTS);
         }
 
+        if (studentAttendance.isEmpty()) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "list"));
+        }
+        if (!listValidityCheck(studentAttendance)) {
+            throw new IllegalValueException("Attendance list is not valid!");
+        }
+
+        if (comments == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Comment.class.getSimpleName()));
+        }
+
         final NusNetId modelStudentId = new NusNetId(studentId);
         final ArrayList<Integer> attendanceList = new ArrayList<>();
         attendanceList.addAll(studentAttendance.stream()
@@ -65,5 +78,20 @@ public class JsonAdaptedAttendance {
         final Comment modelComment = new Comment(comments);
 
         return new Attendance(attendanceList, modelStudentId, modelComment);
+    }
+
+    private boolean listValidityCheck(List<String> list) {
+        boolean isValid = true;
+        if (list.isEmpty()) {
+            return false;
+        }
+        for (String s : list) {
+            if (!s.chars().allMatch(Character::isDigit)
+                || (!s.equals("1") && !s.equals("0"))) {
+                isValid = false;
+                break;
+            }
+        }
+        return isValid;
     }
 }

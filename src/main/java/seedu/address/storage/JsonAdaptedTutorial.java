@@ -115,8 +115,9 @@ class JsonAdaptedTutorial {
         if (weeks == null) {
             throw new IllegalValueException("Weeks field is missing!");
         }
-        if (!weeks.chars().allMatch(Character::isDigit)) {
-            throw new IllegalValueException("Weeks must be numeric");
+        if (!weeks.chars().allMatch(Character::isDigit) || !(Integer.parseInt(weeks) > 0)
+                || !(Integer.parseInt(weeks) <= 60) ) {
+            throw new IllegalValueException("Weeks must be numeric and range from 1-60");
         }
         final int modelWeeks = Integer.parseInt(weeks);
 
