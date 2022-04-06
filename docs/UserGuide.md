@@ -136,7 +136,7 @@ Examples:
 
 #### Adding student to a class: `add_student`
 
-Adds a specified student to a given class.
+Adds a specified student to a given class and replace the `Person` contact with a `Student` contact.
 
 Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 
@@ -340,6 +340,7 @@ Format:`delete_class INDEX` or `delete_class tn/TUTORIAL_NAME`
 * `TUTORIAL_NAME` should not be given if `INDEX` is given.
 * `INDEX` should not be given if `TUTORIAL_NAME` is given.
 * Deletes the class at the specified `INDEX` or `TUTORIAL_NAME`.
+* All `Student` contacts in the class will be removed and replaced with a `Person` contact.
 * The index refers to the index number shown in the displayed list of classes.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -350,7 +351,7 @@ Examples:
 
 #### Removing a student  : `remove_student`
 
-Removes a student from a given class, but does not remove their contact from the address book.
+Removes a student from a given class, replaces the `Student` contact with a `Person` contact.
 
 Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
 
