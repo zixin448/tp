@@ -336,11 +336,16 @@ Examples:
 Removes a class from the module
 
 Format:
-* `delete_class tn/TUTORIAL_NAME`
+* `delete_class INDEX [tn/TUTORIAL_NAME]`
+* `TUTORIAL_NAME` is optional if `INDEX` is given.
+* Deletes the class at the specified `INDEX`.
 * Deletes the class with the specified `TUTORIAL_NAME`.
+* The index refers to the index number shown in the displayed list of classes.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
+* `delete_class 1`
 * `delete_class tn/G04`
 
 #### Removing a student  : `remove_student`
@@ -484,7 +489,7 @@ _Details coming soon ..._
 | **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL MARK` <br> e.g., `add_assessment as/Attendance w/5 f/10`                                                                            |
 | **Clear**             | `clear`                                                                                                                                                                              |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                  |
-| **Delete Class**      | `delete_class tn/TUTORIAL_NAME` <br> e.g., `delete_class tn/G04`                                                                                                         |
+| **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                                         |
 | **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                                      |
 | **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                                  |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                          |
