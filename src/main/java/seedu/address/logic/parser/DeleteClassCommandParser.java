@@ -2,15 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSESSMENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteAssessmentCommand;
 import seedu.address.logic.commands.DeleteClassCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.assessment.AssessmentName;
 import seedu.address.model.tutorial.TutorialName;
 
 public class DeleteClassCommandParser implements Parser<DeleteClassCommand> {
