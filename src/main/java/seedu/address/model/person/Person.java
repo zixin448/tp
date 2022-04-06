@@ -69,6 +69,13 @@ public class Person implements Displayable {
     }
 
     /**
+     * Adds a tag to the tag set
+     */
+    public void addTag(String tagName) {
+        tags.add(new Tag(tagName));
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
