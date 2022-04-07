@@ -1,5 +1,7 @@
 package seedu.address.model.attendance;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
 
@@ -7,7 +9,13 @@ public class Comment implements Displayable {
     private static final DisplayType displayType = DisplayType.COMMENT;
     private String commentString;
 
+    /**
+     * Constructs a {@code Comment}.
+     *
+     * @param comment a comment.
+     */
     public Comment(String comment) {
+        requireNonNull(comment);
         this.commentString = comment;
     }
 
@@ -20,7 +28,7 @@ public class Comment implements Displayable {
     }
 
     public static boolean isValidComment(String s) {
-        return !s.isEmpty();
+        return !s.isEmpty() && !s.isBlank();
     }
 
     @Override
