@@ -289,7 +289,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
+        public Comment getComment(Tutorial tutorial, Name studentToViewComment) {
             throw new AssertionError("This method should not be called.");
         }
 

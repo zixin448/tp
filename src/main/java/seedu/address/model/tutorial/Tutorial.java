@@ -315,29 +315,29 @@ public class Tutorial implements Displayable {
     /**
      * Adds a comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the NusNetId of a student.
      * @param comment the comment to be added.
      */
-    public void addComment(NusNetId studentId, Comment comment) {
-        attendanceList.addComment(studentId, comment);
+    public void addComment(Name studentName, Comment comment) {
+        attendanceList.addComment(studentName, comment);
     }
 
     /**
      * Removes comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the Name of a student.
      */
-    public void removeComment(NusNetId studentId) {
-        attendanceList.removeComment(studentId);
+    public void removeComment(Name studentName) {
+        attendanceList.removeComment(studentName);
     }
 
     /**
      * View comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the NusNetId of a student.
      */
-    public Comment viewComment(NusNetId studentId) {
-        return attendanceList.viewComment(studentId);
+    public Comment viewComment(Name studentName) {
+        return attendanceList.viewComment(studentName);
     }
 
     /**

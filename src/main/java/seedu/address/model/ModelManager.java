@@ -421,8 +421,7 @@ public class ModelManager implements Model {
     @Override
     public void addComment(Tutorial tutorial, Name name, Comment commentToAdd) {
         requireAllNonNull(tutorial, name, commentToAdd);
-        Student student = (Student) getPersonWithName(name);
-        addressBook.addComment(tutorial, student.getStudentId(), commentToAdd);
+        addressBook.addComment(tutorial, name, commentToAdd);
         displayComment.setAll(commentToAdd);
         lastShownList.setAll(displayComment);
         addressBook.setLastShownList(lastShownList);
@@ -431,16 +430,15 @@ public class ModelManager implements Model {
     @Override
     public void removeComment(Tutorial tutorial, Name studentToRemoveComment) {
         requireAllNonNull(tutorial, studentToRemoveComment);
-        Student student = (Student) getPersonWithName(studentToRemoveComment);
-        addressBook.removeComment(tutorial, student.getStudentId());
-        Comment commentToView = addressBook.viewComment(tutorial, student.getStudentId());
+        addressBook.removeComment(tutorial, studentToRemoveComment);
+        Comment commentToView = addressBook.viewComment(tutorial, studentToRemoveComment);
         displayComment.setAll(commentToView);
         lastShownList.setAll(displayComment);
         addressBook.setLastShownList(lastShownList);
     }
 
     @Override
-    public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
+    public Comment getComment(Tutorial tutorial, Name studentToViewComment) {
         requireAllNonNull(tutorial, studentToViewComment);
         Comment commentToView = addressBook.viewComment(tutorial, studentToViewComment);
         displayComment.setAll(commentToView);

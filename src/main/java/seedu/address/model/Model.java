@@ -295,7 +295,7 @@ public interface Model {
      * Adds the comment associated with the specified student
      * to an observable list in the model and returns the comment
      */
-    Comment getComment(Tutorial tutorial, NusNetId studentToViewComment);
+    Comment getComment(Tutorial tutorial, Name studentToViewComment);
 
     ObservableList<Comment> getCommentList();
 

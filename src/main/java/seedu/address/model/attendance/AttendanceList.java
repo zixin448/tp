@@ -7,7 +7,6 @@ import java.util.Iterator;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
@@ -157,12 +156,12 @@ public class AttendanceList {
     /**
      * Adds a comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the Name of a student.
      * @param comment the comment to be added.
      */
-    public void addComment(NusNetId studentId, Comment comment) {
+    public void addComment(Name studentName, Comment comment) {
         for (Attendance attendance : attendances) {
-            if (attendance.getStudentName().equals(studentId)) {
+            if (attendance.getStudentName().equals(studentName)) {
                 attendance.addComment(comment);
                 break;
             }
@@ -172,11 +171,11 @@ public class AttendanceList {
     /**
      * Removes comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the Name of a student.
      */
-    public void removeComment(NusNetId studentId) {
+    public void removeComment(Name studentName) {
         for (Attendance attendance : attendances) {
-            if (attendance.getStudentName().equals(studentId)) {
+            if (attendance.getStudentName().equals(studentName)) {
                 attendance.addComment(new Comment(""));
                 break;
             }
@@ -186,12 +185,12 @@ public class AttendanceList {
     /**
      * Views the comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the Name of a student.
      */
-    public Comment viewComment(NusNetId studentId) {
+    public Comment viewComment(Name studentName) {
         Comment commentToView = new Comment("");
         for (Attendance attendance : attendances) {
-            if (attendance.getStudentName().equals(studentId)) {
+            if (attendance.getStudentName().equals(studentName)) {
                 commentToView = attendance.getComment();
                 break;
             }

@@ -496,24 +496,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a comment for the specified student in the specified tutorial
      */
-    public void addComment(Tutorial tutorial, NusNetId id, Comment commentToAdd) {
-        requireAllNonNull(tutorial, id, commentToAdd);
-        tutorial.addComment(id, commentToAdd);
+    public void addComment(Tutorial tutorial, Name name, Comment commentToAdd) {
+        requireAllNonNull(tutorial, name, commentToAdd);
+        tutorial.addComment(name, commentToAdd);
     }
 
     /**
      * Removes the comment of the specified student in the specified tutorial
      */
-    public void removeComment(Tutorial tutorial, NusNetId id) {
-        requireAllNonNull(tutorial, id);
-        tutorial.removeComment(id);
+    public void removeComment(Tutorial tutorial, Name name) {
+        requireAllNonNull(tutorial, name);
+        tutorial.removeComment(name);
     }
 
     /**
      * Views the comment of the specified student in the specified tutorial
      */
-    public Comment viewComment(Tutorial tutorial, NusNetId id) {
-        requireAllNonNull(tutorial, id);
-        return tutorial.viewComment(id);
+    public Comment viewComment(Tutorial tutorial, Name name) {
+        requireAllNonNull(tutorial, name);
+        return tutorial.viewComment(name);
     }
 }
