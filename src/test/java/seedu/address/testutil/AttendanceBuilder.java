@@ -28,6 +28,15 @@ public class AttendanceBuilder {
     }
 
     /**
+     * Creates a {@code AttendanceBuilder} with the {@code attendance}'s details.
+     */
+    public AttendanceBuilder(Attendance attendance) {
+        attendanceList = attendance.getAttendanceList();
+        studentName = attendance.getStudentName();
+        comment = attendance.getComment();
+    }
+
+    /**
      * Sets the {@code ArrayList<String>} of the {@code Attendance} that we are building.
      */
     public AttendanceBuilder withAttendanceList(String[] assessmentList) {
