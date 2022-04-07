@@ -259,7 +259,7 @@ Examples:
 * `list_attendance tn/T04 wk/2`
   ![result for `list_attendance tn/T04 wk/2`](images/listAttendance.png)
 * `list_attendance n/Denson`
-  ![result for `list_attendance id/e0123456`](images/listAttendanceByStudent.png)
+  ![result for `list_attendance n/Denson`](images/listAttendanceByStudent.png)
   
 
 ### Editing a person : `edit`
@@ -298,8 +298,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find flash peter` returns `Flash Thompson`, `Peter Parker`<br>
+  ![result for 'find flash peter'](images/findFlashPeterResult.png)
 
 Find persons whose details by prefix matches any of the given keywords by prefix.
 
@@ -446,8 +446,8 @@ Format: `view_comment n/NAME`
 * `NAME` refers to the student's name saved in camNUS.
 
 Examples:
-* `view_comment n/John Tan`<br>
-  ![result for 'view_comment id/e0123456'](images/viewCommentResult.png)
+* `view_comment n/Flash Thompson`<br>
+  ![result for 'view_comment n/Flash Thompson'](images/viewCommentResult.png)
 
 ### Clearing all entries : `clear`
 
