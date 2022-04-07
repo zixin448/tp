@@ -61,7 +61,7 @@ public class AttendanceList {
 
             if (!hasAttendencePresent) {
                 ArrayList<Integer> studentAttendance = new ArrayList<>();
-                for (int i = 0; i < weeks; i++) {
+                for (int i = 0; i < weeks - 1; i++) {
                     studentAttendance.add(0);
                 }
                 attendances.add(
@@ -95,7 +95,7 @@ public class AttendanceList {
                 break;
             }
         }
-        for (int i = 0; i < weeks; i++) {
+        for (int i = 0; i < weeks - 1; i++) {
             attendanceList.add(attendanceToAdd);
         }
         return attendanceList;

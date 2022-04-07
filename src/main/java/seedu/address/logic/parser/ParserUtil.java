@@ -290,8 +290,10 @@ public class ParserUtil {
     public static int parseWeek(String s) throws ParseException {
         requireNonNull(s);
         String trimmedScore = s.trim();
-        if (!s.chars().allMatch(Character::isDigit)) {
-            throw new ParseException("Weeks should be presented in integers!");
+        if (!s.chars().allMatch(Character::isDigit)
+                || !(Integer.parseInt(s) > 0)
+                || !(Integer.parseInt(s) <= 60)) {
+            throw new ParseException("Weeks should be presented in positive integers between 1-60!");
         }
         return Integer.parseInt(s);
     }

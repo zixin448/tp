@@ -3,6 +3,7 @@ layout: page
 title: User Guide
 ---
 Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their own contacts, as well as assessments and class participation among students** in their contact book. It is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+<br/><br/>As of now, camNUS is only used for **one module only** and thus all the tutorial classes in camNUS belongs to one module and a student can only join one tutorial class.
 
 * Table of Contents
 {:toc}
@@ -13,14 +14,14 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `camNUS.jar` from [here](https://github.com/AY2122S2-CS2103T-W13-2/tp/releases).
+2. Download the latest `camNUS.jar` from [here](https://github.com/AY2122S2-CS2103T-W13-2/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your camNUS app.
+3. Copy the file to the folder you want to use as the _home folder_ for your camNUS app.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * **`list`** : Lists all contacts.
@@ -33,7 +34,30 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 
    * **`exit`** : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Valid Prefixes](#valid prefixes) below for the available prefixes.
+
+--------------------------------------------------------------------------------------------------------------------
+## Valid Prefixes
+
+1. `n/` : Name
+2. `p/` : Phone
+3. `e/` : Email
+4. `a/` : Address
+5. `t/` : Tag
+6. `id/` : Student ID
+7. `tm/` : Time
+8. `d/` : Day
+9. `wk/` : Week
+10. `v/` : Venue
+11. `tn/` : Tutorial Name
+12. `as/` : Assessment Name
+13. `w/` : Assessment Weightage
+14. `f/` : Assessment Full-mark
+15. `i/` : Index
+16. `s/` : Score
+17. `msg/` : Message
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -71,15 +95,15 @@ Opens a window containing a list of help commands.
 
 ![help message](images/helpMessage.png)
 
-Format: `help [n/COMMAND_NAME]`
+Format: `help [COMMAND_NAME]`
 * `COMMAND_NAME` is optional
 * Directs the user to the list segment referred to by `COMMAND_NAME`
 * Directs the user to the start of the list if `COMMAND_NAME` is unspecified
 
 Examples:
 * `help`
-* `help n/delete`
-* `help n/add`
+* `help delete`
+* `help add`
 
 ### Adding Commands
 
@@ -107,16 +131,17 @@ Format: `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME wk/WEEK`
 * `WEEK` refers to the number of weeks the class will be held for
 
 Examples:
-* `add_class tn/T04 v/LT13 d/Monday tm/13:00`
-* `add_class tn/G04 v/E-LEARNING d/Wed tm/10:00`
+* `add_class tn/T04 v/LT13 d/Monday tm/13:00 wk/13`
+* `add_class tn/G04 v/E-LEARNING d/Wed tm/10:00 wk/13`
 
 #### Adding student to a class: `add_student`
 
-Adds a specified student to a given class.
+Adds a specified student to a given class and replace the `Person` contact with a `Student` contact.
 
 Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 
-* Adds the person with the specified `NAME` as a student belonging to a specified class.
+* Update the person with the specified `NAME` and `STUDENT_ID` to a `Student` contact and add the student to the specified class.
+* Each student can only be assigned to one tutorial class.
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
 * `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
 
@@ -145,7 +170,7 @@ Format: `comment id/STUDENT_ID msg/COMMENT`
 * `COMMENT` is the message to be commented.
 
 Examples:
-* `comment id/e0123456 msg/Is unable to attend the next tutorial.`
+* `comment id/e0123456 msg/Unable to attend the next tutorial.`
 
 ### Listing Commands
 
@@ -172,6 +197,7 @@ Formats:
 * `DAY` is optional
 * `DAY` should be spelt in full or 3-letter abbreviation
 
+
 Examples:
 
 * `list_class`
@@ -182,13 +208,12 @@ Examples:
 
 Shows a list of all students of a specified class.
 
-Format:
+Format:`list_student INDEX` or `list_student tn/TUTORIAL_NAME`
 
-* `list_student INDEX [tn/TUTORIAL_NAME]`
-* `TUTORIAL_NAME` is optional if `INDEX` is given.
-* `list_class` command should be called before `list_student INDEX` as INDEX refers to this list.
-* Shows list of all students belonging to the class at the specified `INDEX`.
-* Shows list of all students belonging to the class with the specified `TUTORIAL_NAME`.
+* `TUTORIAL_NAME` should not be given if `INDEX` is given.
+* `INDEX` should not be given if `TUTORIAL_NAME` is given.
+* `list_class` command should be called before `list_student INDEX` as `INDEX` is relative to this list.
+* Shows list of all students belonging to the class at the specified `INDEX` or `TUTORIAL_NAME`.
 * The index refers to the index number shown in the displayed person list.
 * The index must be a positive integer 1, 2, 3, …​
 
@@ -275,8 +300,9 @@ Find persons whose details by prefix matches any of the given keywords by prefix
 Format: `find [n/NAME] [tn/TUTORIAL_NAME] [t/TAG] [id/STUDENT_ID] [p/PHONE] [a/ADDRESS] [e/EMAIL]`
 
 * Partial words will be matched. e.g. `n/Han` will match `Hans`
+* Accepted prefixes includes `n/`, `p/`, `e/`, `a/`, `id/` and `tn/`
 * At least one prefix have to be used to activate partial keyword matching.
-* If no prefix input given, original find will be activated.
+* If invalid prefix or no prefix input given, original find will be activated.
 * The search is case-insensitive. e.g `n/hans` will match `Hans`
 * Keyword matching will always start from the first alphabet or number of the attribute value.
   e.g. `n/han` will return `Hansel` and will not return `Krishan`
@@ -309,11 +335,12 @@ Examples:
 
 Removes a class from the module
 
-Format:
-* `delete_class INDEX [tn/TUTORIAL_NAME]`
-* `TUTORIAL_NAME` is optional if `INDEX` is given.
-* Deletes the class at the specified `INDEX`.
-* Deletes the class with the specified `TUTORIAL_NAME`.
+Format:`delete_class INDEX` or `delete_class tn/TUTORIAL_NAME`
+
+* `TUTORIAL_NAME` should not be given if `INDEX` is given.
+* `INDEX` should not be given if `TUTORIAL_NAME` is given.
+* Deletes the class at the specified `INDEX` or `TUTORIAL_NAME`.
+* All `Student` contacts in the class will be removed and replaced with a `Person` contact.
 * The index refers to the index number shown in the displayed list of classes.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -324,7 +351,7 @@ Examples:
 
 #### Removing a student  : `remove_student`
 
-Removes a student from a given class, but does not remove their contact from the address book.
+Removes a student from a given class, replaces the `Student` contact with a `Person` contact.
 
 Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
 
@@ -458,13 +485,13 @@ _Details coming soon ..._
 | Action                | Format, Examples                                                                                                                                                                     |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague`               |
-| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00`                                                                              |
+| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00 wk/13`                                                                               |
 | **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student n/Amy Tan id/e0123456 tn/T13`                                                                                    |
 | **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL MARK` <br> e.g., `add_assessment as/Attendance w/5 f/10`                                                                            |
 | **Clear**             | `clear`                                                                                                                                                                              |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                  |
 | **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                                         |
-| **Remove Student**    | `remove_student i/INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student i/1 tn/G04`                                                                                                      |
+| **Remove Student**    | `remove_student INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student 1 tn/G04`                                                                                                     |
 | **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                                  |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                          |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`<br>`find [n/NAME] [id/STUDENT_ID] [a/ADDRESS] [e/EMAIL] [p/PHONE_NUMBER] [tn/TUTORIAL_NAME] [t/TAG]`<br> e.g. find n/ALIC |

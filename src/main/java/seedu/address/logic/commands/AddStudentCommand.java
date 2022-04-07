@@ -87,6 +87,7 @@ public class AddStudentCommand extends Command {
         Phone phone = personMatch.getPhone();
         Email email = personMatch.getEmail();
         Address address = personMatch.getAddress();
+        personMatch.addTag("Student");
         Set<Tag> tags = personMatch.getTags();
 
         Student toAdd = new Student(toAddName, phone, email, address, tags, toAddStudentId, toAddTutorialName);
