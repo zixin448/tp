@@ -1,14 +1,15 @@
 package seedu.address.testutil;
 
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.Comment;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import seedu.address.model.attendance.Attendance;
-import seedu.address.model.attendance.Comment;
-import seedu.address.model.person.Name;
-
-public class AttendanceBuilder {
+public class AttendanceListBuilder {
 
     public static final String[] DEFAULT_ATTENDANCE = { "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
     public static final String DEFAULT_NAME = "John Yeo";
@@ -21,7 +22,7 @@ public class AttendanceBuilder {
     /**
      * Creates a {@code AttendanceBuilder} with the default details.
      */
-    public AttendanceBuilder() {
+    public AttendanceListBuilder() {
         attendanceList = convertStringArrToIntList(DEFAULT_ATTENDANCE);
         studentName = new Name(DEFAULT_NAME);
         comment = new Comment(DEFAULT_COMMENT);
@@ -30,7 +31,7 @@ public class AttendanceBuilder {
     /**
      * Sets the {@code ArrayList<String>} of the {@code Attendance} that we are building.
      */
-    public AttendanceBuilder withAttendanceList(String[] assessmentList) {
+    public AttendanceListBuilder withAttendanceList(String[] assessmentList) {
         this.attendanceList = convertStringArrToIntList(assessmentList);
         return this;
     }
@@ -38,7 +39,7 @@ public class AttendanceBuilder {
     /**
      * Sets the {@code Name} of the {@code Attendance} that we are building.
      */
-    public AttendanceBuilder withName(String studentName) {
+    public AttendanceListBuilder withNusNetId(String studentName) {
         this.studentName = new Name(studentName);
         return this;
     }
@@ -46,7 +47,7 @@ public class AttendanceBuilder {
     /**
      * Sets the {@code Comment} of the {@code Attendance} that we are building.
      */
-    public AttendanceBuilder withComment(String comment) {
+    public AttendanceListBuilder withComment(String comment) {
         this.comment = new Comment(comment);
         return this;
     }

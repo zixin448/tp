@@ -1,13 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.address.logic.commands.UnmarkAttendanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.tutorial.TutorialName;
 
@@ -20,7 +19,7 @@ public class UnmarkAttendanceCommandParser implements Parser<UnmarkAttendanceCom
      */
     public UnmarkAttendanceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TUTORIALNAME, PREFIX_STUDENTID, PREFIX_WEEK);
+                ArgumentTokenizer.tokenize(args, PREFIX_TUTORIALNAME, PREFIX_NAME, PREFIX_WEEK);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TUTORIALNAME, PREFIX_WEEK)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -29,16 +28,16 @@ public class UnmarkAttendanceCommandParser implements Parser<UnmarkAttendanceCom
         }
 
         TutorialName tutorialName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIALNAME).get());
-        NusNetId studentId;
-        boolean isStudentIdPresent = false;
-        if (arePrefixesPresent(argMultimap, PREFIX_STUDENTID)) {
-            isStudentIdPresent = true;
-            studentId = ParserUtil.parseStudentId(argMultimap.getValue(PREFIX_STUDENTID).get());
+        Name studentName;
+        boolean isStudentNamePresent = false;
+        if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
+            isStudentNamePresent = true;
+            studentName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         } else {
-            studentId = null;
+            studentName = null;
         }
         int week = ParserUtil.parseWeek(argMultimap.getValue(PREFIX_WEEK).get());
 
-        return new UnmarkAttendanceCommand(tutorialName, studentId, week, !isStudentIdPresent);
+        return new UnmarkAttendanceCommand(tutorialName, studentName, week, !isStudentNamePresent);
     }
 }

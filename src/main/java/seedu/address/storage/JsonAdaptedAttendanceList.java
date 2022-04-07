@@ -12,7 +12,7 @@ import seedu.address.model.attendance.AttendanceList;
 
 public class JsonAdaptedAttendanceList {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Weeks is missing!";
-    public static final String INVALID_FIELD_MESSAGE_FORMAT = "Weeks must be numeric!";
+    public static final String INVALID_FIELD_MESSAGE_FORMAT = "Weeks must be numeric and range from 1-60!";
 
     private final String weeks;
     private final List<JsonAdaptedAttendance> attendances = new ArrayList<>();
@@ -44,7 +44,8 @@ public class JsonAdaptedAttendanceList {
         if (weeks == null) {
             throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
         }
-        if (!weeks.chars().allMatch(Character::isDigit)) {
+        if (!weeks.chars().allMatch(Character::isDigit) || !(Integer.parseInt(weeks) > 0)
+                || !(Integer.parseInt(weeks) <= 60) )  {
             throw new IllegalValueException(INVALID_FIELD_MESSAGE_FORMAT);
         }
         return Integer.parseInt(weeks);

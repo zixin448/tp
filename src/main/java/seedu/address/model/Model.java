@@ -273,11 +273,11 @@ public interface Model {
 
     void markAttendanceForClass(Tutorial tutorial, int week);
 
-    void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week);
+    void markAttendanceForStudent(Tutorial tutorial, Name studentId, int week);
 
     void unmarkAttendanceForClass(Tutorial tutorial, int week);
 
-    void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week);
+    void unmarkAttendanceForStudent(Tutorial tutorial, Name studentName, int week);
 
     /**
      * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.

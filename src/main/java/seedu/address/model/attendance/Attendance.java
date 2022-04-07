@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 
 /**
@@ -16,20 +17,20 @@ public class Attendance implements Displayable {
     private static final DisplayType displayType = DisplayType.ATTENDANCE;
 
     private final ArrayList<Integer> attendanceList;
-    private final NusNetId studentId;
+    private final Name studentName;
     private final Comment comment;
 
     /**
      * Constructs an Attendance record.
      *
      * @param attendanceList the attendance records for each week.
-     * @param studentId the NusNetId of a student.
+     * @param studentName the NusNetId of a student.
      * @param comment motes for a student.
      */
-    public Attendance(ArrayList<Integer> attendanceList, NusNetId studentId, Comment comment) {
-        requireAllNonNull(attendanceList, studentId, comment);
+    public Attendance(ArrayList<Integer> attendanceList, Name studentName, Comment comment) {
+        requireAllNonNull(attendanceList, studentName, comment);
         this.attendanceList = attendanceList;
-        this.studentId = studentId;
+        this.studentName = studentName;
         this.comment = comment;
     }
 
@@ -37,8 +38,8 @@ public class Attendance implements Displayable {
         return attendanceList;
     }
 
-    public NusNetId getStudentId() {
-        return studentId;
+    public Name getStudentName() {
+        return studentName;
     }
 
     public Comment getComment() {
@@ -107,7 +108,7 @@ public class Attendance implements Displayable {
     public boolean equals(Object o) {
         return this == o
                 || (o instanceof Attendance
-                && studentId.equals(((Attendance) o).studentId)
+                && studentName.equals(((Attendance) o).studentName)
                 && attendanceList.equals(((Attendance) o).attendanceList)
                 && comment.equals(((Attendance) o).comment));
     }
