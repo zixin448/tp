@@ -11,7 +11,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.NusNetId;
 
 public class JsonAdaptedAttendance {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Attendance's %s field is missing!";
@@ -23,8 +22,9 @@ public class JsonAdaptedAttendance {
      * Constructs a {@code JsonAdaptedAttendance} with the given attendance details.
      */
     @JsonCreator
-    public JsonAdaptedAttendance(@JsonProperty("studentName") String studentName, @JsonProperty("comments") String comments,
-            @JsonProperty("studentAttendance") List<String> studentAttendance) {
+    public JsonAdaptedAttendance(@JsonProperty("studentName") String studentName,
+                                 @JsonProperty("comments") String comments,
+                                 @JsonProperty("studentAttendance") List<String> studentAttendance) {
         this.studentName = studentName;
         this.comments = comments;
         if (studentAttendance != null) {

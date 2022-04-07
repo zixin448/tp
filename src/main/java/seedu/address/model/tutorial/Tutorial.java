@@ -20,7 +20,11 @@ import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceList;
 import seedu.address.model.attendance.Comment;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
+import seedu.address.model.person.UniqueStudentsInTutorialList;
 import seedu.address.model.person.exceptions.StudentNotFoundException;
 
 /**
@@ -279,7 +283,7 @@ public class Tutorial implements Displayable {
     /**
      * Marks the attendance for the specified student.
      *
-     * @param studentName the NusNetId of a student.
+     * @param studentName the Name of a student.
      * @param week the week that the attendance should be marked for the student.
      */
     public void markStudentAttendance(Name studentName, int week) {
@@ -300,7 +304,7 @@ public class Tutorial implements Displayable {
     /**
      * Unmarks the attendance for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the Name of a student.
      * @param week the week that the attendance should be unmarked for the student.
      */
     public void unmarkStudentAttendance(Name studentName, int week) {

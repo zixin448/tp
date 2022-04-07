@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.NusNetId;
 
 /**
  * Contains a list of the attendance for a particular Student.

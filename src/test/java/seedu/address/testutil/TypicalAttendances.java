@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.AttendancesTestUtil.VALID_ATTENDANCE_KEVIN;
 import static seedu.address.logic.commands.AttendancesTestUtil.VALID_ATTENDANCE_BOBBY;
-import static seedu.address.logic.commands.AttendancesTestUtil.VALID_COMMENT_KEVIN;
+import static seedu.address.logic.commands.AttendancesTestUtil.VALID_ATTENDANCE_KEVIN;
 import static seedu.address.logic.commands.AttendancesTestUtil.VALID_COMMENT_BOBBY;
-import static seedu.address.logic.commands.AttendancesTestUtil.VALID_NAME_KEVIN;
+import static seedu.address.logic.commands.AttendancesTestUtil.VALID_COMMENT_KEVIN;
 import static seedu.address.logic.commands.AttendancesTestUtil.VALID_NAME_BOBBY;
+import static seedu.address.logic.commands.AttendancesTestUtil.VALID_NAME_KEVIN;
 
 import java.util.ArrayList;
 import java.util.Arrays;

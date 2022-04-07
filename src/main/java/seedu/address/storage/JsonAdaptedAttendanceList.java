@@ -45,7 +45,7 @@ public class JsonAdaptedAttendanceList {
             throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
         }
         if (!weeks.chars().allMatch(Character::isDigit) || !(Integer.parseInt(weeks) > 0)
-                || !(Integer.parseInt(weeks) <= 60) )  {
+                || !(Integer.parseInt(weeks) <= 60)) {
             throw new IllegalValueException(INVALID_FIELD_MESSAGE_FORMAT);
         }
         return Integer.parseInt(weeks);
