@@ -20,6 +20,7 @@ import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceList;
 import seedu.address.model.attendance.Comment;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
@@ -208,6 +209,18 @@ public class Tutorial implements Displayable {
         return studentsList.containsStudentWithId(studentId);
     }
 
+    /**
+     * Returns true if the studentsList contains a student with a matching {@code studentName}.
+     */
+    public boolean containsStudentWithName(Name studentName) {
+        return studentsList.containsStudentWithName(studentName);
+    }
+
+    public Student getStudentWithName(Name studentName) {
+        return studentsList.getStudentWithName(studentName);
+    }
+
+
     public Student getStudentWithId(NusNetId studentId) {
         return studentsList.getStudentWithId(studentId);
     }
@@ -270,12 +283,12 @@ public class Tutorial implements Displayable {
     /**
      * Marks the attendance for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the Name of a student.
      * @param week the week that the attendance should be marked for the student.
      */
-    public void markStudentAttendance(NusNetId studentId, int week) {
+    public void markStudentAttendance(Name studentName, int week) {
         generateAttendance();
-        attendanceList.markAttendanceForStudent(studentId, week);
+        attendanceList.markAttendanceForStudent(studentName, week);
     }
 
     /**
@@ -291,12 +304,12 @@ public class Tutorial implements Displayable {
     /**
      * Unmarks the attendance for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the Name of a student.
      * @param week the week that the attendance should be unmarked for the student.
      */
-    public void unmarkStudentAttendance(NusNetId studentId, int week) {
+    public void unmarkStudentAttendance(Name studentName, int week) {
         generateAttendance();
-        attendanceList.unmarkAttendanceForStudent(studentId, week);
+        attendanceList.unmarkAttendanceForStudent(studentName, week);
     }
 
     /**

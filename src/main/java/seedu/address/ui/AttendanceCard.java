@@ -41,7 +41,7 @@ public class AttendanceCard extends UiPart<Region> {
         super(FXML);
         this.attendance = attendance;
         id.setText(displayedIndex + ". ");
-        studentId.setText(attendance.getStudentId().toString());
+        studentId.setText(attendance.getStudentName().toString());
         status.setText(attendance.getAttendanceStatusByWeek(week));
         comment.setText(attendance.getComment().toString());
     }
