@@ -8,12 +8,17 @@ import static seedu.address.logic.commands.TutorialTestUtil.VALID_TUTORIAL_NAME_
 import static seedu.address.logic.commands.TutorialTestUtil.VALID_TUTORIAL_NAME_TG2;
 import static seedu.address.logic.commands.TutorialTestUtil.VALID_VENUE_TG1;
 import static seedu.address.logic.commands.TutorialTestUtil.VALID_VENUE_TG2;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Tutorial;
 
 /**
@@ -49,7 +54,22 @@ public class TypicalTutorials {
         return ab;
     }
 
+    public static AddressBook getTypicalAddressBookWithPerson() {
+        AddressBook ab = new AddressBook();
+        for (Tutorial tutorial : getTypicalTutorials()) {
+            ab.addTutorial(tutorial);
+        }
+        for (Person person: getTypicalPersons()) {
+            ab.addPerson(person);
+        }
+        return ab;
+    }
+
     public static List<Tutorial> getTypicalTutorials() {
         return new ArrayList<>(Arrays.asList(T01, T02, T03, T04));
+    }
+
+    public static List<Person> getTypicalPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL));
     }
 }
