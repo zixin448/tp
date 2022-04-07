@@ -25,8 +25,10 @@ public class ListAttendanceCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists attendance for a specified class and week.\n"
             + "Parameters: "
-            + "[" + PREFIX_TUTORIALNAME + "TUTORIAL NAME] "
-            + "[" + PREFIX_STUDENTID + "STUDENT ID] "
+            + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
+            + PREFIX_WEEK + "WEEK \n"
+            + "or\n"
+            + PREFIX_STUDENTID + "STUDENT ID "
             + PREFIX_WEEK + "WEEK \n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIALNAME + "T04 " + PREFIX_WEEK + "1 ";
 

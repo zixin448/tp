@@ -78,7 +78,7 @@ public class HelpWindowMessages {
         list.add(GradeCommand.COMMAND_WORD);
         list.add(GradeCommand.MESSAGE_USAGE);
         list.add(ListCommand.COMMAND_WORD);
-        list.add(ListCommand.COMMAND_WORD);
+        list.add(ListCommand.MESSAGE_USAGE);
         list.add(ListClassCommand.COMMAND_WORD);
         list.add(ListClassCommand.MESSAGE_USAGE);
         list.add(ListStudentCommand.COMMAND_WORD);
