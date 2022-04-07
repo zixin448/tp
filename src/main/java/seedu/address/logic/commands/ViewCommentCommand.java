@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.attendance.Comment;
-import seedu.address.model.person.NusNetId;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -23,27 +23,27 @@ public class ViewCommentCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Comment for student %s: %s";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "The specified student does not exist.";
 
-    private final NusNetId studentToViewComment;
+    private final Name studentToViewComment;
 
     /**
      * Creates an CommentCommand to add a comment for the specified {@code Student}
      */
-    public ViewCommentCommand(NusNetId studentId) {
-        studentToViewComment = studentId;
+    public ViewCommentCommand(Name studentName) {
+        studentToViewComment = studentName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasStudentWithId(studentToViewComment)) {
+        if (!model.hasStudentWithName(studentToViewComment)) {
             throw new CommandException(String.format(MESSAGE_STUDENT_NOT_FOUND));
         }
 
-        Student student = model.getStudentWithId(studentToViewComment);
+        Student student = (Student) model.getPersonWithName(studentToViewComment);
         TutorialName tutorialName = student.getTutorialName();
         Tutorial tutorial = model.getTutorialWithName(tutorialName);
-        Comment comment = model.getComment(tutorial, studentToViewComment);
+        Comment comment = model.getComment(tutorial, student.getStudentId());
         return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, studentToViewComment, comment));
     }
 }

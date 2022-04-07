@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TUTORIAL_WEEKS;
 import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.commands.GradeCommand.MESSAGE_STUDENT_NOT_FOUND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.NusNetId;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -28,11 +28,12 @@ public class ListAttendanceCommand extends Command {
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_WEEK + "WEEK \n"
             + "or\n"
-            + PREFIX_STUDENTID + "STUDENT ID\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIALNAME + "T04 " + PREFIX_WEEK + "1 ";
+            + PREFIX_NAME + "NAME\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIALNAME + "T04 " + PREFIX_WEEK + "1\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "John Doe ";;
 
     private final TutorialName tutorialName;
-    private final NusNetId studentId;
+    private final Name studentName;
     private final int week;
 
     /**
@@ -40,16 +41,16 @@ public class ListAttendanceCommand extends Command {
      * @param tutorialName The name of the tutorial containing the specified attendance list.
      * @param week The week of the attendance list requested.
      */
-    public ListAttendanceCommand(TutorialName tutorialName, NusNetId studentId, int week) {
+    public ListAttendanceCommand(TutorialName tutorialName, Name studentName, int week) {
         this.tutorialName = tutorialName;
-        this.studentId = studentId;
+        this.studentName = studentName;
         this.week = week;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (studentId != null) {
+        if (studentName != null) {
             return listByStudentId(model);
         }
         return listByTutorialName(model);
@@ -80,15 +81,15 @@ public class ListAttendanceCommand extends Command {
     }
 
     private CommandResult listByStudentId(Model model) throws CommandException {
-        if (!model.hasStudentWithId(studentId)) {
+        if (!model.hasStudentWithName(studentName)) {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }
 
-        Student studentToList = model.getStudentWithId(studentId);
+        Student studentToList = (Student) model.getPersonWithName(studentName);
         Tutorial tutorialToList = model.getTutorialWithName(studentToList.getTutorialName());
 
-        model.updateFilteredAttendanceList(tutorialToList, studentId);
-        String successMessage = String.format(MESSAGE_SUCCESS_STUDENT, studentId);
+        model.updateFilteredAttendanceList(tutorialToList, studentName);
+        String successMessage = String.format(MESSAGE_SUCCESS_STUDENT, studentName);
         CommandResult commandResult = CommandResult.createAttendanceByStudentCommandResult(successMessage);
         return commandResult;
     }

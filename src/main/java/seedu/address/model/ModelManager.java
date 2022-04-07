@@ -275,38 +275,39 @@ public class ModelManager implements Model {
     @Override
     public void markAttendanceForClass(Tutorial tutorial, int week) {
         requireAllNonNull(tutorial, week);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredAttendanceList(tutorial, null);
         addressBook.markAttendanceForClass(tutorial, week);
     }
 
     @Override
-    public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
-        requireAllNonNull(tutorial, studentId, week);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        addressBook.markAttendanceForStudent(tutorial, studentId, week);
+
+    public void markAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
+        requireAllNonNull(tutorial, studentName, week);
+        updateFilteredAttendanceList(tutorial, studentName);
+        addressBook.markAttendanceForStudent(tutorial, studentName, week);
     }
 
     @Override
     public void unmarkAttendanceForClass(Tutorial tutorial, int week) {
         requireAllNonNull(tutorial, week);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredAttendanceList(tutorial, null);
         addressBook.unmarkAttendanceForClass(tutorial, week);
     }
 
     @Override
-    public void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
-        requireAllNonNull(tutorial, studentId, week);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        addressBook.unmarkAttendanceForStudent(tutorial, studentId, week);
+    public void unmarkAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
+        requireAllNonNull(tutorial, studentName, week);
+        updateFilteredAttendanceList(tutorial, studentName);
+        addressBook.unmarkAttendanceForStudent(tutorial, studentName, week);
     }
 
     @Override
-    public void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId) {
+    public void updateFilteredAttendanceList(Tutorial tutorial, Name studentName) {
         requireAllNonNull(tutorial);
         ObservableList<Attendance> attendanceList = FXCollections.observableArrayList();
         tutorial.generateAttendance();
-        if (studentId != null) {
-            attendanceList.setAll(tutorial.getAttendanceList().getAttendancesByStudentID(studentId));
+        if (studentName != null) {
+            attendanceList.setAll(tutorial.getAttendanceList().getAttendancesByStudentName(studentName));
         } else {
             attendanceList.setAll(tutorial.getAttendanceList().getAttendances());
         }
@@ -418,19 +419,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addComment(Tutorial tutorial, NusNetId id, Comment commentToAdd) {
-        requireAllNonNull(tutorial, id, commentToAdd);
-        addressBook.addComment(tutorial, id, commentToAdd);
+    public void addComment(Tutorial tutorial, Name name, Comment commentToAdd) {
+        requireAllNonNull(tutorial, name, commentToAdd);
+        Student student = (Student) getPersonWithName(name);
+        addressBook.addComment(tutorial, student.getStudentId(), commentToAdd);
         displayComment.setAll(commentToAdd);
         lastShownList.setAll(displayComment);
         addressBook.setLastShownList(lastShownList);
     }
 
     @Override
-    public void removeComment(Tutorial tutorial, NusNetId id) {
-        requireAllNonNull(tutorial, id);
-        addressBook.removeComment(tutorial, id);
-        Comment commentToView = addressBook.viewComment(tutorial, id);
+    public void removeComment(Tutorial tutorial, Name studentToRemoveComment) {
+        requireAllNonNull(tutorial, studentToRemoveComment);
+        Student student = (Student) getPersonWithName(studentToRemoveComment);
+        addressBook.removeComment(tutorial, student.getStudentId());
+        Comment commentToView = addressBook.viewComment(tutorial, student.getStudentId());
         displayComment.setAll(commentToView);
         lastShownList.setAll(displayComment);
         addressBook.setLastShownList(lastShownList);

@@ -3,27 +3,27 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TUTORIAL_WEEKS;
 import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.NusNetId;
+import seedu.address.model.person.Name;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 
 public class MarkAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "mark_attendance";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendances for a class or specific person. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendances for a class or specific student. \n"
             + "Parameters: "
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
-            + "[" + PREFIX_STUDENTID + "STUDENT ID] "
+            + "[" + PREFIX_NAME + "STUDENT NAME] "
             + PREFIX_WEEK + "WEEK \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIALNAME + "T04 "
-            + PREFIX_STUDENTID + "e01234567 "
+            + PREFIX_NAME + "Kevin Quek "
             + PREFIX_WEEK + "7 ";
 
     public static final String MESSAGE_MULTIPLE_SUCCESS = "Attendance marked for all students on week %s";
@@ -32,17 +32,17 @@ public class MarkAttendanceCommand extends Command {
 
     private final boolean isMarkMultipleAttendances;
     private final TutorialName tutorialToMark;
-    private final NusNetId studentToMark;
+    private final Name studentToMark;
     private final int week;
 
     /**
      * Creates an MarkAttendanceCommand to mark attendance the specified {@code Tutorial}
      */
-    public MarkAttendanceCommand(TutorialName tutorial, NusNetId studentId, int week,
+    public MarkAttendanceCommand(TutorialName tutorial, Name studentName, int week,
                                  boolean isMarkMultipleAttendances) {
         this.isMarkMultipleAttendances = isMarkMultipleAttendances;
         tutorialToMark = tutorial;
-        studentToMark = studentId;
+        studentToMark = studentName;
         this.week = week;
     }
 
@@ -61,7 +61,7 @@ public class MarkAttendanceCommand extends Command {
         }
 
         if (!isMarkMultipleAttendances) {
-            if (!tutorial.containsStudentWithId(studentToMark)) {
+            if (!tutorial.containsStudentWithName(studentToMark)) {
                 throw new CommandException(MESSAGE_STUDENT_NOT_IN_CLASS);
             }
             model.markAttendanceForStudent(tutorial, studentToMark, week);
@@ -74,7 +74,7 @@ public class MarkAttendanceCommand extends Command {
             model.markAttendanceForClass(tutorial, week);
             model.updateFilteredAttendanceList(tutorial, null);
             CommandResult result = CommandResult
-                    .createAttendanceCommandResult(String.format(MESSAGE_SUCCESS, studentToMark, week));
+                    .createAttendanceCommandResult(String.format(MESSAGE_MULTIPLE_SUCCESS, week));
             result.setAttendanceWeek(week);
             return result;
         }

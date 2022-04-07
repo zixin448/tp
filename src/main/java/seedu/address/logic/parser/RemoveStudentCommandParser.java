@@ -1,15 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RemoveStudentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NusNetId;
+import seedu.address.model.person.Name;
 import seedu.address.model.tutorial.TutorialName;
 
 public class RemoveStudentCommandParser implements Parser<RemoveStudentCommand> {
@@ -21,22 +20,20 @@ public class RemoveStudentCommandParser implements Parser<RemoveStudentCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public RemoveStudentCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TUTORIALNAME);
 
-        if (args.contains(PREFIX_STUDENTID.getPrefix())) {
-            argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STUDENTID, PREFIX_TUTORIALNAME);
+        if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_STUDENTID, PREFIX_TUTORIALNAME)
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TUTORIALNAME)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         RemoveStudentCommand.MESSAGE_USAGE));
             }
 
-            NusNetId studentId = ParserUtil.parseStudentId(argMultimap.getValue(PREFIX_STUDENTID).get());
+            Name studentName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             TutorialName tutorialName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIALNAME).get());
-            return new RemoveStudentCommand(studentId, tutorialName);
+            return new RemoveStudentCommand(studentName, tutorialName);
         } else {
-            argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_TUTORIALNAME);
             Index index;
             try {
                 index = ParserUtil.parseIndex(argMultimap.getPreamble());

@@ -257,12 +257,12 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void addComment(Tutorial tutorial, NusNetId studentToComment, Comment toAdd) {
+        public void addComment(Tutorial tutorial, Name name, Comment toAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void removeComment(Tutorial tutorial, NusNetId studentToRemoveComment) {
+        public void removeComment(Tutorial tutorial, Name studentToRemoveComment) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -277,7 +277,7 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId) {
+        public void updateFilteredAttendanceList(Tutorial tutorial, Name studentName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -332,7 +332,7 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+        public void markAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -343,7 +343,7 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+        public void unmarkAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
             throw new AssertionError("This method should not be called.");
         }
 

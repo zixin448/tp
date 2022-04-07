@@ -242,7 +242,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         NusNetId studentId = getIdOfStudent(studentName);
         TutorialName tutorialName = getTutorialNameOfStudent(studentName);
         Tutorial tut = getTutorialWithName(tutorialName);
-        StudentResult result = new StudentResult(studentId, score);
+        StudentResult result = new StudentResult(studentName, studentId, score);
         tut.addStudentResult(assessmentName, result);
     }
 
@@ -268,7 +268,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         NusNetId studentId = getIdOfStudent(studentName);
         TutorialName tutorialName = getTutorialNameOfStudent(studentName);
         Tutorial tut = getTutorialWithName(tutorialName);
-        tut.setStudentResult(assessmentName, studentId, score);
+        tut.setStudentResult(assessmentName, studentName, studentId, score);
     }
 
     public AssessmentResults getAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
@@ -472,9 +472,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Marks attendance for the specific week for the specified student in the specified tutorial
      */
-    public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
-        requireAllNonNull(tutorial, studentId, week);
-        tutorial.markStudentAttendance(studentId, week);
+    public void markAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
+        requireAllNonNull(tutorial, studentName, week);
+        tutorial.markStudentAttendance(studentName, week);
     }
 
     /**
@@ -488,9 +488,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Unmarks attendance for the specific week for the specified student in the specified tutorial
      */
-    public void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
-        requireAllNonNull(tutorial, studentId, week);
-        tutorial.unmarkStudentAttendance(studentId, week);
+    public void unmarkAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
+        requireAllNonNull(tutorial, studentName, week);
+        tutorial.unmarkStudentAttendance(studentName, week);
     }
 
     /**
