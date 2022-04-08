@@ -14,4 +14,6 @@ public class StudentTestUtil {
     public static final String VALID_STUDENT_ID_AARON = "e0123654";
     public static final String VALID_STUDENT_ID_BILL = "e0654123";
 
+    public static final String INVALID_NAME_ADAM = "Ad@m %%1";
+    public static final String INVALID_STUDENT_ID_ADAM = "e999";
 }

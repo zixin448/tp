@@ -1,5 +1,6 @@
 package seedu.address.model.attendance;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class AttendanceList {
      * Constructs an AttendanceList.
      *
      * @param attendances the list of attendance records.
-     * @param weeks the number of weeks to for attendance to be recorded for.
+     * @param weeks the number of weeks of attendance to be recorded for.
      */
     public AttendanceList(ArrayList<Attendance> attendances, int weeks) {
         requireAllNonNull(attendances);
@@ -46,7 +47,7 @@ public class AttendanceList {
      * @param uniqueStudentList the list of students in the tutorial.
      */
     public void generateAttendance(UniqueStudentsInTutorialList uniqueStudentList) {
-        System.out.println("generate");
+
         FilteredList<Person> studentList = uniqueStudentList.getStudentsInClass();
         for (Person p : studentList) {
             Student student = (Student) p;
@@ -89,6 +90,7 @@ public class AttendanceList {
      * @return the attendance list of the student for the semester.
      */
     public ArrayList<Attendance> getAttendancesByStudentID(NusNetId studentId) {
+        requireNonNull(studentId);
         Attendance attendanceToAdd = null;
         ArrayList<Attendance> attendanceList = new ArrayList<>();
         for (Attendance attendance : attendances) {
@@ -97,7 +99,7 @@ public class AttendanceList {
                 break;
             }
         }
-        for (int i = 0; i < weeks - 1; i++) {
+        for (int i = 0; i < weeks; i++) {
             attendanceList.add(attendanceToAdd);
         }
         return attendanceList;
@@ -109,6 +111,7 @@ public class AttendanceList {
      * @param week the week that the attendance should be marked for the student.
      */
     public void markAllAttendance(int week) {
+        requireNonNull(week);
         for (Attendance attendance : attendances) {
             attendance.markWeek(week);
         }
@@ -121,6 +124,7 @@ public class AttendanceList {
      * @param week the week that the attendance should be marked for the student.
      */
     public void markAttendanceForStudent(Name studentName, int week) {
+        requireAllNonNull(studentName, week);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentName().equals(studentName)) {
                 attendance.markWeek(week);
@@ -147,6 +151,7 @@ public class AttendanceList {
      * @param week the week that the attendance should be unmarked for the student.
      */
     public void unmarkAttendanceForStudent(Name studentName, int week) {
+        requireAllNonNull(studentName, week);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentName().equals(studentName)) {
                 attendance.unmarkWeek(week);
@@ -162,6 +167,7 @@ public class AttendanceList {
      * @param comment the comment to be added.
      */
     public void addComment(NusNetId studentId, Comment comment) {
+        requireAllNonNull(studentId, comment);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentName().equals(studentId)) {
                 attendance.addComment(comment);
@@ -176,6 +182,7 @@ public class AttendanceList {
      * @param studentId the NusNetId of a student.
      */
     public void removeComment(NusNetId studentId) {
+        requireNonNull(studentId);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentName().equals(studentId)) {
                 attendance.addComment(new Comment(""));
@@ -190,6 +197,7 @@ public class AttendanceList {
      * @param studentId the NusNetId of a student.
      */
     public Comment viewComment(NusNetId studentId) {
+        requireNonNull(studentId);
         Comment commentToView = new Comment("");
         for (Attendance attendance : attendances) {
             if (attendance.getStudentName().equals(studentId)) {
