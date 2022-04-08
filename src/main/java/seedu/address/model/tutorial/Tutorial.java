@@ -77,7 +77,7 @@ public class Tutorial implements Displayable {
      * @param allStudents the allStudents list in the ModelManager.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, FilteredList<Person> allStudents) {
-        requireAllNonNull(name, d, t, weeks);
+        requireAllNonNull(name, d, t, weeks, allStudents);
         tutorialName = name;
         venue = v;
         day = d;
@@ -93,7 +93,7 @@ public class Tutorial implements Displayable {
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, AttendanceList attendance,
                     AssessmentResultsList results) {
-        requireAllNonNull(name, d, t, weeks, results);
+        requireAllNonNull(name, d, t, weeks, results, attendance);
         tutorialName = name;
         venue = v;
         day = d;
