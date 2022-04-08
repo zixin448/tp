@@ -15,7 +15,7 @@ public class RemoveCommentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes comments for a student. \n"
             + "Parameters: "
-            + PREFIX_STUDENTID + "STUDENT ID \n"
+            + PREFIX_STUDENTID + "STUDENT ID\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_STUDENTID + "e01234567 ";
 
@@ -42,7 +42,7 @@ public class RemoveCommentCommand extends Command {
         Student student = model.getStudentWithId(studentToRemoveComment);
         TutorialName tutorialName = student.getTutorialName();
         Tutorial tutorial = model.getTutorialWithName(tutorialName);
-        model.removeComment(tutorial, studentToRemoveComment);
-        return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS, studentToRemoveComment));
+        model.removeComment(tutorial, student.getName());
+        return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, student.getName()));
     }
 }

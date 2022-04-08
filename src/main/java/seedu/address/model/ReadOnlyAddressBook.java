@@ -33,4 +33,9 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getFilteredPersonsList();
+
+    /**
+     * Returns an unmodifiable view of the last shown list.
+     */
+    ObservableList<Displayable> getLastShownList();
 }
