@@ -2,7 +2,6 @@ package seedu.address.model.attendance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.StudentTestUtil.INVALID_NAME_ADAM;
 import static seedu.address.logic.commands.StudentTestUtil.INVALID_STUDENT_ID_ADAM;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalStudents.ALEX;
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
@@ -63,26 +61,26 @@ public class AttendanceListTest {
     }
 
     @Test
-    public void markAttendanceForStudent_nullName_throwsNullPointerException() {
+    public void markAttendanceForStudent_nullId_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> attendanceList.markAttendanceForStudent(null, 2));
     }
 
     @Test
-    public void markAttendanceForStudent_validName_successfulMark() {
+    public void markAttendanceForStudent_validId_successfulMark() {
         List<Person> studentList = new ArrayList<>();
         studentList.add(EVE);
         ObservableList<Person> observableStudentList = FXCollections.observableList(studentList);
         attendanceList.generateAttendance(new UniqueStudentsInTutorialList(observableStudentList,
                 EVE.getTutorialName()));
-        attendanceList.markAttendanceForStudent(EVE.getName(), 2);
+        attendanceList.markAttendanceForStudent(EVE.getStudentId(), 2);
         Attendance eveAttendance = attendanceList.getAttendances().get(0); //EVE's attendance
         assertTrue(eveAttendance.getAttendanceList().get(1) == 1);
     }
 
     @Test
-    public void markAttendanceForStudent_invalidName_throwsIllegalArgumentException() {
+    public void markAttendanceForStudent_invalidId_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> attendanceList
-                .markAttendanceForStudent(new Name(INVALID_NAME_ADAM), 2));
+                .markAttendanceForStudent(new NusNetId(INVALID_STUDENT_ID_ADAM), 2));
     }
 
 

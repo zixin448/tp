@@ -269,9 +269,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void markAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
-        requireAllNonNull(tutorial, studentName, week);
-        addressBook.markAttendanceForStudent(tutorial, studentName, week);
+    public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+        requireAllNonNull(tutorial, studentId, week);
+        addressBook.markAttendanceForStudent(tutorial, studentId, week);
     }
 
     @Override
@@ -281,9 +281,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void unmarkAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
-        requireAllNonNull(tutorial, studentName, week);
-        addressBook.unmarkAttendanceForStudent(tutorial, studentName, week);
+    public void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+        requireAllNonNull(tutorial, studentId, week);
+        addressBook.unmarkAttendanceForStudent(tutorial, studentId, week);
     }
 
     @Override
