@@ -171,12 +171,12 @@ Examples:
 
 Adds a comment for a student.
 
-Format: `comment n/NAME msg/COMMENT`
-* `NAME` refers to the student's name saved in camNUS.
+Format: `comment id/STUDENT_ID msg/COMMENT`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
 * `COMMENT` is the message to be commented.
 
 Examples:
-* `comment n/Denson msg/Unable to attend the next tutorial.`
+* `comment id/e0123456 msg/Unable to attend the next tutorial.`
 
 ### Listing Commands
 
@@ -214,8 +214,9 @@ Examples:
 
 Shows a list of all students of a specified class.
 
-Format:`list_student INDEX` or `list_student tn/TUTORIAL_NAME`
+Format:`list_student`, `list_student INDEX` or `list_student tn/TUTORIAL_NAME`
 
+* If no parameters are given, the list of contacts who are students will be displayed.
 * `TUTORIAL_NAME` should not be given if `INDEX` is given.
 * `INDEX` should not be given if `TUTORIAL_NAME` is given.
 * `list_class` command should be called before `list_student INDEX` as `INDEX` is relative to this list.
@@ -250,16 +251,16 @@ Format:
    * `TUTORIAL_NAME` refers to the name of an existing tutorial group.
    * `WEEK` refers to the week number of the requested attendance list.
    * Shows attendance of all students belonging to the class with the specified `TUTORIAL_NAME`.
-2. `list_attendance n/NAME`
-   * `NAME` refers to the student's name saved in camNUS.
+2. `list_attendance id/STUDENT_ID`
+   * `STUDENT_ID` refers to the student's unique NUSNET ID.
    * Shows attendance of student with specified `STUDENT_ID`.
 
 Examples:
 
 * `list_attendance tn/T04 wk/2`
   ![result for `list_attendance tn/T04 wk/2`](images/listAttendance.png)
-* `list_attendance n/Denson`
-  ![result for `list_attendance n/Denson`](images/listAttendanceByStudent.png)
+* `list_attendance id/e0124444`
+  ![result for `list_attendance id/e0124444`](images/listAttendanceByStudent.png)
   
 
 ### Editing a person : `edit`
@@ -359,19 +360,19 @@ Examples:
 
 Removes a student from a given class, replaces the `Student` contact with a `Person` contact.
 
-Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student n/NAME tn/TUTORIAL_NAME`.
+Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
 
 * `list_student` has to be called before `remove_student` as this is the list referred to by the `remove_student` command
 * Removes the student with the specified `INDEX` or `NAME` from the class with specified `TUTORIAL_NAME`.
 * The `INDEX` refers to the index number shown in the displayed list of student in the class.
-* The `NAME` refers to the name of a particular student saved in camNUS.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
 * After this command is called, tutorial name and student id of the student will be deleted.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
 * `remove_student 1 tn/G04`
-* `remove_student n/John Tan tn/G04`
+* `remove_student id/e0123456 tn/G04`
 
 #### Deleting an assessment component: `delete_assessment`
 
@@ -390,11 +391,11 @@ Examples:
 
 Removes a comment for a student.
 
-Format: `remove_comment n/NAME`
-* `NAME` refers to the student's name saved in camNUS.
+Format: `remove_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
 
 Examples:
-* `remove_comment n/NAME`
+* `remove_comment id/e0123456`
 
 ### Assigning assessment score to a student: `grade`
 
@@ -412,42 +413,42 @@ Example: `grade as/Test 1 n/Amy Tan s/5`
 
 Marks attendance for a specified student or all students in a specified class for a specified week.
 
-Format: `mark_attendance tn/TUTORIAL_NAME [n/NAME] wk/WEEK`
+Format: `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
 
-* `NAME` is optional.
-* `NAME` refers to the student's name saved in camNUS.
+* `STUDENT_ID` is optional.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
 * `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
 
 Examples:
 
-* `mark_attendance tn/T04 n/John Tan wk/1`
+* `mark_attendance tn/T04 n/e0123456 wk/1`
 * `mark_attendance tn/T04 wk/1`
 
 ### Unmarking attendance for a student: `unmark_attendance`
 
 Unmarks attendance for a specified student or all students in a specified class for a specified week.
 
-Format: `unmark_attendance tn/TUTORIAL_NAME [n/NAME] wk/WEEK`
+Format: `unmark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
 
-* `NAME` is optional.
-* `NAME` refers to the student's name saved in camNUS.
+* `STUDENT_ID` is optional.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
 * `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
 
 Examples:
 
-* `unmark_attendance tn/T04 n/John Tan wk/1`
+* `unmark_attendance tn/T04 id/e0123456 wk/1`
 * `unmark_attendance tn/T04 wk/1`
 
 ### Views a comment for a student: `view_comment`
 
 Views a comment for a student.
 
-Format: `view_comment n/NAME`
-* `NAME` refers to the student's name saved in camNUS.
+Format: `view_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
 
 Examples:
-* `view_comment n/Flash Thompson`<br>
-  ![result for 'view_comment n/Flash Thompson'](images/viewCommentResult.png)
+* `view_comment id/e0123455`<br>
+  ![result for 'view_comment id/e0123455'](images/viewCommentResult.png)
 
 ### Clearing all entries : `clear`
 
@@ -503,15 +504,15 @@ _Details coming soon ..._
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`<br>`find [n/NAME] [id/STUDENT_ID] [a/ADDRESS] [e/EMAIL] [p/PHONE_NUMBER] [tn/TUTORIAL_NAME] [t/TAG]`<br> e.g. find n/ALIC |
 | **List**              | `list`                                                                                                                                                                               |
 | **List Assessment**   | `list_assessment`                                                                                                                                                                    |
-| **List Attendance**   | `list_attendance tn/TUTORIAL_NAME wk/WEEK` <br> `list_attendance n/NAME` <br> e.g., `list_attendance tn/T04 wk/1` /  `list_attendance n/James`                                       |
+| **List Attendance**   | `list_attendance tn/TUTORIAL_NAME wk/WEEK` <br> `list_attendance id/STUDENT_ID` <br> e.g., `list_attendance tn/T04 wk/1` /  `list_attendance id/e0123456`                            |
 | **List Class**        | `list_class [d/DAY]` <br> e.g., `list_class d/Wed`                                                                                                                                   |
 | **List Student**      | `list_student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list_student 1 [tn/G04] `                                                                                                        |
 | **List Score**        | `list_score as/ASSESSMENT_NAME tn/TUTORIAL_NAME` <br> e.g., `list_score as/Assignment 1 tn/T04`                                                                                      |
 | **Grade**             | `grade as/ASSESSMENT_NAME n/NAME s/SCORE` <br> e.g., `grade as/Test 1 n/Amy Tan s/5`                                                                                                 |
-| **Mark Attendance**   | `mark_attendance tn/TUTORIAL_NAME [n/NAME] wk/WEEK` <br> e.g., `mark_attendance tn/T04 n/John wk/1`                                                                                  |
-| **Unmark Attendance** | `unmark_attendance tn/TUTORIAL_NAME [n/NAME] wk/WEEK` <br> e.g., `mark_attendance tn/T04 n/Johnson wk/1`                                                                             |
-| **Comment**           | `comment n/NAME msg/COMMENT` <br> e.g., `comment n/Denson msg/Participated actively`                                                                                                 |
-| **Remove Comment**    | `remove_comment n/NAME` <br> e.g., `remove_comment n/Charles`                                                                                                                        |
-| **View Comment**      | `view_comment n/NAME` <br> e.g., `view_comment n/Will Smith`                                                                                                                         |
+| **Mark Attendance**   | `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK` <br> e.g., `mark_attendance tn/T04 id/e0123456 wk/1`                                                                      |
+| **Unmark Attendance** | `unmark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK` <br> e.g., `unmark_attendance tn/T04 id/e0123456 wk/1`                                                                  |
+| **Comment**           | `comment id/STUDENT_ID msg/COMMENT` <br> e.g., `comment id/e0123456 msg/Participated actively`                                                                                       |
+| **Remove Comment**    | `remove_comment id/STUDENT_ID` <br> e.g., `remove_comment id/e0123456`                                                                                                               |
+| **View Comment**      | `view_comment id/STUDENT_ID` <br> e.g., `view_comment id/e0123456`                                                                                                                   |
 | **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                                    |
 | **Exit**              | `exit`                                                                                                                                                                               |
