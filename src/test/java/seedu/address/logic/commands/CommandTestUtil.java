@@ -3,10 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -42,6 +47,16 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TUTORIALNAME_T01 = "T01";
+    public static final String VALID_TUTORIALNAME_T02 = "T02";
+    public static final String VALID_DAY_T01 = "Wed";
+    public static final String VALID_DAY_T02 = "Thu";
+    public static final String VALID_TIME_T01 = "10:00";
+    public static final String VALID_TIME_T02 = "11:00";
+    public static final String VALID_VENUE_T01 = "LT15";
+    public static final String VALID_VENUE_T02 = "LT16";
+    public static final int VALID_WEEK_T01 = 13;
+    public static final int VALID_WEEK_T02 = 13;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -53,12 +68,28 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String VENUE_DESC_T01 = " " + PREFIX_VENUE + VALID_VENUE_T01;
+    public static final String VENUE_DESC_T02 = " " + PREFIX_VENUE + VALID_VENUE_T02;
+    public static final String TUTORIALNAME_DESC_T01 = " " + PREFIX_TUTORIALNAME + VALID_TUTORIALNAME_T01;
+    public static final String TUTORIALNAME_DESC_T02 = " " + PREFIX_TUTORIALNAME + VALID_TUTORIALNAME_T02;
+    public static final String DAY_DESC_T01 = " " + PREFIX_DAY + VALID_DAY_T01;
+    public static final String DAY_DESC_T02 = " " + PREFIX_DAY + VALID_DAY_T02;
+    public static final String WEEKS_DESC_T01 = " " + PREFIX_WEEK + VALID_WEEK_T01;
+    public static final String WEEKS_DESC_T02 = " " + PREFIX_WEEK + VALID_WEEK_T02;
+    public static final String TIME_DESC_T01 = " " + PREFIX_TIME + VALID_TIME_T01;
+    public static final String TIME_DESC_T02 = " " + PREFIX_TIME + VALID_TIME_T02;
+
+
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TUTORIAL_NAME = " " + PREFIX_TUTORIALNAME; // empty string not allowed
+    public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "thur"; // four letters abbreviation not allowed
+    public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "1300"; // missing ':' symbol
+    public static final String INVALID_WEEK_DESC = " " + PREFIX_WEEK + "100"; // value exceeds limit
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

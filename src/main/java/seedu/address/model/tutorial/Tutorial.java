@@ -56,7 +56,7 @@ public class Tutorial implements Displayable {
      * @param weeks the amount of weeks the tutorial is held for.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks) {
-        requireAllNonNull(name, d, t);
+        requireAllNonNull(name, d, t, weeks);
         tutorialName = name;
         venue = v;
         day = d;
@@ -77,7 +77,7 @@ public class Tutorial implements Displayable {
      * @param allStudents the allStudents list in the ModelManager.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, FilteredList<Person> allStudents) {
-        requireAllNonNull(name, d, t);
+        requireAllNonNull(name, d, t, weeks);
         tutorialName = name;
         venue = v;
         day = d;
@@ -93,7 +93,7 @@ public class Tutorial implements Displayable {
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, AttendanceList attendance,
                     AssessmentResultsList results) {
-        requireAllNonNull(name, d, t, results);
+        requireAllNonNull(name, d, t, weeks, results);
         tutorialName = name;
         venue = v;
         day = d;
@@ -358,7 +358,8 @@ public class Tutorial implements Displayable {
         return otherTut.getTutorialName().equals(getTutorialName())
                 && otherTut.getDay().equals(getDay())
                 && otherTut.getTime().equals(getTime())
-                && otherTut.getVenue().equals(getVenue());
+                && otherTut.getVenue().equals(getVenue())
+                && otherTut.getWeeks() == getWeeks();
     }
 
     @Override
@@ -375,7 +376,9 @@ public class Tutorial implements Displayable {
                 .append("; Day: ")
                 .append(getDay())
                 .append("; Time: ")
-                .append(getTime());
+                .append(getTime())
+                .append("; Weeks: ")
+                .append(getWeeks());
         return builder.toString();
     }
 
