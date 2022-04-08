@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TUTORIAL_WEEKS;
 import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.commands.GradeCommand.MESSAGE_STUDENT_NOT_FOUND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 
@@ -28,9 +28,9 @@ public class ListAttendanceCommand extends Command {
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_WEEK + "WEEK \n"
             + "or\n"
-            + PREFIX_NAME + "NAME\n"
+            + PREFIX_STUDENTID + "STUDENT ID\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIALNAME + "T04 " + PREFIX_WEEK + "1\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "John Doe ";;
+            + "Example: " + COMMAND_WORD + " " + PREFIX_STUDENTID + "e0123456 ";;
 
     private final TutorialName tutorialName;
     private final NusNetId studentId;
