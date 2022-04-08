@@ -32,8 +32,8 @@ public class AddCommentCommand extends Command {
     /**
      * Creates an CommentCommand to add a comment for the specified {@code Student}
      */
-    public AddCommentCommand(NusNetId studentId, Comment comment) {
-        studentToComment = studentId;
+    public AddCommentCommand(NusNetId studentName, Comment comment) {
+        studentToComment = studentName;
         toAdd = comment;
     }
 
@@ -48,7 +48,7 @@ public class AddCommentCommand extends Command {
         Student student = model.getStudentWithId(studentToComment);
         TutorialName tutorialName = student.getTutorialName();
         Tutorial tutorial = model.getTutorialWithName(tutorialName);
-        model.addComment(tutorial, studentToComment, toAdd);
-        return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS, studentToComment, toAdd));
+        model.addComment(tutorial, student.getName(), toAdd);
+        return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, student.getName(), toAdd));
     }
 }

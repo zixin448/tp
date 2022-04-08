@@ -93,6 +93,7 @@ public class AddressBookTest {
         private final ObservableList<Person> filteredPersons = FXCollections.observableArrayList();
         private final ObservableList<Tutorial> tutorials = FXCollections.observableArrayList();
         private final ObservableList<Assessment> assessments = FXCollections.observableArrayList();
+        private ObservableList<Displayable> lastShownList = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -116,6 +117,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getFilteredPersonsList() {
             return filteredPersons;
+        }
+
+        @Override
+        public ObservableList<Displayable> getLastShownList() {
+            return lastShownList;
         }
     }
 

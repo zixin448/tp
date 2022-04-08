@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 
 /**
@@ -16,6 +17,7 @@ public class Attendance implements Displayable {
     private static final DisplayType displayType = DisplayType.ATTENDANCE;
 
     private final ArrayList<Integer> attendanceList;
+    private final Name studentName;
     private final NusNetId studentId;
     private final Comment comment;
 
@@ -23,18 +25,24 @@ public class Attendance implements Displayable {
      * Constructs an Attendance record.
      *
      * @param attendanceList the attendance records for each week.
+     * @param studentName the Name of a student.
      * @param studentId the NusNetId of a student.
      * @param comment motes for a student.
      */
-    public Attendance(ArrayList<Integer> attendanceList, NusNetId studentId, Comment comment) {
-        requireAllNonNull(attendanceList, studentId, comment);
+    public Attendance(ArrayList<Integer> attendanceList, Name studentName, NusNetId studentId, Comment comment) {
+        requireAllNonNull(attendanceList, studentName, studentId, comment);
         this.attendanceList = attendanceList;
+        this.studentName = studentName;
         this.studentId = studentId;
         this.comment = comment;
     }
 
     public ArrayList<Integer> getAttendanceList() {
         return attendanceList;
+    }
+
+    public Name getStudentName() {
+        return studentName;
     }
 
     public NusNetId getStudentId() {
@@ -101,5 +109,15 @@ public class Attendance implements Displayable {
                     .append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return this == o
+                || (o instanceof Attendance
+                && studentName.equals(((Attendance) o).studentName)
+                && studentId.equals(((Attendance) o).studentId)
+                && attendanceList.equals(((Attendance) o).attendanceList)
+                && comment.equals(((Attendance) o).comment));
     }
 }

@@ -7,6 +7,8 @@ import static seedu.address.logic.commands.AssessmentTestUtil.VALID_ASSESSMENT_N
 import static seedu.address.logic.commands.AssessmentTestUtil.VALID_FULL_MARK_OP1;
 import static seedu.address.logic.commands.AssessmentTestUtil.VALID_FULL_MARK_OP2;
 import static seedu.address.logic.commands.AssessmentTestUtil.VALID_SCORE_OP1;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_NAME_AARON;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_NAME_BILL;
 import static seedu.address.logic.commands.StudentTestUtil.VALID_STUDENT_ID_AARON;
 import static seedu.address.logic.commands.StudentTestUtil.VALID_STUDENT_ID_BILL;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.assessment.exceptions.DuplicateStudentResultException;
 import seedu.address.model.assessment.exceptions.StudentResultNotFoundException;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.testutil.StudentResultBuilder;
 
@@ -83,23 +86,24 @@ public class AssessmentResultsTest {
     public void set_nullParameters_throwsNullPointerException() {
         Score score = new Score(VALID_SCORE_OP1, new FullMark(VALID_FULL_MARK_OP1));
         assertThrows(NullPointerException.class, ()
-            -> assessmentResults.set(null, score)); // null student id
+            -> assessmentResults.set(new Name(VALID_NAME_AARON), null, score)); // null student id
 
         assertThrows(NullPointerException.class, ()
-            -> assessmentResults.set(new NusNetId(VALID_STUDENT_ID_AARON), null)); // null score
+            -> assessmentResults.set(new Name(VALID_NAME_AARON),
+                new NusNetId(VALID_STUDENT_ID_AARON), null)); // null score
     }
 
     @Test
     public void set_studentIdNotInList_throwsStudentResultNotFoundException() {
         assertThrows(StudentResultNotFoundException.class, ()
-            -> assessmentResults.set(new NusNetId(VALID_STUDENT_ID_AARON),
+            -> assessmentResults.set(new Name(VALID_NAME_AARON), new NusNetId(VALID_STUDENT_ID_AARON),
                 new Score(VALID_SCORE_OP1, new FullMark(VALID_FULL_MARK_OP1))));
     }
 
     @Test
     public void set_editedResultIsSameResult_setsStudentResult() {
         assessmentResults.add(AARON_RESULT_FOR_OP1);
-        assessmentResults.set(new NusNetId(VALID_STUDENT_ID_AARON),
+        assessmentResults.set(new Name(VALID_NAME_AARON), new NusNetId(VALID_STUDENT_ID_AARON),
                 new Score(VALID_SCORE_OP1, new FullMark(VALID_FULL_MARK_OP1)));
         AssessmentResults aR = new AssessmentResults(new AssessmentName(VALID_ASSESSMENT_NAME_OP1));
         aR.add(AARON_RESULT_FOR_OP1);
@@ -111,7 +115,7 @@ public class AssessmentResultsTest {
         assessmentResults.add(BILL_RESULT_FOR_OP2);
         StudentResult editedBillResultForOp2 = new StudentResultBuilder(BILL_RESULT_FOR_OP2)
                 .withScore(VALID_SCORE_OP1, VALID_FULL_MARK_OP2).build();
-        assessmentResults.set(new NusNetId(VALID_STUDENT_ID_BILL),
+        assessmentResults.set(new Name(VALID_NAME_BILL), new NusNetId(VALID_STUDENT_ID_BILL),
                 new Score(VALID_SCORE_OP1, new FullMark(VALID_FULL_MARK_OP2)));
         AssessmentResults expectedAssessmentResults = new AssessmentResults(
                 new AssessmentName(VALID_ASSESSMENT_NAME_OP1));
