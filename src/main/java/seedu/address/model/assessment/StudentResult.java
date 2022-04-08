@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 
 /**
@@ -18,6 +19,7 @@ import seedu.address.model.person.NusNetId;
  */
 public class StudentResult implements Displayable {
     // Identity field
+    private final Name studentName;
     private final NusNetId studentId;
 
     // Data field
@@ -29,10 +31,15 @@ public class StudentResult implements Displayable {
      * @param id the student's NusNetId.
      * @param s the student's Score.
      */
-    public StudentResult(NusNetId id, Score s) {
+    public StudentResult(Name name, NusNetId id, Score s) {
         requireAllNonNull(id, s);
+        studentName = name;
         studentId = id;
         score = s;
+    }
+
+    public Name getStudentName() {
+        return studentName;
     }
 
     public NusNetId getStudentId() {
@@ -67,6 +74,7 @@ public class StudentResult implements Displayable {
     public boolean equals(Object o) {
         return this == o
                 || (o instanceof StudentResult
+                && studentName.equals(((StudentResult) o).studentName)
                 && studentId.equals(((StudentResult) o).studentId)
                 && score == ((StudentResult) o).score);
     }

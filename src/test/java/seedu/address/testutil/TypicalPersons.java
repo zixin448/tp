@@ -69,6 +69,7 @@ public class TypicalPersons {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
+            ab.addLastShownItem(person);
         }
         ab.addTutorial(DUMMY_TUTORIAL);
         return ab;

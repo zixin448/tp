@@ -12,6 +12,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,6 +22,9 @@ import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentNameIsEqualPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tutorial.Tutorial;
+import seedu.address.model.tutorial.TutorialName;
+import seedu.address.model.tutorial.TutorialNameIsEqualPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -138,6 +142,37 @@ public class CommandTestUtil {
         model.updateFilteredAssessmentList(new AssessmentNameIsEqualPredicate(assessment.getAssessmentName()));
 
         assertEquals(1, model.getFilteredAssessmentList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the tutorial at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showTutorialAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTutorialList().size());
+
+        Tutorial tutorial = model.getFilteredTutorialList().get(targetIndex.getZeroBased());
+        model.updateFilteredTutorialList(new TutorialNameIsEqualPredicate(tutorial.getTutorialName()));
+
+        assertEquals(1, model.getFilteredTutorialList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the tutorial with the given {@code targetTutorialName} in the
+     * {@code model}'s address book.
+     */
+    public static void showTutorialWithName(Model model, TutorialName targetTutorialName) {
+        List<Tutorial> filteredTutorialWithMatchingName = model.getFilteredTutorialList()
+                .stream()
+                .filter(t -> t.getTutorialName().equals(targetTutorialName))
+                .collect(Collectors.toList());
+
+        assertTrue(filteredTutorialWithMatchingName.size() > 0);
+
+        Tutorial tutorial = model.getFilteredTutorialList().get(0);
+        model.updateFilteredTutorialList(new TutorialNameIsEqualPredicate(tutorial.getTutorialName()));
+
+        assertEquals(1, model.getFilteredTutorialList().size());
     }
 
 }

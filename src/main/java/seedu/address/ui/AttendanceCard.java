@@ -28,11 +28,11 @@ public class AttendanceCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label studentName;
+    @FXML
     private Label studentId;
     @FXML
     private Label status;
-    @FXML
-    private Label comment;
 
     /**
      * Creates a {@code AttendanceCode} with the given {@code Attendance} and index to display.
@@ -41,9 +41,9 @@ public class AttendanceCard extends UiPart<Region> {
         super(FXML);
         this.attendance = attendance;
         id.setText(displayedIndex + ". ");
+        studentName.setText(attendance.getStudentName().toString());
         studentId.setText(attendance.getStudentId().toString());
         status.setText(attendance.getAttendanceStatusByWeek(week));
-        comment.setText(attendance.getComment().toString());
     }
 
     @Override

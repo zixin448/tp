@@ -20,6 +20,7 @@ import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceList;
 import seedu.address.model.attendance.Comment;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
@@ -55,7 +56,7 @@ public class Tutorial implements Displayable {
      * @param weeks the amount of weeks the tutorial is held for.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks) {
-        requireAllNonNull(name, d, t);
+        requireAllNonNull(name, d, t, weeks);
         tutorialName = name;
         venue = v;
         day = d;
@@ -76,7 +77,7 @@ public class Tutorial implements Displayable {
      * @param allStudents the allStudents list in the ModelManager.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, FilteredList<Person> allStudents) {
-        requireAllNonNull(name, d, t);
+        requireAllNonNull(name, d, t, weeks, allStudents);
         tutorialName = name;
         venue = v;
         day = d;
@@ -92,7 +93,7 @@ public class Tutorial implements Displayable {
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, AttendanceList attendance,
                     AssessmentResultsList results) {
-        requireAllNonNull(name, d, t, results);
+        requireAllNonNull(name, d, t, weeks, results, attendance);
         tutorialName = name;
         venue = v;
         day = d;
@@ -245,9 +246,9 @@ public class Tutorial implements Displayable {
      * Sets the result of the student with {@code studentId} for the assessment with {@code assessmentName} to
      * {@code score}.
      */
-    public void setStudentResult(AssessmentName assessmentName, NusNetId studentId, Score score) {
+    public void setStudentResult(AssessmentName assessmentName, Name studentName, NusNetId studentId, Score score) {
         requireAllNonNull(assessmentName, studentId, score);
-        assessmentResultsList.setStudentResult(assessmentName, studentId, score);
+        assessmentResultsList.setStudentResult(assessmentName, studentName, studentId, score);
     }
 
     /**
@@ -302,29 +303,29 @@ public class Tutorial implements Displayable {
     /**
      * Adds a comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the NusNetId of a student.
      * @param comment the comment to be added.
      */
-    public void addComment(NusNetId studentId, Comment comment) {
-        attendanceList.addComment(studentId, comment);
+    public void addComment(Name studentName, Comment comment) {
+        attendanceList.addComment(studentName, comment);
     }
 
     /**
      * Removes comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the Name of a student.
      */
-    public void removeComment(NusNetId studentId) {
-        attendanceList.removeComment(studentId);
+    public void removeComment(Name studentName) {
+        attendanceList.removeComment(studentName);
     }
 
     /**
      * View comment for the specified student.
      *
-     * @param studentId the NusNetId of a student.
+     * @param studentName the NusNetId of a student.
      */
-    public Comment viewComment(NusNetId studentId) {
-        return attendanceList.viewComment(studentId);
+    public Comment viewComment(Name studentName) {
+        return attendanceList.viewComment(studentName);
     }
 
     /**
@@ -345,7 +346,8 @@ public class Tutorial implements Displayable {
         return otherTut.getTutorialName().equals(getTutorialName())
                 && otherTut.getDay().equals(getDay())
                 && otherTut.getTime().equals(getTime())
-                && otherTut.getVenue().equals(getVenue());
+                && otherTut.getVenue().equals(getVenue())
+                && otherTut.getWeeks() == getWeeks();
     }
 
     @Override
@@ -362,7 +364,9 @@ public class Tutorial implements Displayable {
                 .append("; Day: ")
                 .append(getDay())
                 .append("; Time: ")
-                .append(getTime());
+                .append(getTime())
+                .append("; Weeks: ")
+                .append(getWeeks());
         return builder.toString();
     }
 
