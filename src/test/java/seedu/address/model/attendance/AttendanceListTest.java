@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.StudentTestUtil.INVALID_NAME_ADAM;
 import static seedu.address.logic.commands.StudentTestUtil.INVALID_STUDENT_ID_ADAM;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalStudents.ALEX;
+import static seedu.address.testutil.TypicalStudents.EVA;
 import static seedu.address.testutil.TypicalStudents.EVE;
 
 import java.util.ArrayList;
@@ -83,6 +84,22 @@ public class AttendanceListTest {
     public void markAttendanceForStudent_invalidId_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> attendanceList
                 .markAttendanceForStudent(new NusNetId(INVALID_STUDENT_ID_ADAM), 2));
+    }
+
+    @Test
+    public void markAllAttendance_twoStudentList_successfulMark() {
+        List<Person> studentList = new ArrayList<>();
+        studentList.add(EVE);
+        studentList.add(EVA);
+        TutorialName tutName = EVA.getTutorialName();
+        ObservableList<Person> observableStudentList = FXCollections.observableList(studentList);
+        attendanceList.generateAttendance(new UniqueStudentsInTutorialList(observableStudentList,
+                tutName));
+        attendanceList.markAllAttendance(2);
+        Attendance eveAttendance = attendanceList.getAttendances().get(0);
+        Attendance evaAttendance = attendanceList.getAttendances().get(1);
+        assertTrue(eveAttendance.getAttendanceList().get(1) == 1
+                && evaAttendance.getAttendanceList().get(1) == 1);
     }
 
 
