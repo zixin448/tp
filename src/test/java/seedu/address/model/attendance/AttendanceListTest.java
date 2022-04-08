@@ -42,12 +42,12 @@ public class AttendanceListTest {
     }
 
     @Test
-    public void getAttendancesByStudentID_nullName_throwsNullPointerException() {
+    public void getAttendancesByStudentName_nullName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> attendanceList.getAttendancesByStudentName(null));
     }
 
     @Test
-    public void getAttendancesByStudentID_validName_returnsAttendanceList() {
+    public void getAttendancesByStudentName_validName_returnsAttendanceList() {
         List<Person> studentList = new ArrayList<>();
         studentList.add(EVE);
         ObservableList<Person> observableStudentList = FXCollections.observableList(studentList);
@@ -57,7 +57,7 @@ public class AttendanceListTest {
     }
 
     @Test
-    public void getAttendancesByStudentID_invalidId_throwsIllegalArgumentException() {
+    public void getAttendancesByStudentName_invalidId_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> attendanceList
                 .getAttendancesByStudentName(new Name(INVALID_NAME_ADAM)));
     }
