@@ -30,7 +30,7 @@ public class ListAttendanceCommand extends Command {
             + "or\n"
             + PREFIX_STUDENTID + "STUDENT ID\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIALNAME + "T04 " + PREFIX_WEEK + "1\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_STUDENTID + "e0123456 ";;
+            + "Example: " + COMMAND_WORD + " " + PREFIX_STUDENTID + "e0123456 ";
 
     private final TutorialName tutorialName;
     private final NusNetId studentId;
