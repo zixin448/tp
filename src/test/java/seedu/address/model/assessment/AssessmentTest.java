@@ -3,8 +3,11 @@ package seedu.address.model.assessment;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.AssessmentTestUtil.VALID_ASSESSMENT_NAME_OP1;
+import static seedu.address.logic.commands.AssessmentTestUtil.VALID_ASSESSMENT_NAME_OP2;
 import static seedu.address.logic.commands.AssessmentTestUtil.VALID_FULL_MARK_OP1;
+import static seedu.address.logic.commands.AssessmentTestUtil.VALID_FULL_MARK_OP2;
 import static seedu.address.logic.commands.AssessmentTestUtil.VALID_WEIGHTAGE_OP1;
+import static seedu.address.logic.commands.AssessmentTestUtil.VALID_WEIGHTAGE_OP2;
 import static seedu.address.testutil.TypicalAssessments.ASSIGNMENT_1;
 import static seedu.address.testutil.TypicalAssessments.ASSIGNMENT_2;
 import static seedu.address.testutil.TypicalAssessments.OP1;
@@ -44,6 +47,45 @@ public class AssessmentTest {
     @Test
     public void equals() {
         // same values -> returns true
+        Assessment op1Copy = new AssessmentBuilder(OP1).build();
+        assertTrue(OP1.equals(op1Copy));
 
+        // same object -> returns true
+        assertTrue(OP1.equals(OP1));
+
+        // null -> returns false
+        assertFalse(OP1.equals(null));
+
+        // different type -> returns false
+        assertFalse(OP1.equals(5));
+
+        // different assessment -> return false
+        assertFalse(OP1.equals(ASSIGNMENT_1));
+
+        // different name -> return false
+        Assessment editedOP1 = new AssessmentBuilder(OP1).withName(VALID_ASSESSMENT_NAME_OP2).build();
+        assertFalse(OP1.equals(editedOP1));
+
+        // different weightage -> return false
+        editedOP1 = new AssessmentBuilder(OP1).withWeightage(VALID_WEIGHTAGE_OP2).build();
+        assertFalse(OP1.equals(editedOP1));
+
+        // different full mark -> return false
+        editedOP1 = new AssessmentBuilder(OP1).withFullMark(VALID_FULL_MARK_OP2).build();
+        assertFalse(OP1.equals(editedOP1));
+    }
+
+    @Test
+    public void hasName() {
+        // same name -> returns true
+        AssessmentName op1Name = new AssessmentName(VALID_ASSESSMENT_NAME_OP1);
+        assertTrue(OP1.hasName(op1Name));
+
+        // null -> returns false
+        assertFalse(OP1.hasName(null));
+
+        // different name -> returns false
+        AssessmentName op2Name = new AssessmentName(VALID_ASSESSMENT_NAME_OP2);
+        assertFalse(OP1.hasName(op2Name));
     }
 }

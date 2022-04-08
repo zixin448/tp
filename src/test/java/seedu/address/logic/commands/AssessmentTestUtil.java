@@ -7,4 +7,6 @@ public class AssessmentTestUtil {
     public static final String VALID_WEIGHTAGE_OP2 = "20";
     public static final String VALID_FULL_MARK_OP1 = "50";
     public static final String VALID_FULL_MARK_OP2 = "100";
+    public static final String VALID_SCORE_OP1 = "25";
+    public static final String VALID_SCORE_OP2 = "75";
 }

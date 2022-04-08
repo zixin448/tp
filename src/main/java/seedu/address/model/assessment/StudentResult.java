@@ -68,7 +68,7 @@ public class StudentResult implements Displayable {
         return this == o
                 || (o instanceof StudentResult
                 && studentId.equals(((StudentResult) o).studentId)
-                && score == ((StudentResult) o).score);
+                && score.equals(((StudentResult) o).score));
     }
 
     @Override

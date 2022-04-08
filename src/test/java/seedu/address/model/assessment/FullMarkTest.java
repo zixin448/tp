@@ -22,7 +22,7 @@ public class FullMarkTest {
     @Test
     public void isValidFullMark() {
         // null full mark
-        assertThrows(NullPointerException.class, () -> new FullMark(null));
+        assertThrows(NullPointerException.class, () -> FullMark.isValidFullMark(null));
 
         // invalid full marks
         assertFalse(FullMark.isValidFullMark("")); // empty string
