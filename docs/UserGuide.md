@@ -363,7 +363,7 @@ Removes a student from a given class, replaces the `Student` contact with a `Per
 Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
 
 * `list_student` has to be called before `remove_student` as this is the list referred to by the `remove_student` command
-* Removes the student with the specified `INDEX` or `NAME` from the class with specified `TUTORIAL_NAME`.
+* Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
 * The `INDEX` refers to the index number shown in the displayed list of student in the class.
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
 * After this command is called, tutorial name and student id of the student will be deleted.
@@ -421,7 +421,7 @@ Format: `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
 
 Examples:
 
-* `mark_attendance tn/T04 n/e0123456 wk/1`
+* `mark_attendance tn/T04 id/e0123456 wk/1`
 * `mark_attendance tn/T04 wk/1`
 
 ### Unmarking attendance for a student: `unmark_attendance`
@@ -492,7 +492,7 @@ _Details coming soon ..._
 | Action                | Format, Examples                                                                                                                                                                     |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague`               |
-| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00 wk/13`                                                                        |
+| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME wk/WEEK` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00 wk/13`                                                                |
 | **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student n/Amy Tan id/e0123456 tn/T13`                                                                            |
 | **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL MARK` <br> e.g., `add_assessment as/Attendance w/5 f/10`                                                                       |
 | **Clear**             | `clear`                                                                                                                                                                              |
