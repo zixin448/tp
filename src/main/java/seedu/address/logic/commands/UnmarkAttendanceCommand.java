@@ -65,10 +65,18 @@ public class UnmarkAttendanceCommand extends Command {
                 throw new CommandException(MESSAGE_STUDENT_NOT_IN_CLASS);
             }
             model.unmarkAttendanceForStudent(tutorial, studentToMark, week);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, studentToMark, week));
+            model.updateFilteredAttendanceList(tutorial, null);
+            CommandResult result = CommandResult
+                    .createAttendanceCommandResult(String.format(MESSAGE_SUCCESS, studentToMark, week));
+            result.setAttendanceWeek(week);
+            return result;
         } else {
             model.unmarkAttendanceForClass(tutorial, week);
-            return new CommandResult(String.format(MESSAGE_MULTIPLE_SUCCESS, week));
+            model.updateFilteredAttendanceList(tutorial, null);
+            CommandResult result = CommandResult
+                    .createAttendanceCommandResult(String.format(MESSAGE_SUCCESS, studentToMark, week));
+            result.setAttendanceWeek(week);
+            return result;
         }
     }
 }

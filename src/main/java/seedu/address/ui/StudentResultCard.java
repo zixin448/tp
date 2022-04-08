@@ -16,6 +16,8 @@ public class StudentResultCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label studentName;
+    @FXML
     private Label studentId;
     @FXML
     private Label score;
@@ -27,6 +29,7 @@ public class StudentResultCard extends UiPart<Region> {
         super(FXML);
         result = item;
         id.setText(index + ". ");
+        studentName.setText(result.getStudentName().toString());
         studentId.setText(result.getStudentId().toString());
         score.setText(SCORE_KEYWORD + result.getScore().toString());
     }

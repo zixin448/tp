@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalTutorials.T01;
 import static seedu.address.testutil.TypicalTutorials.T02;
 import static seedu.address.testutil.TypicalTutorials.TG1;
 import static seedu.address.testutil.TypicalTutorials.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTutorials.getTypicalAddressBookWithPerson;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,9 +31,11 @@ import seedu.address.testutil.TutorialBuilder;
 public class DeleteClassCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model modelWithPersons = new ModelManager(getTypicalAddressBookWithPerson(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredTutorialList_success() {
+        model.updateFilteredTutorialList(model.PREDICATE_SHOW_ALL_TUTORIALS);
         Tutorial tutorialToDelete = model.getFilteredTutorialList().get(INDEX_FIRST.getZeroBased());
         DeleteClassCommand deleteClassCommand = new DeleteClassCommand(INDEX_FIRST, null, false);
 
@@ -42,6 +45,14 @@ public class DeleteClassCommandTest {
         expectedModel.deleteTutorial(tutorialToDelete);
 
         assertCommandSuccess(deleteClassCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidListUnfilteredTutorialList_failure() {
+        modelWithPersons.updateFilteredPersonList(modelWithPersons.PREDICATE_SHOW_ALL_PERSONS);
+        DeleteClassCommand deleteClassCommand = new DeleteClassCommand(INDEX_FIRST, null, false);
+        String expectedMessage = Messages.MESSAGE_INDEX_LIST_MISMATCH + DeleteClassCommand.MESSAGE_INDEX_USAGE;
+        assertCommandFailure(deleteClassCommand, modelWithPersons, expectedMessage);
     }
 
     @Test

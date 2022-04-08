@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
@@ -21,10 +20,9 @@ public class RemoveStudentCommandParser implements Parser<RemoveStudentCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public RemoveStudentCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STUDENTID, PREFIX_TUTORIALNAME);
 
-        if (args.contains(PREFIX_STUDENTID.getPrefix())) {
-            argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STUDENTID, PREFIX_TUTORIALNAME);
+        if (arePrefixesPresent(argMultimap, PREFIX_STUDENTID)) {
 
             if (!arePrefixesPresent(argMultimap, PREFIX_STUDENTID, PREFIX_TUTORIALNAME)
                     || !argMultimap.getPreamble().isEmpty()) {
@@ -36,7 +34,6 @@ public class RemoveStudentCommandParser implements Parser<RemoveStudentCommand> 
             TutorialName tutorialName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIALNAME).get());
             return new RemoveStudentCommand(studentId, tutorialName);
         } else {
-            argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_TUTORIALNAME);
             Index index;
             try {
                 index = ParserUtil.parseIndex(argMultimap.getPreamble());

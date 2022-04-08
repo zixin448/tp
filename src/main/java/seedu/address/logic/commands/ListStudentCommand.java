@@ -10,6 +10,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.person.StudentHasTutorialNamePredicate;
 import seedu.address.model.tutorial.Tutorial;
@@ -25,6 +26,8 @@ public class ListStudentCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all students";
 
     public static final String MESSAGE_SUCCESS_CLASS = "Listed students from Class: %1$s";
+
+    public static final String MESSAGE_INDEX_USAGE = "Try listing a class e.g. list_class";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": List all students or the students identified by the index "
@@ -49,8 +52,8 @@ public class ListStudentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         if (targetIndex == null && tutorialName == null) {
+            model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
             return CommandResult.createStudentCommandResult(MESSAGE_SUCCESS);
         }
         if (targetIndex == null) {
@@ -77,14 +80,18 @@ public class ListStudentCommand extends Command {
     }
 
     private CommandResult listByIndex(Model model) throws CommandException {
-        List<Tutorial> lastShownList = model.getFilteredTutorialList();
+        List<Displayable> lastShownList = model.getLastShownList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
         }
 
-        Tutorial tutorialToList = lastShownList.get(targetIndex.getZeroBased());
-        model.updateFilteredStudentList(new StudentHasTutorialNamePredicate(tutorialToList.getTutorialName()));
-        return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS_CLASS, tutorialToList));
+        Displayable item = lastShownList.get(targetIndex.getZeroBased());
+        if (item instanceof Tutorial) {
+            Tutorial tutorialToList = (Tutorial) item;
+            model.updateFilteredStudentList(new StudentHasTutorialNamePredicate(tutorialToList.getTutorialName()));
+            return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS_CLASS, tutorialToList));
+        }
+        throw new CommandException(Messages.MESSAGE_INDEX_LIST_MISMATCH + MESSAGE_INDEX_USAGE);
     }
 }

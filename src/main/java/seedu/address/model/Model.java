@@ -280,23 +280,25 @@ public interface Model {
     void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week);
 
     /**
-     * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Updates the filter of the filtered attendance list to filter by the given tutorial or studentName.
      */
-    void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId);
+    void updateFilteredAttendanceList(Tutorial tutorial, Name studentName);
 
     /** Returns an unmodifiable view of the attendance list */
     ObservableList<Attendance> getFilteredAttendanceList();
 
-    void addComment(Tutorial tutorial, NusNetId studentToComment, Comment toAdd);
+    void addComment(Tutorial tutorial, Name name, Comment toAdd);
 
-    void removeComment(Tutorial tutorial, NusNetId studentToRemoveComment);
+    void removeComment(Tutorial tutorial, Name studentToRemoveComment);
 
     /**
      * Adds the comment associated with the specified student
      * to an observable list in the model and returns the comment
      */
-    Comment getComment(Tutorial tutorial, NusNetId studentToViewComment);
+    Comment getComment(Tutorial tutorial, Name studentToViewComment);
 
     ObservableList<Comment> getCommentList();
+
+    ObservableList<Displayable> getLastShownList();
+
 }

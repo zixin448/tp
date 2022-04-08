@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
@@ -38,6 +39,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueTutorialList tutorials = new UniqueTutorialList();
     private final UniqueAssessmentList assessments = new UniqueAssessmentList();
     private final UniqueFilteredPersonsList filteredPersons = new UniqueFilteredPersonsList();
+    private ObservableList<Displayable> lastShownList = FXCollections.observableArrayList();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -86,6 +88,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.assessments.setAssessments(assessments);
     }
 
+    public void setLastShownList(ObservableList<Displayable> lastShownList) {
+        this.lastShownList.setAll(lastShownList);
+    }
+
+    public ObservableList<Displayable> getLastShownList() {
+        return lastShownList;
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -95,6 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setTutorials(newData.getTutorialList());
         setAssessments(newData.getAssessmentList());
+        setLastShownList(newData.getLastShownList());
     }
 
     //// person-level operations
@@ -113,6 +124,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    public void addLastShownItem(Person p) {
+        lastShownList.add(p);
     }
 
     /**
@@ -227,7 +242,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         NusNetId studentId = getIdOfStudent(studentName);
         TutorialName tutorialName = getTutorialNameOfStudent(studentName);
         Tutorial tut = getTutorialWithName(tutorialName);
-        StudentResult result = new StudentResult(studentId, score);
+        StudentResult result = new StudentResult(studentName, studentId, score);
         tut.addStudentResult(assessmentName, result);
     }
 
@@ -253,7 +268,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         NusNetId studentId = getIdOfStudent(studentName);
         TutorialName tutorialName = getTutorialNameOfStudent(studentName);
         Tutorial tut = getTutorialWithName(tutorialName);
-        tut.setStudentResult(assessmentName, studentId, score);
+        tut.setStudentResult(assessmentName, studentName, studentId, score);
     }
 
     public AssessmentResults getAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
@@ -481,24 +496,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a comment for the specified student in the specified tutorial
      */
-    public void addComment(Tutorial tutorial, NusNetId id, Comment commentToAdd) {
-        requireAllNonNull(tutorial, id, commentToAdd);
-        tutorial.addComment(id, commentToAdd);
+    public void addComment(Tutorial tutorial, Name name, Comment commentToAdd) {
+        requireAllNonNull(tutorial, name, commentToAdd);
+        tutorial.addComment(name, commentToAdd);
     }
 
     /**
      * Removes the comment of the specified student in the specified tutorial
      */
-    public void removeComment(Tutorial tutorial, NusNetId id) {
-        requireAllNonNull(tutorial, id);
-        tutorial.removeComment(id);
+    public void removeComment(Tutorial tutorial, Name name) {
+        requireAllNonNull(tutorial, name);
+        tutorial.removeComment(name);
     }
 
     /**
      * Views the comment of the specified student in the specified tutorial
      */
-    public Comment viewComment(Tutorial tutorial, NusNetId id) {
-        requireAllNonNull(tutorial, id);
-        return tutorial.viewComment(id);
+    public Comment viewComment(Tutorial tutorial, Name name) {
+        requireAllNonNull(tutorial, name);
+        return tutorial.viewComment(name);
     }
 }
