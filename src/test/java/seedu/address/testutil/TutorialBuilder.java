@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import javafx.collections.transformation.FilteredList;
+import seedu.address.model.person.Person;
 import seedu.address.model.tutorial.Day;
 import seedu.address.model.tutorial.Time;
 import seedu.address.model.tutorial.Tutorial;
@@ -89,4 +91,7 @@ public class TutorialBuilder {
         return new Tutorial(tutorialName, venue, day, time, weeks);
     }
 
+    public Tutorial buildWithStudentList(FilteredList<Person> studentList) {
+        return new Tutorial(tutorialName, venue, day, time, weeks, studentList);
+    }
 }
