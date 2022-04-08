@@ -62,19 +62,6 @@ public class UniqueStudentsInTutorialList {
     }
 
     /**
-     * Returns true if the list contains a student with a matching {@code studentId}.
-     */
-    public boolean containsStudentWithName(Name studentName) {
-        for (int i = 0; i < studentsInClass.size(); i++) {
-            Student student = (Student) studentsInClass.get(i);
-            if (student.getName().equals(studentName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Returns the student in the list that has a matching {@code studentId}.
      * @param studentId
      * @return
@@ -84,23 +71,6 @@ public class UniqueStudentsInTutorialList {
         for (int i = 0; i < studentsInClass.size(); i++) {
             student = (Student) studentsInClass.get(i);
             if (student.getStudentId().equals(studentId)) {
-                return student;
-            }
-        }
-        // execution should not reach this point
-        return null;
-    }
-
-    /**
-     * Returns the student in the list that has a matching {@code studentName}.
-     * @param studentName
-     * @return
-     */
-    public Student getStudentWithName(Name studentName) {
-        Student student;
-        for (int i = 0; i < studentsInClass.size(); i++) {
-            student = (Student) studentsInClass.get(i);
-            if (student.getName().equals(studentName)) {
                 return student;
             }
         }
