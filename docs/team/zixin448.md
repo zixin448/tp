@@ -43,13 +43,14 @@ Given below are my contributions to the project.
   * Wrote additional test for existing and new features to increase coverage by (Pull requests) *[To be updated by project submission]*
     * Test includes: AddClassCommandTest, AddClassCommandParserTest, AttendanceTest, CommentTest, NusNetIdTest
     * Test that will be completed by submission: DeleteClassCommandTest, DeleteClassCommandParserTest, FindByPrefixCommandTest, FindCommandParserTest, AttendanceListTest
+    * Pull request: [#208](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/208) [#210](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/210)
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `add_student` and `findByPrefix` (Pull request: [#121](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/121))
+    * Added documentation for the features `addStudent` and `findByPrefix` (Pull request: [#121](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/121))
     * Did cosmetic tweaks to overall documentation to increase accuracy in documentation
   * Developer Guide:
-    * Added documentation for the features `add_student` (Pull request: [#101](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/101))
+    * Added documentation for the features `addStudent` (Pull request: [#101](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/101))
 
 * **Team-based tasks**:
   * Fix bugs from PE-D (Pull request: [#203](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/203) [#205](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/205) )
