@@ -63,6 +63,7 @@ public class TypicalStudents {
         AddressBook ab = new AddressBook();
         for (Student student : getTypicalStudents()) {
             ab.addStudent(student);
+            ab.addLastShownItem(student);
         }
         return ab;
     }

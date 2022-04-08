@@ -2,6 +2,7 @@ package seedu.address.model.attendance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.StudentTestUtil.INVALID_NAME_ADAM;
 import static seedu.address.logic.commands.StudentTestUtil.INVALID_STUDENT_ID_ADAM;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalStudents.ALEX;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
@@ -40,24 +42,24 @@ public class AttendanceListTest {
     }
 
     @Test
-    public void getAttendancesByStudentID_nullId_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> attendanceList.getAttendancesByStudentID(null));
+    public void getAttendancesByStudentID_nullName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> attendanceList.getAttendancesByStudentName(null));
     }
 
     @Test
-    public void getAttendancesByStudentID_validId_returnsAttendanceList() {
+    public void getAttendancesByStudentID_validName_returnsAttendanceList() {
         List<Person> studentList = new ArrayList<>();
         studentList.add(EVE);
         ObservableList<Person> observableStudentList = FXCollections.observableList(studentList);
         attendanceList.generateAttendance(new UniqueStudentsInTutorialList(observableStudentList,
                 EVE.getTutorialName()));
-        assertTrue(attendanceList.getAttendancesByStudentID(EVE.getStudentId()).size() == 3);
+        assertTrue(attendanceList.getAttendancesByStudentName(EVE.getName()).size() == 3);
     }
 
     @Test
     public void getAttendancesByStudentID_invalidId_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> attendanceList
-                .getAttendancesByStudentID(new NusNetId(INVALID_STUDENT_ID_ADAM)));
+                .getAttendancesByStudentName(new Name(INVALID_NAME_ADAM)));
     }
 
     @Test

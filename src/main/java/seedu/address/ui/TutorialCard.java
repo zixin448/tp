@@ -35,6 +35,8 @@ public class TutorialCard extends UiPart<Region> {
     private Label time;
     @FXML
     private Label venue;
+    @FXML
+    private Label week;
 
     /**
      * Creates a {@code TutorialCode} with the given {@code Tutorial} and index to display.
@@ -47,6 +49,7 @@ public class TutorialCard extends UiPart<Region> {
         day.setText(tutorial.getDay().day);
         time.setText(tutorial.getTime().time);
         venue.setText(tutorial.getVenue().value);
+        week.setText("Number of Weeks: " + tutorial.getWeeks());
     }
 
     @Override

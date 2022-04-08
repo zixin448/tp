@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalAttendances.E0123456;
-import static seedu.address.testutil.TypicalAttendances.E6543210;
+import static seedu.address.testutil.TypicalAttendances.BOBBY;
+import static seedu.address.testutil.TypicalAttendances.ELISE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
@@ -15,9 +15,9 @@ import seedu.address.testutil.AttendanceBuilder;
 
 public class AttendanceTest {
 
-    private Attendance e0234567 = new AttendanceBuilder()
+    private Attendance ebby = new AttendanceBuilder()
             .withAttendanceList(new String[] {"1", "0", "1", "0", "1"})
-            .withNusNetId("e0234567")
+            .withName("ebby")
             .withComment("Answered one question")
             .build();
 
@@ -25,27 +25,27 @@ public class AttendanceTest {
     public void getStudentId() {
 
         // same Id
-        Attendance eliseCopy = new AttendanceBuilder(E0123456).build();
-        assertTrue(E0123456.getStudentId().equals(eliseCopy.getStudentId()));
+        Attendance eliseCopy = new AttendanceBuilder(ELISE).build();
+        assertTrue(ELISE.getStudentName().equals(eliseCopy.getStudentName()));
 
         // different Id
-        assertFalse(E0123456.getStudentId().equals(e0234567.getStudentId()));
+        assertFalse(ELISE.getStudentName().equals(ebby.getStudentName()));
 
     }
 
     @Test
     public void getAttendanceStatusByWeek_invalidIndex_throwsIndexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class, () -> e0234567.getAttendanceStatusByWeek(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ebby.getAttendanceStatusByWeek(-1));
     }
 
     @Test
     public void getAttendanceStatusByWeek() {
 
         // valid week, present
-        assertEquals(e0234567.getAttendanceStatusByWeek(INDEX_FIRST.getOneBased()), "Status: Present");
+        assertEquals(ebby.getAttendanceStatusByWeek(INDEX_FIRST.getOneBased()), "Status: Present");
 
         // valid week, absent
-        assertEquals(e0234567.getAttendanceStatusByWeek(INDEX_SECOND.getOneBased()), "Status: Absent");
+        assertEquals(ebby.getAttendanceStatusByWeek(INDEX_SECOND.getOneBased()), "Status: Absent");
 
     }
 
@@ -53,33 +53,33 @@ public class AttendanceTest {
     public void equals() {
 
         // same values -> returns true
-        Attendance eliseCopy = new AttendanceBuilder(E0123456).build();
-        assertTrue(E0123456.equals(eliseCopy));
+        Attendance eliseCopy = new AttendanceBuilder(ELISE).build();
+        assertTrue(ELISE.equals(eliseCopy));
 
         // same object -> returns true
-        assertTrue(E0123456.equals(E0123456));
+        assertTrue(ELISE.equals(ELISE));
 
         // null -> returns false
-        assertFalse(E0123456.equals(null));
+        assertFalse(ELISE.equals(null));
 
         // different type -> returns false
-        assertFalse(E0123456.equals(1));
+        assertFalse(ELISE.equals(1));
 
         // different attendance -> returns false
-        assertFalse(E0123456.equals(E6543210));
+        assertFalse(ELISE.equals(BOBBY));
 
         // different name -> returns false
-        Attendance editedE0123456 = new AttendanceBuilder(E0123456).withNusNetId("e0223456").build();
-        assertFalse(E0123456.equals(editedE0123456));
+        Attendance editedElise = new AttendanceBuilder(ELISE).withName("Elice").build();
+        assertFalse(ELISE.equals(editedElise));
 
         // different attendance list -> returns false
-        editedE0123456 = new AttendanceBuilder(E0123456).withAttendanceList(new String[] {"1", "0", "1", "0", "0"})
+        editedElise = new AttendanceBuilder(ELISE).withAttendanceList(new String[] {"1", "0", "1", "0", "0"})
                 .build();
-        assertFalse(E0123456.equals(editedE0123456));
+        assertFalse(ELISE.equals(editedElise));
 
         // different comment -> returns false
-        editedE0123456 = new AttendanceBuilder(E0123456).withComment("Changed comment").build();
-        assertFalse(E0123456.equals(editedE0123456));
+        editedElise = new AttendanceBuilder(ELISE).withComment("Changed comment").build();
+        assertFalse(ELISE.equals(editedElise));
     }
 
 }

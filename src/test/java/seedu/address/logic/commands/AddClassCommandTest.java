@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -256,17 +257,17 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void addComment(Tutorial tutorial, NusNetId studentToComment, Comment toAdd) {
+        public void addComment(Tutorial tutorial, Name name, Comment toAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void removeComment(Tutorial tutorial, NusNetId studentToRemoveComment) {
+        public void removeComment(Tutorial tutorial, Name studentToRemoveComment) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Comment getComment(Tutorial tutorial, NusNetId studentToViewComment) {
+        public Comment getComment(Tutorial tutorial, Name studentToViewComment) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -276,7 +277,7 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void updateFilteredAttendanceList(Tutorial tutorial, NusNetId studentId) {
+        public void updateFilteredAttendanceList(Tutorial tutorial, Name studentName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -388,6 +389,11 @@ public class AddClassCommandTest {
 
         @Override
         public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Displayable> getLastShownList() {
             throw new AssertionError("This method should not be called.");
         }
     }

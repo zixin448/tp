@@ -28,9 +28,9 @@ public class ListAttendanceCommand extends Command {
             + PREFIX_TUTORIALNAME + "TUTORIAL NAME "
             + PREFIX_WEEK + "WEEK \n"
             + "or\n"
-            + PREFIX_STUDENTID + "STUDENT ID "
-            + PREFIX_WEEK + "WEEK \n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIALNAME + "T04 " + PREFIX_WEEK + "1 ";
+            + PREFIX_STUDENTID + "STUDENT ID\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIALNAME + "T04 " + PREFIX_WEEK + "1\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_STUDENTID + "e0123456 ";
 
     private final TutorialName tutorialName;
     private final NusNetId studentId;
@@ -88,8 +88,8 @@ public class ListAttendanceCommand extends Command {
         Student studentToList = model.getStudentWithId(studentId);
         Tutorial tutorialToList = model.getTutorialWithName(studentToList.getTutorialName());
 
-        model.updateFilteredAttendanceList(tutorialToList, studentId);
-        String successMessage = String.format(MESSAGE_SUCCESS_STUDENT, studentId);
+        model.updateFilteredAttendanceList(tutorialToList, studentToList.getName());
+        String successMessage = String.format(MESSAGE_SUCCESS_STUDENT, studentToList.getName());
         CommandResult commandResult = CommandResult.createAttendanceByStudentCommandResult(successMessage);
         return commandResult;
     }
