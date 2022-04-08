@@ -40,6 +40,11 @@ public class TypicalStudents {
             .withAddress("321, Ang Mo Kio West Ave 9, #10-101").withEmail("dsnlh@hotmail.com")
             .withPhone("83214567").withTags("student").withStudentId("e0563214")
             .withTutorialName("TG01").build();
+    public static final Student EVE = new StudentBuilder().withName("Eve Tan")
+            .withAddress("123, Jurong West Ave 7, #08-111").withEmail("eve@example.com")
+            .withPhone("91234566").withTags("student").withStudentId("e0543220")
+            .withTutorialName("T01").build();
+
 
     // Manually added - Student's details found in {@code StudentTestUtil}
     public static final Student AARON = new StudentBuilder().withName(VALID_NAME_AARON).withPhone(VALID_PHONE_AARON)
