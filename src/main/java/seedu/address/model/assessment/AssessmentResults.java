@@ -6,7 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assessment.exceptions.DuplicateStudentResultException;
-import seedu.address.model.assessment.exceptions.StudentResultNotFound;
+import seedu.address.model.assessment.exceptions.StudentResultNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 
@@ -84,15 +84,16 @@ public class AssessmentResults {
      * Removes the StudentResult with {@code studentId} from results.
      * @param studentId
      */
-    public void remove(NusNetId studentId) {
+    public void removeByStudentId(NusNetId studentId) {
         requireNonNull(studentId);
         for (int i = 0; i < results.size(); i++) {
             StudentResult current = results.get(i);
             if (current.getStudentId().equals(studentId)) {
                 results.remove(current);
-                break;
+                return;
             }
         }
+        throw new StudentResultNotFoundException();
     }
 
     /**
@@ -107,7 +108,7 @@ public class AssessmentResults {
                 return;
             }
         }
-        throw new StudentResultNotFound();
+        throw new StudentResultNotFoundException();
     }
 
     public ObservableList<StudentResult> asUnmodifiableStudentResultsList() {
@@ -120,6 +121,14 @@ public class AssessmentResults {
     public boolean hasStudentResultByStudentId(NusNetId studentId) {
         requireNonNull(studentId);
         return results.stream().anyMatch(x -> x.getStudentId().equals(studentId));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return this == other
+                || (other instanceof AssessmentResults
+                && assessmentName.equals(((AssessmentResults) other).assessmentName)
+                && results.equals(((AssessmentResults) other).results));
     }
 
 }

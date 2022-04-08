@@ -9,7 +9,7 @@ import java.util.List;
 
 import seedu.address.model.assessment.exceptions.AssessmentNotFoundException;
 import seedu.address.model.assessment.exceptions.DuplicateAssessmentException;
-import seedu.address.model.assessment.exceptions.StudentResultNotFound;
+import seedu.address.model.assessment.exceptions.StudentResultNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.tutorial.TutorialName;
@@ -89,7 +89,7 @@ public class AssessmentResultsList {
         requireNonNull(studentId);
         for (int i = 0; i < assessmentResultsList.size(); i++) {
             AssessmentResults assessmentResults = assessmentResultsList.get(i);
-            assessmentResults.remove(studentId);
+            assessmentResults.removeByStudentId(studentId);
         }
     }
 
@@ -103,7 +103,7 @@ public class AssessmentResultsList {
             throw new AssessmentNotFoundException();
         }
         if (!hasStudentResult(assessmentName, studentId)) {
-            throw new StudentResultNotFound();
+            throw new StudentResultNotFoundException();
         }
         AssessmentResults assessmentResults = getAssessmentResultsByName(assessmentName);
         assessmentResults.set(studentName, studentId, score);

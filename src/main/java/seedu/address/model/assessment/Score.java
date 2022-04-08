@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Score {
     public static final String MESSAGE_CONSTRAINTS =
             "The score should be a non-negative integer that is not greater than the full mark";
-    public static final String VALIDATION_REGEX = "^([1-9][0-9]?[0-9]?|1000)";
+    public static final String VALIDATION_REGEX = "^(0|[1-9][0-9]?[0-9]?|1000)";
     public final int score;
 
     /**

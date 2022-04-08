@@ -14,7 +14,7 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.assessment.UniqueAssessmentList;
-import seedu.address.model.assessment.exceptions.StudentResultNotFound;
+import seedu.address.model.assessment.exceptions.StudentResultNotFoundException;
 import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -263,7 +263,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setStudentResult(Name studentName, AssessmentName assessmentName, Score score) {
         requireAllNonNull(studentName, assessmentName, score);
         if (!hasStudentResult(studentName, assessmentName)) {
-            throw new StudentResultNotFound();
+            throw new StudentResultNotFoundException();
         }
         NusNetId studentId = getIdOfStudent(studentName);
         TutorialName tutorialName = getTutorialNameOfStudent(studentName);
