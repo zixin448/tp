@@ -2,7 +2,7 @@
 layout: page
 title: User Guide
 ---
-Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their own contacts, as well as assessments and class participation among students** in their contact book. It is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their own personal contacts, as well as assessments and class participation among students** in their contact book. It is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 <br/><br/>As of now, camNUS is only used for **one module only** and thus all the tutorial classes in camNUS belongs to one module and a student can only join one tutorial class.
 
 * Table of Contents
