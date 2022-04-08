@@ -51,6 +51,7 @@ Given below are my contributions to the project.
     * Did cosmetic tweaks to overall documentation to increase accuracy in documentation
   * Developer Guide:
     * Added documentation for the features `addStudent` (Pull request: [#101](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/101))
+    * Added UML diagram for `addStudent` feature
 
 * **Team-based tasks**:
   * Fix bugs from PE-D (Pull request: [#203](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/203) [#205](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/205) )
