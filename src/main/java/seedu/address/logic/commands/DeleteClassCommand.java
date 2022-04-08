@@ -87,9 +87,15 @@ public class DeleteClassCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteClassCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteClassCommand) other).targetIndex)); // state check
+        if (isDeleteByTutorialName) {
+            return other == this // short circuit if same object
+                    || (other instanceof DeleteClassCommand // instanceof handles nulls
+                    && tutorialName.equals(((DeleteClassCommand) other).tutorialName)); // state check
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof DeleteClassCommand // instanceof handles nulls
+                    && targetIndex.equals(((DeleteClassCommand) other).targetIndex)); // state check
+        }
     }
 }
 
