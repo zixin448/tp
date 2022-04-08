@@ -23,11 +23,11 @@ public class TypicalTutorials {
     public static final Tutorial T01 = new TutorialBuilder().withTutorialName("T01")
             .withDay("Wed").withTime("10:00").withVenue("LT15").withWeeks(13).build();
     public static final Tutorial T02 = new TutorialBuilder().withTutorialName("T02")
-            .withDay("Thu").withTime("11:00").withWeeks(13).build();
+            .withDay("Thu").withTime("11:00").withVenue("LT16").withWeeks(13).build();
     public static final Tutorial T03 = new TutorialBuilder().withTutorialName("T03")
-            .withDay("Friday").withTime("12:00").withWeeks(13).build();
+            .withDay("Friday").withTime("12:00").withVenue("LT17").withWeeks(13).build();
     public static final Tutorial T04 = new TutorialBuilder().withTutorialName("T04")
-            .withDay("Friday").withTime("13:00").withWeeks(13).build();
+            .withDay("Friday").withTime("13:00").withVenue("LT18").withWeeks(13).build();
 
     // Manually added - Tutorial's details found in {@code TutorialTestUtil}
     public static final Tutorial TG1 = new TutorialBuilder().withTutorialName(VALID_TUTORIAL_NAME_TG1)
