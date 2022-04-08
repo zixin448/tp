@@ -11,10 +11,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 
 public class JsonAdaptedAttendance {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Attendance's %s field is missing!";
     private final String studentName;
+    private final String studentId;
     private final String comments;
     private final List<String> studentAttendance = new ArrayList<>();
 
@@ -23,9 +25,10 @@ public class JsonAdaptedAttendance {
      */
     @JsonCreator
     public JsonAdaptedAttendance(@JsonProperty("studentName") String studentName,
-                                 @JsonProperty("comments") String comments,
-                                 @JsonProperty("studentAttendance") List<String> studentAttendance) {
+            @JsonProperty("studentId") String studentId, @JsonProperty("comments") String comments,
+            @JsonProperty("studentAttendance") List<String> studentAttendance) {
         this.studentName = studentName;
+        this.studentId = studentId;
         this.comments = comments;
         if (studentAttendance != null) {
             this.studentAttendance.addAll(studentAttendance);
@@ -37,6 +40,7 @@ public class JsonAdaptedAttendance {
      */
     public JsonAdaptedAttendance(Attendance source) {
         studentName = source.getStudentName().toString();
+        studentId = source.getStudentId().toString();
         comments = source.getComment().toString();
         studentAttendance.addAll(source.getAttendanceList()
             .stream()
@@ -57,6 +61,13 @@ public class JsonAdaptedAttendance {
         if (!Name.isValidName(studentName)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
+        if (studentId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    NusNetId.class.getSimpleName()));
+        }
+        if (!NusNetId.isValidId(studentId)) {
+            throw new IllegalValueException(NusNetId.MESSAGE_CONSTRAINTS);
+        }
 
         if (studentAttendance.isEmpty()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -72,13 +83,14 @@ public class JsonAdaptedAttendance {
         }
 
         final Name modelStudentName = new Name(studentName);
+        final NusNetId modelStudentId = new NusNetId(studentId);
         final ArrayList<Integer> attendanceList = new ArrayList<>();
         attendanceList.addAll(studentAttendance.stream()
             .map(x -> Integer.parseInt(x))
             .collect(Collectors.toList()));
         final Comment modelComment = new Comment(comments);
 
-        return new Attendance(attendanceList, modelStudentName, modelComment);
+        return new Attendance(attendanceList, modelStudentName, modelStudentId, modelComment);
     }
 
     private boolean listValidityCheck(List<String> list) {

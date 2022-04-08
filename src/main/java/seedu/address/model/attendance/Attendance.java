@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 
 /**
  * Contains a list of the attendance for a particular Student.
@@ -17,6 +18,7 @@ public class Attendance implements Displayable {
 
     private final ArrayList<Integer> attendanceList;
     private final Name studentName;
+    private final NusNetId studentId;
     private final Comment comment;
 
     /**
@@ -24,12 +26,14 @@ public class Attendance implements Displayable {
      *
      * @param attendanceList the attendance records for each week.
      * @param studentName the Name of a student.
+     * @param studentId the NusNetId of a student.
      * @param comment motes for a student.
      */
-    public Attendance(ArrayList<Integer> attendanceList, Name studentName, Comment comment) {
-        requireAllNonNull(attendanceList, studentName, comment);
+    public Attendance(ArrayList<Integer> attendanceList, Name studentName, NusNetId studentId, Comment comment) {
+        requireAllNonNull(attendanceList, studentName, studentId, comment);
         this.attendanceList = attendanceList;
         this.studentName = studentName;
+        this.studentId = studentId;
         this.comment = comment;
     }
 
@@ -39,6 +43,10 @@ public class Attendance implements Displayable {
 
     public Name getStudentName() {
         return studentName;
+    }
+
+    public NusNetId getStudentId() {
+        return studentId;
     }
 
     public Comment getComment() {
@@ -108,6 +116,7 @@ public class Attendance implements Displayable {
         return this == o
                 || (o instanceof Attendance
                 && studentName.equals(((Attendance) o).studentName)
+                && studentId.equals(((Attendance) o).studentId)
                 && attendanceList.equals(((Attendance) o).attendanceList)
                 && comment.equals(((Attendance) o).comment));
     }

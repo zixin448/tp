@@ -28,6 +28,8 @@ public class AttendanceCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label studentName;
+    @FXML
     private Label studentId;
     @FXML
     private Label status;
@@ -39,7 +41,8 @@ public class AttendanceCard extends UiPart<Region> {
         super(FXML);
         this.attendance = attendance;
         id.setText(displayedIndex + ". ");
-        studentId.setText(attendance.getStudentName().toString());
+        studentName.setText(attendance.getStudentName().toString());
+        studentId.setText(attendance.getStudentId().toString());
         status.setText(attendance.getAttendanceStatusByWeek(week));
     }
 

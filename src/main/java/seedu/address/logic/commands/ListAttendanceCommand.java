@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -33,7 +33,7 @@ public class ListAttendanceCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "John Doe ";;
 
     private final TutorialName tutorialName;
-    private final Name studentName;
+    private final NusNetId studentId;
     private final int week;
 
     /**
@@ -41,16 +41,16 @@ public class ListAttendanceCommand extends Command {
      * @param tutorialName The name of the tutorial containing the specified attendance list.
      * @param week The week of the attendance list requested.
      */
-    public ListAttendanceCommand(TutorialName tutorialName, Name studentName, int week) {
+    public ListAttendanceCommand(TutorialName tutorialName, NusNetId studentId, int week) {
         this.tutorialName = tutorialName;
-        this.studentName = studentName;
+        this.studentId = studentId;
         this.week = week;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (studentName != null) {
+        if (studentId != null) {
             return listByStudentId(model);
         }
         return listByTutorialName(model);
@@ -81,15 +81,15 @@ public class ListAttendanceCommand extends Command {
     }
 
     private CommandResult listByStudentId(Model model) throws CommandException {
-        if (!model.hasStudentWithName(studentName)) {
+        if (!model.hasStudentWithId(studentId)) {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }
 
-        Student studentToList = (Student) model.getPersonWithName(studentName);
+        Student studentToList = model.getStudentWithId(studentId);
         Tutorial tutorialToList = model.getTutorialWithName(studentToList.getTutorialName());
 
-        model.updateFilteredAttendanceList(tutorialToList, studentName);
-        String successMessage = String.format(MESSAGE_SUCCESS_STUDENT, studentName);
+        model.updateFilteredAttendanceList(tutorialToList, studentToList.getName());
+        String successMessage = String.format(MESSAGE_SUCCESS_STUDENT, studentToList.getName());
         CommandResult commandResult = CommandResult.createAttendanceByStudentCommandResult(successMessage);
         return commandResult;
     }

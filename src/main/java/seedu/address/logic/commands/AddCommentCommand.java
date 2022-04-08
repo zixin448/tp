@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.attendance.Comment;
-import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
@@ -26,13 +26,13 @@ public class AddCommentCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Comment added for student %s: %s";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "The specified student does not exist.";
 
-    private final Name studentToComment;
+    private final NusNetId studentToComment;
     private final Comment toAdd;
 
     /**
      * Creates an CommentCommand to add a comment for the specified {@code Student}
      */
-    public AddCommentCommand(Name studentName, Comment comment) {
+    public AddCommentCommand(NusNetId studentName, Comment comment) {
         studentToComment = studentName;
         toAdd = comment;
     }
@@ -41,14 +41,14 @@ public class AddCommentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasStudentWithName(studentToComment)) {
+        if (!model.hasStudentWithId(studentToComment)) {
             throw new CommandException(String.format(MESSAGE_STUDENT_NOT_FOUND));
         }
 
-        Student student = (Student) model.getPersonWithName(studentToComment);
+        Student student = model.getStudentWithId(studentToComment);
         TutorialName tutorialName = student.getTutorialName();
         Tutorial tutorial = model.getTutorialWithName(tutorialName);
-        model.addComment(tutorial, studentToComment, toAdd);
-        return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, studentToComment, toAdd));
+        model.addComment(tutorial, student.getName(), toAdd);
+        return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, student.getName(), toAdd));
     }
 }

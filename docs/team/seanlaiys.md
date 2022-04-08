@@ -9,28 +9,37 @@ camNUS is a desktop app for Teaching Assistants (TAs) to manage assessments and 
 Given below are my contributions to the project.
 
 * **New Feature**:
-  * to be added soon
+  * Viewing list of classes
+  * Viewing list of students
+  * Viewing comments
+  * Viewing list of assessments
 
 * **Code contributed**:
-  * to be added soon
-
-* **Project management**:
-  * to be added soon
+  * See [here]("https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=w13-2&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2022-02-18")
 
 * **Enhancements to existing features**:
-  * to be added soon
+  * Enhanced existing features to complement with new features added
+  * Enhanced the UI with changes to the theme
+  * Enhanced the UI to display list beyond just Person contacts
 
 * **Documentation**:
     * User Guide:
-      * to be added soon
+      * Added new features for viewing list of classes, students, comments and assessments
+      * Updated Command Summary with new features
+      * Updated Quick Start
+      * Improved Introduction
+      * Added images to aid understanding for some commands
     * Developer Guide:
-      * to be added soon
+      * Added new feature on displaying student
 
 * **Team-based tasks**:
-  * to be added soon
+  * Created GitHub Pages for the team's documentation for viewing online
+  * Updated Ui.png for User Interface to be viewable in the tp Team List
+  * Designed the mock UI which inspired the actual UI design later on
 
 * **Review/Mentoring**:
-  * to be added soon
+  * Reviewed PRs of group mates
+  * Reported bugs and suggestions for other teams (see [here]("https://github.com/seanlaiys/ped/issues"))
 
 * **Beyond the project team**:
   * to be added soon

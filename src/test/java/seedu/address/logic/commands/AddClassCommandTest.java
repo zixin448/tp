@@ -332,7 +332,7 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void markAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
+        public void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -343,7 +343,7 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void unmarkAttendanceForStudent(Tutorial tutorial, Name studentName, int week) {
+        public void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
             throw new AssertionError("This method should not be called.");
         }
 

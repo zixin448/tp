@@ -56,7 +56,7 @@ public class Tutorial implements Displayable {
      * @param weeks the amount of weeks the tutorial is held for.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks) {
-        requireAllNonNull(name, d, t);
+        requireAllNonNull(name, d, t, weeks);
         tutorialName = name;
         venue = v;
         day = d;
@@ -77,7 +77,7 @@ public class Tutorial implements Displayable {
      * @param allStudents the allStudents list in the ModelManager.
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, FilteredList<Person> allStudents) {
-        requireAllNonNull(name, d, t);
+        requireAllNonNull(name, d, t, weeks, allStudents);
         tutorialName = name;
         venue = v;
         day = d;
@@ -93,7 +93,7 @@ public class Tutorial implements Displayable {
      */
     public Tutorial(TutorialName name, Venue v, Day d, Time t, int weeks, AttendanceList attendance,
                     AssessmentResultsList results) {
-        requireAllNonNull(name, d, t, results);
+        requireAllNonNull(name, d, t, weeks, results, attendance);
         tutorialName = name;
         venue = v;
         day = d;
@@ -209,18 +209,6 @@ public class Tutorial implements Displayable {
         return studentsList.containsStudentWithId(studentId);
     }
 
-    /**
-     * Returns true if the studentsList contains a student with a matching {@code studentName}.
-     */
-    public boolean containsStudentWithName(Name studentName) {
-        return studentsList.containsStudentWithName(studentName);
-    }
-
-    public Student getStudentWithName(Name studentName) {
-        return studentsList.getStudentWithName(studentName);
-    }
-
-
     public Student getStudentWithId(NusNetId studentId) {
         return studentsList.getStudentWithId(studentId);
     }
@@ -283,12 +271,12 @@ public class Tutorial implements Displayable {
     /**
      * Marks the attendance for the specified student.
      *
-     * @param studentName the Name of a student.
+     * @param studentId the NusNetId of a student.
      * @param week the week that the attendance should be marked for the student.
      */
-    public void markStudentAttendance(Name studentName, int week) {
+    public void markStudentAttendance(NusNetId studentId, int week) {
         generateAttendance();
-        attendanceList.markAttendanceForStudent(studentName, week);
+        attendanceList.markAttendanceForStudent(studentId, week);
     }
 
     /**
@@ -304,12 +292,12 @@ public class Tutorial implements Displayable {
     /**
      * Unmarks the attendance for the specified student.
      *
-     * @param studentName the Name of a student.
+     * @param studentId the NusNetId of a student.
      * @param week the week that the attendance should be unmarked for the student.
      */
-    public void unmarkStudentAttendance(Name studentName, int week) {
+    public void unmarkStudentAttendance(NusNetId studentId, int week) {
         generateAttendance();
-        attendanceList.unmarkAttendanceForStudent(studentName, week);
+        attendanceList.unmarkAttendanceForStudent(studentId, week);
     }
 
     /**
@@ -358,7 +346,8 @@ public class Tutorial implements Displayable {
         return otherTut.getTutorialName().equals(getTutorialName())
                 && otherTut.getDay().equals(getDay())
                 && otherTut.getTime().equals(getTime())
-                && otherTut.getVenue().equals(getVenue());
+                && otherTut.getVenue().equals(getVenue())
+                && otherTut.getWeeks() == getWeeks();
     }
 
     @Override
@@ -375,7 +364,9 @@ public class Tutorial implements Displayable {
                 .append("; Day: ")
                 .append(getDay())
                 .append("; Time: ")
-                .append(getTime());
+                .append(getTime())
+                .append("; Weeks: ")
+                .append(getWeeks());
         return builder.toString();
     }
 

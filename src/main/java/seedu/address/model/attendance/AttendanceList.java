@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniqueStudentsInTutorialList;
@@ -49,11 +50,12 @@ public class AttendanceList {
         for (Person p : studentList) {
             Student student = (Student) p;
             Name studentName = student.getName();
+            NusNetId studentId = student.getStudentId();
             boolean hasAttendencePresent = false;
 
 
             for (Attendance attendance : attendances) {
-                if (attendance.getStudentName().equals(studentName)) {
+                if (attendance.getStudentId().equals(studentId)) {
                     hasAttendencePresent = true;
                     break;
                 }
@@ -64,17 +66,13 @@ public class AttendanceList {
                 for (int i = 0; i < weeks - 1; i++) {
                     studentAttendance.add(0);
                 }
-                attendances.add(
-                        new Attendance(
-                                studentAttendance,
-                                studentName,
-                                new Comment("")));
+                attendances.add(new Attendance(studentAttendance, studentName, studentId, new Comment("")));
             }
         }
 
         for (Iterator<Attendance> iterator = attendances.iterator(); iterator.hasNext();) {
             Attendance attendance = iterator.next();
-            if (!uniqueStudentList.containsStudentWithName(attendance.getStudentName())) {
+            if (!uniqueStudentList.containsStudentWithId(attendance.getStudentId())) {
                 iterator.remove();
             }
         }
@@ -115,12 +113,12 @@ public class AttendanceList {
     /**
      * Marks the attendance for the specified student.
      *
-     * @param studentName the Name of a student.
+     * @param studentId the NusNetId of a student.
      * @param week the week that the attendance should be marked for the student.
      */
-    public void markAttendanceForStudent(Name studentName, int week) {
+    public void markAttendanceForStudent(NusNetId studentId, int week) {
         for (Attendance attendance : attendances) {
-            if (attendance.getStudentName().equals(studentName)) {
+            if (attendance.getStudentId().equals(studentId)) {
                 attendance.markWeek(week);
                 break;
             }
@@ -141,12 +139,12 @@ public class AttendanceList {
     /**
      * Unmarks the attendance for the specified student.
      *
-     * @param studentName the Name of a student.
+     * @param studentId the NusNetId of a student.
      * @param week the week that the attendance should be unmarked for the student.
      */
-    public void unmarkAttendanceForStudent(Name studentName, int week) {
+    public void unmarkAttendanceForStudent(NusNetId studentId, int week) {
         for (Attendance attendance : attendances) {
-            if (attendance.getStudentName().equals(studentName)) {
+            if (attendance.getStudentId().equals(studentId)) {
                 attendance.unmarkWeek(week);
                 break;
             }

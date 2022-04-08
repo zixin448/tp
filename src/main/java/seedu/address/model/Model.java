@@ -273,11 +273,11 @@ public interface Model {
 
     void markAttendanceForClass(Tutorial tutorial, int week);
 
-    void markAttendanceForStudent(Tutorial tutorial, Name studentName, int week);
+    void markAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week);
 
     void unmarkAttendanceForClass(Tutorial tutorial, int week);
 
-    void unmarkAttendanceForStudent(Tutorial tutorial, Name studentName, int week);
+    void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week);
 
     /**
      * Updates the filter of the filtered attendance list to filter by the given tutorial or studentName.

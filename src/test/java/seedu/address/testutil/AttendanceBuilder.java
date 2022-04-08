@@ -7,15 +7,18 @@ import java.util.stream.Collectors;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
 
 public class AttendanceBuilder {
 
     public static final String[] DEFAULT_ATTENDANCE = { "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
-    public static final String DEFAULT_NAME = "John Yeo";
+    public static final String DEFAULT_NAME = "Default Student";
+    public static final String DEFAULT_NUSNETID = "e0123456";
     public static final String DEFAULT_COMMENT = "Has not handed in work";
 
     private ArrayList<Integer> attendanceList;
-    private Name studentName;
+    private Name name;
+    private NusNetId nusNetId;
     private Comment comment;
 
     /**
@@ -23,8 +26,19 @@ public class AttendanceBuilder {
      */
     public AttendanceBuilder() {
         attendanceList = convertStringArrToIntList(DEFAULT_ATTENDANCE);
-        studentName = new Name(DEFAULT_NAME);
+        name = new Name(DEFAULT_NAME);
+        nusNetId = new NusNetId(DEFAULT_NUSNETID);
         comment = new Comment(DEFAULT_COMMENT);
+    }
+
+    /**
+     * Creates a {@code AttendanceBuilder} with the {@code attendance}'s details.
+     */
+    public AttendanceBuilder(Attendance attendance) {
+        attendanceList = attendance.getAttendanceList();
+        name = attendance.getStudentName();
+        nusNetId = attendance.getStudentId();
+        comment = attendance.getComment();
     }
 
     /**
@@ -36,10 +50,18 @@ public class AttendanceBuilder {
     }
 
     /**
+     * Sets the {@code NusNetId} of the {@code Attendance} that we are building.
+     */
+    public AttendanceBuilder withNusNetId(String nusNetId) {
+        this.nusNetId = new NusNetId(nusNetId);
+        return this;
+    }
+
+    /**
      * Sets the {@code Name} of the {@code Attendance} that we are building.
      */
-    public AttendanceBuilder withName(String studentName) {
-        this.studentName = new Name(studentName);
+    public AttendanceBuilder withName(String name) {
+        this.name = new Name(name);
         return this;
     }
 
@@ -59,6 +81,6 @@ public class AttendanceBuilder {
     }
 
     public Attendance build() {
-        return new Attendance(attendanceList, studentName, comment);
+        return new Attendance(attendanceList, name, nusNetId, comment);
     };
 }
