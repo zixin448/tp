@@ -40,10 +40,10 @@ Given below are my contributions to the project.
   * Updated Person card to change between `Person` and `Student` UI (Pull request)
   * Implemented storage for new `Assessment` and `Student` type (Pull request: [#82](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/82))
   * Made small enhancements to different features across the project (Pull request: [#70](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/70))
-  * Wrote additional test for existing and new features to increase coverage by 3.47% *[To be updated by project submission]*
-    * Test includes: AddClassCommandTest, AddClassCommandParserTest, AttendanceTest, CommentTest, NusNetIdTest
-    * Test that will be completed by submission: DeleteClassCommandTest, DeleteClassCommandParserTest, FindByPrefixCommandTest, FindCommandParserTest, AttendanceListTest
-    * Pull request: [#208](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/208) [#210](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/210)
+  * Wrote additional test for existing and new features to increase coverage by 6.71% *[To be updated by project submission]*
+    * Test includes: AddClassCommandTest, AddClassCommandParserTest, AttendanceTest, CommentTest, NusNetIdTest, DeleteClassCommandTest, DeleteClassCommandParserTest, 
+    FindByPrefixCommandTest, FindCommandParserTest, AttendanceListTest, listClassCommandParserTest, listStudentCommandParserTest
+    * Pull request: [#208](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/208) [#210](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/210) [#222](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/222)
 
 * **Documentation**:
   * User Guide:
