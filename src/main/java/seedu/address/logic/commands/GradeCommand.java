@@ -100,4 +100,13 @@ public class GradeCommand extends Command {
         return CommandResult.createScoreCommandResult(
                 String.format(ADD_MESSAGE_SUCCESS, sc, studentName, tutName, assessmentName, fullMark));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return this == other
+                || (other instanceof GradeCommand
+                && studentName.equals(((GradeCommand) other).studentName)
+                && assessmentName.equals(((GradeCommand) other).assessmentName)
+                && score.equals(((GradeCommand) other).score));
+    }
 }
