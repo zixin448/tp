@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 public class StudentTestUtil {
 
     public static final String VALID_NAME_AARON = "Aaron Bee";
@@ -14,4 +16,5 @@ public class StudentTestUtil {
     public static final String VALID_STUDENT_ID_AARON = "e0123654";
     public static final String VALID_STUDENT_ID_BILL = "e0654123";
 
+    public static final String NAME_DESC_AARON = " " + PREFIX_NAME + VALID_NAME_AARON;
 }
