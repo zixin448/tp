@@ -40,10 +40,10 @@ public class AddStudentCommand extends Command {
             + PREFIX_TUTORIALNAME + "G04";
 
     public static final String MESSAGE_ADD_STUDENT_SUCCESS = "New student added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student has already been added to a tutorial in the "
-            + " address book";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student has already been added to a tutorial in"
+            + " camNUS";
 
-    public static final String MESSAGE_PERSON_NOT_FOUND = "There is no person with the given name in the address book";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "There is no person with the given name in camNUS";
     private static final String MESSAGE_DUPLICATE_STUDENT_ID = "Another student in camNUS has %s as their NUSNET ID";
 
     private final Name toAddName;

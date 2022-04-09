@@ -14,7 +14,7 @@ public class DeleteAssessmentCommand extends Command {
     public static final String COMMAND_WORD = "delete_assessment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the assessment identified by the assessment name from the addressbook. \n"
+            + ": Deletes the assessment identified by the assessment name from camNUS. \n"
             + "Parameters: "
             + PREFIX_ASSESSMENTNAME + "ASSESSMENT NAME \n"
             + "Example: " + COMMAND_WORD + " "

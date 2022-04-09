@@ -35,7 +35,7 @@ public class GradeCommand extends Command {
             + "Listed all scores of Class: %3$s for Assessment: %4$s with Full mark: %5$s";
 
     public static final String MESSAGE_STUDENT_NOT_FOUND = "There is no student with "
-            + "the given name in the address book";
+            + "the given name in camNUS";
 
     public static final String MESSAGE_INVALID_SCORE = "The given score is larger than the assessment's "
             + "full mark, %1$s";

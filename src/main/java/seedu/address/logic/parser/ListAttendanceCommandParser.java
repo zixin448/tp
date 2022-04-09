@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NusNetId;
 import seedu.address.model.tutorial.TutorialName;
 
-public class ListAttendanceCommandParser {
+public class ListAttendanceCommandParser implements Parser<ListAttendanceCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ListAttendanceCommand
      * and returns an ListAttendanceCommand object for execution.
@@ -25,7 +25,9 @@ public class ListAttendanceCommandParser {
             int week = ParserUtil.parseWeek(argMultimap.getValue(PREFIX_WEEK).get());
             return new ListAttendanceCommand(tutorialName, null, week);
         }
-        if (arePrefixesPresent(argMultimap, PREFIX_STUDENTID) && argMultimap.getPreamble().isEmpty()) {
+        if (arePrefixesPresent(argMultimap, PREFIX_STUDENTID) && argMultimap.getPreamble().isEmpty()
+                && !arePrefixesPresent(argMultimap, PREFIX_TUTORIALNAME)
+                && !arePrefixesPresent(argMultimap, PREFIX_WEEK)) {
             NusNetId studentId = ParserUtil.parseStudentId(argMultimap.getValue(PREFIX_STUDENTID).get());
             return new ListAttendanceCommand(null, studentId, -1);
         }
