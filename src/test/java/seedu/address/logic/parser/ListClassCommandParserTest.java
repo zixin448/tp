@@ -6,10 +6,11 @@ import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialHasSameDay;
 import seedu.address.testutil.TutorialBuilder;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtilTest.TUTORIAL_DAY_DESC_1;
-import static seedu.address.logic.parser.ParserUtilTest.TUTORIAL_DAY_DESC_2;
+import static seedu.address.logic.parser.ParserUtilTest.*;
 import static seedu.address.testutil.TypicalTutorials.T01;
 
 public class ListClassCommandParserTest {
@@ -27,9 +28,20 @@ public class ListClassCommandParserTest {
         assertParseSuccess(parser, TUTORIAL_DAY_DESC_2 + TUTORIAL_DAY_DESC_1,
                 new ListClassCommand(new TutorialHasSameDay(expectedClass.getDay())));
 
-        //
+    }
 
+    @Test
+    public void parse_dayFieldMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListClassCommand.MESSAGE_USAGE);
 
+        // missing day field
+        assertParseFailure(parser, TUTORIAL_NAME_DESC_1, expectedMessage);
+    }
+
+    @Test
+    public void parse_noField_success() {
+        String emptyString = "";
+        assertParseSuccess(parser, emptyString, new ListClassCommand(null));
     }
 
 }
