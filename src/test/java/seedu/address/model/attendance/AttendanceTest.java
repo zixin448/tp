@@ -84,11 +84,11 @@ public class AttendanceTest {
 
     @Test
     public void toString_correctStringOutput() {
-        String expectedMessage = "Week 1: 1\n" +
-                "Week 2: 0\n" +
-                "Week 3: 1\n" +
-                "Week 4: 0\n" +
-                "Week 5: 1\n";
+        String expectedMessage = "Week 1: 1\n"
+                + "Week 2: 0\n"
+                + "Week 3: 1\n"
+                + "Week 4: 0\n"
+                + "Week 5: 1\n";
         assertEquals(expectedMessage, ebby.toString());
 
     }

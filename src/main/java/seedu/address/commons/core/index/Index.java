@@ -1,6 +1,5 @@
 package seedu.address.commons.core.index;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a zero-based or one-based index.
@@ -12,8 +11,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Index {
 
-    public static final String MESSAGE_CONSTRAINTS = "Index should be integer value zero or larger," +
-            "and should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Index should be integer value zero or larger,"
+            + "and should not be blank.";
     private int zeroBasedIndex;
 
     /**
