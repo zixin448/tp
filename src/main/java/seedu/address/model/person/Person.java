@@ -76,6 +76,14 @@ public class Person implements Displayable {
     }
 
     /**
+     * Removes a tag from the tag set
+     */
+    public void removeTag(String tagName) {
+        tags.remove(new Tag(tagName));
+    }
+
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */

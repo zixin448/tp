@@ -105,5 +105,17 @@ public class FindByPrefixCommand extends FindCommand {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FindByPrefixCommand // instanceof handles nulls
+                && predicateName.equals(((FindByPrefixCommand) other).predicateName)
+                && predicateTags.equals(((FindByPrefixCommand) other).predicateTags)
+                && predicateEmail.equals(((FindByPrefixCommand) other).predicateEmail)
+                && predicateAddress.equals(((FindByPrefixCommand) other).predicateAddress)
+                && predicateTutorialName.equals(((FindByPrefixCommand) other).predicateTutorialName)
+                && predicateStudentId.equals(((FindByPrefixCommand) other).predicateStudentId));
+    }
+
 
 }
