@@ -4,9 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TUTORIALS;
 
+import java.util.Objects;
+
 import seedu.address.model.Model;
 import seedu.address.model.tutorial.TutorialHasSameDay;
-
 /**
  * Lists all tutorials in the address book to the user.
  */
@@ -43,5 +44,12 @@ public class ListClassCommand extends Command {
         }
 
         return CommandResult.createClassCommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListClassCommand // instanceof handles nulls
+                && (Objects.equals(predicate, ((ListClassCommand) other).predicate))); // state check
     }
 }

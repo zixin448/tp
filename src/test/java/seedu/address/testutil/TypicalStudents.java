@@ -45,6 +45,16 @@ public class TypicalStudents {
             .withPhone("91234566").withTags("student").withStudentId("e0543220")
             .withTutorialName("T01").build();
 
+    public static final Student EVA = new StudentBuilder().withName("Eva Tan")
+            .withAddress("123, Jurong West Ave 7, #18-111").withEmail("eva@example.com")
+            .withPhone("91255566").withTags("student").withStudentId("e0543229")
+            .withTutorialName("T01").build();
+
+    public static final Student FIONA = new StudentBuilder().withName("Fiona Rin")
+            .withAddress("123, Clementi North, #18-111").withEmail("fiona@example.com")
+            .withPhone("81244556").withTags("student").withStudentId("e0129820")
+            .withTutorialName("T01").build();
+
 
     // Manually added - Student's details found in {@code StudentTestUtil}
     public static final Student AARON = new StudentBuilder().withName(VALID_NAME_AARON).withPhone(VALID_PHONE_AARON)

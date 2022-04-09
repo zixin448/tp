@@ -192,12 +192,14 @@ Examples:
 Shows a list of all persons in camNUS.
 
 Format: `list`
+![result for `list`](images/listResult.png)
 
 #### Listing all assessment components : `list_assessment`
 
 Shows a list of all assessment components added.
 
 Format: `list_assessment`
+![result for `list_assessment`](images/listAssessmentResult.png)
 
 #### Listing all classes: `list_class`
 
@@ -216,6 +218,7 @@ Examples:
 * `list_class`
 ![result for `list_class`](images/listClassResult.png)
 * `list_class d/Wed`
+  ![result for `list_class d/Wed`](images/listClassByDayResult.png)
 
 #### Listing students of a class: `list_student`
 

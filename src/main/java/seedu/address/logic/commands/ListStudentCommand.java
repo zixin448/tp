@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -93,5 +94,18 @@ public class ListStudentCommand extends Command {
             return CommandResult.createStudentCommandResult(String.format(MESSAGE_SUCCESS_CLASS, tutorialToList));
         }
         throw new CommandException(Messages.MESSAGE_INDEX_LIST_MISMATCH + MESSAGE_INDEX_USAGE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (tutorialName != null) {
+            return other == this // short circuit if same object
+                    || (other instanceof ListStudentCommand // instanceof handles nulls
+                    && tutorialName.equals(((ListStudentCommand) other).tutorialName));
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof ListStudentCommand // instanceof handles nulls
+                    && (Objects.equals(targetIndex, ((ListStudentCommand) other).targetIndex))); // state check
+        }
     }
 }
