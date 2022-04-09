@@ -2,8 +2,13 @@
 layout: page
 title: User Guide
 ---
-Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their own contacts, as well as assessments and class participation among students** in their contact book. It is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
-<br/><br/>As of now, camNUS is only used for **one module only** and thus all the tutorial classes in camNUS belongs to one module and a student can only join one tutorial class.
+Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their contacts.**
+
+TAs can also add classes, assessments, and add their **existing contacts** as students. camNUS allows TAs to manage these components in one place.
+For example,they can track attendance, class participation and assessment marks of their class.
+
+camNUS is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+<br/><br/>As of now, camNUS is designed for use with **one module only** and thus all the tutorial classes in camNUS belongs to one module and **a student can only join one tutorial class**.
 
 * Table of Contents
 {:toc}
@@ -26,7 +31,7 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 
    * **`list`** : Lists all contacts.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to camNUS.
 
    * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
 
@@ -39,6 +44,11 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Valid Prefixes
+
+Here is a full list of prefixes available for reference. Every prefix is tailor-made for each specific command. To 
+prevent any errors which leads to failure in executing your commands, use these prefixes according to the format provided
+and refrain from making your own prefix. For more information on the prefix to use for a specific command, you may find the
+command by clicking on it in the table of contents above, or scroll down to the bottom to find the table that summarises all commands.
 
 1. `n/` : Name
 2. `p/` : Phone
@@ -54,9 +64,8 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 12. `as/` : Assessment Name
 13. `w/` : Assessment Weightage
 14. `f/` : Assessment Full-mark
-15. `i/` : Index
-16. `s/` : Score
-17. `msg/` : Message
+15. `s/` : Score
+16. `msg/` : Message
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -78,6 +87,8 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
+* Parameters are to be used with valid prefixes specified in the command. For a full list of valid prefixes, click [here](#valid-prefixes).
+
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
@@ -86,6 +97,8 @@ Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs)
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+* Tags do not add any functionality to camNUS and are present solely to allow the users to keep track of any additional information.
 
 </div>
 
@@ -109,7 +122,7 @@ Examples:
 
 #### Adding a person: `add`
 
-Adds a person to the address book.
+Adds a person to camNUS.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
@@ -136,7 +149,7 @@ Examples:
 
 #### Adding student to a class: `add_student`
 
-Adds a specified student to a given class and replace the `Person` contact with a `Student` contact.
+Adds a specified student to a given class and replace the currently existing `Person` contact with a `Student` contact.
 
 Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 
@@ -163,7 +176,7 @@ Examples:
 
 #### Adding a comment for a student: `comment`
 
-Adds a comment for a student.
+Adds a comment as a quick note for a student, for post class admin. Not meant to be used for results or attendance. Comments are deleted whenever a new one is added.
 
 Format: `comment id/STUDENT_ID msg/COMMENT`
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
@@ -176,15 +189,17 @@ Examples:
 
 #### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all persons in camNUS.
 
 Format: `list`
+![result for `list`](images/listResult.png)
 
 #### Listing all assessment components : `list_assessment`
 
 Shows a list of all assessment components added.
 
 Format: `list_assessment`
+![result for `list_assessment`](images/listAssessmentResult.png)
 
 #### Listing all classes: `list_class`
 
@@ -203,13 +218,15 @@ Examples:
 * `list_class`
 ![result for `list_class`](images/listClassResult.png)
 * `list_class d/Wed`
+  ![result for `list_class d/Wed`](images/listClassByDayResult.png)
 
 #### Listing students of a class: `list_student`
 
 Shows a list of all students of a specified class.
 
-Format:`list_student INDEX` or `list_student tn/TUTORIAL_NAME`
+Format:`list_student`, `list_student INDEX` or `list_student tn/TUTORIAL_NAME`
 
+* If no parameters are given, the list of contacts who are students will be displayed.
 * `TUTORIAL_NAME` should not be given if `INDEX` is given.
 * `INDEX` should not be given if `TUTORIAL_NAME` is given.
 * `list_class` command should be called before `list_student INDEX` as `INDEX` is relative to this list.
@@ -252,13 +269,13 @@ Examples:
 
 * `list_attendance tn/T04 wk/2`
   ![result for `list_attendance tn/T04 wk/2`](images/listAttendance.png)
-* `list_attendance id/e0123456`
-  ![result for `list_attendance id/e0123456`](images/listAttendanceByStudent.png)
+* `list_attendance id/e0124444`
+  ![result for `list_attendance id/e0124444`](images/listAttendanceByStudent.png)
   
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in camNUS.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [tn/TUTORIAL_NAME] [t/TAG]…​`
 
@@ -292,8 +309,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find flash peter` returns `Flash Thompson`, `Peter Parker`<br>
+  ![result for 'find flash peter'](images/findFlashPeterResult.png)
 
 Find persons whose details by prefix matches any of the given keywords by prefix.
 
@@ -318,7 +335,7 @@ Examples:
 
 #### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from camNUS.
 
 Format: `delete INDEX`
 
@@ -328,7 +345,7 @@ Format: `delete INDEX`
 
 Examples:
 
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `list` followed by `delete 2` deletes the 2nd person in camNUS.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 #### Deleting a class : `delete_class`
@@ -358,7 +375,7 @@ Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID
 * `list_student` has to be called before `remove_student` as this is the list referred to by the `remove_student` command
 * Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
 * The `INDEX` refers to the index number shown in the displayed list of student in the class.
-* The `STUDENT_ID` refers to the student_id of a particular student.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
 * After this command is called, tutorial name and student id of the student will be deleted.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -440,12 +457,12 @@ Format: `view_comment id/STUDENT_ID`
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
 
 Examples:
-* `view_comment id/e0123456`<br>
-  ![result for 'view_comment id/e0123456'](images/viewCommentResult.png)
+* `view_comment id/e0123455`<br>
+  ![result for 'view_comment id/e0123455'](images/viewCommentResult.png)
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from camNUS.
 
 Format: `clear`
 
@@ -457,14 +474,14 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+camNUS data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+camNUS data is saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+If your changes to the data file makes its format invalid, camNUS will discard all data and start with an empty data file at the next run.
 </div>
 
 ### Archiving data files `[coming in v2.0]`
@@ -485,21 +502,27 @@ _Details coming soon ..._
 | Action                | Format, Examples                                                                                                                                                                     |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  t/friend t/colleague`               |
-| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00 wk/13`                                                                               |
-| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student n/Amy Tan id/e0123456 tn/T13`                                                                                    |
-| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL MARK` <br> e.g., `add_assessment as/Attendance w/5 f/10`                                                                            |
+| **Add Class**         | `add_class tn/TUTORIAL_NAME v/VENUE d/DAY tm/TIME wk/WEEK` <br> e.g., `add_class c/T04 v/LT13 d/Monday t/13:00 wk/13`                                                                |
+| **Add Student**       | `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME` <br> e.g., `add_student n/Amy Tan id/e0123456 tn/T13`                                                                            |
+| **Add Assessment**    | `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL MARK` <br> e.g., `add_assessment as/Attendance w/5 f/10`                                                                       |
 | **Clear**             | `clear`                                                                                                                                                                              |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                  |
 | **Delete Class**      | `delete_class INDEX [tn/TUTORIAL_NAME]` <br> e.g., `delete_class 1 [tn/G04]`                                                                                                         |
-| **Remove Student**    | `remove_student INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student 1 tn/G04`                                                                                                     |
+| **Remove Student**    | `remove_student INDEX tn/TUTORIAL_NAME` <br> `remove_student INDEX tn/TUTORIAL_NAME` <br> e.g. `remove_student 1 tn/G04` / `remove_student id/e0123456 tn/G04`                       |
 | **Delete Assessment** | `delete_assessment as/ASSESSMENT_NAME` <br> e.g., `delete_assessment as/Attendance`                                                                                                  |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                          |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`<br>`find [n/NAME] [id/STUDENT_ID] [a/ADDRESS] [e/EMAIL] [p/PHONE_NUMBER] [tn/TUTORIAL_NAME] [t/TAG]`<br> e.g. find n/ALIC |
 | **List**              | `list`                                                                                                                                                                               |
 | **List Assessment**   | `list_assessment`                                                                                                                                                                    |
-| **List Attendance**   | `list_attendance tn/TUTORIAL_NAME wk/WEEK` <br> e.g., `list_attendance tn/T04 wk/1`                                                                                                  |
+| **List Attendance**   | `list_attendance tn/TUTORIAL_NAME wk/WEEK` <br> `list_attendance id/STUDENT_ID` <br> e.g., `list_attendance tn/T04 wk/1` /  `list_attendance id/e0123456`                            |
 | **List Class**        | `list_class [d/DAY]` <br> e.g., `list_class d/Wed`                                                                                                                                   |
 | **List Student**      | `list_student INDEX [tn/TUTORIAL_NAME]` <br> e.g., `list_student 1 [tn/G04] `                                                                                                        |
+| **List Score**        | `list_score as/ASSESSMENT_NAME tn/TUTORIAL_NAME` <br> e.g., `list_score as/Assignment 1 tn/T04`                                                                                      |
 | **Grade**             | `grade as/ASSESSMENT_NAME n/NAME s/SCORE` <br> e.g., `grade as/Test 1 n/Amy Tan s/5`                                                                                                 |
 | **Mark Attendance**   | `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK` <br> e.g., `mark_attendance tn/T04 id/e0123456 wk/1`                                                                      |
+| **Unmark Attendance** | `unmark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK` <br> e.g., `unmark_attendance tn/T04 id/e0123456 wk/1`                                                                  |
+| **Comment**           | `comment id/STUDENT_ID msg/COMMENT` <br> e.g., `comment id/e0123456 msg/Participated actively`                                                                                       |
+| **Remove Comment**    | `remove_comment id/STUDENT_ID` <br> e.g., `remove_comment id/e0123456`                                                                                                               |
+| **View Comment**      | `view_comment id/STUDENT_ID` <br> e.g., `view_comment id/e0123456`                                                                                                                   |
 | **Help**              | `help [n/COMMAND_NAME]` <br> e.g.,`help n/delete`                                                                                                                                    |
+| **Exit**              | `exit`                                                                                                                                                                               |

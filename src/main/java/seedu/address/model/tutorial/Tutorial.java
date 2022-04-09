@@ -307,6 +307,7 @@ public class Tutorial implements Displayable {
      * @param comment the comment to be added.
      */
     public void addComment(Name studentName, Comment comment) {
+        generateAttendance();
         attendanceList.addComment(studentName, comment);
     }
 
@@ -316,6 +317,7 @@ public class Tutorial implements Displayable {
      * @param studentName the Name of a student.
      */
     public void removeComment(Name studentName) {
+        generateAttendance();
         attendanceList.removeComment(studentName);
     }
 
@@ -325,6 +327,7 @@ public class Tutorial implements Displayable {
      * @param studentName the NusNetId of a student.
      */
     public Comment viewComment(Name studentName) {
+        generateAttendance();
         return attendanceList.viewComment(studentName);
     }
 
