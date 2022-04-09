@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAssessments.OP1;
+import static seedu.address.testutil.TypicalAssessments.OP2;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,11 +16,10 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -37,49 +38,58 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
-import seedu.address.testutil.TutorialBuilder;
+import seedu.address.testutil.AssessmentBuilder;
 
-public class AddClassCommandTest {
-
+public class AddAssessmentCommandTest {
     @Test
-    public void constructor_nullTutorial_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddClassCommand(null));
+    public void constructor_nullAssessment_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddAssessmentCommand(null));
     }
 
     @Test
-    public void execute_tutorialAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTutorialAdded modelStub = new ModelStubAcceptingTutorialAdded();
-        Tutorial validTutorial = new TutorialBuilder().build();
+    public void execute_assessmentAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingAssessmentAdded modelStub = new ModelStubAcceptingAssessmentAdded();
+        Assessment validAssessment = new AssessmentBuilder().build();
 
-        CommandResult commandResult = new AddClassCommand(validTutorial).execute(modelStub);
+        CommandResult commandResult = new AddAssessmentCommand(validAssessment).execute(modelStub);
 
-        assertEquals(String.format(AddClassCommand.MESSAGE_SUCCESS, validTutorial), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validTutorial), modelStub.tutorialsAdded);
+
+        assertEquals(String.format(AddAssessmentCommand.MESSAGE_SUCCESS, validAssessment),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validAssessment), modelStub.assessmentsAdded);
+    }
+
+    @Test
+    public void execute_duplicateAssessment_throwsCommandException() throws Exception {
+        Assessment validAssessment = new AssessmentBuilder().build();
+        AddAssessmentCommand addAssessmentCommand = new AddAssessmentCommand(validAssessment);
+        ModelStubWithAssessment modelStub = new ModelStubWithAssessment(validAssessment);
+
+        assertThrows(CommandException.class, AddAssessmentCommand.MESSAGE_DUPLICATE_ASSESSMENT, ()
+            -> addAssessmentCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Tutorial tutorialA = new TutorialBuilder().withTutorialName("A").build();
-        Tutorial tutorialB = new TutorialBuilder().withTutorialName("B").build();
-        AddClassCommand addClassACommand = new AddClassCommand(tutorialA);
-        AddClassCommand addClassBCommand = new AddClassCommand(tutorialB);
+        AddAssessmentCommand addAssessmentOp1Command = new AddAssessmentCommand(OP1);
+        AddAssessmentCommand addAssessmentOp2Command = new AddAssessmentCommand(OP2);
 
         // same object -> returns true
-        assertTrue(addClassACommand.equals(addClassACommand));
+        assertTrue(addAssessmentOp1Command.equals(addAssessmentOp1Command));
 
         // same values -> returns true
-        AddClassCommand addClassACommandCopy = new AddClassCommand(tutorialA);
-        assertTrue(addClassACommand.equals(addClassACommandCopy));
+        AddAssessmentCommand addAssessmentOp1CommandCopy = new AddAssessmentCommand(OP1);
+        assertTrue(addAssessmentOp1Command.equals(addAssessmentOp1CommandCopy));
 
-        // different types -> returns false
-        assertFalse(addClassACommand.equals(1));
+        // null -> returns false
+        assertFalse(addAssessmentOp2Command.equals(null));
 
-        // different tutorial class -> returns false
-        assertFalse(addClassACommand.equals(addClassBCommand));
+        // different assessment -> returns false
+        assertFalse(addAssessmentOp1Command.equals(addAssessmentOp2Command));
     }
 
     /**
-     * A default model stub that has all methods failing.
+     * A default Model Stub that has all methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -129,6 +139,16 @@ public class AddClassCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonWithEmail(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonWithPhone(Phone phone) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -257,7 +277,7 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void addComment(Tutorial tutorial, Name name, Comment toAdd) {
+        public void addComment(Tutorial tutorial, Name studentToComment, Comment toAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -358,16 +378,6 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public boolean hasPersonWithEmail(Email email) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPersonWithPhone(Phone email) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Person getPersonWithName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
@@ -399,70 +409,38 @@ public class AddClassCommandTest {
     }
 
     /**
-     * A Model stub that contains a single tutorial class.
+     * A Model Stub containing a single assessment.
      */
-    private class ModelStubWithTutorial extends ModelStub {
-        private final Tutorial tutorial;
+    private class ModelStubWithAssessment extends ModelStub {
+        private final Assessment assessment;
 
-        ModelStubWithTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            this.tutorial = tutorial;
+        ModelStubWithAssessment(Assessment a) {
+            assessment = a;
         }
 
         @Override
-        public boolean hasTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            return this.tutorial.isSameTutorial(tutorial);
+        public boolean hasAssessment(Assessment a) {
+            requireNonNull(a);
+            return a.isSameAssessment(assessment);
         }
     }
 
     /**
-     * A model stub that always accepts the class being added.
+     * A model stub that always accepts the assessment being added.
      */
-    private class ModelStubAcceptingTutorialAdded extends ModelStub {
-        final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
-        final ArrayList<Person> allStudents = new ArrayList<>();
-        final ArrayList<Assessment> allAssessments = new ArrayList<>();
+    private class ModelStubAcceptingAssessmentAdded extends ModelStub {
+        final ArrayList<Assessment> assessmentsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            return tutorialsAdded.stream().anyMatch(tutorial::isSameTutorial);
+        public boolean hasAssessment(Assessment assessment) {
+            requireNonNull(assessment);
+            return assessmentsAdded.stream().anyMatch(assessment::isSameAssessment);
         }
 
         @Override
-        public void addTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            tutorialsAdded.add(tutorial);
+        public void addAssessment(Assessment assessment) {
+            requireNonNull(assessment);
+            assessmentsAdded.add(assessment);
         }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-
-        @Override
-        public FilteredList<Person> getAllStudentsList() {
-            ObservableList<Person> studentObservableList = FXCollections.observableArrayList(allStudents);
-            return new FilteredList<>(studentObservableList);
-        }
-
-        @Override
-        public ObservableList<Assessment> getAssessmentList() {
-            ObservableList<Assessment> assessmentObservableList = FXCollections.observableArrayList(allAssessments);
-            return assessmentObservableList;
-        }
-
-        @Override
-        public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
-            requireNonNull(predicate);
-            ObservableList<Tutorial> tutorialObservableList = FXCollections.observableArrayList(tutorialsAdded);
-            new FilteredList<>(tutorialObservableList).setPredicate(predicate);
-
-        }
-
-
     }
-
-
 }

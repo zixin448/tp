@@ -4,29 +4,42 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.AssessmentTestUtil.VALID_ASSESSMENT_NAME_OP1;
+import static seedu.address.logic.commands.AssessmentTestUtil.VALID_ASSESSMENT_NAME_OP2;
+import static seedu.address.logic.commands.AssessmentTestUtil.VALID_FULL_MARK_OP2;
+import static seedu.address.logic.commands.AssessmentTestUtil.VALID_SCORE_OP1;
+import static seedu.address.logic.commands.AssessmentTestUtil.VALID_SCORE_OP2;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_NAME_AARON;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_NAME_BILL;
+import static seedu.address.logic.commands.StudentTestUtil.VALID_STUDENT_ID_AARON;
+import static seedu.address.logic.commands.TutorialTestUtil.VALID_TUTORIAL_NAME_TG1;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAssessments.OP1;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assessment.Assessment;
 import seedu.address.model.assessment.AssessmentName;
+import seedu.address.model.assessment.AssessmentResults;
+import seedu.address.model.assessment.FullMark;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
+import seedu.address.model.assessment.exceptions.AssessmentNotFoundException;
+import seedu.address.model.assessment.exceptions.DuplicateStudentResultException;
+import seedu.address.model.assessment.exceptions.StudentResultNotFoundException;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.Comment;
 import seedu.address.model.person.Email;
@@ -35,51 +48,92 @@ import seedu.address.model.person.NusNetId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
+import seedu.address.model.person.exceptions.StudentNotFoundException;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
+import seedu.address.testutil.AssessmentBuilder;
+import seedu.address.testutil.StudentBuilder;
+import seedu.address.testutil.StudentResultBuilder;
 import seedu.address.testutil.TutorialBuilder;
 
-public class AddClassCommandTest {
-
+public class GradeCommandTest {
     @Test
-    public void constructor_nullTutorial_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddClassCommand(null));
+    public void constructor_nullArguments_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, ()
+            -> new GradeCommand(null, new Name(VALID_NAME_AARON), VALID_SCORE_OP1));
     }
 
     @Test
-    public void execute_tutorialAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTutorialAdded modelStub = new ModelStubAcceptingTutorialAdded();
-        Tutorial validTutorial = new TutorialBuilder().build();
+    public void execute_addedScoreAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubWithTutorialStudentAssessment modelStub =
+                new ModelStubWithTutorialStudentAssessment(VALID_NAME_AARON, VALID_STUDENT_ID_AARON,
+                        VALID_ASSESSMENT_NAME_OP2, VALID_FULL_MARK_OP2, VALID_TUTORIAL_NAME_TG1);
+        AssessmentName assessmentName = new AssessmentName(VALID_ASSESSMENT_NAME_OP2);
+        Name studentName = new Name(VALID_NAME_AARON);
+        String score = VALID_SCORE_OP2;
 
-        CommandResult commandResult = new AddClassCommand(validTutorial).execute(modelStub);
+        StudentResult validStudentResult = new StudentResultBuilder().withName(VALID_NAME_AARON)
+                .withNusNetId(VALID_STUDENT_ID_AARON).withScore(score, VALID_FULL_MARK_OP2).build();
+        CommandResult commandResult =
+                new GradeCommand(assessmentName, studentName, score).execute(modelStub);
 
-        assertEquals(String.format(AddClassCommand.MESSAGE_SUCCESS, validTutorial), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validTutorial), modelStub.tutorialsAdded);
+        assertEquals(String.format(GradeCommand.ADD_MESSAGE_SUCCESS, score, studentName,
+                        VALID_TUTORIAL_NAME_TG1, assessmentName, VALID_FULL_MARK_OP2),
+                            commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validStudentResult), modelStub.results.asUnmodifiableStudentResultsList());
+    }
+
+    @Test
+    public void execute_editedScoreAcceptedByModel_editsSuccessful() throws Exception {
+        ModelStubWithTutorialStudentAssessment modelStub =
+                new ModelStubWithTutorialStudentAssessment(VALID_NAME_AARON, VALID_STUDENT_ID_AARON,
+                        VALID_ASSESSMENT_NAME_OP2, VALID_FULL_MARK_OP2, VALID_TUTORIAL_NAME_TG1);
+
+        AssessmentName assessmentName = new AssessmentName(VALID_ASSESSMENT_NAME_OP2);
+        Name studentName = new Name(VALID_NAME_AARON);
+        String score = VALID_SCORE_OP2;
+
+        // initialize the model with a student result of a different score
+        modelStub.addStudentResult(studentName, assessmentName, new Score(VALID_SCORE_OP1,
+                new FullMark(VALID_FULL_MARK_OP2)));
+
+        StudentResult validStudentResult = new StudentResultBuilder().withName(VALID_NAME_AARON)
+                .withNusNetId(VALID_STUDENT_ID_AARON).withScore(score, VALID_FULL_MARK_OP2).build();
+
+        CommandResult commandResult =
+                new GradeCommand(assessmentName, studentName, score).execute(modelStub);
+
+        assertEquals(String.format(GradeCommand.EDIT_MESSAGE_SUCCESS, score, studentName,
+                VALID_TUTORIAL_NAME_TG1, assessmentName, VALID_FULL_MARK_OP2), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validStudentResult), modelStub.results.asUnmodifiableStudentResultsList());
     }
 
     @Test
     public void equals() {
-        Tutorial tutorialA = new TutorialBuilder().withTutorialName("A").build();
-        Tutorial tutorialB = new TutorialBuilder().withTutorialName("B").build();
-        AddClassCommand addClassACommand = new AddClassCommand(tutorialA);
-        AddClassCommand addClassBCommand = new AddClassCommand(tutorialB);
+        GradeCommand gradeCommandAaronOp1 = new GradeCommand(new AssessmentName(VALID_ASSESSMENT_NAME_OP1),
+                new Name(VALID_NAME_AARON), VALID_SCORE_OP1);
+
+        GradeCommand gradeCommandBillOp2 = new GradeCommand(new AssessmentName(VALID_ASSESSMENT_NAME_OP2),
+                new Name(VALID_NAME_BILL), VALID_SCORE_OP2);
 
         // same object -> returns true
-        assertTrue(addClassACommand.equals(addClassACommand));
+        assertTrue(gradeCommandAaronOp1.equals(gradeCommandAaronOp1));
 
         // same values -> returns true
-        AddClassCommand addClassACommandCopy = new AddClassCommand(tutorialA);
-        assertTrue(addClassACommand.equals(addClassACommandCopy));
+        GradeCommand gradeCommandAaronOp1Copy = new GradeCommand(new AssessmentName(VALID_ASSESSMENT_NAME_OP1),
+                new Name(VALID_NAME_AARON), VALID_SCORE_OP1);
+        assertTrue(gradeCommandAaronOp1.equals(gradeCommandAaronOp1Copy));
 
-        // different types -> returns false
-        assertFalse(addClassACommand.equals(1));
+        // null -> returns false
+        assertFalse(gradeCommandBillOp2.equals(null));
 
-        // different tutorial class -> returns false
-        assertFalse(addClassACommand.equals(addClassBCommand));
+        // different objects -> returns false
+        assertFalse(gradeCommandAaronOp1.equals(gradeCommandBillOp2));
     }
 
+
     /**
-     * A default model stub that has all methods failing.
+     * A default Model Stub that has all methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -129,6 +183,16 @@ public class AddClassCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonWithEmail(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonWithPhone(Phone phone) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -257,7 +321,7 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public void addComment(Tutorial tutorial, Name name, Comment toAdd) {
+        public void addComment(Tutorial tutorial, Name studentToComment, Comment toAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -358,16 +422,6 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public boolean hasPersonWithEmail(Email email) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPersonWithPhone(Phone email) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Person getPersonWithName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
@@ -399,70 +453,100 @@ public class AddClassCommandTest {
     }
 
     /**
-     * A Model stub that contains a single tutorial class.
+     * A model stub that contains the tutorial, student, assessment to support the adding of score.
      */
-    private class ModelStubWithTutorial extends ModelStub {
-        private final Tutorial tutorial;
+    private class ModelStubWithTutorialStudentAssessment extends ModelStub {
+        final Student student;
+        final Tutorial tutorial;
+        final Assessment assessment;
+        final AssessmentResults results;
 
-        ModelStubWithTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            this.tutorial = tutorial;
+        ModelStubWithTutorialStudentAssessment(String studentName, String studentId,
+                                               String assessmentName, String fullMark, String tutName) {
+            student = new StudentBuilder().withName(studentName)
+                    .withStudentId(studentId).withTutorialName(tutName).build();
+            assessment = new AssessmentBuilder(OP1).withName(assessmentName)
+                    .withFullMark(fullMark).build();
+            results = new AssessmentResults(new AssessmentName(assessmentName));
+            tutorial = new TutorialBuilder().withTutorialName(tutName).build();
         }
 
         @Override
-        public boolean hasTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            return this.tutorial.isSameTutorial(tutorial);
+        public boolean hasAssessmentWithName(AssessmentName assessmentName) {
+            requireNonNull(assessmentName);
+            return assessment.hasName(assessmentName);
+        }
+
+        @Override
+        public boolean hasStudentWithName(Name studentName) {
+            requireNonNull(studentName);
+            return student.getName().equals(studentName);
+        }
+
+        @Override
+        public Assessment getAssessmentWithName(AssessmentName assessmentName) {
+            requireNonNull(assessmentName);
+            if (hasAssessmentWithName(assessmentName)) {
+                return assessment;
+            } else {
+                throw new AssessmentNotFoundException();
+            }
+        }
+
+        @Override
+        public TutorialName getTutorialNameOfStudent(Name studentName) {
+            requireNonNull(studentName);
+            if (hasStudentWithName(studentName)) {
+                return student.getTutorialName();
+            } else {
+                throw new StudentNotFoundException();
+            }
+        }
+
+        @Override
+        public boolean hasStudentResult(Name studentName, AssessmentName assessmentName) {
+            requireAllNonNull(studentName, assessmentName);
+            if (!hasStudentWithName(studentName)) {
+                throw new StudentNotFoundException();
+            }
+            if (!hasAssessmentWithName(assessmentName)) {
+                throw new AssessmentNotFoundException();
+            }
+            return results.hasStudentResultByStudentId(student.getStudentId());
+        }
+
+        @Override
+        public void addStudentResult(Name studentName, AssessmentName assessmentName, Score score) {
+            if (!hasStudentWithName(studentName)) {
+                throw new StudentNotFoundException();
+            }
+            if (!hasAssessmentWithName(assessmentName)) {
+                throw new AssessmentNotFoundException();
+            }
+            StudentResult studentResult = new StudentResult(studentName, student.getStudentId(), score);
+            if (results.contains(studentResult)) {
+                throw new DuplicateStudentResultException();
+            }
+            results.add(studentResult);
+        }
+
+        @Override
+        public void setStudentResult(Name studentName, AssessmentName assessmentName, Score score) {
+            if (!hasStudentWithName(studentName)) {
+                throw new StudentNotFoundException();
+            }
+            if (!hasAssessmentWithName(assessmentName)) {
+                throw new AssessmentNotFoundException();
+            }
+            if (!results.hasStudentResultByStudentId(student.getStudentId())) {
+                throw new StudentResultNotFoundException();
+            }
+            results.set(studentName, student.getStudentId(), score);
+        }
+
+        @Override
+        public void updateDisplayAssessmentResults(TutorialName tutName, AssessmentName assessmentName) {
+            requireAllNonNull(tutName, assessmentName);
         }
     }
-
-    /**
-     * A model stub that always accepts the class being added.
-     */
-    private class ModelStubAcceptingTutorialAdded extends ModelStub {
-        final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
-        final ArrayList<Person> allStudents = new ArrayList<>();
-        final ArrayList<Assessment> allAssessments = new ArrayList<>();
-
-        @Override
-        public boolean hasTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            return tutorialsAdded.stream().anyMatch(tutorial::isSameTutorial);
-        }
-
-        @Override
-        public void addTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            tutorialsAdded.add(tutorial);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-
-        @Override
-        public FilteredList<Person> getAllStudentsList() {
-            ObservableList<Person> studentObservableList = FXCollections.observableArrayList(allStudents);
-            return new FilteredList<>(studentObservableList);
-        }
-
-        @Override
-        public ObservableList<Assessment> getAssessmentList() {
-            ObservableList<Assessment> assessmentObservableList = FXCollections.observableArrayList(allAssessments);
-            return assessmentObservableList;
-        }
-
-        @Override
-        public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
-            requireNonNull(predicate);
-            ObservableList<Tutorial> tutorialObservableList = FXCollections.observableArrayList(tutorialsAdded);
-            new FilteredList<>(tutorialObservableList).setPredicate(predicate);
-
-        }
-
-
-    }
-
-
 }

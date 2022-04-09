@@ -364,6 +364,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
         addressBook.addTutorial(tutorial);
         updateFilteredTutorialList(PREDICATE_SHOW_ALL_TUTORIALS);
     }
@@ -371,7 +372,6 @@ public class ModelManager implements Model {
     @Override
     public void setTutorial(Tutorial target, Tutorial editedTutorial) {
         requireAllNonNull(target, editedTutorial);
-
         addressBook.setTutorial(target, editedTutorial);
     }
 
@@ -405,6 +405,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean tutorialHasStudentWithId(NusNetId id, TutorialName tutorialName) {
+        requireAllNonNull(id, tutorialName);
         return addressBook.tutorialHasStudentWithId(id, tutorialName);
     }
 
