@@ -4,10 +4,11 @@ title: User Guide
 ---
 Greetings, TAs of NUS! camNUS is a **desktop app** for Teaching Assistants (TAs) to **manage their contacts.**
 
-**TAs can also add classes, assessments and can add their existing contacts as students, and manage them all in one place.**
+TAs can also add classes, assessments, and add their **existing contacts** as students. camNUS allows TAs to manage these components in one place.
+For example,they can track attendance, class participation and assessment marks of their class.
 
-It is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
-<br/><br/>As of now, camNUS is designed for use with **one module only** and thus all the tutorial classes in camNUS belongs to one module and a student can only join one tutorial class.
+camNUS is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+<br/><br/>As of now, camNUS is designed for use with **one module only** and thus all the tutorial classes in camNUS belongs to one module and **a student can only join one tutorial class**.
 
 * Table of Contents
 {:toc}
@@ -97,6 +98,8 @@ command by clicking on it in the table of contents above, or scroll down to the 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* Tags do not add any functionality to camNUS and are present solely to allow the users to keep track of any additional information.
+
 </div>
 
 ### Viewing help : `help`
@@ -173,7 +176,7 @@ Examples:
 
 #### Adding a comment for a student: `comment`
 
-Adds a comment for a student.
+Adds a comment as a quick note for a student, for post class admin. Not meant to be used for results or attendance. Comments are deleted whenever a new one is added.
 
 Format: `comment id/STUDENT_ID msg/COMMENT`
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
