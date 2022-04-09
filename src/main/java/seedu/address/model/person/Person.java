@@ -76,6 +76,16 @@ public class Person implements Displayable {
     }
 
     /**
+     * Returns true if the person has a student tag.
+     */
+    public boolean hasStudentTag() {
+        if (tags != null) {
+            return tags.contains(new Tag("student"));
+        }
+        return false;
+    }
+
+    /**
      * Removes a tag from the tag set
      */
     public void removeTag(String tagName) {
