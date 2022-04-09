@@ -20,6 +20,7 @@ public class ViewCommentCommandParser implements Parser<ViewCommentCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_STUDENTID)
                 || !argMultimap.getPreamble().isEmpty()) {
+            System.out.println(!arePrefixesPresent(argMultimap, PREFIX_STUDENTID));
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommentCommand.MESSAGE_USAGE));
         }
 

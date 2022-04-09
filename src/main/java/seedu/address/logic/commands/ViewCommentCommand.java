@@ -18,7 +18,7 @@ public class ViewCommentCommand extends Command {
             + "Parameters: "
             + PREFIX_STUDENTID + "STUDENT ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_STUDENTID + "e01234567 ";
+            + PREFIX_STUDENTID + "e0123456 ";
 
     public static final String MESSAGE_SUCCESS = "Comment for student %s: %s";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "The specified student does not exist.";
@@ -29,6 +29,7 @@ public class ViewCommentCommand extends Command {
      * Creates an CommentCommand to add a comment for the specified {@code Student}
      */
     public ViewCommentCommand(NusNetId studentId) {
+        requireNonNull(studentId);
         studentToViewComment = studentId;
     }
 
@@ -45,5 +46,12 @@ public class ViewCommentCommand extends Command {
         Tutorial tutorial = model.getTutorialWithName(tutorialName);
         Comment comment = model.getComment(tutorial, student.getName());
         return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, student.getName(), comment));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewCommentCommand // instanceof handles nulls
+                && studentToViewComment.equals(((ViewCommentCommand) other).studentToViewComment));
     }
 }
