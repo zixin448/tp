@@ -1,6 +1,8 @@
 package seedu.address.model.tutorial;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.TutorialTestUtil.VALID_DAY_TG2;
 import static seedu.address.logic.commands.TutorialTestUtil.VALID_TIME_TG2;
@@ -8,11 +10,22 @@ import static seedu.address.logic.commands.TutorialTestUtil.VALID_TUTORIAL_NAME_
 import static seedu.address.logic.commands.TutorialTestUtil.VALID_TUTORIAL_NAME_TG2;
 import static seedu.address.logic.commands.TutorialTestUtil.VALID_VENUE_TG2;
 import static seedu.address.testutil.TypicalTutorials.T01;
+import static seedu.address.testutil.TypicalTutorials.T02;
 import static seedu.address.testutil.TypicalTutorials.TG2;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.AttendanceList;
+import seedu.address.model.attendance.Comment;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.NusNetId;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.TutorialBuilder;
+import seedu.address.testutil.TypicalStudents;
 
 public class TutorialTest {
 
@@ -77,4 +90,225 @@ public class TutorialTest {
         editedT01 = new TutorialBuilder(T01).withTime(VALID_TIME_TG2).build();
         assertFalse(T01.equals(editedT01));
     }
+
+    public Tutorial tutorialWithListTest() {
+        ObservableList<Person> personList = FXCollections.observableArrayList();
+        personList.addAll(
+                TypicalStudents.DENSON,
+                TypicalStudents.EVE,
+                TypicalStudents.FIONA
+        );
+        FilteredList<Person> studentList = new FilteredList<Person>(personList, null);
+
+        Tutorial testTutorial = new TutorialBuilder().withTutorialName("T01")
+                .withDay("Wed").withTime("10:00").withVenue("LT15").withWeeks(13).buildWithStudentList(studentList);
+        return testTutorial;
+    }
+
+    @Test
+    public void isSameTutorialTest() {
+        boolean tutorialNamesIsSame = T01.isSameTutorial(T01);
+        assertTrue(tutorialNamesIsSame);
+
+        boolean tutorialNamesIsDifferent = T01.isSameTutorial(T02);
+        assertFalse(tutorialNamesIsDifferent);
+    }
+
+    @Test
+    public void isSameTutorialNameTest() {
+        boolean tutorialNamesIsSame = T01.isSameTutorialName(T01.getTutorialName());
+        assertTrue(tutorialNamesIsSame);
+
+        boolean tutorialNamesIsDifferent = T01.isSameTutorialName(T02.getTutorialName());
+        assertFalse(tutorialNamesIsDifferent);
+    }
+
+    @Test
+    public void tutorialContainsStudentTest() {
+        Tutorial testTutorial = tutorialWithListTest();
+        // EVE belongs in T01
+        assertTrue(
+                testTutorial.contains(TypicalStudents.EVE));
+        // BERNARD belongs in TG01
+        assertFalse(
+                testTutorial.contains(TypicalStudents.BERNARD));
+    }
+
+    @Test
+    public void tutorialGetStudentWithIdTest() {
+        Tutorial testTutorial = tutorialWithListTest();
+        // EVE belongs in T01
+        assertEquals(TypicalStudents.EVE, testTutorial.getStudentWithId(
+                TypicalStudents.EVE.getStudentId()));
+        // BERNARD belongs in TG01
+        assertNull(testTutorial.getStudentWithId(
+                TypicalStudents.BERNARD.getStudentId()));
+    }
+
+    @Test
+    public void tutorialContainsStudentWithIdTest() {
+        Tutorial testTutorial = tutorialWithListTest();
+        // EVE belongs in T01
+        assertTrue(testTutorial.containsStudentWithId(
+                TypicalStudents.EVE.getStudentId()));
+        // BERNARD belongs in TG01
+        assertFalse(testTutorial.containsStudentWithId(
+                TypicalStudents.BERNARD.getStudentId()));
+    }
+
+    @Test
+    public void tutorialMarkUnmarkAllAttendanceTest() {
+        Tutorial testTutorial = tutorialWithListTest();
+
+        testTutorial.markAllAttendance(1);
+        testTutorial.markAllAttendance(2);
+        testTutorial.markAllAttendance(3);
+
+        AttendanceList attendanceList = testTutorial.getAttendanceList();
+        Attendance eveAttendance = attendanceList
+                .getAttendancesByStudentName(
+                        TypicalStudents.EVE.getName()).get(0); //EVE's attendance
+
+        // Marked attendance for first 3 weeks
+
+        assertTrue(eveAttendance.getAttendanceList().get(0) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(1) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(2) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(3) == 0);
+
+        Attendance fionaAttendance = attendanceList
+                .getAttendancesByStudentName(
+                        TypicalStudents.FIONA.getName()).get(0); //EVE's attendance
+        assertTrue(fionaAttendance.getAttendanceList().get(0) == 1);
+        assertTrue(fionaAttendance.getAttendanceList().get(1) == 1);
+        assertTrue(fionaAttendance.getAttendanceList().get(2) == 1);
+        assertTrue(fionaAttendance.getAttendanceList().get(3) == 0);
+
+        // Unmarked attendance for second week
+
+        testTutorial.unmarkAllAttendance(2);
+
+        assertTrue(eveAttendance.getAttendanceList().get(0) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(1) == 0);
+        assertTrue(eveAttendance.getAttendanceList().get(2) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(3) == 0);
+
+        assertTrue(fionaAttendance.getAttendanceList().get(0) == 1);
+        assertTrue(fionaAttendance.getAttendanceList().get(1) == 0);
+        assertTrue(fionaAttendance.getAttendanceList().get(2) == 1);
+        assertTrue(fionaAttendance.getAttendanceList().get(3) == 0);
+    }
+
+    @Test
+    public void tutorialMarkAndUnmarkIndividualAttendanceTest() {
+        Tutorial testTutorial = tutorialWithListTest();
+        NusNetId eveId = TypicalStudents.EVE.getStudentId();
+        Name eveName = TypicalStudents.EVE.getName();
+        NusNetId fionaId = TypicalStudents.FIONA.getStudentId();
+        Name fionaName = TypicalStudents.FIONA.getName();
+
+        testTutorial.markStudentAttendance(eveId, 1);
+        testTutorial.markStudentAttendance(eveId, 2);
+        testTutorial.markStudentAttendance(eveId, 3);
+        testTutorial.markStudentAttendance(fionaId, 4);
+
+        AttendanceList attendanceList = testTutorial.getAttendanceList();
+        Attendance eveAttendance = attendanceList
+                .getAttendancesByStudentName(
+                        eveName).get(0); //EVE's attendance
+        Attendance fionaAttendance = attendanceList
+                .getAttendancesByStudentName(
+                        fionaName).get(0); //EVE's attendance
+
+        // Marked EVE's attendance for first 3 weeks
+        // Marked FIONA's attendance for 4th week
+
+        assertTrue(eveAttendance.getAttendanceList().get(0) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(1) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(2) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(3) == 0);
+
+        assertTrue(fionaAttendance.getAttendanceList().get(0) == 0);
+        assertTrue(fionaAttendance.getAttendanceList().get(1) == 0);
+        assertTrue(fionaAttendance.getAttendanceList().get(2) == 0);
+        assertTrue(fionaAttendance.getAttendanceList().get(3) == 1);
+
+        // Unmarked EVE's attendance for 2nd weeks
+        // Unmarked FIONA's attendance for 4th week
+
+        testTutorial.unmarkStudentAttendance(eveId, 2);
+        testTutorial.unmarkStudentAttendance(fionaId, 4);
+
+        assertTrue(eveAttendance.getAttendanceList().get(0) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(1) == 0);
+        assertTrue(eveAttendance.getAttendanceList().get(2) == 1);
+        assertTrue(eveAttendance.getAttendanceList().get(3) == 0);
+
+        assertTrue(fionaAttendance.getAttendanceList().get(0) == 0);
+        assertTrue(fionaAttendance.getAttendanceList().get(1) == 0);
+        assertTrue(fionaAttendance.getAttendanceList().get(2) == 0);
+        assertTrue(fionaAttendance.getAttendanceList().get(3) == 0);
+    }
+
+    @Test
+    public void addAndViewAndRemoveCommentTest() {
+        Tutorial testTutorial = tutorialWithListTest();
+        NusNetId eveId = TypicalStudents.EVE.getStudentId();
+        Name eveName = TypicalStudents.EVE.getName();
+        NusNetId fionaId = TypicalStudents.FIONA.getStudentId();
+        Name fionaName = TypicalStudents.FIONA.getName();
+
+        // Add comment for EVE and FIONA
+        testTutorial.addComment(eveName, new Comment("Hardworking!"));
+        testTutorial.addComment(fionaName, new Comment("Diligent!!"));
+
+        assertEquals("Hardworking!", testTutorial.getAttendanceList()
+                .getAttendancesByStudentName(eveName).get(0)
+                .getComment().getCommentString());
+        assertEquals("Diligent!!", testTutorial.getAttendanceList()
+                .getAttendancesByStudentName(fionaName).get(0)
+                .getComment().getCommentString());
+
+        // Remove comment for FIONA
+
+        testTutorial.removeComment(fionaName);
+
+        assertEquals("Hardworking!", testTutorial.getAttendanceList()
+                .getAttendancesByStudentName(eveName).get(0)
+                .getComment().getCommentString());
+        assertEquals("", testTutorial.getAttendanceList()
+                .getAttendancesByStudentName(fionaName).get(0)
+                .getComment().getCommentString());
+
+        // View comments
+        assertEquals("Hardworking!", testTutorial.viewComment(eveName).getCommentString());
+        assertEquals("", testTutorial.viewComment(fionaName).getCommentString());
+    }
+
+    @Test
+    public void tutorialSetStudentList() {
+        Tutorial testTutorial = tutorialWithListTest();
+
+        NusNetId eveId = TypicalStudents.EVE.getStudentId();
+        NusNetId fionaId = TypicalStudents.FIONA.getStudentId();
+
+        ObservableList<Person> personList = FXCollections.observableArrayList();
+        personList.addAll(
+                TypicalStudents.FIONA
+        );
+        FilteredList<Person> studentList = new FilteredList<Person>(personList, null);
+
+        testTutorial.setStudentsList(studentList);
+        assertTrue(testTutorial.getStudentsList().getStudentsInClass().size() == 1);
+        assertFalse(testTutorial.containsStudentWithId(eveId));
+        assertTrue(testTutorial.containsStudentWithId(fionaId));
+
+    }
+
+    @Test
+    public void tutorialToString() {
+        assertEquals("T01; Venue: LT15; Day: Wednesday; Time: 10:00; Weeks: 13", T01.toString());
+        assertEquals("T02; Venue: LT16; Day: Thursday; Time: 11:00; Weeks: 13", T02.toString());
+    }
+
 }
