@@ -89,8 +89,6 @@ public class MarkAttendanceCommand extends Command {
                 && tutorialToMark.equals(((MarkAttendanceCommand) other).tutorialToMark)
                 && isMarkMultipleAttendances == (((MarkAttendanceCommand) other).isMarkMultipleAttendances)
                 && week == (((MarkAttendanceCommand) other).week))) {
-            System.out.println(studentToMark);
-            System.out.println(((MarkAttendanceCommand) other).studentToMark);
             if ((studentToMark == null && (((MarkAttendanceCommand) other).studentToMark) == null)
                     || (studentToMark.equals(((MarkAttendanceCommand) other).studentToMark))) {
                 return true;
