@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalStudents.EVE;
+import static seedu.address.testutil.TypicalStudents.FIONA;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -39,47 +41,131 @@ import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.testutil.TutorialBuilder;
 
-public class AddClassCommandTest {
+public class UnmarkAttendanceCommandTest {
 
     @Test
-    public void constructor_nullTutorial_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddClassCommand(null));
+    public void constructor_nullTutorialName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new UnmarkAttendanceCommand(
+                null, FIONA.getStudentId(),
+                5, false));
     }
 
     @Test
-    public void execute_tutorialAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTutorialAdded modelStub = new ModelStubAcceptingTutorialAdded();
-        Tutorial validTutorial = new TutorialBuilder().build();
+    public void execute_unmarkIndividualAttendanceAcceptedByModel_markSuccessful() throws Exception {
+        ModelStubAcceptingAttendanceUnmarked modelStub = new ModelStubAcceptingAttendanceUnmarked();
+        Tutorial validTutorial = new TutorialBuilder().withTutorialName("T01").withVenue("LT13")
+                .withDay("Monday").withTime("13:00").withWeeks(6).build();
+        validTutorial.setStudentsList(
+                new FilteredList<>(FXCollections.observableArrayList(modelStub.allStudents), null));
+        modelStub.tutorialsAdded.add(validTutorial);
 
-        CommandResult commandResult = new AddClassCommand(validTutorial).execute(modelStub);
+        // Manually marks attendance for FIONA's first week
+        validTutorial.generateAttendance();
+        validTutorial.getAttendanceList()
+                .getAttendancesByStudentName(FIONA.getName()).get(0).getAttendanceList().set(0, 1);
 
-        assertEquals(String.format(AddClassCommand.MESSAGE_SUCCESS, validTutorial), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validTutorial), modelStub.tutorialsAdded);
+        assertTrue(arrayListComparison(validTutorial.getAttendanceList()
+                .getAttendancesByStudentName(
+                        FIONA.getName()).get(0).getAttendanceList(), new int[] {1, 0, 0, 0, 0, 0}));
+
+        CommandResult commandResult = new UnmarkAttendanceCommand(validTutorial.getTutorialName(),
+                FIONA.getStudentId(), 1, false).execute(modelStub);
+
+        // Unmarks attendance for FIONA's first week
+        assertEquals(String.format(
+                UnmarkAttendanceCommand.MESSAGE_SUCCESS, FIONA.getStudentId(), 1),
+                commandResult.getFeedbackToUser());
+        assertTrue(arrayListComparison(validTutorial.getAttendanceList()
+                .getAttendancesByStudentName(
+                        FIONA.getName()).get(0).getAttendanceList(), new int[] {0, 0, 0, 0, 0, 0}));
+    }
+
+    @Test
+    public void execute_unmarkMultipleAttendanceAcceptedByModel_markSuccessful() throws Exception {
+        ModelStubAcceptingAttendanceUnmarked modelStub = new ModelStubAcceptingAttendanceUnmarked();
+        Tutorial validTutorial = new TutorialBuilder().withTutorialName("T01").withVenue("LT13")
+                .withDay("Monday").withTime("13:00").withWeeks(6).build();
+        validTutorial.setStudentsList(
+                new FilteredList<>(FXCollections.observableArrayList(modelStub.allStudents), null));
+        modelStub.tutorialsAdded.add(validTutorial);
+
+        // Manually marks attendance for entire class first week
+        validTutorial.generateAttendance();
+        validTutorial.getAttendanceList()
+                .getAttendancesByStudentName(FIONA.getName()).get(0).getAttendanceList().set(1, 1);
+        validTutorial.getAttendanceList()
+                .getAttendancesByStudentName(EVE.getName()).get(0).getAttendanceList().set(1, 1);
+
+        assertTrue(arrayListComparison(validTutorial.getAttendanceList()
+                .getAttendancesByStudentName(
+                        FIONA.getName()).get(0).getAttendanceList(), new int[] {0, 1, 0, 0, 0, 0}));
+        assertTrue(arrayListComparison(validTutorial
+                .getAttendanceList().getAttendancesByStudentName(
+                        EVE.getName()).get(0).getAttendanceList(), new int[] {0, 1, 0, 0, 0, 0}));
+
+        CommandResult commandResult = new UnmarkAttendanceCommand(validTutorial.getTutorialName(),
+                null, 2, true).execute(modelStub);
+
+        // Unmarks attendance for entire class first week
+        assertEquals(String.format(
+                UnmarkAttendanceCommand.MESSAGE_MULTIPLE_SUCCESS, 2), commandResult.getFeedbackToUser());
+        assertTrue(arrayListComparison(validTutorial.getAttendanceList()
+                .getAttendancesByStudentName(
+                        FIONA.getName()).get(0).getAttendanceList(), new int[] {0, 0, 0, 0, 0, 0}));
+        assertTrue(arrayListComparison(validTutorial.getAttendanceList()
+                .getAttendancesByStudentName(
+                        EVE.getName()).get(0).getAttendanceList(), new int[] {0, 0, 0, 0, 0, 0}));
+
     }
 
     @Test
     public void equals() {
         Tutorial tutorialA = new TutorialBuilder().withTutorialName("A").build();
         Tutorial tutorialB = new TutorialBuilder().withTutorialName("B").build();
-        AddClassCommand addClassACommand = new AddClassCommand(tutorialA);
-        AddClassCommand addClassBCommand = new AddClassCommand(tutorialB);
+        NusNetId studentIdA = new NusNetId("e0123456");
+        NusNetId studentIdB = new NusNetId("e6543210");
+        UnmarkAttendanceCommand unmarkAttendanceCommand1 = new UnmarkAttendanceCommand(
+                tutorialA.getTutorialName(), studentIdA, 1, false);
+        UnmarkAttendanceCommand unmarkAttendanceCommand2 = new UnmarkAttendanceCommand(
+                tutorialA.getTutorialName(), studentIdA, 1, false);
+        UnmarkAttendanceCommand unmarkAttendanceCommand3 = new UnmarkAttendanceCommand(
+                tutorialB.getTutorialName(), studentIdA, 1, false);
+        UnmarkAttendanceCommand unmarkAttendanceCommand4 = new UnmarkAttendanceCommand(
+                tutorialA.getTutorialName(), studentIdB, 1, false);
+        UnmarkAttendanceCommand unmarkAttendanceCommand5 = new UnmarkAttendanceCommand(
+                tutorialA.getTutorialName(), studentIdA, 2, false);
+        UnmarkAttendanceCommand unmarkAttendanceCommand6 = new UnmarkAttendanceCommand(
+                tutorialA.getTutorialName(), studentIdA, 1, true);
+        UnmarkAttendanceCommand unmarkAttendanceCommand7 = new UnmarkAttendanceCommand(
+                tutorialA.getTutorialName(), null, 1, false);
+        UnmarkAttendanceCommand unmarkAttendanceCommand8 = new UnmarkAttendanceCommand(
+                tutorialA.getTutorialName(), null, 1, true);
 
         // same object -> returns true
-        assertTrue(addClassACommand.equals(addClassACommand));
+        assertTrue(unmarkAttendanceCommand1.equals(unmarkAttendanceCommand1));
 
         // same values -> returns true
-        AddClassCommand addClassACommandCopy = new AddClassCommand(tutorialA);
-        assertTrue(addClassACommand.equals(addClassACommandCopy));
+        assertTrue(unmarkAttendanceCommand1.equals(unmarkAttendanceCommand2));
 
         // different types -> returns false
-        assertFalse(addClassACommand.equals(1));
+        assertFalse(unmarkAttendanceCommand1.equals(1));
 
-        // different tutorial class -> returns false
-        assertFalse(addClassACommand.equals(addClassBCommand));
+        // different tutorial name -> returns false
+        assertFalse(unmarkAttendanceCommand1.equals(unmarkAttendanceCommand3));
+
+        // different student id -> returns false
+        assertFalse(unmarkAttendanceCommand1.equals(unmarkAttendanceCommand4));
+
+        // different week -> returns false
+        assertFalse(unmarkAttendanceCommand1.equals(unmarkAttendanceCommand5));
+
+        // different multiple attendance argument -> returns false
+        assertFalse(unmarkAttendanceCommand1.equals(unmarkAttendanceCommand6));
+        assertFalse(unmarkAttendanceCommand7.equals(unmarkAttendanceCommand8));
     }
 
     /**
-     * A default model stub that has all methods failing.
+     * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -339,7 +425,6 @@ public class AddClassCommandTest {
         @Override
         public void unmarkAttendanceForClass(Tutorial tutorial, int week) {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
@@ -401,44 +486,58 @@ public class AddClassCommandTest {
     /**
      * A Model stub that contains a single tutorial class.
      */
-    private class ModelStubWithTutorial extends ModelStub {
+    private class ModelStubWithAttendance extends ModelStub {
         private final Tutorial tutorial;
 
-        ModelStubWithTutorial(Tutorial tutorial) {
+        ModelStubWithAttendance(Tutorial tutorial) {
             requireNonNull(tutorial);
             this.tutorial = tutorial;
         }
 
         @Override
-        public boolean hasTutorial(Tutorial tutorial) {
+        public boolean hasTutorialWithName(TutorialName tutorialName) {
             requireNonNull(tutorial);
-            return this.tutorial.isSameTutorial(tutorial);
+            return this.tutorial.isSameTutorialName(tutorialName);
         }
     }
 
     /**
-     * A model stub that always accepts the class being added.
+     * A model stub that always accept the attendance being unmarked.
      */
-    private class ModelStubAcceptingTutorialAdded extends ModelStub {
-        final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
-        final ArrayList<Person> allStudents = new ArrayList<>();
-        final ArrayList<Assessment> allAssessments = new ArrayList<>();
-
-        @Override
-        public boolean hasTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            return tutorialsAdded.stream().anyMatch(tutorial::isSameTutorial);
-        }
-
-        @Override
-        public void addTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            tutorialsAdded.add(tutorial);
-        }
+    private class ModelStubAcceptingAttendanceUnmarked extends ModelStub {
+        public final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
+        final ArrayList<Person> allStudents = new ArrayList<Person>() {
+            {
+                add(FIONA);
+                add(EVE);
+            }
+        };
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public boolean hasTutorialWithName(TutorialName tutorialName) {
+            requireNonNull(tutorialName);
+            return tutorialsAdded.stream().anyMatch(x -> x.isSameTutorialName(tutorialName));
+        }
+
+        @Override
+        public Tutorial getTutorialWithName(TutorialName tutorialName) {
+            requireNonNull(tutorialName);
+            for (int i = 0; i < tutorialsAdded.size(); i++) {
+                if (tutorialsAdded.get(i).getTutorialName().equals(tutorialName)) {
+                    return tutorialsAdded.get(i);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public void updateFilteredAttendanceList(Tutorial tutorial, Name studentName) {
+            return;
         }
 
         @Override
@@ -448,21 +547,26 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public ObservableList<Assessment> getAssessmentList() {
-            ObservableList<Assessment> assessmentObservableList = FXCollections.observableArrayList(allAssessments);
-            return assessmentObservableList;
+        public void unmarkAttendanceForStudent(Tutorial tutorial, NusNetId studentId, int week) {
+            requireAllNonNull(tutorial, studentId, week);
+            tutorial.unmarkStudentAttendance(studentId, week);
         }
 
         @Override
-        public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
-            requireNonNull(predicate);
-            ObservableList<Tutorial> tutorialObservableList = FXCollections.observableArrayList(tutorialsAdded);
-            new FilteredList<>(tutorialObservableList).setPredicate(predicate);
-
+        public void unmarkAttendanceForClass(Tutorial tutorial, int week) {
+            requireAllNonNull(tutorial, week);
+            tutorial.unmarkAllAttendance(week);
         }
-
-
     }
 
-
+    private boolean arrayListComparison(ArrayList<Integer> arr, int[] arr2) {
+        boolean isSame = true;
+        for (int i = 0; i < arr.size(); i++) {
+            if (!(arr.get(i) == arr2[i])) {
+                isSame = false;
+                break;
+            }
+        }
+        return isSame;
+    }
 }

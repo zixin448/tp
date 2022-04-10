@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalStudents.EVE;
+import static seedu.address.testutil.TypicalStudents.FIONA;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -39,47 +40,57 @@ import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.testutil.TutorialBuilder;
 
-public class AddClassCommandTest {
+public class ViewCommentCommandTest {
 
     @Test
-    public void constructor_nullTutorial_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddClassCommand(null));
+    public void constructor_nullTutorialName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new ViewCommentCommand(
+                null));
     }
 
     @Test
-    public void execute_tutorialAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTutorialAdded modelStub = new ModelStubAcceptingTutorialAdded();
-        Tutorial validTutorial = new TutorialBuilder().build();
+    public void execute_viewComment_successful() throws Exception {
+        ModelStubAcceptingComment modelStub = new ModelStubAcceptingComment();
+        Tutorial validTutorial = new TutorialBuilder().withTutorialName("T01").withVenue("LT13")
+                .withDay("Monday").withTime("13:00").withWeeks(6).build();
+        validTutorial.setStudentsList(
+                new FilteredList<>(FXCollections.observableArrayList(modelStub.allStudents), null));
+        validTutorial.generateAttendance();
+        modelStub.tutorialsAdded.add(validTutorial);
 
-        CommandResult commandResult = new AddClassCommand(validTutorial).execute(modelStub);
+        // Manually change comment for FIONA
+        String commentString = "Was late multiple times!";
+        validTutorial.getAttendanceList().getAttendances().get(0).getComment().setCommentString(commentString);
 
-        assertEquals(String.format(AddClassCommand.MESSAGE_SUCCESS, validTutorial), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validTutorial), modelStub.tutorialsAdded);
+        // Views FIONA's comment
+        CommandResult commandResult = new ViewCommentCommand(
+                FIONA.getStudentId()).execute(modelStub);
+
+        assertEquals(String.format(ViewCommentCommand.MESSAGE_SUCCESS, FIONA.getName(), commentString),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
     public void equals() {
-        Tutorial tutorialA = new TutorialBuilder().withTutorialName("A").build();
-        Tutorial tutorialB = new TutorialBuilder().withTutorialName("B").build();
-        AddClassCommand addClassACommand = new AddClassCommand(tutorialA);
-        AddClassCommand addClassBCommand = new AddClassCommand(tutorialB);
+        NusNetId studentIdA = new NusNetId("e0123456");
+        NusNetId studentIdB = new NusNetId("e6543210");
+
+        ViewCommentCommand viewCommentCommand1 = new ViewCommentCommand(studentIdA);
+        ViewCommentCommand viewCommentCommand2 = new ViewCommentCommand(studentIdA);
+        ViewCommentCommand viewCommentCommand3 = new ViewCommentCommand(studentIdB);
 
         // same object -> returns true
-        assertTrue(addClassACommand.equals(addClassACommand));
+        assertTrue(viewCommentCommand1.equals(viewCommentCommand1));
 
-        // same values -> returns true
-        AddClassCommand addClassACommandCopy = new AddClassCommand(tutorialA);
-        assertTrue(addClassACommand.equals(addClassACommandCopy));
+        // same student id -> returns true
+        assertTrue(viewCommentCommand1.equals(viewCommentCommand2));
 
-        // different types -> returns false
-        assertFalse(addClassACommand.equals(1));
-
-        // different tutorial class -> returns false
-        assertFalse(addClassACommand.equals(addClassBCommand));
+        // different student id -> returns false
+        assertFalse(viewCommentCommand2.equals(viewCommentCommand3));
     }
 
     /**
-     * A default model stub that has all methods failing.
+     * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -328,7 +339,6 @@ public class AddClassCommandTest {
         @Override
         public void markAttendanceForClass(Tutorial tutorial, int week) {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
@@ -399,42 +409,16 @@ public class AddClassCommandTest {
     }
 
     /**
-     * A Model stub that contains a single tutorial class.
+     * A model stub that contains ONE tutorial and  always accept the comment viewed.
      */
-    private class ModelStubWithTutorial extends ModelStub {
-        private final Tutorial tutorial;
-
-        ModelStubWithTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            this.tutorial = tutorial;
-        }
-
-        @Override
-        public boolean hasTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            return this.tutorial.isSameTutorial(tutorial);
-        }
-    }
-
-    /**
-     * A model stub that always accepts the class being added.
-     */
-    private class ModelStubAcceptingTutorialAdded extends ModelStub {
-        final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
-        final ArrayList<Person> allStudents = new ArrayList<>();
-        final ArrayList<Assessment> allAssessments = new ArrayList<>();
-
-        @Override
-        public boolean hasTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            return tutorialsAdded.stream().anyMatch(tutorial::isSameTutorial);
-        }
-
-        @Override
-        public void addTutorial(Tutorial tutorial) {
-            requireNonNull(tutorial);
-            tutorialsAdded.add(tutorial);
-        }
+    private class ModelStubAcceptingComment extends ModelStub {
+        public final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
+        final ArrayList<Person> allStudents = new ArrayList<Person>() {
+            {
+                add(FIONA);
+                add(EVE);
+            }
+        };
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
@@ -442,27 +426,29 @@ public class AddClassCommandTest {
         }
 
         @Override
-        public FilteredList<Person> getAllStudentsList() {
-            ObservableList<Person> studentObservableList = FXCollections.observableArrayList(allStudents);
-            return new FilteredList<>(studentObservableList);
+        public Tutorial getTutorialWithName(TutorialName tutorialName) {
+            requireNonNull(tutorialName);
+            for (int i = 0; i < tutorialsAdded.size(); i++) {
+                if (tutorialsAdded.get(i).getTutorialName().equals(tutorialName)) {
+                    return tutorialsAdded.get(i);
+                }
+            }
+            return null;
         }
 
         @Override
-        public ObservableList<Assessment> getAssessmentList() {
-            ObservableList<Assessment> assessmentObservableList = FXCollections.observableArrayList(allAssessments);
-            return assessmentObservableList;
+        public boolean hasStudentWithId(NusNetId toAddStudentId) {
+            return tutorialsAdded.stream().anyMatch(x -> x.containsStudentWithId(toAddStudentId));
         }
 
         @Override
-        public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
-            requireNonNull(predicate);
-            ObservableList<Tutorial> tutorialObservableList = FXCollections.observableArrayList(tutorialsAdded);
-            new FilteredList<>(tutorialObservableList).setPredicate(predicate);
-
+        public Student getStudentWithId(NusNetId id) {
+            return tutorialsAdded.get(0).getStudentWithId(id);
         }
 
-
+        @Override
+        public Comment getComment(Tutorial tutorial, Name studentToViewComment) {
+            return tutorial.getAttendanceList().viewComment(studentToViewComment);
+        }
     }
-
-
 }

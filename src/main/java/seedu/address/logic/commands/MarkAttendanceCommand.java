@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TUTORIAL_WEEKS;
 import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
@@ -40,6 +41,7 @@ public class MarkAttendanceCommand extends Command {
      */
     public MarkAttendanceCommand(TutorialName tutorial, NusNetId studentId, int week,
                                  boolean isMarkMultipleAttendances) {
+        requireAllNonNull(tutorial, week, isMarkMultipleAttendances);
         this.isMarkMultipleAttendances = isMarkMultipleAttendances;
         tutorialToMark = tutorial;
         studentToMark = studentId;
@@ -77,6 +79,24 @@ public class MarkAttendanceCommand extends Command {
                     .createAttendanceCommandResult(String.format(MESSAGE_MULTIPLE_SUCCESS, week));
             result.setAttendanceWeek(week);
             return result;
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this // short circuit if same object
+                || (other instanceof MarkAttendanceCommand // instanceof handles nulls
+                && tutorialToMark.equals(((MarkAttendanceCommand) other).tutorialToMark)
+                && isMarkMultipleAttendances == (((MarkAttendanceCommand) other).isMarkMultipleAttendances)
+                && week == (((MarkAttendanceCommand) other).week))) {
+            if ((studentToMark == null && (((MarkAttendanceCommand) other).studentToMark) == null)
+                    || (studentToMark.equals(((MarkAttendanceCommand) other).studentToMark))) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 }

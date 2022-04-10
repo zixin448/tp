@@ -48,4 +48,11 @@ public class AddAssessmentCommand extends Command {
         model.addAssessment(toAdd);
         return createAssessmentCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return this == other
+                || (other instanceof AddAssessmentCommand
+                && toAdd.equals(((AddAssessmentCommand) other).toAdd));
+    }
 }
