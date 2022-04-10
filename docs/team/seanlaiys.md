@@ -13,14 +13,15 @@ Given below are my contributions to the project.
   * Viewing list of students
   * Viewing comments
   * Viewing list of assessments
+  * Viewing list of attendance
 
 * **Code contributed**:
-  * See [here](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=w13-2&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2022-02-18)
+  * See [here](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=seanlaiys&breakdown=true&sort=groupTitle&sortWithin=title&since=2022-02-18&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
 * **Enhancements to existing features**:
   * Enhanced existing features to complement with new features added
   * Enhanced the UI with changes to the theme
-  * Enhanced the UI to display list beyond just Person contacts
+  * Enhanced the UI to display lists beyond just Person contacts (attendance, comments, classes etc.)
 
 * **Documentation**:
     * User Guide:
@@ -29,17 +30,20 @@ Given below are my contributions to the project.
       * Updated Quick Start
       * Improved Introduction
       * Added images to aid understanding for some commands
+      * Updated the whole document in accordance to the product name
     * Developer Guide:
-      * Added new feature on displaying student
+      * Added new feature on displaying student with Sequence Diagram (Display Students Feature)
+      * Updated Storage Class Diagram
 
 * **Team-based tasks**:
   * Created GitHub Pages for the team's documentation for viewing online
   * Updated Ui.png for User Interface to be viewable in the tp Team List
   * Designed the mock UI which inspired the actual UI design later on
+  * Updated ReadMe and added CodeCov badge
 
 * **Review/Mentoring**:
-  * Reviewed PRs of group mates
-  * Reported bugs and suggestions for other teams (see [here]("https://github.com/seanlaiys/ped/issues"))
+  * Reviewed PRs of groupmates (e.g. [1](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/118), [2](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/107), [3](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/71), [4](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/80), [5](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/86))
+  * Aided team members in various occasions of debugging and helped team members with any UI-related queries
 
 * **Beyond the project team**:
-  * to be added soon
+  * Reported bugs and suggestions for other teams (see [here](https://github.com/seanlaiys/ped/issues))
