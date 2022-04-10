@@ -115,11 +115,7 @@ public class ListAttendanceCommandTest {
         ListAttendanceCommand command =
                 new ListAttendanceCommand(null, BERNARD.getStudentId(), studentRelatedWeek);
         ModelStubAcceptingStudentId model = new ModelStubAcceptingStudentId();
-        try {
-            command.execute(model);
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        }
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(model));
     }
 
     @Test
@@ -128,11 +124,7 @@ public class ListAttendanceCommandTest {
         ListAttendanceCommand command =
                 new ListAttendanceCommand(T02.getTutorialName(), null, validWeek);
         ModelStubAcceptingTutorialName model = new ModelStubAcceptingTutorialName();
-        try {
-            command.execute(model);
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        }
+        assertThrows(CommandException.class, expectedMessage, () ->command.execute(model));
     }
 
     @Test
@@ -141,11 +133,7 @@ public class ListAttendanceCommandTest {
         ListAttendanceCommand command =
                 new ListAttendanceCommand(T01.getTutorialName(), null, invalidWeek);
         ModelStubAcceptingTutorialName model = new ModelStubAcceptingTutorialName();
-        try {
-            command.execute(model);
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        }
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(model));
     }
 
     /**

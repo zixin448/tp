@@ -98,22 +98,14 @@ public class ListScoreCommandTest {
     public void execute_invalidTutNameInput_commandFailure() {
         String expectedMessage = Messages.MESSAGE_TUTORIAL_NOT_FOUND;
         ListScoreCommand command = new ListScoreCommand(VALID_TUTORIAL_NAME_2, VALID_ASSESSMENT_NAME_1);
-        try {
-            command.execute(new ModelStubListScore());
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        }
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(new ModelStubListScore()));
     }
 
     @Test
     public void execute_invalidAssessmentNameInput_commandFailure() {
         String expectedMessage = Messages.MESSAGE_ASSESSMENT_NOT_FOUND;
         ListScoreCommand command = new ListScoreCommand(VALID_TUTORIAL_NAME_1, VALID_ASSESSMENT_NAME_2);
-        try {
-            command.execute(new ModelStubListScore());
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        }
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(new ModelStubListScore()));
     }
 
 

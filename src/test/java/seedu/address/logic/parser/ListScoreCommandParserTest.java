@@ -24,7 +24,7 @@ public class ListScoreCommandParserTest {
         TutorialName tutorialName = new TutorialBuilder(T01).build().getTutorialName();
         AssessmentName assessmentName = new AssessmentBuilder(OP1).build().getAssessmentName();
 
-        // whitespace only preamble
+        // all fields present
         assertParseSuccess(parser, TUTORIALNAME_DESC_T01 + ASSESSMENT_NAME_DESC_OP1,
                 new ListScoreCommand(tutorialName, assessmentName));
     }
@@ -33,7 +33,7 @@ public class ListScoreCommandParserTest {
     public void parse_tutorialNameFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListScoreCommand.MESSAGE_USAGE);
 
-        // missing day field
+        // missing tutorial name field
         assertParseFailure(parser, ASSESSMENT_NAME_DESC_OP1, expectedMessage);
     }
 
@@ -41,7 +41,7 @@ public class ListScoreCommandParserTest {
     public void parse_assessmentNameFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListScoreCommand.MESSAGE_USAGE);
 
-        // missing day field
+        // missing assessment name field
         assertParseFailure(parser, TUTORIALNAME_DESC_T01, expectedMessage);
     }
 

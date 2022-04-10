@@ -115,24 +115,16 @@ public class ListStudentCommandTest {
     public void execute_indexInput_invalidIndexFailure() {
         String expectedMessage = Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX;
         ListStudentCommand command = new ListStudentCommand(INDEX_TWO, null);
-        try {
-            command.execute(new ModelStubAcceptingIndex());
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        }
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(new ModelStubAcceptingIndex()));
     }
 
     @Test
     public void execute_indexInput_displayListMismatchFailure() {
         String expectedMessage = Messages.MESSAGE_INDEX_LIST_MISMATCH + ListStudentCommand.MESSAGE_INDEX_USAGE;
         ListStudentCommand command = new ListStudentCommand(INDEX_ONE, null);
-        try {
-            ModelStubAcceptingIndex model = new ModelStubAcceptingIndex();
-            model.updateWrongLastShownList();
-            command.execute(model);
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        }
+        ModelStubAcceptingIndex model = new ModelStubAcceptingIndex();
+        model.updateWrongLastShownList();
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(model));
     }
 
     @Test
@@ -147,11 +139,8 @@ public class ListStudentCommandTest {
     public void execute_indexInput_invalidTutorialFailure() {
         String expectedMessage = Messages.MESSAGE_TUTORIAL_NOT_FOUND;
         ListStudentCommand command = new ListStudentCommand(null, T02.getTutorialName());
-        try {
-            command.execute(new ModelStubAcceptingTutorialName());
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        }
+        assertThrows(CommandException.class, expectedMessage, (
+            ) -> command.execute(new ModelStubAcceptingTutorialName()));
     }
 
 
