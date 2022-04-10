@@ -19,7 +19,7 @@ Class StudentCard
 Class PersonCard
 Class StatusBarFooter
 Class CommandBox
-Class AttendanceByStudentCard
+Class AttendanceCard
 Class CommentCard
 }
 
@@ -47,24 +47,26 @@ DisplayListPanel -down-> "*" AssessmentCard
 DisplayListPanel -down-> "*" StudentResultCard
 DisplayListPanel -down-> "*" StudentCard
 DisplayListPanel -down-> "*" PersonCard
-DisplayListPanel -down-> "*" AttendanceByStudentCard
+DisplayListPanel -down-> "*" AttendanceCard
 DisplayListPanel -down-> "*" CommentCard
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-DisplayListPanel --|> UiPart
-TutorialCard --|> UiPart
-AssessmentCard --|> UiPart
-StudentResultCard --|> UiPart
-StudentCard --|> UiPart
-AttendanceByStudentCard --|> UiPart
-CommentCard --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow --|> UiPart
+ResultDisplay ---|> UiPart
+CommandBox ---|> UiPart
+DisplayListPanel ---|> UiPart
+TutorialCard ---|> UiPart
+AssessmentCard ---|> UiPart
+StudentResultCard ---|> UiPart
+StudentCard ---|> UiPart
+AttendanceCard ---|> UiPart
+CommentCard ---|> UiPart
+PersonCard ---|> UiPart
+StatusBarFooter ---|> UiPart
+HelpWindow ---|> UiPart
 
+AttendanceCard ....> Model
+CommentCard ....> Model
 TutorialCard ..> Model
 AssessmentCard ..> Model
 StudentResultCard ...> Model
