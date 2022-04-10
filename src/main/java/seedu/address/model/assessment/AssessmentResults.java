@@ -93,7 +93,6 @@ public class AssessmentResults {
                 return;
             }
         }
-        throw new StudentResultNotFoundException();
     }
 
     /**
