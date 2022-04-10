@@ -45,4 +45,11 @@ public class RemoveCommentCommand extends Command {
         model.removeComment(tutorial, student.getName());
         return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, student.getName()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RemoveCommentCommand // instanceof handles nulls
+                && studentToRemoveComment.equals(((RemoveCommentCommand) other).studentToRemoveComment));
+    }
 }

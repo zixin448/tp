@@ -51,4 +51,12 @@ public class AddCommentCommand extends Command {
         model.addComment(tutorial, student.getName(), toAdd);
         return CommandResult.createCommentCommandResult(String.format(MESSAGE_SUCCESS, student.getName(), toAdd));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddCommentCommand // instanceof handles nulls
+                && studentToComment.equals(((AddCommentCommand) other).studentToComment)
+                && toAdd.equals(((AddCommentCommand) other).toAdd));
+    }
 }
