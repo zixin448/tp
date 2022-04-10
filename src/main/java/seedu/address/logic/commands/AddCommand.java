@@ -37,7 +37,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_DUPLICATE_EMAIL = "This email already exists in the address book";
     public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
-    public static final String MESSAGE_CANNOT_ADD_STUDENT_TAG = "The student tag is reserved for students";
+    public static final String MESSAGE_CANNOT_ADD_STUDENT_TAG = "The student tag is reserved for students. " +
+            "Student tag not added";
 
     private final Person toAdd;
 
@@ -66,7 +67,9 @@ public class AddCommand extends Command {
         }
 
         if (toAdd.hasStudentTag()) {
-            throw new CommandException(MESSAGE_CANNOT_ADD_STUDENT_TAG);
+            toAdd.removeTag("student");
+            model.addPerson(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + MESSAGE_CANNOT_ADD_STUDENT_TAG, toAdd));
         }
 
         model.addPerson(toAdd);
