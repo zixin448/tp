@@ -231,10 +231,14 @@ Replaces the currently existing `Person` contact with a `Student` contact and ad
 
 Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 
-<div markdown="span" class="alert alert-primary">:information_source: **Note:**
-You can only add an existing person in camNUS as a student to an existing class!
-You can add a person using [`add` command](#adding-a-person-add). Eg: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-You can add a class using [`add_class` command](#adding-a-class-add_class). Eg: `add_class tn/T04 v/LT13 d/Monday tm/13:00 wk/13`
+<div markdown="span" class="alert alert-primary">:information_source: **Note:**<br>
+You can only add an existing person in camNUS as a student to an existing class!<br>
+   
+You can add a person using [`add` command](#adding-a-person-add).<br>
+Eg: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`<br>
+   
+You can add a class using [`add_class` command](#adding-a-class-add_class).<br>
+Eg: `add_class tn/T04 v/LT13 d/Monday tm/13:00 wk/13`<br>
 </div>
 
 * Update the person with the specified `NAME` and `STUDENT_ID` to a `Student` contact and add the student to the specified class.
