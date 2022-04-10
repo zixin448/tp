@@ -163,6 +163,11 @@ public class EditCommand extends Command {
             editedStudent.addTag("student");
         }
 
+        // if editing student id or tutorial name
+        if (editStudentDescriptor != null) {
+            model.removeStudentResults(studentToEdit.getStudentId(),studentToEdit.getTutorialName());
+        }
+
         model.setPerson(studentToEdit, editedStudent);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
