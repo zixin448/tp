@@ -1,14 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_TUTORIAL_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -48,8 +45,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_STUDENTID + "STUDENT_ID] "
-            + "[" + PREFIX_TUTORIALNAME + "TUTORIAL_NAME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -67,12 +62,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_STUDENT_TAG_NOT_ADDED = "This person is not a student, student tag not added.";
     public static final String MESSAGE_STUDENT_TAG_ADDED = "Student tag has been automatically added";
 
-
-
-
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
-    private final EditStudentDescriptor editStudentDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -84,20 +75,6 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
-        this.editStudentDescriptor = null;
-    }
-
-    /**
-     * @param index of the person in the filtered person list to edit
-     * @param editStudentDescriptor details to edit the student with
-     */
-    public EditCommand(Index index, EditStudentDescriptor editStudentDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editStudentDescriptor);
-
-        this.index = index;
-        this.editPersonDescriptor = null;
-        this.editStudentDescriptor = new EditStudentDescriptor(editStudentDescriptor);
     }
 
     @Override
@@ -108,7 +85,9 @@ public class EditCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
         Displayable personToEdit = lastShownList.get(index.getZeroBased());
+        //Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         if (personToEdit instanceof Student) {
             return executeEditStudent(model, (Student) personToEdit);
@@ -119,33 +98,21 @@ public class EditCommand extends Command {
         }
 
         throw new CommandException(Messages.MESSAGE_INDEX_LIST_MISMATCH + MESSAGE_INDEX_USAGE);
+
     }
 
     private CommandResult executeEditStudent(Model model, Person personToEdit) throws CommandException {
         Student editedStudent;
         Student studentToEdit = (Student) personToEdit;
-        EditStudentDescriptor descriptor = editStudentDescriptor;
-        if (editStudentDescriptor != null) {
-            editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
-        } else {
-            descriptor = new EditStudentDescriptor(editPersonDescriptor);
-            editedStudent = createEditedStudent(studentToEdit, descriptor);
-        }
+        EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor(editPersonDescriptor);
+
+        editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
         // if you are changing the name to one that already exists
         if (!studentToEdit.isSamePerson(editedStudent) && model.hasPerson(editedStudent)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        if (!model.hasTutorialWithName(editedStudent.getTutorialName())) {
-            throw new CommandException(MESSAGE_TUTORIAL_NOT_FOUND);
-        }
-
-        // if you are changing the id to one that already exists
-        if (!studentToEdit.getStudentId().equals(editedStudent.getStudentId())
-                && model.hasStudentWithId(editedStudent.getStudentId())) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_STUDENT_ID, editedStudent.getStudentId()));
-        }
 
         // if you are changing the email to one that already exists
         if (!studentToEdit.getEmail().equals(editedStudent.getEmail())
@@ -159,15 +126,15 @@ public class EditCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PHONE, editedStudent.getPhone()));
         }
 
-        if (!descriptor.hasStudentTag()) {
+        if (!editStudentDescriptor.hasStudentTag()) {
             editedStudent.addTag("student");
         }
 
         model.setPerson(studentToEdit, editedStudent);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        if (!descriptor.hasStudentTag()) {
-            return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS + MESSAGE_STUDENT_TAG_ADDED,
+        if (!editStudentDescriptor.hasStudentTag()) {
+            return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS + "\n" + MESSAGE_STUDENT_TAG_ADDED,
                     editedStudent));
         }
 
@@ -175,9 +142,6 @@ public class EditCommand extends Command {
     }
 
     private CommandResult executeEditPerson(Model model, Person personToEdit) throws CommandException {
-        if (editStudentDescriptor != null) {
-            throw new CommandException(MESSAGE_NOT_A_STUDENT);
-        }
 
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -243,6 +207,7 @@ public class EditCommand extends Command {
         return new Student(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedStudentId,
                 updatedTutorialName);
     }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -257,19 +222,8 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-
-        // both have an editStudentDescriptor
-        if (editPersonDescriptor == null && e.editStudentDescriptor != null) {
-            return index.equals(e.index)
-                    && editStudentDescriptor.equals(e.editStudentDescriptor);
-        // both have an editPersonDescriptor
-        } else if (editStudentDescriptor == null && e.editPersonDescriptor != null) {
-            return index.equals(e.index)
-                    && editPersonDescriptor.equals(e.editPersonDescriptor);
-        } else {
-            return false;
-        }
-
+        return index.equals(e.index)
+                && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 
     /**
