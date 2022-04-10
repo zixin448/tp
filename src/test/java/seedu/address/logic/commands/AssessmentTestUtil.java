@@ -27,4 +27,5 @@ public class AssessmentTestUtil {
     public static final String SCORE_DESC_OP1 = " " + PREFIX_SCORE + VALID_SCORE_OP1;
     public static final String SCORE_DESC_OP2 = " " + PREFIX_SCORE + VALID_SCORE_OP2;
     public static final String INVALID_SCORE_DESC = " " + PREFIX_SCORE + "1001";
+
 }

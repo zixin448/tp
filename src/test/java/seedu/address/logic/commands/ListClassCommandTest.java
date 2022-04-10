@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTutorials.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,11 @@ public class ListClassCommandTest {
     private TutorialHasSameDay mondayPredicate = new TutorialHasSameDay(monday);
     private TutorialHasSameDay tuesdayPredicate = new TutorialHasSameDay(tuesday);
     private TutorialHasSameDay fridayPredicate = new TutorialHasSameDay(friday);
+
+    @Test
+    public void execute_nullModel_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new ListClassCommand(mondayPredicate).execute(null));
+    }
 
     @Test
     public void equals() {
@@ -67,5 +73,4 @@ public class ListClassCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertTrue(model.getFilteredTutorialList().size() == 2);
     }
-
 }

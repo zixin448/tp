@@ -33,6 +33,8 @@ public class TypicalTutorials {
             .withDay("Friday").withTime("12:00").withVenue("LT17").withWeeks(13).build();
     public static final Tutorial T04 = new TutorialBuilder().withTutorialName("T04")
             .withDay("Friday").withTime("13:00").withVenue("LT18").withWeeks(13).build();
+    public static final Tutorial TG01 = new TutorialBuilder().withTutorialName("TG01")
+            .withDay("Monday").withTime("13:00").withVenue("LT18").withWeeks(13).build();
 
     // Manually added - Tutorial's details found in {@code TutorialTestUtil}
     public static final Tutorial TG1 = new TutorialBuilder().withTutorialName(VALID_TUTORIAL_NAME_TG1)

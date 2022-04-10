@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 
+import java.util.Objects;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.NusNetId;
@@ -92,6 +94,23 @@ public class ListAttendanceCommand extends Command {
         String successMessage = String.format(MESSAGE_SUCCESS_STUDENT, studentToList.getName());
         CommandResult commandResult = CommandResult.createAttendanceByStudentCommandResult(successMessage);
         return commandResult;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (studentId == null) {
+            return other == this // short circuit if same object
+                    || (other instanceof ListAttendanceCommand // instanceof handles nulls
+                    && tutorialName.equals(((ListAttendanceCommand) other).tutorialName) // state check
+                    && week == ((ListAttendanceCommand) other).week
+                    && Objects.equals(null, ((ListAttendanceCommand) other).studentId));
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof ListAttendanceCommand // instanceof handles nulls
+                    && Objects.equals(tutorialName, ((ListAttendanceCommand) other).tutorialName) // state check
+                    && week == ((ListAttendanceCommand) other).week
+                    && studentId.equals(((ListAttendanceCommand) other).studentId));
+        }
     }
 
 }
