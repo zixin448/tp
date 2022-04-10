@@ -70,7 +70,7 @@ command by clicking on it in the table of contents above, or scroll down to the 
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## Features 
 
 <div markdown="block" class="alert alert-info">
 
@@ -102,6 +102,8 @@ command by clicking on it in the table of contents above, or scroll down to the 
 
 </div>
 
+
+----------------------------------------------------------------------------
 ### Viewing help : `help`
 
 Opens a window containing a list of help commands.
@@ -118,9 +120,8 @@ Examples:
 * `help delete`
 * `help add`
 
-### Adding Commands
-
-#### Adding a person: `add`
+## Person
+### Adding a person: `add`
 
 Adds a person to camNUS.
 
@@ -134,7 +135,50 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-#### Adding a class: `add_class`
+### Deleting a person : `delete`
+
+Deletes the specified person from camNUS.
+
+Format: `delete INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+
+* `list` followed by `delete 2` deletes the 2nd person in camNUS.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Editing a person : `edit`
+
+Edits an existing person in camNUS.
+
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [tn/TUTORIAL_NAME] [t/TAG]…​`
+
+* `list` should be called before calling `edit` as this is the list that the `edit` command refers to.
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Tutorial name must be of a tutorial that is already created.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person’s tags by typing `t/` without
+  specifying any tags after it.
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+### Listing all persons : `list`
+
+Shows a list of all persons in camNUS.
+
+Format: `list`
+![result for `list`](images/listResult.png)
+
+## Class
+### Adding a class: `add_class`
 
 Adds a class to the module.
 
@@ -147,7 +191,44 @@ Examples:
 * `add_class tn/T04 v/LT13 d/Monday tm/13:00 wk/13`
 * `add_class tn/G04 v/E-LEARNING d/Wed tm/10:00 wk/13`
 
-#### Adding student to a class: `add_student`
+### Deleting a class : `delete_class`
+
+Removes a class from the module
+
+Format:`delete_class INDEX` or `delete_class tn/TUTORIAL_NAME`
+
+* `TUTORIAL_NAME` should not be given if `INDEX` is given.
+* `INDEX` should not be given if `TUTORIAL_NAME` is given.
+* Deletes the class at the specified `INDEX` or `TUTORIAL_NAME`.
+* All `Student` contacts in the class will be removed and replaced with a `Person` contact.
+* The index refers to the index number shown in the displayed list of classes.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+
+* `delete_class 1`
+* `delete_class tn/G04`
+
+### Listing all classes: `list_class`
+
+Shows a list of all classes on the any input date.
+
+Formats:
+
+* `list_class`
+* `list_class [d/DAY]`
+* `DAY` is optional
+* `DAY` should be spelt in full or 3-letter abbreviation
+
+Examples:
+
+* `list_class`
+  ![result for `list_class`](images/listClassResult.png)
+* `list_class d/Wed`
+  ![result for `list_class d/Wed`](images/listClassByDayResult.png)
+
+## Student
+### Adding student to a class: `add_student`
 
 Adds a specified student to a given class and replace the currently existing `Person` contact with a `Student` contact.
 
@@ -161,66 +242,25 @@ Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 Examples:
 * `add_student n/Amy Tan id/e0123456 tn/T13`
 
-#### Adding an assessment component: `add_assessment`
+### Removing a student  : `remove_student`
 
-Adds an assessment component to the module.
+Removes a student from a given class, replaces the `Student` contact with a `Person` contact.
 
-Format: `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL_MARKS`
-* `WEIGHTAGE` is out of 100%.
-* `FULL_MARKS` is the full marks of the assessment.
-* `FULL_MARKS` should be an integer between 1 and 1000 inclusive.
+Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
 
-Examples:
-* `add_assessment as/Attendance w/5 f/1`
-* `add_assessment as/Assignment 1 w/10 f/10`
-
-#### Adding a comment for a student: `comment`
-
-Adds a comment as a quick note for a student, for post class admin. Not meant to be used for results or attendance. Comments are deleted whenever a new one is added.
-
-Format: `comment id/STUDENT_ID msg/COMMENT`
+* `list_student` has to be called before `remove_student` as this is the list referred to by the `remove_student` command
+* Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
+* The `INDEX` refers to the index number shown in the displayed list of student in the class.
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
-* `COMMENT` is the message to be commented.
-
-Examples:
-* `comment id/e0123456 msg/Unable to attend the next tutorial.`
-
-### Listing Commands
-
-#### Listing all persons : `list`
-
-Shows a list of all persons in camNUS.
-
-Format: `list`
-![result for `list`](images/listResult.png)
-
-#### Listing all assessment components : `list_assessment`
-
-Shows a list of all assessment components added.
-
-Format: `list_assessment`
-![result for `list_assessment`](images/listAssessmentResult.png)
-
-#### Listing all classes: `list_class`
-
-Shows a list of all classes on the any input date.
-
-Formats:
-
-* `list_class`
-* `list_class [d/DAY]`
-* `DAY` is optional
-* `DAY` should be spelt in full or 3-letter abbreviation
-
+* After this command is called, tutorial name and student id of the student will be deleted.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `list_class`
-![result for `list_class`](images/listClassResult.png)
-* `list_class d/Wed`
-  ![result for `list_class d/Wed`](images/listClassByDayResult.png)
+* `remove_student 1 tn/G04`
+* `remove_student id/e0123456 tn/G04`
 
-#### Listing students of a class: `list_student`
+### Listing students of a class: `list_student`
 
 Shows a list of all students of a specified class.
 
@@ -240,7 +280,85 @@ Examples:
 * `list_student 1`
   ![result for `list_student 1`](images/listStudentResult.png)
 
-#### Listing scores of students in a class: `list_score`
+### Adding a comment for a student: `comment`
+
+Adds a comment as a quick note for a student, for post class admin. Not meant to be used for results or attendance. Comments are deleted whenever a new one is added.
+
+Format: `comment id/STUDENT_ID msg/COMMENT`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `COMMENT` is the message to be commented.
+
+Examples:
+* `comment id/e0123456 msg/Unable to attend the next tutorial.`
+
+### Removing a comment for a student: `remove_comment`
+
+Removes a comment for a student.
+
+Format: `remove_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+
+Examples:
+* `remove_comment id/e0123456`
+
+### Viewing a comment for a student: `view_comment`
+
+Views a comment for a student.
+
+Format: `view_comment id/STUDENT_ID`
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+
+Examples:
+* `view_comment id/e0123455`<br>
+  ![result for 'view_comment id/e0123455'](images/viewCommentResult.png)
+
+## Assessment
+### Adding an assessment component: `add_assessment`
+
+Adds an assessment component to the module.
+
+Format: `add_assessment as/ASSESSMENT_NAME w/WEIGHTAGE f/FULL_MARKS`
+* `WEIGHTAGE` is out of 100%.
+* `FULL_MARKS` is the full marks of the assessment.
+* `FULL_MARKS` should be an integer between 1 and 1000 inclusive.
+
+Examples:
+* `add_assessment as/Attendance w/5 f/1`
+* `add_assessment as/Assignment 1 w/10 f/10`
+
+### Deleting an assessment component: `delete_assessment`
+
+Deletes an assessment component from the module, removing all information about the assessment from the students taking the module.
+
+Format: `delete_assessment as/ASSESSMENT_NAME`
+
+* Deletes the assessment with the specified `ASSESSMENT_NAME`.
+
+Examples:
+
+* `delete_assessment as/Attendance`
+* `delete_assessment as/Assignment 1`
+
+### Listing all assessment components : `list_assessment`
+
+Shows a list of all assessment components added.
+
+Format: `list_assessment`
+![result for `list_assessment`](images/listAssessmentResult.png)
+
+### Assigning assessment score to a student: `grade`
+
+Assigns a score to a student in a specified assessment component. Displays the list of scores of students in the same class as given student for the given assessment.
+
+Format: `grade as/ASSESSMENT_NAME n/NAME s/SCORE`
+- `ASSESSMENT_NAME` is the name of the assessment.
+- `NAME` is the name of the student to be graded.
+- `SCORE` must be a non-negative integer that is smaller or equal to the full mark of the assessment with `ASSESSMENT_NAME` as its name. Since the full mark is an integer within the range 1-1000, the score must be an integer within the range 0-1000.
+- If a score already exists for student `NAME` in assessment `ASSESSMENT_NAME`, the score will be updated to `SCORE`
+
+Example: `grade as/Test 1 n/Amy Tan s/5`
+
+### Listing scores of students in a class: `list_score`
 
 Shows a list of the scores of all students of a given class for a given assessment component.
 
@@ -252,18 +370,48 @@ Examples:
 * list_score as/Assignment 1 tn/T04
   ![result for `list_score as/Assignment 1 tn/T04`](images/listScoreResult.png)
 
-#### Listing attendance of a class: `list_attendance`
+### Marking attendance for a student: `mark_attendance`
+
+Marks attendance for a specified student or all students in a specified class for a specified week.
+
+Format: `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
+
+* `STUDENT_ID` is optional.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
+
+Examples:
+
+* `mark_attendance tn/T04 id/e0123456 wk/1`
+* `mark_attendance tn/T04 wk/1`
+
+### Unmarking attendance for a student: `unmark_attendance`
+
+Unmarks attendance for a specified student or all students in a specified class for a specified week.
+
+Format: `unmark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
+
+* `STUDENT_ID` is optional.
+* `STUDENT_ID` refers to the student's unique NUSNET ID.
+* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
+
+Examples:
+
+* `unmark_attendance tn/T04 id/e0123456 wk/1`
+* `unmark_attendance tn/T04 wk/1`
+
+### Listing attendance of a class: `list_attendance`
 
 Generates the attendance list of a specified class, or a specified student.
 
 Format:
 1. `list_attendance tn/TUTORIAL_NAME wk/WEEK`
-   * `TUTORIAL_NAME` refers to the name of an existing tutorial group.
-   * `WEEK` refers to the week number of the requested attendance list.
-   * Shows attendance of all students belonging to the class with the specified `TUTORIAL_NAME`.
+    * `TUTORIAL_NAME` refers to the name of an existing tutorial group.
+    * `WEEK` refers to the week number of the requested attendance list.
+    * Shows attendance of all students belonging to the class with the specified `TUTORIAL_NAME`.
 2. `list_attendance id/STUDENT_ID`
-   * `STUDENT_ID` refers to the student's unique NUSNET ID.
-   * Shows attendance of student with specified `STUDENT_ID`.
+    * `STUDENT_ID` refers to the student's unique NUSNET ID.
+    * Shows attendance of student with specified `STUDENT_ID`.
 
 Examples:
 
@@ -271,29 +419,8 @@ Examples:
   ![result for `list_attendance tn/T04 wk/2`](images/listAttendance.png)
 * `list_attendance id/e0124444`
   ![result for `list_attendance id/e0124444`](images/listAttendanceByStudent.png)
-  
 
-### Editing a person : `edit`
-
-Edits an existing person in camNUS.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [id/STUDENT_ID] [tn/TUTORIAL_NAME] [t/TAG]…​`
-
-* `list` should be called before calling `edit` as this is the list that the `edit` command refers to.
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* Tutorial name must be of a tutorial that is already created.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-### Locating persons by name: `find`
+### Locating persons: `find`
 
 Finds persons whose names contain any of the given keywords.
 
@@ -330,135 +457,6 @@ Examples:
 
 * `find n/Jo` returns `john` and `John Doe` and `joseph`
 * `find n/Ale id/e0321` returns `Alex Yeoh`, `David Li`
-
-### Deleting Commands
-
-#### Deleting a person : `delete`
-
-Deletes the specified person from camNUS.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-
-* `list` followed by `delete 2` deletes the 2nd person in camNUS.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-
-#### Deleting a class : `delete_class`
-
-Removes a class from the module
-
-Format:`delete_class INDEX` or `delete_class tn/TUTORIAL_NAME`
-
-* `TUTORIAL_NAME` should not be given if `INDEX` is given.
-* `INDEX` should not be given if `TUTORIAL_NAME` is given.
-* Deletes the class at the specified `INDEX` or `TUTORIAL_NAME`.
-* All `Student` contacts in the class will be removed and replaced with a `Person` contact.
-* The index refers to the index number shown in the displayed list of classes.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-
-* `delete_class 1`
-* `delete_class tn/G04`
-
-#### Removing a student  : `remove_student`
-
-Removes a student from a given class, replaces the `Student` contact with a `Person` contact.
-
-Format: `remove_student INDEX tn/TUTORIAL_NAME` or `remove_student id/STUDENT_ID tn/TUTORIAL_NAME`.
-
-* `list_student` has to be called before `remove_student` as this is the list referred to by the `remove_student` command
-* Removes the student with the specified `INDEX` or `STUDENT_ID` from the class with specified `TUTORIAL_NAME`.
-* The `INDEX` refers to the index number shown in the displayed list of student in the class.
-* `STUDENT_ID` refers to the student's unique NUSNET ID.
-* After this command is called, tutorial name and student id of the student will be deleted.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-
-* `remove_student 1 tn/G04`
-* `remove_student id/e0123456 tn/G04`
-
-#### Deleting an assessment component: `delete_assessment`
-
-Deletes an assessment component from the module, removing all information about the assessment from the students taking the module.
-
-Format: `delete_assessment as/ASSESSMENT_NAME`
-
-* Deletes the assessment with the specified `ASSESSMENT_NAME`.
-
-Examples:
-
-* `delete_assessment as/Attendance`
-* `delete_assessment as/Assignment 1`
-
-#### Removing a comment for a student: `remove_comment`
-
-Removes a comment for a student.
-
-Format: `remove_comment id/STUDENT_ID`
-* `STUDENT_ID` refers to the student's unique NUSNET ID.
-
-Examples:
-* `remove_comment id/e0123456`
-
-### Assigning assessment score to a student: `grade`
-
-Assigns a score to a student in a specified assessment component. Displays the list of scores of students in the same class as given student for the given assessment.
-
-Format: `grade as/ASSESSMENT_NAME n/NAME s/SCORE`
-- `ASSESSMENT_NAME` is the name of the assessment.
-- `NAME` is the name of the student to be graded.
-- `SCORE` must be a non-negative integer that is smaller or equal to the full mark of the assessment with `ASSESSMENT_NAME` as its name. Since the full mark is an integer within the range 1-1000, the score must be an integer within the range 0-1000.
-- If a score already exists for student `NAME` in assessment `ASSESSMENT_NAME`, the score will be updated to `SCORE`
-
-Example: `grade as/Test 1 n/Amy Tan s/5`
-
-### Marking attendance for a student: `mark_attendance`
-
-Marks attendance for a specified student or all students in a specified class for a specified week.
-
-Format: `mark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
-
-* `STUDENT_ID` is optional.
-* `STUDENT_ID` refers to the student's unique NUSNET ID.
-* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
-
-Examples:
-
-* `mark_attendance tn/T04 id/e0123456 wk/1`
-* `mark_attendance tn/T04 wk/1`
-
-### Unmarking attendance for a student: `unmark_attendance`
-
-Unmarks attendance for a specified student or all students in a specified class for a specified week.
-
-Format: `unmark_attendance tn/TUTORIAL_NAME [id/STUDENT_ID] wk/WEEK`
-
-* `STUDENT_ID` is optional.
-* `STUDENT_ID` refers to the student's unique NUSNET ID.
-* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
-
-Examples:
-
-* `unmark_attendance tn/T04 id/e0123456 wk/1`
-* `unmark_attendance tn/T04 wk/1`
-
-### Views a comment for a student: `view_comment`
-
-Views a comment for a student.
-
-Format: `view_comment id/STUDENT_ID`
-* `STUDENT_ID` refers to the student's unique NUSNET ID.
-
-Examples:
-* `view_comment id/e0123455`<br>
-  ![result for 'view_comment id/e0123455'](images/viewCommentResult.png)
 
 ### Clearing all entries : `clear`
 
