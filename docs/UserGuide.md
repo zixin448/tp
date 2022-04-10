@@ -85,7 +85,7 @@ command by clicking on it in the table of contents above, or scroll down to the 
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…`​ can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters are to be used with valid prefixes specified in the command. For a full list of valid prefixes, click [here](#valid-prefixes).
 
