@@ -19,6 +19,8 @@ Class StudentCard
 Class PersonCard
 Class StatusBarFooter
 Class CommandBox
+Class AttendanceByStudentCard
+Class CommentCard
 }
 
 package Model <<Rectangle>> {
@@ -45,6 +47,8 @@ DisplayListPanel -down-> "*" AssessmentCard
 DisplayListPanel -down-> "*" StudentResultCard
 DisplayListPanel -down-> "*" StudentCard
 DisplayListPanel -down-> "*" PersonCard
+DisplayListPanel -down-> "*" AttendanceByStudentCard
+DisplayListPanel -down-> "*" CommentCard
 
 MainWindow -left-|> UiPart
 
@@ -55,6 +59,8 @@ TutorialCard --|> UiPart
 AssessmentCard --|> UiPart
 StudentResultCard --|> UiPart
 StudentCard --|> UiPart
+AttendanceByStudentCard --|> UiPart
+CommentCard --|> UiPart
 PersonCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
