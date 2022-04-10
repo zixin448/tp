@@ -165,7 +165,7 @@ public class EditCommand extends Command {
 
         // if editing student id or tutorial name
         if (editStudentDescriptor != null) {
-            model.removeStudentResults(studentToEdit.getStudentId(),studentToEdit.getTutorialName());
+            model.removeStudentResults(studentToEdit.getStudentId(), studentToEdit.getTutorialName());
         }
 
         model.setPerson(studentToEdit, editedStudent);
