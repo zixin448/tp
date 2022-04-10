@@ -95,8 +95,7 @@ command by clicking on it in the table of contents above, or scroll down to the 
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`. <br>
+* Extraneous parameters for commands that do not take in parameters (such as `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 * Tags do not add any functionality to camNUS and are present solely to allow the users to keep track of any additional information.
@@ -213,12 +212,10 @@ Examples:
 
 Shows a list of all classes on the any input date.
 
-Formats:
+Formats: `list_class [d/DAY]`
 
-* `list_class`
-* `list_class [d/DAY]`
-* `DAY` is optional
-* `DAY` should be spelt in full or 3-letter abbreviation
+* `DAY` is optional and should be used only for listing classes on a specific day.
+* `DAY` should be spelt in full or 3-letter abbreviation.
 
 Examples:
 
@@ -228,16 +225,23 @@ Examples:
   ![result for `list_class d/Wed`](images/listClassByDayResult.png)
 
 ## Student
-### Adding student to a class: `add_student`
+### Adding person as a student to a class: `add_student`
 
-Adds a specified student to a given class and replace the currently existing `Person` contact with a `Student` contact.
+Replaces the currently existing `Person` contact with a `Student` contact and adds them to a given class.
 
 Format: `add_student n/NAME id/STUDENT_ID tn/TUTORIAL_NAME`
 
+<div markdown="span" class="alert alert-primary">:information_source: **Note:**
+You can only add an existing person in camNUS as a student to an existing class!
+You can add a person using [`add` command](#adding-a-person-add). Eg: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+You can add a class using [`add_class` command](#adding-a-class-add_class). Eg: `add_class tn/T04 v/LT13 d/Monday tm/13:00 wk/13`
+</div>
+
 * Update the person with the specified `NAME` and `STUDENT_ID` to a `Student` contact and add the student to the specified class.
 * Each student can only be assigned to one tutorial class.
+* `NAME` refers to the name of an existing person in camNUS.
 * `STUDENT_ID` refers to the student's unique NUSNET ID.
-* `TUTORIAL_NAME` refers to the name of the tutorial group the student is assigned to.
+* `TUTORIAL_NAME` refers to the name of an existing tutorial in camNUS.
 
 Examples:
 * `add_student n/Amy Tan id/e0123456 tn/T13`
