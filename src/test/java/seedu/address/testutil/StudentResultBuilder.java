@@ -53,6 +53,15 @@ public class StudentResultBuilder {
     /**
      * Sets the {@code Score} of the {@code StudentResult} that we are building.
      */
+    public StudentResultBuilder withScore(String score, String fm) {
+        FullMark fullMark = new FullMark(fm);
+        this.score = new Score(score, fullMark);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Score} of the {@code StudentResult} that we are building.
+     */
     public StudentResultBuilder withScore(String score) {
         this.score = new Score(score, fullMark);
         return this;
@@ -61,4 +70,5 @@ public class StudentResultBuilder {
     public StudentResult build() {
         return new StudentResult(name, nusNetId, score);
     }
+
 }

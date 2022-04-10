@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -14,8 +15,9 @@ import seedu.address.model.assessment.AssessmentResults;
 import seedu.address.model.assessment.Score;
 import seedu.address.model.assessment.StudentResult;
 import seedu.address.model.assessment.UniqueAssessmentList;
-import seedu.address.model.assessment.exceptions.StudentResultNotFound;
+import seedu.address.model.assessment.exceptions.StudentResultNotFoundException;
 import seedu.address.model.attendance.Comment;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
@@ -24,9 +26,11 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniqueFilteredPersonsList;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
 import seedu.address.model.tutorial.UniqueTutorialList;
+
 
 /**
  * Wraps all data at the address-book level (persons, tutorials, assessments)
@@ -263,7 +267,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setStudentResult(Name studentName, AssessmentName assessmentName, Score score) {
         requireAllNonNull(studentName, assessmentName, score);
         if (!hasStudentResult(studentName, assessmentName)) {
-            throw new StudentResultNotFound();
+            throw new StudentResultNotFoundException();
         }
         NusNetId studentId = getIdOfStudent(studentName);
         TutorialName tutorialName = getTutorialNameOfStudent(studentName);
@@ -404,8 +408,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeStudent(Student student) {
         requireNonNull(student);
-        Person toReplaceStudent = new Person(student.getName(), student.getPhone(), student.getEmail(),
-                student.getAddress(), student.getTags());
+        Name name = student.getName();
+        Phone phone = student.getPhone();
+        Email email = student.getEmail();
+        Address address = student.getAddress();
+        student.removeTag("Student");
+        Set<Tag> tags = student.getTags();
+
+        Person toReplaceStudent = new Person(name, phone, email, address, tags);
+
         persons.setPerson(student, toReplaceStudent);
         tutorials.getTutorialWithName(student.getTutorialName()).generateAttendance();
     }

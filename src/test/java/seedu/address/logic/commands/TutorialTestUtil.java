@@ -27,6 +27,7 @@ public class TutorialTestUtil {
     public static final int VALID_WEEK_T01 = 13;
     public static final int VALID_WEEK_T02 = 13;
 
+    public static final String VALID_WEEK_DESC = " wk/1";
     public static final String VENUE_DESC_T01 = " " + PREFIX_VENUE + VALID_VENUE_T01;
     public static final String VENUE_DESC_T02 = " " + PREFIX_VENUE + VALID_VENUE_T02;
     public static final String TUTORIALNAME_DESC_T01 = " " + PREFIX_TUTORIALNAME + VALID_TUTORIALNAME_T01;

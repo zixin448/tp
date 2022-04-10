@@ -1,5 +1,6 @@
 package seedu.address.model.attendance;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class AttendanceList {
      * Constructs an AttendanceList.
      *
      * @param attendances the list of attendance records.
-     * @param weeks the number of weeks to for attendance to be recorded for.
+     * @param weeks the number of weeks of attendance to be recorded for.
      */
     public AttendanceList(ArrayList<Attendance> attendances, int weeks) {
         requireAllNonNull(attendances);
@@ -46,6 +47,7 @@ public class AttendanceList {
      * @param uniqueStudentList the list of students in the tutorial.
      */
     public void generateAttendance(UniqueStudentsInTutorialList uniqueStudentList) {
+        requireNonNull(uniqueStudentList);
         FilteredList<Person> studentList = uniqueStudentList.getStudentsInClass();
         for (Person p : studentList) {
             Student student = (Student) p;
@@ -63,7 +65,7 @@ public class AttendanceList {
 
             if (!hasAttendencePresent) {
                 ArrayList<Integer> studentAttendance = new ArrayList<>();
-                for (int i = 0; i < weeks - 1; i++) {
+                for (int i = 0; i < weeks; i++) {
                     studentAttendance.add(0);
                 }
                 attendances.add(new Attendance(studentAttendance, studentName, studentId, new Comment("")));
@@ -85,6 +87,7 @@ public class AttendanceList {
      * @return the attendance list of the student for the semester.
      */
     public ArrayList<Attendance> getAttendancesByStudentName(Name studentName) {
+        requireNonNull(studentName);
         Attendance attendanceToAdd = null;
         ArrayList<Attendance> attendanceList = new ArrayList<>();
         for (Attendance attendance : attendances) {
@@ -93,7 +96,7 @@ public class AttendanceList {
                 break;
             }
         }
-        for (int i = 0; i < weeks - 1; i++) {
+        for (int i = 0; i < weeks; i++) {
             attendanceList.add(attendanceToAdd);
         }
         return attendanceList;
@@ -105,6 +108,7 @@ public class AttendanceList {
      * @param week the week that the attendance should be marked for the student.
      */
     public void markAllAttendance(int week) {
+        requireNonNull(week);
         for (Attendance attendance : attendances) {
             attendance.markWeek(week);
         }
@@ -117,6 +121,7 @@ public class AttendanceList {
      * @param week the week that the attendance should be marked for the student.
      */
     public void markAttendanceForStudent(NusNetId studentId, int week) {
+        requireAllNonNull(studentId, week);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentId().equals(studentId)) {
                 attendance.markWeek(week);
@@ -131,6 +136,7 @@ public class AttendanceList {
      * @param week the week that the attendance should be unmarked for the student.
      */
     public void unmarkAllAttendance(int week) {
+        requireNonNull(week);
         for (Attendance attendance : attendances) {
             attendance.unmarkWeek(week);
         }
@@ -143,6 +149,7 @@ public class AttendanceList {
      * @param week the week that the attendance should be unmarked for the student.
      */
     public void unmarkAttendanceForStudent(NusNetId studentId, int week) {
+        requireAllNonNull(studentId, week);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentId().equals(studentId)) {
                 attendance.unmarkWeek(week);
@@ -158,6 +165,7 @@ public class AttendanceList {
      * @param comment the comment to be added.
      */
     public void addComment(Name studentName, Comment comment) {
+        requireAllNonNull(studentName, comment);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentName().equals(studentName)) {
                 attendance.addComment(comment);
@@ -172,6 +180,7 @@ public class AttendanceList {
      * @param studentName the Name of a student.
      */
     public void removeComment(Name studentName) {
+        requireNonNull(studentName);
         for (Attendance attendance : attendances) {
             if (attendance.getStudentName().equals(studentName)) {
                 attendance.addComment(new Comment(""));
@@ -186,6 +195,7 @@ public class AttendanceList {
      * @param studentName the Name of a student.
      */
     public Comment viewComment(Name studentName) {
+        requireNonNull(studentName);
         Comment commentToView = new Comment("");
         for (Attendance attendance : attendances) {
             if (attendance.getStudentName().equals(studentName)) {

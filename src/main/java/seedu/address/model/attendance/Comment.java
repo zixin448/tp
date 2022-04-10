@@ -6,6 +6,7 @@ import seedu.address.model.DisplayType;
 import seedu.address.model.Displayable;
 
 public class Comment implements Displayable {
+
     private static final DisplayType displayType = DisplayType.COMMENT;
     private String commentString;
 

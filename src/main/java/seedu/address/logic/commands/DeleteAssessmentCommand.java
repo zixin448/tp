@@ -14,7 +14,7 @@ public class DeleteAssessmentCommand extends Command {
     public static final String COMMAND_WORD = "delete_assessment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the assessment identified by the assessment name from the addressbook. \n"
+            + ": Deletes the assessment identified by the assessment name from camNUS. \n"
             + "Parameters: "
             + PREFIX_ASSESSMENTNAME + "ASSESSMENT NAME \n"
             + "Example: " + COMMAND_WORD + " "
@@ -43,4 +43,12 @@ public class DeleteAssessmentCommand extends Command {
         Assessment removed = model.removeAssessmentWithName(name);
         return createAssessmentCommandResult(String.format(MESSAGE_SUCCESS, removed));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return this == other
+                || (other instanceof DeleteAssessmentCommand
+                && name.equals(((DeleteAssessmentCommand) other).name));
+    }
+
 }

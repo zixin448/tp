@@ -79,7 +79,7 @@ public class AddClassCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that has all methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -417,7 +417,7 @@ public class AddClassCommandTest {
     }
 
     /**
-     * A model stub that always accept the class being added.
+     * A model stub that always accepts the class being added.
      */
     private class ModelStubAcceptingTutorialAdded extends ModelStub {
         final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();

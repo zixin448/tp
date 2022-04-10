@@ -52,4 +52,12 @@ public class ListScoreCommand extends Command {
         return CommandResult.createScoreCommandResult(
                 String.format(MESSAGE_SUCCESS, tutName, assessmentName, fullMark));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListScoreCommand // instanceof handles nulls
+                && tutName.equals(((ListScoreCommand) other).tutName)
+                && assessmentName.equals(((ListScoreCommand) other).assessmentName));
+    }
 }

@@ -58,14 +58,16 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in camNUS.";
     public static final String MESSAGE_DUPLICATE_STUDENT_ID = "Another student in camNUS has %s as their NUSNET ID";
     public static final String MESSAGE_DUPLICATE_EMAIL = "Another person in camNUS has %s as their email";
     public static final String MESSAGE_DUPLICATE_PHONE = "Another person in camNUS has %s as their phone number";
     public static final String MESSAGE_INDEX_USAGE = "Try listing a person or student e.g. list or list_student";
-
-
     public static final String MESSAGE_NOT_A_STUDENT = "This person is not a student!";
+    public static final String MESSAGE_STUDENT_TAG_NOT_ADDED = "This person is not a student, student tag not added.";
+    public static final String MESSAGE_STUDENT_TAG_ADDED = "Student tag has been automatically added";
+
+
 
 
     private final Index index;
@@ -122,11 +124,12 @@ public class EditCommand extends Command {
     private CommandResult executeEditStudent(Model model, Person personToEdit) throws CommandException {
         Student editedStudent;
         Student studentToEdit = (Student) personToEdit;
+        EditStudentDescriptor descriptor = editStudentDescriptor;
         if (editStudentDescriptor != null) {
             editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
         } else {
-            EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor(editPersonDescriptor);
-            editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
+            descriptor = new EditStudentDescriptor(editPersonDescriptor);
+            editedStudent = createEditedStudent(studentToEdit, descriptor);
         }
 
         // if you are changing the name to one that already exists
@@ -156,8 +159,18 @@ public class EditCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PHONE, editedStudent.getPhone()));
         }
 
+        if (!descriptor.hasStudentTag()) {
+            editedStudent.addTag("student");
+        }
+
         model.setPerson(studentToEdit, editedStudent);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        if (!descriptor.hasStudentTag()) {
+            return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS + MESSAGE_STUDENT_TAG_ADDED,
+                    editedStudent));
+        }
+
         return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
     }
 
@@ -184,8 +197,17 @@ public class EditCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PHONE, editedPerson.getPhone()));
         }
 
+        if (editPersonDescriptor.hasStudentTag()) {
+            editedPerson.removeTag("student");
+        }
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        if (editPersonDescriptor.hasStudentTag()) {
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS + "\n" + MESSAGE_STUDENT_TAG_NOT_ADDED,
+                    editedPerson));
+        }
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
@@ -235,8 +257,19 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+
+        // both have an editStudentDescriptor
+        if (editPersonDescriptor == null && e.editStudentDescriptor != null) {
+            return index.equals(e.index)
+                    && editStudentDescriptor.equals(e.editStudentDescriptor);
+        // both have an editPersonDescriptor
+        } else if (editStudentDescriptor == null && e.editPersonDescriptor != null) {
+            return index.equals(e.index)
+                    && editPersonDescriptor.equals(e.editPersonDescriptor);
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -318,6 +351,16 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Returns true if the {@code EditPersonDescriptor} contains a student tag in its list of tags.
+         */
+        public boolean hasStudentTag() {
+            if (tags != null) {
+                return (tags.contains(new Tag("student")));
+            }
+            return false;
         }
 
         @Override

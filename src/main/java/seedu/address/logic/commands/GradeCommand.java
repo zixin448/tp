@@ -35,7 +35,7 @@ public class GradeCommand extends Command {
             + "Listed all scores of Class: %3$s for Assessment: %4$s with Full mark: %5$s";
 
     public static final String MESSAGE_STUDENT_NOT_FOUND = "There is no student with "
-            + "the given name in the address book";
+            + "the given name in camNUS";
 
     public static final String MESSAGE_INVALID_SCORE = "The given score is larger than the assessment's "
             + "full mark, %1$s";
@@ -99,5 +99,14 @@ public class GradeCommand extends Command {
 
         return CommandResult.createScoreCommandResult(
                 String.format(ADD_MESSAGE_SUCCESS, sc, studentName, tutName, assessmentName, fullMark));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return this == other
+                || (other instanceof GradeCommand
+                && studentName.equals(((GradeCommand) other).studentName)
+                && assessmentName.equals(((GradeCommand) other).assessmentName)
+                && score.equals(((GradeCommand) other).score));
     }
 }

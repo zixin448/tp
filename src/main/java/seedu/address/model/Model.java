@@ -200,7 +200,8 @@ public interface Model {
     boolean hasAssessment(Assessment assessment);
 
     /**
-     * Adds the given assessment.
+     * Adds the given Assessment to the address book's assessments list.
+     * Also adds the corresponding AssessmentResults to every tutorial in the address book.
      * @param toAdd must not already exist in the address book.
      */
     void addAssessment(Assessment toAdd);
