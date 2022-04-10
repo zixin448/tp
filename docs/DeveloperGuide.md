@@ -143,8 +143,11 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object), all `Assessment` objects (which are contained in a `UniqueAssessmentList`) and all `Tutorial` objects (which are stored in a `UniqueTutorialList`).
+* stores the `Displayable` objects currently shown on the UI (e.g. results of user commands) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Displayable>` that can be 'observed' (the Logic component uses this list to ensure that users enter index-related commands that are suitable for the objects being displayed).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Tutorial` objects (e.g., results of a list command) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `FilteredList<Tutorial>` that can be 'observed'.
+* stores all `Assessment` objects in a separate _filtered_ list which is exposed to outsiders as an unmodifiable `FilteredList<Assessment>` that can be 'observed'.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -159,7 +162,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+<img src="images/StorageClassDiagram.png" width="700" />
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.

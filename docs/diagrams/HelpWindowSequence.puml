@@ -14,7 +14,7 @@ activate helpWindow HELPWINDOW_COLOR
 helpWindow -[HELPWINDOW_COLOR]> logic : getChildren().clear()
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : <<destroy>>
+logic -[LOGIC_COLOR]> model :
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic
