@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.TutorialTestUtil.VALID_TUTORIAL_NAME_TG1;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIALNAME;
 
 public class StudentTestUtil {
@@ -19,8 +20,12 @@ public class StudentTestUtil {
     public static final String VALID_STUDENT_ID_BILL = "e0654123";
 
     public static final String NAME_DESC_AARON = " " + PREFIX_NAME + VALID_NAME_AARON;
+    public static final String ID_DESC_AARON = " " + PREFIX_STUDENTID + VALID_STUDENT_ID_AARON;
     public static final String VALID_TUTORIAL_NAME_AARON_DESC = " " + PREFIX_TUTORIALNAME + VALID_TUTORIAL_NAME_TG1;
 
     public static final String INVALID_NAME_ADAM = "Ad@m %%1";
     public static final String INVALID_STUDENT_ID_ADAM = "e999";
+
+    public static final String INVALID_NAME_DESC_ADAM = " " + PREFIX_NAME + INVALID_NAME_ADAM;
+    public static final String INVALID_STUDENT_ID_DESC_ADAM = " " + PREFIX_STUDENTID + INVALID_STUDENT_ID_ADAM;
 }
