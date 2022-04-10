@@ -42,9 +42,9 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_ADD_STUDENT_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student has already been added to a tutorial in"
             + " camNUS";
-
+    
     public static final String MESSAGE_PERSON_NOT_FOUND = "There is no person with the given name in camNUS";
-    private static final String MESSAGE_DUPLICATE_STUDENT_ID = "Another student in camNUS has %s as their NUSNET ID";
+    public static final String MESSAGE_DUPLICATE_STUDENT_ID = "Another student in camNUS has %s as their NUSNET ID";
 
     private final Name toAddName;
     private final NusNetId toAddStudentId;
@@ -97,5 +97,19 @@ public class AddStudentCommand extends Command {
         model.addStudent(toAdd);
 
         return CommandResult.createStudentCommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other instanceof AddStudentCommand) {
+            AddStudentCommand command = (AddStudentCommand) other;
+            return toAddName.equals(command.toAddName)
+                    && toAddStudentId.equals(command.toAddStudentId)
+                    && toAddTutorialName.equals(command.toAddTutorialName);
+        } else {
+            return false;
+        }
     }
 }

@@ -7,6 +7,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NusNetId;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.tag.Tag;
@@ -53,6 +54,19 @@ public class StudentBuilder {
         tags = new HashSet<>(studentToCopy.getTags());
         nusNetId = studentToCopy.getStudentId();
         tutName = studentToCopy.getTutorialName();
+    }
+
+    /**
+     * Initializes the StudentBuilder with the data of {@code personToCopy}.
+     */
+    public StudentBuilder(Person personToCopy) {
+        name = personToCopy.getName();
+        phone = personToCopy.getPhone();
+        email = personToCopy.getEmail();
+        address = personToCopy.getAddress();
+        tags = new HashSet<>(personToCopy.getTags());
+        nusNetId = new NusNetId(DEFAULT_NUSNETID);
+        tutName = new TutorialName(DEFAULT_TUTORIAL_NAME);
     }
 
     /**
