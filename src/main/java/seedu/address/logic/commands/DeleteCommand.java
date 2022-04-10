@@ -49,6 +49,7 @@ public class DeleteCommand extends Command {
 
         if (lastShownList.get(targetIndex.getZeroBased()) instanceof Student) {
             Student studentToDelete = (Student) lastShownList.get(targetIndex.getZeroBased());
+            model.removeStudentResults(studentToDelete.getStudentId(), studentToDelete.getTutorialName());
             model.removeStudent(studentToDelete);
             Person personToDelete = model.getPersonWithName(studentToDelete.getName());
             model.deletePerson(personToDelete);

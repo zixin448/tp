@@ -1,27 +1,23 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalStudents.ALEX;
-import static seedu.address.testutil.TypicalStudents.EVE;
 import static seedu.address.testutil.TypicalStudents.FIONA;
+import static seedu.address.testutil.TypicalTutorials.TG01;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Displayable;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -40,9 +36,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Student;
 import seedu.address.model.tutorial.Tutorial;
 import seedu.address.model.tutorial.TutorialName;
-import seedu.address.testutil.TutorialBuilder;
 
-public class ViewCommentCommandTest {
+public class RemoveCommentCommandTest {
 
     @Test
     public void constructor_nullTutorialName_throwsNullPointerException() {
@@ -51,34 +46,24 @@ public class ViewCommentCommandTest {
     }
 
     @Test
-    public void execute_viewComment_successful() throws Exception {
-        ModelStubAcceptingComment modelStub = new ModelStubAcceptingComment();
-        Tutorial validTutorial = new TutorialBuilder().withTutorialName("T01").withVenue("LT13")
-                .withDay("Monday").withTime("13:00").withWeeks(6).build();
-        validTutorial.setStudentsList(
-                new FilteredList<>(FXCollections.observableArrayList(modelStub.allStudents), null));
-        validTutorial.generateAttendance();
-        modelStub.tutorialsAdded.add(validTutorial);
+    public void execute_removeComment_successful() throws Exception {
 
-        // Manually change comment for FIONA
-        String commentString = "Was late multiple times!";
-        validTutorial.getAttendanceList().getAttendances().get(0).getComment().setCommentString(commentString);
+        ModelStubRemoveComment modelStub = new ModelStubRemoveComment();
 
-        // Views FIONA's comment
-        CommandResult commandResult = new ViewCommentCommand(
-                FIONA.getStudentId()).execute(modelStub);
+        CommandResult commandResult = new RemoveCommentCommand(ALEX.getStudentId()).execute(modelStub);
 
-        assertEquals(String.format(ViewCommentCommand.MESSAGE_SUCCESS, FIONA.getName(), commentString),
+        assertEquals(String.format(RemoveCommentCommand.MESSAGE_SUCCESS, ALEX.getName()),
                 commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_viewComment_failure() {
-        ModelStubAcceptingComment modelStub = new ModelStubAcceptingComment();
+    public void execute_removeComment_failure() {
+        ModelStubRemoveComment modelStub = new ModelStubRemoveComment();
+
         // Non-Existing Student
-        String expectedMessage = ViewCommentCommand.MESSAGE_STUDENT_NOT_FOUND;
+        String expectedMessage = RemoveCommentCommand.MESSAGE_STUDENT_NOT_FOUND;
         assertThrows(CommandException.class, expectedMessage, (
-            ) -> new ViewCommentCommand(ALEX.getStudentId()).execute(modelStub));
+        ) -> new RemoveCommentCommand(FIONA.getStudentId()).execute(modelStub));
     }
 
     @Test
@@ -86,18 +71,18 @@ public class ViewCommentCommandTest {
         NusNetId studentIdA = new NusNetId("e0123456");
         NusNetId studentIdB = new NusNetId("e6543210");
 
-        ViewCommentCommand viewCommentCommand1 = new ViewCommentCommand(studentIdA);
-        ViewCommentCommand viewCommentCommand2 = new ViewCommentCommand(studentIdA);
-        ViewCommentCommand viewCommentCommand3 = new ViewCommentCommand(studentIdB);
+        RemoveCommentCommand removeCommentCommand1 = new RemoveCommentCommand(studentIdA);
+        RemoveCommentCommand removeCommentCommand2 = new RemoveCommentCommand(studentIdA);
+        RemoveCommentCommand removeCommentCommand3 = new RemoveCommentCommand(studentIdB);
 
         // same object -> returns true
-        assertTrue(viewCommentCommand1.equals(viewCommentCommand1));
+        assertTrue(removeCommentCommand1.equals(removeCommentCommand1));
 
         // same student id -> returns true
-        assertTrue(viewCommentCommand1.equals(viewCommentCommand2));
+        assertTrue(removeCommentCommand1.equals(removeCommentCommand2));
 
         // different student id -> returns false
-        assertFalse(viewCommentCommand2.equals(viewCommentCommand3));
+        assertFalse(removeCommentCommand1.equals(removeCommentCommand3));
     }
 
     /**
@@ -422,44 +407,26 @@ public class ViewCommentCommandTest {
     /**
      * A model stub that contains ONE tutorial and  always accept the comment viewed.
      */
-    private class ModelStubAcceptingComment extends ModelStub {
-        public final ArrayList<Tutorial> tutorialsAdded = new ArrayList<>();
-        final ArrayList<Person> allStudents = new ArrayList<Person>() {
-            {
-                add(FIONA);
-                add(EVE);
-            }
-        };
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
+    private class ModelStubRemoveComment extends ModelStub {
 
         @Override
         public Tutorial getTutorialWithName(TutorialName tutorialName) {
-            requireNonNull(tutorialName);
-            for (int i = 0; i < tutorialsAdded.size(); i++) {
-                if (tutorialsAdded.get(i).getTutorialName().equals(tutorialName)) {
-                    return tutorialsAdded.get(i);
-                }
-            }
-            return null;
+            return TG01;
         }
 
         @Override
         public boolean hasStudentWithId(NusNetId toAddStudentId) {
-            return tutorialsAdded.stream().anyMatch(x -> x.containsStudentWithId(toAddStudentId));
+            return toAddStudentId.equals(ALEX.getStudentId());
         }
 
         @Override
         public Student getStudentWithId(NusNetId id) {
-            return tutorialsAdded.get(0).getStudentWithId(id);
+            return ALEX;
         }
 
         @Override
-        public Comment getComment(Tutorial tutorial, Name studentToViewComment) {
-            return tutorial.getAttendanceList().viewComment(studentToViewComment);
+        public void removeComment(Tutorial tutorial, Name name) {
+            return;
         }
     }
 }
