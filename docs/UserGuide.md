@@ -96,7 +96,8 @@ command by clicking on it in the table of contents above, or scroll down to the 
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`. <br>
+  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 * Tags do not add any functionality to camNUS and are present solely to allow the users to keep track of any additional information.
 
