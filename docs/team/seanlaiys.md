@@ -15,7 +15,7 @@ Given below are my contributions to the project.
   * Viewing list of assessments
 
 * **Code contributed**:
-  * See [here]("https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=w13-2&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2022-02-18")
+  * See [here](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=w13-2&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2022-02-18)
 
 * **Enhancements to existing features**:
   * Enhanced existing features to complement with new features added
