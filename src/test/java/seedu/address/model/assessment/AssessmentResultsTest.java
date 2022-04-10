@@ -69,12 +69,6 @@ public class AssessmentResultsTest {
     }
 
     @Test
-    public void removeByStudentId_studentResultNotInList_throwsStudentResultNotFoundException() {
-        assertThrows(StudentResultNotFoundException.class, () ->
-                assessmentResults.removeByStudentId(new NusNetId(VALID_STUDENT_ID_AARON)));
-    }
-
-    @Test
     public void removeByStudentId_studentResultInList_removesStudentResult() {
         assessmentResults.add(AARON_RESULT_FOR_OP1);
         assessmentResults.removeByStudentId(new NusNetId(VALID_STUDENT_ID_AARON));
