@@ -17,7 +17,8 @@ Given below are my contributions to the project.
   their student ID or their tutorial group.
     * Highlights: This feature was adapted to accommodate new features implemented later on, such as assessments. 
   Removing a student also removes all their assessment records from a tutorial group. Students that are removed do not 
-  get deleted from camNUS immediately. This is to allow TAs to make changes to the student's details or to simply keep in contact with them after the semester has ended.
+  get deleted from camNUS immediately. This is to allow TAs to make changes to the student's details or to simply keep 
+  in contact with them after the semester has ended. In addition, `remove_student` removes `student` tags automatically.
     * Pull request: [#86](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/86)
 
 
@@ -33,6 +34,7 @@ Given below are my contributions to the project.
     * `edit` command now works for both `Student` and `Person`, previously editing a `Student` would result in data 
   relevant student data being lost. (Pull request: [#112](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/112))
     * `edit` command also adds and removes `student` tags automatically where appropriate.
+    * `add` command ensures that a new person added does not have a `student` tag.
     * Student id, email and phone numbers are now unique, in addition to the previously unique Name field. 
   (Pull request: [#112](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/112))
     * Wrote test cases to increase code coverage:
@@ -57,4 +59,5 @@ Given below are my contributions to the project.
 
 * **Review/Mentoring**:
     * Reviewed [sean's code](https://github.com/AY2122S2-CS2103T-W13-2/tp/pulls?q=is%3Apr+is%3Aclosed+author%3Aseanlaiys) 
+    * Pull requests: [#90](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/90) [#92](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/92) [#93](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/93)
     
