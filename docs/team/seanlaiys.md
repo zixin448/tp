@@ -50,6 +50,7 @@ Given below are my contributions to the project.
       * Added all of the UI screenshots to aid understanding for some commands [#209](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/209)
     * Developer Guide:
       * Added new feature on displaying student with Sequence Diagram (Display Students Feature) [#100](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/100)
+      * Updated UI Section [#252](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/252)
       * Updated UI Class Diagram [#100](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/100)
       * Updated Storage Class Diagram [#232](https://github.com/AY2122S2-CS2103T-W13-2/tp/pull/232)
 
