@@ -147,8 +147,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S2-CS2103T-W13-2/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
-
+![Structure of the Model Component](images/ModelClassDiagram.png)
 
 The `Model` component,
 
@@ -172,7 +171,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/AY2122S2-CS2103T-W13-2/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="700" />
+![Structure of the Storage Component](images/StorageClassDiagram.png)
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
@@ -413,7 +412,7 @@ relevant to create a new Person object, to replace the Student object.
 Step 1. The user executes `list_student` command and the `DisplayListPanel` displays a list of all Students in the
 application.
 
-refer to [Display students feature](#display-students-feature) to see how the `list_student` command works.
+refer to [Display Students Feature](#display-students-feature) to see how the `list_student` command works.
 
 Step 2. The user executes `remove_student INDEX...` command, where `INDEX` is the index of the desired student to be removed
 in the current `DisplayListPanel`.
@@ -600,7 +599,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `camNUS` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
